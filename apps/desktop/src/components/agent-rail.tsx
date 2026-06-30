@@ -28,7 +28,7 @@ import {
   PanelLeft,
   Plug,
   Search,
-  SlidersHorizontal,
+  Smartphone,
   SquarePen,
 } from "lucide-react";
 import { useState } from "react";
@@ -74,7 +74,6 @@ export function AgentRail(props: AgentRailProps) {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const canOpenProject = props.workspacePath.trim().length > 0;
   const searchOpen = activeView === "search";
-  const selectedAgent = props.agents.find((agent) => agent.id === props.selectedAgentId);
   const projectGroups = filterProjectGroups(
     groupWorkspaces(props.workspaces, props.sessions),
     searchQuery,
@@ -216,16 +215,17 @@ export function AgentRail(props: AgentRailProps) {
             onClick={() => setSettingsOpen((open) => !open)}
             type="button"
           >
-            <SlidersHorizontal size={16} />
+            <Smartphone size={16} />
           </button>
         }
         avatar={
-          <div className="flex size-9 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 via-blue-500 to-violet-500 text-sm font-semibold text-white">
-            T
-          </div>
+          <div
+            aria-hidden="true"
+            className="size-9 rounded-full bg-[conic-gradient(from_210deg,#28d6a6,#3b82f6,#7c3aed,#ef4444,#f59e0b,#28d6a6)] shadow-inner"
+          />
         }
-        subtitle={<>Local host / {props.streamStatus}</>}
-        title={selectedAgent?.name ?? "Toro"}
+        subtitle={props.streamStatus}
+        title="Local host"
       >
         {settingsOpen ? (
           <div className="mb-2 rounded-lg border border-zinc-200 bg-white p-2 shadow-sm">

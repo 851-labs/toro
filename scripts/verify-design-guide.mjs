@@ -376,8 +376,13 @@ async function assertSidebarStoryFooter(page) {
   if (footers !== 1) {
     throw new Error(`Design-guide sidebar story should use one shared footer, got ${footers}.`);
   }
-  await footer.getByText("Toro Demo", { exact: true }).waitFor({ timeout: 5_000 });
-  await footer.getByText("Local host / connected", { exact: true }).waitFor({ timeout: 5_000 });
+  await footer.getByText("Local host", { exact: true }).waitFor({ timeout: 5_000 });
+  await footer.getByText("connected", { exact: true }).waitFor({ timeout: 5_000 });
+  if ((await footer.getByText("Toro Demo", { exact: true }).count()) > 0) {
+    throw new Error(
+      "Design-guide sidebar footer should not use the selected agent as account text.",
+    );
+  }
 }
 
 async function assertTranscriptAlignsWithComposer(page) {

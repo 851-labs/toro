@@ -286,6 +286,10 @@
 - Reference starter-card icons stills: `.artifacts/verification/2026-06-30T12-14-07-459Z/*.png`
 - Reference starter-card icons design-guide capture: `.artifacts/verification/design-guide/2026-06-30T12-14-07-459Z/page@0c3b9ff7d7774efbe805a6b5c4afa801.webm`
 - Reference starter-card icons design-guide stills: `.artifacts/verification/design-guide/2026-06-30T12-14-07-459Z/*.png`
+- Account-style sidebar footer capture: `.artifacts/verification/2026-06-30T12-17-16-588Z/page@d565246e075f2d9dd8ff6bab1e14f7f4.webm`
+- Account-style sidebar footer stills: `.artifacts/verification/2026-06-30T12-17-16-588Z/*.png`
+- Account-style sidebar footer design-guide capture: `.artifacts/verification/design-guide/2026-06-30T12-17-38-158Z/page@7e149b45efb8d2d91c3e71f0c69b2007.webm`
+- Account-style sidebar footer design-guide stills: `.artifacts/verification/design-guide/2026-06-30T12-17-38-158Z/*.png`
 
 Manual verification:
 
@@ -303,7 +307,7 @@ Manual verification:
 - Confirmed the desktop verification flow still exercises access/model selectors, then restores Codex-reference defaults (`Full access`, `5.5 Medium`) before screenshots and recordings.
 - Confirmed the shared composer syncs access/model selector state from changing props, preserving Codex-style footer defaults across host-driven environment or model changes.
 - Confirmed assistant and thinking streaming cursors now use the shared pulsing Codex-style inline dot, with desktop and design-guide verification asserting the animated cursor class before streaming screenshots.
-- Confirmed the sidebar footer now uses the selected agent as the primary identity line and `Local host / connected` as secondary metadata in both desktop and design-guide verification.
+- Confirmed the sidebar footer uses the shared `@toro/ui` footer primitive in both desktop and design-guide verification.
 - Confirmed assistant message controls expose the shared `@toro/ui` message action marker, with desktop and design-guide verification asserting the shared primitive is used for copy, feedback, and expand actions.
 - Confirmed permission prompts, permission actions, and tool-call rows expose shared `@toro/ui` markers, with desktop and design-guide verification asserting those chat primitives render in the live flows.
 - Confirmed chat messages, plan disclosures, disclosure summaries, and empty states expose shared `@toro/ui` markers, with desktop and design-guide verification asserting those core chat primitives render in the relevant flows.
@@ -315,6 +319,7 @@ Manual verification:
 - Confirmed the `Open in` header menu is hidden in the quiet empty-project header and remains functional once a session exists.
 - Confirmed shared composer dark hover/open states stay quiet for Add context and context sources, with desktop verification asserting the hovered Add context control does not flash to a bright light surface.
 - Confirmed empty-project starter cards now use shared Codex-reference Slack, GitHub, and Linear-style marks, with desktop and design-guide verification asserting all three icon types render.
+- Confirmed the sidebar footer now reads as a Codex-like account row with gradient avatar, `Local host` primary text, and `connected` secondary status while preserving the functional host settings control.
 - Confirmed the sidebar visually groups chats under their project and coalesces duplicate opens of the same project path.
 - Confirmed every rendered button in the desktop flow is limited to a wired action: new chat, open project, project/chat selection, send/stop, or permission response.
 - Confirmed the design guide permission buttons update visible state instead of acting as no-op controls.

@@ -35,7 +35,7 @@ import {
   PanelRight,
   Plug,
   Search,
-  SlidersHorizontal,
+  Smartphone,
   SquarePen,
 } from "lucide-react";
 import { useState } from "react";
@@ -277,16 +277,17 @@ function SidebarGroups() {
         <CodexSidebarFooter
           action={
             <span className="flex size-8 shrink-0 items-center justify-center rounded-lg text-zinc-500">
-              <SlidersHorizontal size={16} />
+              <Smartphone size={16} />
             </span>
           }
           avatar={
-            <div className="flex size-9 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 via-blue-500 to-violet-500 text-sm font-semibold text-white">
-              T
-            </div>
+            <div
+              aria-hidden="true"
+              className="size-9 rounded-full bg-[conic-gradient(from_210deg,#28d6a6,#3b82f6,#7c3aed,#ef4444,#f59e0b,#28d6a6)] shadow-inner"
+            />
           }
-          subtitle="Local host / connected"
-          title="Toro Demo"
+          subtitle="connected"
+          title="Local host"
         />
       </CodexSidebarRail>
       <section className="grid min-h-0 grid-rows-[64px_1fr_auto] bg-white">
