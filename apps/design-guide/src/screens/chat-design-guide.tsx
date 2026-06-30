@@ -213,6 +213,7 @@ function ChatElements({
           </span>
         }
       />
+      <CodexToolCall kind="execute" status="in_progress" title="Run deterministic verifier" />
       <CodexToolCall
         defaultOpen
         kind="execute"

@@ -199,9 +199,9 @@ async function assertSharedPermissionElements(page) {
 async function assertSharedToolCall(page) {
   const toolCall = page.locator("[data-tool-call='true']");
   const toolCalls = await toolCall.count();
-  if (toolCalls < 1) {
-    throw new Error("Design-guide tool rows should use the shared Codex tool-call primitive.");
-  }
+  if (toolCalls < 2) throw new Error("Design-guide should show live and completed tool rows.");
+  if ((await toolCall.locator("[data-tool-call-live='true']").count()) < 1)
+    throw new Error("Design-guide should show a live tool status.");
   await assertCompactTranscriptDisclosure(toolCall.first(), "Tool call");
 }
 
