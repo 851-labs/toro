@@ -162,6 +162,10 @@
 - Wider sidebar rail stills: `.artifacts/verification/2026-06-30T08-08-13-684Z/*.png`
 - Wider sidebar rail design-guide regression capture: `.artifacts/verification/design-guide/2026-06-30T08-08-13-684Z/page@bd9cc1369911c9bcc0d02022a82ce9be.webm`
 - Wider sidebar rail design-guide regression stills: `.artifacts/verification/design-guide/2026-06-30T08-08-13-684Z/*.png`
+- Compact composer height capture: `.artifacts/verification/2026-06-30T08-13-14-143Z/page@3d2016ab3e44acdaceca2aa87233c622.webm`
+- Compact composer height stills: `.artifacts/verification/2026-06-30T08-13-14-143Z/*.png`
+- Compact composer height design-guide capture: `.artifacts/verification/design-guide/2026-06-30T08-13-15-197Z/page@c6a470bdb35e19319d406d88aaa4cee1.webm`
+- Compact composer height design-guide stills: `.artifacts/verification/design-guide/2026-06-30T08-13-15-197Z/*.png`
 
 Manual verification:
 
@@ -219,6 +223,7 @@ Manual verification:
 - Confirmed the composer now includes Codex-like status and microphone affordances as passive glyphs, with the UI verifier asserting they are present without adding inert buttons.
 - Confirmed the shared composer now uses a wider Codex-like surface, with the desktop UI verifier measuring the rendered composer width to prevent regressing to the older narrow cap.
 - Confirmed the desktop sidebar rail now uses a wider Codex-like width, with the UI verifier measuring the rendered rail to keep it close to the reference proportions.
+- Confirmed the shared composer now uses a more compact Codex-like height, with the desktop UI verifier measuring the rendered composer height.
 
 Automated verification:
 

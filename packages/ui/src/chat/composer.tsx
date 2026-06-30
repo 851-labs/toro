@@ -58,7 +58,7 @@ export function CodexComposer({
       >
         <textarea
           aria-label="Message agent"
-          className="max-h-48 min-h-20 w-full resize-none bg-transparent px-2 py-2 text-base leading-6 text-zinc-950 outline-none placeholder:text-zinc-300"
+          className="max-h-48 min-h-16 w-full resize-none bg-transparent px-2 py-2 text-base leading-6 text-zinc-950 outline-none placeholder:text-zinc-300"
           onChange={(event) => onChange(event.target.value)}
           placeholder={placeholder}
           value={value}

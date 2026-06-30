@@ -85,12 +85,23 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
   }
 
   async function assertComposerWidthIsCodexLike(page) {
-    const width = await page
-      .locator("[data-composer-surface='true']")
-      .evaluate((node) => node.getBoundingClientRect().width);
+    const width = await composerSurfaceBounds(page, "width");
     if (width < 880 || width > 980) {
       throw new Error(`Composer width should be close to Codex desktop width, got ${width}.`);
     }
+  }
+
+  async function assertComposerHeightIsCodexLike(page) {
+    const height = await composerSurfaceBounds(page, "height");
+    if (height < 135 || height > 155) {
+      throw new Error(`Composer height should be close to Codex desktop height, got ${height}.`);
+    }
+  }
+
+  async function composerSurfaceBounds(page, dimension) {
+    return page
+      .locator("[data-composer-surface='true']")
+      .evaluate((node, key) => node.getBoundingClientRect()[key], dimension);
   }
 
   async function assertPermissionCardIsCompact(page) {
@@ -372,6 +383,7 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
     assertComposerAffordancesArePassive,
     assertComposerContextPicker,
     assertComposerFooterIsCodexCompact,
+    assertComposerHeightIsCodexLike,
     assertComposerWidthIsCodexLike,
     assertDeadControlsRemoved,
     assertDesktopDebugLogsHidden,

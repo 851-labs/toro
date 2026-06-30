@@ -14,6 +14,7 @@ const {
   assertComposerAffordancesArePassive,
   assertComposerContextPicker,
   assertComposerFooterIsCodexCompact,
+  assertComposerHeightIsCodexLike,
   assertComposerWidthIsCodexLike,
   assertDeadControlsRemoved,
   assertDesktopDebugLogsHidden,
@@ -55,6 +56,7 @@ await assertSidebarWidthIsCodexLike(page);
 await assertProjectFormHidden(page);
 await assertComposerFooterIsCodexCompact(page);
 await assertComposerAffordancesArePassive(page);
+await assertComposerHeightIsCodexLike(page);
 await assertComposerWidthIsCodexLike(page);
 await assertOnlyFunctionalButtons(page);
 await assertHostSettingsToggle(page);
