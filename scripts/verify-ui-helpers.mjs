@@ -387,8 +387,6 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
         "Copy workspace path",
         "Copy message",
         "Copied message",
-        "Good response",
-        "Bad response",
         "Expand message",
         "Collapse message",
         ...extraAllowedLabels,

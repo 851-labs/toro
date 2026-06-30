@@ -37,10 +37,7 @@ await page.waitForFunction(() => Boolean(window.__TSR_ROUTER__), null, { timeout
 await screenshot(page, "01-chat-elements.png");
 await pause();
 
-await page.getByRole("button", { exact: true, name: "Good response" }).click();
-await expectPressed(page.getByRole("button", { exact: true, name: "Good response" }));
-await page.getByRole("button", { exact: true, name: "Bad response" }).click();
-await expectPressed(page.getByRole("button", { exact: true, name: "Bad response" }));
+await assertNoFeedbackMessageActions(page);
 await page.getByRole("button", { exact: true, name: "Expand message" }).click();
 await page.getByRole("button", { exact: true, name: "Collapse message" }).waitFor({
   timeout: 5_000,
@@ -49,7 +46,6 @@ await page.getByRole("button", { exact: true, name: "Copy message" }).click();
 await page.getByRole("button", { exact: true, name: "Copied message" }).waitFor({ timeout: 5_000 });
 await assertSharedMessageActions(page);
 await screenshot(page, "02-message-actions.png");
-await pause();
 
 await page.getByRole("button", { exact: true, name: "Allow once" }).click();
 await page.getByText("allowed once").waitFor({ timeout: 5_000 });
@@ -172,7 +168,7 @@ async function assertSidebarStoryWidth(page) {
 
 async function assertSharedMessageActions(page) {
   const actions = await page.locator("[data-message-action='true']").count();
-  if (actions < 4) {
+  if (actions < 2) {
     throw new Error(
       `Design-guide assistant actions should use shared message actions, got ${actions}.`,
     );
@@ -184,6 +180,11 @@ async function assertSharedMessageActions(page) {
   if (iconWidth < 16) {
     throw new Error(`Design-guide message action icon is too small: ${iconWidth}.`);
   }
+}
+
+async function assertNoFeedbackMessageActions(page) {
+  const count = await page.getByRole("button", { name: /^(Good|Bad) response$/ }).count();
+  if (count > 0) throw new Error("Design-guide feedback message actions should not render.");
 }
 
 async function assertSharedPermissionElements(page) {

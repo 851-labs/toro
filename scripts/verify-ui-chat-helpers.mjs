@@ -35,3 +35,11 @@ export async function assertEditorPaneToggle(page, screenshot) {
     throw new Error("Editor pane should close after toggling.");
   }
 }
+
+export async function assertNoFeedbackMessageActions(page) {
+  for (const label of ["Good response", "Bad response"]) {
+    if ((await page.getByRole("button", { exact: true, name: label }).count()) > 0) {
+      throw new Error(`${label} action should not render.`);
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { useState } from "react";
-import { Check, Copy, Maximize2, Minimize2, ThumbsDown, ThumbsUp } from "lucide-react";
+import { Check, Copy, Maximize2, Minimize2 } from "lucide-react";
 import { cn } from "../cn";
 import { CodexMessageAction } from "./message-action";
 
@@ -14,7 +14,6 @@ export interface CodexChatMessageProps {
 export function CodexChatMessage({ children, copyText, isStreaming, role }: CodexChatMessageProps) {
   const [copied, setCopied] = useState(false);
   const [expanded, setExpanded] = useState(false);
-  const [feedback, setFeedback] = useState<"good" | "bad" | null>(null);
   const isUser = role === "user";
   const canCopy = role === "assistant" && !isStreaming && copyText && copyText.length > 0;
   const showActions = role === "assistant" && !isStreaming;
@@ -67,20 +66,6 @@ export function CodexChatMessage({ children, copyText, isStreaming, role }: Code
                 {copied ? <Check size={16} /> : <Copy size={16} />}
               </CodexMessageAction>
             ) : null}
-            <CodexMessageAction
-              label="Good response"
-              onClick={() => setFeedback((value) => (value === "good" ? null : "good"))}
-              pressed={feedback === "good"}
-            >
-              <ThumbsUp size={16} />
-            </CodexMessageAction>
-            <CodexMessageAction
-              label="Bad response"
-              onClick={() => setFeedback((value) => (value === "bad" ? null : "bad"))}
-              pressed={feedback === "bad"}
-            >
-              <ThumbsDown size={16} />
-            </CodexMessageAction>
             <CodexMessageAction
               label={expanded ? "Collapse message" : "Expand message"}
               onClick={() => setExpanded((value) => !value)}
