@@ -34,8 +34,12 @@ describe("HostRuntime", () => {
       workspaceId: workspace.id,
     });
     const thoughtDeltas: string[] = [];
+    const messageDeltas: string[] = [];
 
     runtime.subscribe((event) => {
+      if (event.type === "message_delta") {
+        messageDeltas.push(event.delta);
+      }
       if (event.type === "thought_delta") {
         thoughtDeltas.push(event.delta);
       }
@@ -55,6 +59,8 @@ describe("HostRuntime", () => {
     runtime.closeAll();
 
     expect(session?.messages.some((message) => message.content.includes("ACP session"))).toBe(true);
+    expect(messageDeltas.length).toBeGreaterThan(8);
+    expect(messageDeltas.join("")).toContain("streaming transcript");
     expect(session?.thoughts[0]?.content).toContain("Checking project context");
     expect(thoughtDeltas.length).toBeGreaterThan(3);
     expect(thoughtDeltas.join("")).toContain("deciding the next UI action");

@@ -114,7 +114,7 @@ async function streamText(
   ctx: acp.AgentRequestContext<acp.PromptRequest>,
   text: string,
 ): Promise<void> {
-  for (const chunk of text.match(/.{1,18}/g) ?? []) {
+  for (const chunk of text.match(/\S+\s*/g) ?? []) {
     await new Promise((resolve) => setTimeout(resolve, streamChunkDelayMs));
     await ctx.client.notify(acp.methods.client.session.update, {
       sessionId: ctx.params.sessionId,
