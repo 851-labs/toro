@@ -263,6 +263,10 @@ async function assertSharedStarterCards(page) {
   if ((await cardGrid.locator("button").count()) > 0) {
     throw new Error("Design-guide starter cards should be passive until integrations are wired.");
   }
+  const maxHeight = await page
+    .locator("[data-starter-card='true']")
+    .evaluateAll((nodes) => Math.max(...nodes.map((node) => node.getBoundingClientRect().height)));
+  if (maxHeight > 140) throw new Error(`Design-guide starter cards are too tall: ${maxHeight}.`);
   await assertStarterCardIcons(page);
 }
 

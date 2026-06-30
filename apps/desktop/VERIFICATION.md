@@ -460,8 +460,13 @@ Manual verification:
 - Native no-traffic desktop stills: `.artifacts/verification/2026-06-30T13-23-18-042Z/*.png`
 - Native no-traffic design-guide capture: `.artifacts/verification/design-guide/2026-06-30T13-23-08-040Z/page@9095a03a4a97dfa894a3cc50ce9d63c7.webm`
 - Native no-traffic design-guide stills: `.artifacts/verification/design-guide/2026-06-30T13-23-08-040Z/*.png`
-- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T13-23-18-042Z/`.
-- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T13-23-08-040Z/`.
+- Confirmed shared starter cards now use quieter Codex-like card geometry with 8px corners, tighter gaps, and shorter height, with design-guide verification enforcing compact card height.
+- Compact starter cards desktop capture: `.artifacts/verification/2026-06-30T13-28-06-689Z/page@a91075c3ed262d3c01b33025e63c3af0.webm`
+- Compact starter cards desktop stills: `.artifacts/verification/2026-06-30T13-28-06-689Z/*.png`
+- Compact starter cards design-guide capture: `.artifacts/verification/design-guide/2026-06-30T13-27-55-172Z/page@24a756a935e2009e3eea8725c7eddfb3.webm`
+- Compact starter cards design-guide stills: `.artifacts/verification/design-guide/2026-06-30T13-27-55-172Z/*.png`
+- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T13-28-06-689Z/`.
+- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T13-27-55-172Z/`.
 
 Automated verification:
 

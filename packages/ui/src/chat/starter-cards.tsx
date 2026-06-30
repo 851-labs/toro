@@ -33,22 +33,22 @@ const defaultCards = [
 export function CodexStarterCards({ cards = defaultCards, className }: CodexStarterCardsProps) {
   return (
     <div
-      className={cn("mx-auto grid w-full max-w-[880px] grid-cols-3 gap-4", className)}
+      className={cn("mx-auto grid w-full max-w-[880px] grid-cols-3 gap-3", className)}
       data-starter-cards="true"
     >
       {cards.map((card) => (
         <article
-          className="min-h-[150px] rounded-2xl border border-zinc-200 bg-white px-4 py-5 text-left dark:border-zinc-700 dark:bg-[#141414]"
+          className="min-h-[124px] rounded-lg border border-zinc-200/90 bg-white px-4 py-4 text-left dark:border-zinc-700 dark:bg-[#141414]"
           data-starter-card="true"
           key={card.title}
         >
           <span
-            className="mb-6 block text-zinc-900 dark:text-zinc-100"
+            className="mb-4 block text-zinc-900 dark:text-zinc-100"
             data-starter-card-icon={card.icon}
           >
             {starterIcon(card.icon)}
           </span>
-          <h3 className="text-base font-medium text-zinc-950 dark:text-zinc-100">{card.title}</h3>
+          <h3 className="text-sm font-medium text-zinc-950 dark:text-zinc-100">{card.title}</h3>
           <p className="mt-1 text-sm leading-5 text-zinc-500 dark:text-zinc-400">
             {card.description}
           </p>
