@@ -10,6 +10,7 @@ import {
 import { PanelLeft, RefreshCw } from "lucide-react";
 import { useMemo, useState } from "react";
 import { AgentRail } from "./components/agent-rail";
+import { ChatHeaderActions } from "./components/chat-header-actions";
 import { ChatPanel } from "./components/chat-panel";
 import { hostClient } from "./lib/host-client";
 import { useHostState } from "./lib/use-host-state";
@@ -145,6 +146,10 @@ export function App() {
               <h1 className="truncate text-lg font-semibold">
                 {activeSession?.title ?? "New chat"}
               </h1>
+              <ChatHeaderActions
+                title={activeSession?.title ?? "New chat"}
+                workspacePath={activeWorkspace?.path ?? null}
+              />
             </div>
             <div className="flex items-center gap-2 text-sm text-zinc-500">
               {isLoading ? <RefreshCw className="animate-spin" size={16} /> : null}

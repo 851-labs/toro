@@ -74,6 +74,7 @@ await page
 await assertPrimarySidebarSimplified(page);
 await assertSidebarChatRowsAreNavigationOnly(page);
 await assertDesktopDebugLogsHidden(page);
+await assertHeaderActions(page);
 await assertOnlyFunctionalButtons(page);
 await screenshot(page, "04-session-created.png");
 await pause();
@@ -156,14 +157,7 @@ async function pause() {
 }
 
 async function assertDeadControlsRemoved(page) {
-  const deadButtons = [
-    "More chat actions",
-    "Open in",
-    "Chat settings",
-    "Toggle preview",
-    "Dictate",
-    /Remote Sandbox/,
-  ];
+  const deadButtons = ["Open in", "Chat settings", "Toggle preview", "Dictate", /Remote Sandbox/];
 
   for (const name of deadButtons) {
     if ((await page.getByRole("button", { exact: true, name }).count()) > 0) {
@@ -266,6 +260,17 @@ async function assertComposerContextPicker(page) {
   await page.getByRole("button", { exact: true, name: "Add context" }).click();
 }
 
+async function assertHeaderActions(page) {
+  await page.getByRole("button", { exact: true, name: "More chat actions" }).click();
+  await page.getByRole("button", { exact: true, name: "Copy chat title" }).click();
+  await page.getByText("Copied chat title").waitFor({ timeout: 5_000 });
+  await page.getByRole("button", { exact: true, name: "Copy workspace path" }).click();
+  await page.getByText("Copied workspace path").waitFor({ timeout: 5_000 });
+  await assertOnlyFunctionalButtons(page);
+  await screenshot(page, "04-header-actions.png");
+  await page.getByRole("button", { exact: true, name: "More chat actions" }).click();
+}
+
 async function assertSidebarChatRowsAreNavigationOnly(page) {
   const chatRows = await page
     .locator("aside button[aria-label^='Chat ']")
@@ -312,6 +317,9 @@ function isKnownFunctionalButton(label, extraAllowedLabels) {
       "Collapse sidebar",
       "New chat",
       "Add context",
+      "More chat actions",
+      "Copy chat title",
+      "Copy workspace path",
       "Copy message",
       "Copied message",
       "Good response",

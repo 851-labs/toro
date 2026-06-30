@@ -88,6 +88,8 @@
 - Composer context stills: `.artifacts/verification/2026-06-30T05-27-56-073Z/*.png`
 - Composer context design-guide capture: `.artifacts/verification/design-guide/2026-06-30T05-25-41-672Z/page@81740671cbecfb42d0baac3679328f58.webm`
 - Composer context design-guide stills: `.artifacts/verification/design-guide/2026-06-30T05-25-41-672Z/*.png`
+- Header actions capture: `.artifacts/verification/2026-06-30T05-33-46-509Z/page@6ccb95dfca13c450ad3f8e4f3d71a122.webm`
+- Header actions stills: `.artifacts/verification/2026-06-30T05-33-46-509Z/*.png`
 
 Manual verification:
 
@@ -124,6 +126,7 @@ Manual verification:
 - Confirmed permission requests use a compact shared chat primitive instead of the older amber alert card while keeping allow/reject actions functional.
 - Confirmed the sidebar now uses Codex-like traffic controls and functional Scheduled/Plugins rail modes, while project rows hide filesystem paths unless hovered.
 - Confirmed the composer `+` control is restored as a functional context picker that attaches/removes visible context chips in both desktop and the design guide.
+- Confirmed the chat title ellipsis is restored as a functional Codex-style menu with visible copy-title and copy-workspace-path states.
 
 Automated verification:
 
