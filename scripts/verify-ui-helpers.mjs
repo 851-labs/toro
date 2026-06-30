@@ -52,6 +52,29 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
     }
   }
 
+  async function assertComposerAffordancesArePassive(page) {
+    const affordances = await page.locator("[data-composer-affordance]").evaluateAll((nodes) =>
+      nodes.map((node) => ({
+        kind: node.getAttribute("data-composer-affordance"),
+        insideButton: Boolean(node.closest("button")),
+      })),
+    );
+    const kinds = new Set(affordances.map((affordance) => affordance.kind));
+
+    for (const kind of ["status", "voice"]) {
+      if (!kinds.has(kind)) {
+        throw new Error(`Missing passive composer affordance: ${kind}`);
+      }
+    }
+
+    const interactive = affordances.filter((affordance) => affordance.insideButton);
+    if (interactive.length > 0) {
+      throw new Error(
+        `Passive composer affordances should not render inside buttons: ${JSON.stringify(interactive)}`,
+      );
+    }
+  }
+
   async function assertPermissionCardIsCompact(page) {
     const permissionCard = page
       .locator("section")
@@ -328,6 +351,7 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
   }
 
   return {
+    assertComposerAffordancesArePassive,
     assertComposerContextPicker,
     assertComposerFooterIsCodexCompact,
     assertDeadControlsRemoved,

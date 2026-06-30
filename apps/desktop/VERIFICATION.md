@@ -150,6 +150,10 @@
 - Visible message actions stills: `.artifacts/verification/2026-06-30T07-54-50-371Z/*.png`
 - Visible message actions design-guide capture: `.artifacts/verification/design-guide/2026-06-30T07-54-50-382Z/page@3df75df474edd53ed4eecb168666a63e.webm`
 - Visible message actions design-guide stills: `.artifacts/verification/design-guide/2026-06-30T07-54-50-382Z/*.png`
+- Passive composer affordances capture: `.artifacts/verification/2026-06-30T07-59-15-936Z/page@cff9c3853e7929eb51892abbad778354.webm`
+- Passive composer affordances stills: `.artifacts/verification/2026-06-30T07-59-15-936Z/*.png`
+- Passive composer affordances design-guide capture: `.artifacts/verification/design-guide/2026-06-30T07-59-16-501Z/page@6ed0756583a2fcbcfc5b6f2ec69b00ac.webm`
+- Passive composer affordances design-guide stills: `.artifacts/verification/design-guide/2026-06-30T07-59-16-501Z/*.png`
 
 Manual verification:
 
@@ -204,6 +208,7 @@ Manual verification:
 - Confirmed the permission request now renders as a compact transcript row without the old bordered alert shell, while Allow once and Reject remain functional in the desktop flow and design guide.
 - Confirmed the sidebar footer host settings control is back to a quiet icon-only button with the agent/environment panel still opening and closing during desktop verification.
 - Confirmed completed assistant message actions now remain visible in the idle final state, and the desktop/design-guide verifiers capture idle and exercised action states separately.
+- Confirmed the composer now includes Codex-like status and microphone affordances as passive glyphs, with the UI verifier asserting they are present without adding inert buttons.
 
 Automated verification:
 

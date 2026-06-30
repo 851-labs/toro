@@ -1,5 +1,5 @@
 import { FormEvent, useState } from "react";
-import { ArrowUp, ChevronDown, FileText, Plus, Shield, Square, X, Zap } from "lucide-react";
+import { ArrowUp, ChevronDown, FileText, Mic, Plus, Shield, Square, X, Zap } from "lucide-react";
 import { Button } from "../button";
 import { cn } from "../cn";
 
@@ -159,6 +159,13 @@ export function CodexComposer({
             </label>
           </div>
           <div className="flex items-center gap-2 text-sm text-zinc-500">
+            <span
+              aria-hidden="true"
+              className="hidden size-7 shrink-0 items-center justify-center sm:flex"
+              data-composer-affordance="status"
+            >
+              <span className="size-3 rounded-full border-2 border-zinc-200 border-t-zinc-400" />
+            </span>
             <label className="relative hidden items-center gap-1 font-medium sm:inline-flex">
               <Zap size={15} />
               <select
@@ -175,6 +182,13 @@ export function CodexComposer({
               </select>
               <ChevronDown className="pointer-events-none absolute right-0" size={13} />
             </label>
+            <span
+              aria-hidden="true"
+              className="hidden size-8 shrink-0 items-center justify-center text-zinc-400 sm:flex"
+              data-composer-affordance="voice"
+            >
+              <Mic size={17} />
+            </span>
             {isRunning ? (
               <Button
                 aria-label="Stop"

@@ -11,6 +11,7 @@ const stepDelayMs = Number(process.env.TORO_VERIFY_STEP_DELAY_MS ?? 0);
 const timestamp = new Date().toISOString().replaceAll(":", "-").replaceAll(".", "-");
 const artifactDir = resolve(".artifacts/verification", timestamp);
 const {
+  assertComposerAffordancesArePassive,
   assertComposerContextPicker,
   assertComposerFooterIsCodexCompact,
   assertDeadControlsRemoved,
@@ -50,6 +51,7 @@ await assertDeadControlsRemoved(page);
 await assertPrimarySidebarSimplified(page);
 await assertProjectFormHidden(page);
 await assertComposerFooterIsCodexCompact(page);
+await assertComposerAffordancesArePassive(page);
 await assertOnlyFunctionalButtons(page);
 await assertHostSettingsToggle(page);
 const composer = page.getByLabel("Message agent");
