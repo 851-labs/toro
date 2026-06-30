@@ -1,8 +1,14 @@
-import type { AgentId, EnvironmentId, SessionId, WorkspaceId } from "@toro/domain";
+import {
+  agentId,
+  environmentId,
+  type AgentId,
+  type EnvironmentId,
+  type SessionId,
+  type WorkspaceId,
+} from "@toro/domain";
 import type { AgentProfile, EnvironmentProfile, Session, Workspace } from "@toro/domain";
 import { Button, StatusBadge, cn } from "@toro/ui";
-import { Bot, CirclePlus, FolderOpen, Layers, MessageSquare, Monitor, Server } from "lucide-react";
-import { FileExplorer } from "./file-explorer";
+import { CirclePlus, FolderOpen, Layers, MessageSquare } from "lucide-react";
 
 interface AgentRailProps {
   readonly activeWorkspace: Workspace | null;
@@ -12,7 +18,6 @@ interface AgentRailProps {
   readonly error: string | null;
   readonly selectedAgentId: AgentId;
   readonly selectedEnvironmentId: EnvironmentId;
-  readonly selectedFilePath: string | null;
   readonly sessions: readonly Session[];
   readonly streamStatus: "connecting" | "connected" | "disconnected";
   readonly workspacePath: string;
@@ -21,7 +26,6 @@ interface AgentRailProps {
   readonly onOpenWorkspace: () => void;
   readonly onSelectAgent: (id: AgentId) => void;
   readonly onSelectEnvironment: (id: EnvironmentId) => void;
-  readonly onSelectFile: (path: string) => void;
   readonly onSelectSession: (id: SessionId) => void;
   readonly onSelectWorkspace: (id: WorkspaceId) => void;
   readonly onWorkspacePathChange: (path: string) => void;
@@ -89,45 +93,6 @@ export function AgentRail(props: AgentRailProps) {
             <div className="px-3 py-2 text-sm text-zinc-400">No projects</div>
           )}
         </RailSection>
-
-        {props.activeWorkspace ? (
-          <RailSection title="Files">
-            <FileExplorer
-              selectedFilePath={props.selectedFilePath}
-              workspace={props.activeWorkspace}
-              onSelectFile={props.onSelectFile}
-            />
-          </RailSection>
-        ) : null}
-
-        <RailSection title="Run With">
-          {props.agents.map((agent) => (
-            <RailButton
-              active={props.selectedAgentId === agent.id}
-              icon={<Bot size={16} />}
-              key={agent.id}
-              label={agent.name}
-              meta={agent.vendor}
-              onClick={() => props.onSelectAgent(agent.id)}
-            />
-          ))}
-        </RailSection>
-
-        <RailSection title="Environment">
-          {props.environments.map((environment) => (
-            <RailButton
-              active={props.selectedEnvironmentId === environment.id}
-              disabled={environment.status !== "available"}
-              icon={
-                environment.kind === "local-desktop" ? <Monitor size={16} /> : <Server size={16} />
-              }
-              key={environment.id}
-              label={environment.name}
-              meta={environment.status}
-              onClick={() => props.onSelectEnvironment(environment.id)}
-            />
-          ))}
-        </RailSection>
       </div>
 
       {props.error ? (
@@ -145,6 +110,42 @@ export function AgentRail(props: AgentRailProps) {
             <div className="truncate text-sm font-medium">Local host</div>
             <div className="text-xs text-zinc-500">{props.streamStatus}</div>
           </div>
+        </div>
+        <div className="mt-2 grid grid-cols-2 gap-2">
+          <label className="sr-only" htmlFor="agent-select">
+            Agent
+          </label>
+          <select
+            className="h-8 min-w-0 rounded-xl border border-zinc-200 bg-white px-2 text-xs font-medium text-zinc-700 outline-none"
+            id="agent-select"
+            onChange={(event) => props.onSelectAgent(agentId(event.target.value))}
+            value={props.selectedAgentId}
+          >
+            {props.agents.map((agent) => (
+              <option key={agent.id} value={agent.id}>
+                {agent.name}
+              </option>
+            ))}
+          </select>
+          <label className="sr-only" htmlFor="environment-select">
+            Environment
+          </label>
+          <select
+            className="h-8 min-w-0 rounded-xl border border-zinc-200 bg-white px-2 text-xs font-medium text-zinc-700 outline-none"
+            id="environment-select"
+            onChange={(event) => props.onSelectEnvironment(environmentId(event.target.value))}
+            value={props.selectedEnvironmentId}
+          >
+            {props.environments.map((environment) => (
+              <option
+                disabled={environment.status !== "available"}
+                key={environment.id}
+                value={environment.id}
+              >
+                {environment.name}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
     </aside>

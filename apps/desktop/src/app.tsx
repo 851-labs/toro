@@ -11,7 +11,6 @@ import { PanelLeft, RefreshCw } from "lucide-react";
 import { useMemo, useState } from "react";
 import { AgentRail } from "./components/agent-rail";
 import { ChatPanel } from "./components/chat-panel";
-import { EditorPane } from "./components/editor-pane";
 import { hostClient } from "./lib/host-client";
 import { useHostState } from "./lib/use-host-state";
 
@@ -27,7 +26,6 @@ export function App() {
   );
   const [selectedWorkspaceId, setSelectedWorkspaceId] = useState<WorkspaceId | null>(null);
   const [selectedSessionId, setSelectedSessionId] = useState<SessionId | null>(null);
-  const [selectedFilePath, setSelectedFilePath] = useState<string | null>(null);
 
   const selectedSession = useMemo(
     () => state.sessions.find((session) => session.id === selectedSessionId) ?? null,
@@ -62,7 +60,6 @@ export function App() {
     onSuccess: (workspace) => {
       setSelectedWorkspaceId(workspace.id);
       setSelectedSessionId(null);
-      setSelectedFilePath(null);
       void queryClient.invalidateQueries({ queryKey: ["host-state"] });
       void queryClient.invalidateQueries({ queryKey: ["files", workspace.id] });
     },
@@ -87,7 +84,6 @@ export function App() {
 
   function selectWorkspace(workspaceId: WorkspaceId) {
     setSelectedWorkspaceId(workspaceId);
-    setSelectedFilePath(null);
     setSelectedSessionId(
       state.sessions.findLast((session) => session.workspaceId === workspaceId)?.id ?? null,
     );
@@ -98,7 +94,6 @@ export function App() {
     if (session) {
       setSelectedWorkspaceId(session.workspaceId);
       setSelectedSessionId(session.id);
-      setSelectedFilePath(null);
     }
   }
 
@@ -114,25 +109,17 @@ export function App() {
         onOpenWorkspace={() => openWorkspace.mutate()}
         selectedAgentId={selectedAgentId}
         selectedEnvironmentId={selectedEnvironmentId}
-        selectedFilePath={selectedFilePath}
         sessions={state.sessions}
         streamStatus={streamStatus}
         workspacePath={workspacePath}
         workspaces={state.workspaces}
         onSelectAgent={setSelectedAgentId}
         onSelectEnvironment={setSelectedEnvironmentId}
-        onSelectFile={setSelectedFilePath}
         onSelectSession={selectSession}
         onSelectWorkspace={selectWorkspace}
         onWorkspacePathChange={setWorkspacePath}
       />
-      <main
-        className={
-          selectedFilePath
-            ? "grid min-h-0 min-w-0 grid-cols-[minmax(0,1fr)_minmax(360px,440px)]"
-            : "grid min-h-0 min-w-0 grid-cols-1"
-        }
-      >
+      <main className="grid min-h-0 min-w-0 grid-cols-1">
         <section className="grid min-h-0 min-w-0 grid-rows-[64px_1fr] bg-white">
           <header className="flex items-center justify-between border-b border-zinc-200/80 px-5">
             <div className="flex min-w-0 items-center gap-3">
@@ -153,9 +140,6 @@ export function App() {
             workspaceName={activeWorkspace?.name ?? null}
           />
         </section>
-        {selectedFilePath ? (
-          <EditorPane filePath={selectedFilePath} workspace={activeWorkspace} />
-        ) : null}
       </main>
     </div>
   );
