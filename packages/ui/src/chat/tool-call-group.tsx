@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { Collapsible } from "@base-ui-components/react/collapsible";
 import { SquareTerminal } from "lucide-react";
+import { CodexCollapsiblePanel } from "./collapsible-panel";
 import { CodexDisclosureSummary } from "./disclosure-summary";
 
 export interface CodexToolCallGroupProps {
@@ -31,13 +32,9 @@ export function CodexToolCallGroup({
         summaryClassName="hover:bg-transparent group-data-[open]/tool-group:bg-transparent dark:hover:bg-transparent"
         title={`${count} tool calls`}
       />
-      <Collapsible.Panel
-        className="ml-8 mt-1.5 space-y-1.5"
-        data-tool-call-group-items="true"
-        keepMounted
-      >
-        {children}
-      </Collapsible.Panel>
+      <CodexCollapsiblePanel className="ml-8" data-tool-call-group-items="true" keepMounted>
+        <div className="mt-1.5 space-y-1.5">{children}</div>
+      </CodexCollapsiblePanel>
     </Collapsible.Root>
   );
 }

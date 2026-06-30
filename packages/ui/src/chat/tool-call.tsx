@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { Collapsible } from "@base-ui-components/react/collapsible";
 import { SquareTerminal } from "lucide-react";
 import { cn } from "../cn";
+import { CodexCollapsiblePanel } from "./collapsible-panel";
 import { CodexDisclosureSummary } from "./disclosure-summary";
 
 export interface CodexToolCallProps {
@@ -47,18 +48,16 @@ export function CodexToolCall({ children, defaultOpen, kind, status, title }: Co
         title={title}
       />
       {children ? (
-        <Collapsible.Panel
-          className="ml-8 mt-2 max-h-52 overflow-auto pb-1 pt-0.5"
-          data-tool-output="true"
-          keepMounted
-        >
-          <pre
-            className="whitespace-pre-wrap text-[13px] leading-5 text-zinc-500 dark:text-zinc-400"
-            data-tool-output-pre="true"
-          >
-            {children}
-          </pre>
-        </Collapsible.Panel>
+        <CodexCollapsiblePanel className="ml-8" data-tool-output="true" keepMounted>
+          <div className="mt-2 max-h-52 overflow-auto pb-1 pt-0.5">
+            <pre
+              className="whitespace-pre-wrap text-[13px] leading-5 text-zinc-500 dark:text-zinc-400"
+              data-tool-output-pre="true"
+            >
+              {children}
+            </pre>
+          </div>
+        </CodexCollapsiblePanel>
       ) : null}
     </Collapsible.Root>
   );

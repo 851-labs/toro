@@ -1,7 +1,6 @@
 import { chromium } from "@playwright/test";
 import { mkdir, readdir } from "node:fs/promises";
 import { resolve } from "node:path";
-
 const appUrl = process.env.TORO_DESIGN_GUIDE_URL ?? "http://127.0.0.1:1430";
 const stepDelayMs = Number(process.env.TORO_VERIFY_STEP_DELAY_MS ?? 0);
 const streamingMarkdownText = /Streaming markdown keeps/;

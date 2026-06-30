@@ -14,12 +14,12 @@ Current reference evidence:
 
 Latest verified desktop artifacts:
 
-- Desktop capture: `.artifacts/verification/2026-06-30T17-52-57-526Z/page@870eb514d7f871a87598247b533017f1.webm`
-- Desktop stills: `.artifacts/verification/2026-06-30T17-52-57-526Z/*.png`
+- Desktop capture: `.artifacts/verification/2026-06-30T17-59-31-628Z/page@0b4e6e589d6863cef9b556cef48d1e48.webm`
+- Desktop stills: `.artifacts/verification/2026-06-30T17-59-31-628Z/*.png`
 - Grouped-sidebar capture: `.artifacts/verification/sidebar-groups/2026-06-30T15-10-20-395Z/page@d9d7ed776cdd64de9144ac1f4a6ab547.webm`
 - Grouped-sidebar still: `.artifacts/verification/sidebar-groups/2026-06-30T15-10-20-395Z/01-project-grouped-chats.png`
-- Design-guide capture: `.artifacts/verification/design-guide/2026-06-30T17-52-33-159Z/page@a65f95447fc68b96d4426797c49bcd0c.webm`
-- Design-guide stills: `.artifacts/verification/design-guide/2026-06-30T17-52-33-159Z/*.png`
+- Design-guide capture: `.artifacts/verification/design-guide/2026-06-30T17-59-31-628Z/page@4fbd6ae0d6c8db0ef112e93865b54e73.webm`
+- Design-guide stills: `.artifacts/verification/design-guide/2026-06-30T17-59-31-628Z/*.png`
 - Native still: `.artifacts/verification/native/2026-06-30-native-project-picker.png`
 
 Most recent manual checks:
@@ -28,6 +28,7 @@ Most recent manual checks:
 - Confirmed assistant message actions omit thumbs up/down feedback buttons.
 - Confirmed a single chat renders two user/assistant turns with thinking and grouped tool-call blocks in the assistant response flow.
 - Confirmed completed thinking rows and grouped tool-call blocks use shared Codex-like collapsible activity summaries.
+- Confirmed thinking and tool-call collapsible panels use the shared animated Base UI panel wrapper.
 - Confirmed shared buttons, composer selects, and activity collapsibles are built on Base UI primitives.
 - Confirmed streaming assistant markdown renders through Streamdown and completed chat markdown renders through React Markdown.
 - Confirmed streaming assistant and thinking text no longer append an inline cursor dot.

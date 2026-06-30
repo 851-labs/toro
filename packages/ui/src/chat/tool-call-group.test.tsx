@@ -28,6 +28,8 @@ describe("CodexToolCallGroup", () => {
     expect(html).toContain('data-tool-call-group="true"');
     expect(html).toContain("2 tool calls");
     expect(html).toContain("1 of 2 complete");
+    expect(html).toContain('data-collapsible-panel-animated="true"');
+    expect(html).toContain("h-[var(--collapsible-panel-height)]");
     expect(html.match(/data-tool-call="true"/g)).toHaveLength(2);
   });
 });

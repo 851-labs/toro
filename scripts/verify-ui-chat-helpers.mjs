@@ -80,6 +80,7 @@ export async function assertActivityDisclosuresCollapse(page) {
     );
   }
   const thinking = page.locator("[data-thinking-disclosure='true']").last();
+  await assertAnimatedPanel(thinking.locator("[data-thinking-body='true']"));
   await thinking.locator("[data-disclosure-summary='true']").click();
   await thinking
     .locator("[data-thinking-body='true']")
@@ -90,13 +91,21 @@ export async function assertActivityDisclosuresCollapse(page) {
     .waitFor({ state: "hidden", timeout: 5_000 });
 
   const toolGroup = page.locator("[data-tool-call-group='true']").last();
+  await assertAnimatedPanel(toolGroup.locator("[data-tool-call-group-items='true']"));
   await toolGroup.locator("[data-disclosure-summary='true']").first().click();
   const tool = toolGroup.locator("[data-tool-call='true']").last();
+  await assertAnimatedPanel(tool.locator("[data-tool-output='true']"));
   await tool.locator("[data-tool-output='true']").waitFor({ state: "hidden", timeout: 5_000 });
   await tool.locator("[data-disclosure-summary='true']").click();
   await tool.locator("[data-tool-output='true']").waitFor({ state: "visible", timeout: 5_000 });
   await tool.locator("[data-disclosure-summary='true']").click();
   await tool.locator("[data-tool-output='true']").waitFor({ state: "hidden", timeout: 5_000 });
+}
+
+async function assertAnimatedPanel(locator) {
+  if ((await locator.first().getAttribute("data-collapsible-panel-animated")) !== "true") {
+    throw new Error("Collapsible transcript panels should use the shared animated panel.");
+  }
 }
 
 async function assertCompletedMarkdownMessages(page) {

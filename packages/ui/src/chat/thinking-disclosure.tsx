@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { useEffect, useState } from "react";
 import { Collapsible } from "@base-ui-components/react/collapsible";
 import { BrainCircuit } from "lucide-react";
+import { CodexCollapsiblePanel } from "./collapsible-panel";
 import { CodexDisclosureSummary } from "./disclosure-summary";
 
 export interface CodexThinkingDisclosureProps {
@@ -49,13 +50,13 @@ export function CodexThinkingDisclosure({
         }
       />
       {children ? (
-        <Collapsible.Panel
+        <CodexCollapsiblePanel
           className="ml-8 mt-1 whitespace-pre-wrap py-0.5 text-sm leading-6 text-zinc-600 dark:text-zinc-400"
           data-thinking-body="true"
           keepMounted
         >
           {children}
-        </Collapsible.Panel>
+        </CodexCollapsiblePanel>
       ) : null}
     </Collapsible.Root>
   );

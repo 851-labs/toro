@@ -1,6 +1,7 @@
 import { Collapsible } from "@base-ui-components/react/collapsible";
 import { ClipboardList } from "lucide-react";
 import { cn } from "../cn";
+import { CodexCollapsiblePanel } from "./collapsible-panel";
 import { CodexDisclosureSummary } from "./disclosure-summary";
 
 export interface CodexPlanItem {
@@ -40,7 +41,7 @@ export function CodexPlanDisclosure({
         meta={`${completedCount} of ${entries.length} complete`}
         title={title}
       />
-      <Collapsible.Panel>
+      <CodexCollapsiblePanel>
         <ol className="ml-8 mt-1 space-y-1 border-l border-zinc-200 pl-3 dark:border-zinc-700">
           {entries.map((entry, index) => (
             <li className="flex items-start gap-2 text-sm" key={`${entry.content}-${index}`}>
@@ -60,7 +61,7 @@ export function CodexPlanDisclosure({
             </li>
           ))}
         </ol>
-      </Collapsible.Panel>
+      </CodexCollapsiblePanel>
     </Collapsible.Root>
   );
 }

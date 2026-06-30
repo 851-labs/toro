@@ -18,6 +18,7 @@ describe("CodexPlanDisclosure", () => {
 
     expect(html).toContain('data-plan-status-label="completed"');
     expect(html).toContain('data-base-ui-collapsible="true"');
+    expect(html).toContain('data-collapsible-panel-animated="true"');
     expect(html).not.toMatch(/text-(emerald|amber)|bg-(emerald|amber)/);
     expect(html).toContain("1 of 3 complete");
   });

@@ -1,4 +1,5 @@
 export * from "./composer";
+export * from "./collapsible-panel";
 export * from "./disclosure-summary";
 export * from "./empty-state";
 export * from "./header";

@@ -14,6 +14,7 @@ describe("CodexThinkingDisclosure", () => {
     );
 
     expect(html).toContain("Checking project context");
+    expect(html).toContain('data-collapsible-panel-animated="true"');
     expect(html).not.toContain("after:motion-safe:animate-pulse");
   });
 });
