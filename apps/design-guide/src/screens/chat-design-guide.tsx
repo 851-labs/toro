@@ -243,7 +243,7 @@ function SidebarGroups() {
           <span>Projects</span>
           <FolderPlus size={15} />
         </div>
-        <div className="mt-2 flex h-9 items-center gap-3 rounded-lg bg-zinc-200 px-3 text-sm">
+        <div className="mt-2 flex h-9 items-center gap-3 rounded-lg px-3 text-sm">
           <FileText size={16} className="text-zinc-500" />
           <div className="truncate font-medium">toro</div>
         </div>

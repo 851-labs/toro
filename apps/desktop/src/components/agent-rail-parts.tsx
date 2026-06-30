@@ -55,10 +55,13 @@ export function ProjectGroup({
   readonly onSelectSession: (id: SessionId) => void;
   readonly onSelectWorkspace: (id: WorkspaceId) => void;
 }) {
+  const activeChatInGroup = sessions.some((session) => session.id === activeSessionId);
   return (
     <div className="space-y-0.5">
       <RailButton
-        active={activeWorkspaceId ? workspaceIds.includes(activeWorkspaceId) : false}
+        active={Boolean(
+          activeWorkspaceId && workspaceIds.includes(activeWorkspaceId) && !activeChatInGroup,
+        )}
         icon={<FileText size={16} />}
         label={workspace.name}
         onClick={() => onSelectWorkspace(workspace.id)}

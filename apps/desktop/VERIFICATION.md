@@ -309,8 +309,9 @@ Manual verification:
 - Confirmed new chats are renamed from the first user prompt through a domain session-title event, with desktop verification asserting the updated header and active sidebar row.
 - Confirmed the design-guide sidebar story now reflects the current desktop rail titlebar controls and prompt-derived active chat title, with verifier coverage for both.
 - Confirmed desktop verification targets the active prompt-derived sidebar row, so duplicate historical chat titles do not make the assertion ambiguous.
-- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T10-02-06-601Z/`.
-- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T10-01-31-055Z/`.
+- Confirmed project rows no longer remain selected while a chat row inside that project is active, reducing the sidebar to one clear Codex-like active target.
+- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T10-06-19-678Z/`.
+- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T10-06-20-494Z/`.
 
 Automated verification:
 
