@@ -10,8 +10,8 @@
 - Composer regression stills: `.artifacts/verification/2026-06-30T02-22-13-334Z/*.png`
 - Edge-to-edge shell capture: `.artifacts/verification/2026-06-30T02-25-58-481Z/page@b0f7b439d2c6890a548e08d14bac02ef.webm`
 - Edge-to-edge shell stills: `.artifacts/verification/2026-06-30T02-25-58-481Z/*.png`
-- Inert-control cleanup capture: `.artifacts/verification/2026-06-30T02-32-13-366Z/page@240b83e5479d0a0a366c05f35fcae4f1.webm`
-- Inert-control cleanup stills: `.artifacts/verification/2026-06-30T02-32-13-366Z/*.png`
+- Inert-control cleanup capture: `.artifacts/verification/2026-06-30T02-35-09-746Z/page@255e5302a79ce0369749316ba4a4ae86.webm`
+- Inert-control cleanup stills: `.artifacts/verification/2026-06-30T02-35-09-746Z/*.png`
 
 Manual verification:
 
