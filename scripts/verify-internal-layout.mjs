@@ -1,5 +1,6 @@
 const sidebarSelector = "[data-internal-sidebar='true']";
 const itemSelector = "[data-internal-sidebar-item='true']";
+const headerSelector = "[data-internal-content-header='true']";
 
 export async function assertInternalSidebarLayout(page) {
   const shellStyle = await page
@@ -11,12 +12,16 @@ export async function assertInternalSidebarLayout(page) {
   const box = await sidebar.boundingBox();
   const itemBox = await item.boundingBox();
   const secondItemBox = await secondItem.boundingBox();
+  const headerBox = await page.locator(headerSelector).boundingBox();
   const sidebarStyle = await sidebar.evaluate((node) => getComputedStyle(node));
   const itemStyle = await item.evaluate((node) => getComputedStyle(node));
+  const headerStyle = await page.locator(headerSelector).evaluate((node) => getComputedStyle(node));
 
   if (!shellStyle.gridTemplateColumns.startsWith("256px ")) {
     throw new Error(`Internal shell grid is malformed: ${shellStyle.gridTemplateColumns}.`);
   }
+  assertNear(headerBox?.height ?? 0, 53, "Internal content header total height");
+  assertNear(parseFloat(headerStyle.borderBottomWidth), 1, "Internal content header border");
   assertNear(box?.width ?? 0, 256, "Internal sidebar width");
   assertNear(parseFloat(sidebarStyle.paddingLeft), 12, "Internal sidebar left padding");
   assertNear(parseFloat(sidebarStyle.paddingRight), 12, "Internal sidebar right padding");

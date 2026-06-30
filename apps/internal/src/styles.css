@@ -41,7 +41,7 @@ body {
 
 .internal-content {
   display: grid;
-  grid-template-rows: 64px minmax(0, 1fr) auto;
+  grid-template-rows: 53px minmax(0, 1fr) auto;
   min-height: 0;
 }
 

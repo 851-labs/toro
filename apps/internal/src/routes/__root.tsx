@@ -60,7 +60,10 @@ function InternalLayout({ children }: { readonly children: ReactNode }) {
         </nav>
       </aside>
       <section className="internal-content">
-        <header className="flex items-center justify-between border-b border-zinc-200/80 px-5">
+        <header
+          className="flex items-center justify-between border-b border-zinc-200/80 px-5"
+          data-internal-content-header="true"
+        >
           <h1 className="text-lg font-semibold">{viewTitle(activeRoute)}</h1>
           <StatusBadge label="reference" tone="neutral" />
         </header>
