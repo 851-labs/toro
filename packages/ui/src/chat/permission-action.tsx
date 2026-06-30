@@ -11,6 +11,7 @@ export function CodexPermissionAction({ allow, label, onClick }: CodexPermission
   return (
     <Button
       className="h-8"
+      data-permission-action="true"
       icon={allow ? <Check size={14} /> : <X size={14} />}
       onClick={onClick}
       variant={allow ? "primary" : "danger"}

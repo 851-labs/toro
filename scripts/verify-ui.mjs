@@ -171,6 +171,7 @@ await pause();
 
 await page.getByText("Validate Toro permission UI").waitFor({ timeout: 10_000 });
 await assertPermissionCardIsCompact(page);
+await assertSharedPermissionElements(page);
 await assertSidebarChatRowsAreNavigationOnly(page);
 await assertOnlyFunctionalButtons(page, ["Allow once", "Reject"]);
 await screenshot(page, "06-permission-request.png");
@@ -203,6 +204,7 @@ await assertOnlyFunctionalButtons(page);
 await assertTranscriptOrder(page);
 const toolCall = page.locator("details").filter({ hasText: "Validate Toro permission UI" }).last();
 await assertToolCallIsCompact(toolCall);
+await assertSharedToolCall(toolCall);
 await screenshot(page, "08-streaming-complete.png");
 await pause();
 
@@ -278,6 +280,22 @@ async function assertSharedMessageActions(page) {
   const actions = await page.locator("[data-message-action='true']").count();
   if (actions < 4) {
     throw new Error(`Desktop assistant actions should use shared message actions, got ${actions}.`);
+  }
+}
+
+async function assertSharedPermissionElements(page) {
+  const cards = await page.locator("[data-permission-card='true']").count();
+  const actions = await page.locator("[data-permission-action='true']").count();
+  if (cards < 1 || actions < 2) {
+    throw new Error(
+      `Desktop permission prompt should use shared permission primitives, got cards=${cards}, actions=${actions}.`,
+    );
+  }
+}
+
+async function assertSharedToolCall(toolCall) {
+  if ((await toolCall.getAttribute("data-tool-call")) !== "true") {
+    throw new Error("Desktop tool calls should use the shared Codex tool-call primitive.");
   }
 }
 

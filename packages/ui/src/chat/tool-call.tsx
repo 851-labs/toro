@@ -13,7 +13,7 @@ export interface CodexToolCallProps {
 
 export function CodexToolCall({ children, defaultOpen, kind, status, title }: CodexToolCallProps) {
   return (
-    <details className="group/tool text-sm" open={defaultOpen}>
+    <details className="group/tool text-sm" data-tool-call="true" open={defaultOpen}>
       <CodexDisclosureSummary
         chevronClassName="group-open/tool:rotate-90"
         icon={<SquareTerminal size={14} />}

@@ -28,6 +28,8 @@ await assertStreamingCursorAnimated(
 await assertStreamingCursorAnimated(page.locator("[data-thinking-body='true']").first());
 await page.getByText("Validate Toro permission UI").first().waitFor({ timeout: 5_000 });
 await page.getByText("tool cards are working").waitFor({ timeout: 5_000 });
+await assertSharedPermissionElements(page);
+await assertSharedToolCall(page);
 await page.waitForFunction(() => Boolean(window.__TSR_ROUTER__), null, { timeout: 5_000 });
 await screenshot(page, "01-chat-elements.png");
 await pause();
@@ -166,6 +168,23 @@ async function assertSharedMessageActions(page) {
     throw new Error(
       `Design-guide assistant actions should use shared message actions, got ${actions}.`,
     );
+  }
+}
+
+async function assertSharedPermissionElements(page) {
+  const cards = await page.locator("[data-permission-card='true']").count();
+  const actions = await page.locator("[data-permission-action='true']").count();
+  if (cards < 1 || actions < 2) {
+    throw new Error(
+      `Design-guide permission prompt should use shared permission primitives, got cards=${cards}, actions=${actions}.`,
+    );
+  }
+}
+
+async function assertSharedToolCall(page) {
+  const toolCalls = await page.locator("[data-tool-call='true']").count();
+  if (toolCalls < 1) {
+    throw new Error("Design-guide tool rows should use the shared Codex tool-call primitive.");
   }
 }
 

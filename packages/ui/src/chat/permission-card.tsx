@@ -16,7 +16,7 @@ export interface CodexPermissionCardProps {
 
 export function CodexPermissionCard({ onRespond, options, title }: CodexPermissionCardProps) {
   return (
-    <section className="text-sm">
+    <section className="text-sm" data-permission-card="true">
       <div className="flex items-start gap-2 rounded-xl px-2 py-2 text-zinc-600 hover:bg-zinc-50">
         <span className="flex size-6 shrink-0 items-center justify-center text-orange-600">
           <Shield size={14} />
