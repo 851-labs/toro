@@ -1,10 +1,12 @@
 import { describe, expect, it } from "vitest";
 import { agentId, environmentId, sessionId, workspaceId } from "@toro/domain";
 import type { Session, Workspace } from "@toro/domain";
-import { activeProjectGroups, filterProjectGroups, groupWorkspaces } from "./agent-rail-parts";
+import { createElement } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+import { ChatRows, filterProjectGroups, groupWorkspaces } from "./agent-rail-parts";
 
 describe("agent rail grouping", () => {
-  it("scopes visible chats to the active project while search can cross projects", () => {
+  it("keeps chats grouped by project while search narrows the visible groups", () => {
     const toro = workspace("workspace-toro", "toro");
     const docs = workspace("workspace-docs", "docs");
     const groups = groupWorkspaces(
@@ -15,8 +17,34 @@ describe("agent rail grouping", () => {
       ],
     );
 
-    expect(chatTitles(activeProjectGroups(groups, toro.id))).toEqual(["Toro UI pass"]);
+    expect(chatTitles(groups)).toEqual(["Toro UI pass", "Docs UI pass"]);
     expect(chatTitles(filterProjectGroups(groups, "Docs"))).toEqual(["Docs UI pass"]);
+  });
+
+  it("renders project labels only for groups that contain chats", () => {
+    const toro = workspace("workspace-toro", "toro");
+    const docs = workspace("workspace-docs", "docs");
+    const empty = workspace("workspace-empty", "empty");
+    const groups = groupWorkspaces(
+      [toro, docs, empty],
+      [
+        session("session-toro", toro.id, "Toro UI pass", "2026-06-30T10:00:00.000Z"),
+        session("session-docs", docs.id, "Docs UI pass", "2026-06-30T11:00:00.000Z"),
+      ],
+    );
+
+    const html = renderToStaticMarkup(
+      createElement(ChatRows, {
+        activeSessionId: null,
+        groups,
+        onSelectSession: () => undefined,
+      }),
+    );
+
+    expect(html).toContain('data-sidebar-chat-project="true"');
+    expect(html).toContain(">toro<");
+    expect(html).toContain(">docs<");
+    expect(html).not.toContain(">empty<");
   });
 });
 

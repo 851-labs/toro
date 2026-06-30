@@ -259,20 +259,37 @@ function SidebarGroups() {
         <CodexSidebarContent>
           <CodexSidebarSection actionIcon={<FolderPlus size={15} />} title="Projects">
             <CodexSidebarRow icon={<FileText size={16} />} label="toro" />
+            <CodexSidebarRow icon={<FileText size={16} />} label="docs-beta" />
           </CodexSidebarSection>
           <CodexSidebarSection title="Chats">
-            {[
-              { active: true, label: "Verify the Toro ACP UI loop" },
-              { active: false, label: "Composer context picker" },
-              { active: false, label: "Quiet expanded tool output" },
-            ].map((chat) => (
-              <CodexSidebarRow
-                active={chat.active}
-                icon={<MessageSquare size={14} />}
-                key={chat.label}
-                label={chat.label}
-              />
-            ))}
+            <div
+              className="px-3 pb-1 pt-2 text-xs font-medium text-zinc-400"
+              data-sidebar-chat-project="true"
+            >
+              toro
+            </div>
+            <CodexSidebarRow
+              active
+              icon={<MessageSquare size={14} />}
+              indent
+              label="Verify the Toro ACP UI loop"
+            />
+            <CodexSidebarRow
+              icon={<MessageSquare size={14} />}
+              indent
+              label="Composer context picker"
+            />
+            <div
+              className="px-3 pb-1 pt-2 text-xs font-medium text-zinc-400"
+              data-sidebar-chat-project="true"
+            >
+              docs-beta
+            </div>
+            <CodexSidebarRow
+              icon={<MessageSquare size={14} />}
+              indent
+              label="Quiet expanded tool output"
+            />
           </CodexSidebarSection>
         </CodexSidebarContent>
         <CodexSidebarFooter

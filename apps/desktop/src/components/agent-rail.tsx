@@ -32,7 +32,6 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import {
-  activeProjectGroups,
   ChatRows,
   filterProjectGroups,
   groupWorkspaces,
@@ -80,9 +79,6 @@ export function AgentRail(props: AgentRailProps) {
     groupWorkspaces(props.workspaces, props.sessions),
     searchQuery,
   );
-  const chatGroups = searchOpen
-    ? projectGroups
-    : activeProjectGroups(projectGroups, activeWorkspaceId);
 
   return (
     <CodexSidebarRail>
@@ -200,7 +196,7 @@ export function AgentRail(props: AgentRailProps) {
         <RailSection title="Chats">
           <ChatRows
             activeSessionId={props.activeSessionId}
-            groups={chatGroups}
+            groups={projectGroups}
             onSelectSession={props.onSelectSession}
           />
         </RailSection>

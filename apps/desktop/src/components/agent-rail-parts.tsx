@@ -51,28 +51,36 @@ export function ChatRows({
   readonly groups: readonly ProjectGroupModel[];
   readonly onSelectSession: (id: SessionId) => void;
 }) {
-  const rows = groups.flatMap((group) =>
-    group.sessions.map((session) => ({
-      projectName: group.workspace.name,
-      session,
-    })),
-  );
-  if (rows.length === 0) {
+  const groupsWithChats = groups.filter((group) => group.sessions.length > 0);
+  if (groupsWithChats.length === 0) {
     return <div className="px-3 py-2 text-sm text-zinc-400">No chats</div>;
   }
 
-  return rows.map(({ projectName, session }) => (
-    <CodexSidebarRow
-      active={activeSessionId === session.id}
-      ariaCurrent={activeSessionId === session.id ? "page" : undefined}
-      ariaLabel={`Chat ${session.title}`}
-      icon={<MessageSquare size={14} />}
-      key={session.id}
-      label={session.title}
-      meta={groups.length > 1 ? projectName : undefined}
-      onClick={() => onSelectSession(session.id)}
-    />
-  ));
+  return groupsWithChats.flatMap((group) => {
+    const chatRows = group.sessions.map((session) => (
+      <CodexSidebarRow
+        active={activeSessionId === session.id}
+        ariaCurrent={activeSessionId === session.id ? "page" : undefined}
+        ariaLabel={`Chat ${session.title}`}
+        icon={<MessageSquare size={14} />}
+        indent={groupsWithChats.length > 1}
+        key={session.id}
+        label={session.title}
+        onClick={() => onSelectSession(session.id)}
+      />
+    ));
+    if (groupsWithChats.length === 1) return chatRows;
+    return [
+      <div
+        className="px-3 pb-1 pt-2 text-xs font-medium text-zinc-400"
+        data-sidebar-chat-project="true"
+        key={`${group.workspace.id}:chat-project`}
+      >
+        {group.workspace.name}
+      </div>,
+      ...chatRows,
+    ];
+  });
 }
 
 export function filterProjectGroups(
@@ -100,16 +108,6 @@ export function filterProjectGroups(
         group.workspace.path.toLowerCase().includes(normalizedQuery);
       return projectMatches || group.sessions.length > 0;
     });
-}
-
-export function activeProjectGroups(
-  groups: readonly ProjectGroupModel[],
-  activeWorkspaceId: WorkspaceId | null,
-): readonly ProjectGroupModel[] {
-  if (!activeWorkspaceId) {
-    return [];
-  }
-  return groups.filter((group) => group.workspaceIds.includes(activeWorkspaceId));
 }
 
 export function groupWorkspaces(
