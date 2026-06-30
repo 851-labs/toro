@@ -11,6 +11,7 @@ import {
   Button,
   CodexSidebarCommand,
   CodexSidebarFooter,
+  CodexSidebarRail,
   CodexSidebarTitlebar,
   CodexSidebarTitlebarControl,
   cn,
@@ -75,10 +76,7 @@ export function AgentRail(props: AgentRailProps) {
   );
 
   return (
-    <aside
-      className="flex min-h-0 flex-col border-r border-zinc-200 bg-[#f7f8f8]"
-      data-sidebar-rail="true"
-    >
+    <CodexSidebarRail>
       <CodexSidebarTitlebar ariaLabel="Sidebar titlebar controls">
         <CodexSidebarTitlebarControl
           icon={<PanelLeft size={17} />}
@@ -267,6 +265,6 @@ export function AgentRail(props: AgentRailProps) {
           </div>
         ) : null}
       </CodexSidebarFooter>
-    </aside>
+    </CodexSidebarRail>
   );
 }

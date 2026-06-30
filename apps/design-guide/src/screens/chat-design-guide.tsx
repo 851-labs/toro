@@ -7,6 +7,7 @@ import {
   CodexSidebarFooter,
   CodexPermissionCard,
   CodexPlanDisclosure,
+  CodexSidebarRail,
   CodexSidebarRow,
   CodexSidebarSection,
   CodexSidebarTitlebar,
@@ -232,10 +233,7 @@ function SidebarGroups() {
       className="grid h-full min-h-[620px] grid-cols-[390px_minmax(0,1fr)] overflow-hidden bg-white"
       data-sidebar-story-shell="true"
     >
-      <aside
-        className="relative min-h-0 border-r border-zinc-200 bg-[#f7f8f8] px-3 py-4"
-        data-sidebar-story-rail="true"
-      >
+      <CodexSidebarRail className="relative px-3 py-4" story>
         <CodexSidebarTitlebar ariaLabel="Sidebar titlebar controls" className="-mx-3 -mt-4 mb-1">
           <CodexSidebarTitlebarControl icon={<PanelLeft size={17} />} label="Collapse sidebar" />
           <CodexSidebarTitlebarControl icon={<ChevronLeft size={18} />} label="Back" />
@@ -282,7 +280,7 @@ function SidebarGroups() {
           subtitle="Toro Demo / connected"
           title="Local host"
         />
-      </aside>
+      </CodexSidebarRail>
       <section className="grid min-h-0 grid-rows-[64px_1fr_auto] bg-white">
         <CodexChatHeader
           ariaLabel="Sidebar story chat header"

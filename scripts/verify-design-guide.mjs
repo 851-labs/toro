@@ -50,6 +50,7 @@ await page.getByRole("button", { exact: true, name: "Sidebar Groups" }).click();
 await expectPressed(page.getByRole("button", { exact: true, name: "Sidebar Groups" }));
 await page.getByText("Codex Sidebar Groups").waitFor({ timeout: 5_000 });
 await page.getByLabel("Sidebar titlebar controls").waitFor({ timeout: 5_000 });
+await assertSidebarStoryRail(page);
 await assertSidebarStoryTitlebar(page);
 await page.getByText("Verify the Toro ACP UI loop").waitFor({ timeout: 5_000 });
 await page.getByText("Composer context picker").waitFor({ timeout: 5_000 });
@@ -149,6 +150,15 @@ async function assertSidebarStoryWidth(page) {
     .evaluate((node) => node.getBoundingClientRect().width);
   if (width < 370 || width > 410) {
     throw new Error(`Design-guide sidebar story should match desktop rail width, got ${width}.`);
+  }
+}
+
+async function assertSidebarStoryRail(page) {
+  const rails = await page
+    .locator("[data-sidebar-story-rail='true'][data-sidebar-rail='true']")
+    .count();
+  if (rails !== 1) {
+    throw new Error(`Design-guide sidebar story should use one shared rail, got ${rails}.`);
   }
 }
 

@@ -9,6 +9,7 @@ export * from "./permission-card";
 export * from "./plan";
 export * from "./sidebar-command";
 export * from "./sidebar-footer";
+export * from "./sidebar-rail";
 export * from "./sidebar-row";
 export * from "./sidebar-section";
 export * from "./sidebar-titlebar";
