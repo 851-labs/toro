@@ -46,6 +46,8 @@
 - Message actions stills: `.artifacts/verification/2026-06-30T03-55-10-297Z/*.png`
 - Message actions design-guide capture: `.artifacts/verification/design-guide/2026-06-30T03-55-29-660Z/page@e362b4e3b886a2d3a9c1d968f1976295.webm`
 - Message actions design-guide stills: `.artifacts/verification/design-guide/2026-06-30T03-55-29-660Z/*.png`
+- Project add/search sidebar capture: `.artifacts/verification/2026-06-30T03-59-57-921Z/page@aab5bcb6a5a518787dd19c2d291207d7.webm`
+- Project add/search sidebar stills: `.artifacts/verification/2026-06-30T03-59-57-921Z/*.png`
 
 Manual verification:
 
@@ -68,6 +70,7 @@ Manual verification:
 - Confirmed completed tool calls carry ACP text content and expand to show deterministic command output.
 - Confirmed New chat, Add, and Send are only rendered as buttons when they can perform an action, and the UI verifier fails if any disabled button is present.
 - Confirmed completed assistant messages expose Codex-style copy, thumbs up, thumbs down, and expand controls, and each control changes visible state during verification.
+- Confirmed the sidebar no longer exposes a raw workspace path field by default, Add project opens a functional project path flow, and Search filters projects/chats with a visible no-match state.
 
 Automated verification:
 

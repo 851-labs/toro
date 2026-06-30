@@ -8,7 +8,15 @@ import {
 } from "@toro/domain";
 import type { AgentProfile, EnvironmentProfile, Session, Workspace } from "@toro/domain";
 import { Button, StatusBadge, cn } from "@toro/ui";
-import { CirclePlus, FolderOpen, Layers, MessageSquare, SlidersHorizontal } from "lucide-react";
+import {
+  CirclePlus,
+  FolderOpen,
+  FolderPlus,
+  Layers,
+  MessageSquare,
+  Search,
+  SlidersHorizontal,
+} from "lucide-react";
 import { useState } from "react";
 
 interface AgentRailProps {
@@ -33,8 +41,14 @@ interface AgentRailProps {
 }
 
 export function AgentRail(props: AgentRailProps) {
+  const [projectFormOpen, setProjectFormOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const [settingsOpen, setSettingsOpen] = useState(false);
-  const projectGroups = groupWorkspaces(props.workspaces, props.sessions);
+  const projectGroups = filterProjectGroups(
+    groupWorkspaces(props.workspaces, props.sessions),
+    searchQuery,
+  );
 
   return (
     <aside className="flex min-h-0 flex-col border-r border-zinc-200 bg-[#f2f5f5]/95">
@@ -62,27 +76,73 @@ export function AgentRail(props: AgentRailProps) {
             New chat
           </div>
         )}
+        <button
+          aria-expanded={searchOpen}
+          aria-label="Search"
+          className={cn(
+            "flex h-10 w-full items-center gap-3 rounded-xl px-3 text-left text-sm font-medium text-zinc-800 hover:bg-zinc-200/70",
+            searchOpen && "bg-zinc-200/70",
+          )}
+          onClick={() => setSearchOpen((open) => !open)}
+          type="button"
+        >
+          <Search size={17} />
+          Search
+        </button>
+        <button
+          aria-expanded={projectFormOpen}
+          aria-label="Add project"
+          className={cn(
+            "flex h-10 w-full items-center gap-3 rounded-xl px-3 text-left text-sm font-medium text-zinc-800 hover:bg-zinc-200/70",
+            projectFormOpen && "bg-zinc-200/70",
+          )}
+          onClick={() => setProjectFormOpen((open) => !open)}
+          type="button"
+        >
+          <FolderPlus size={17} />
+          Add project
+        </button>
       </div>
 
-      <div className="mt-3 border-t border-zinc-200/80 px-3 pt-3">
-        <div className="flex gap-2">
+      {searchOpen ? (
+        <div className="mt-3 border-t border-zinc-200/80 px-3 pt-3">
           <input
-            className="h-9 min-w-0 flex-1 rounded-xl border border-zinc-200 bg-white px-3 text-sm outline-none focus:border-zinc-400"
-            onChange={(event) => props.onWorkspacePathChange(event.target.value)}
-            placeholder="/path/to/workspace"
-            value={props.workspacePath}
+            aria-label="Search projects and chats"
+            className="h-9 w-full rounded-xl border border-zinc-200 bg-white px-3 text-sm outline-none placeholder:text-zinc-400 focus:border-zinc-400"
+            onChange={(event) => setSearchQuery(event.target.value)}
+            placeholder="Search projects and chats"
+            value={searchQuery}
           />
-          {props.workspacePath ? (
-            <Button
-              className="h-9 shrink-0"
-              icon={<FolderOpen size={15} />}
-              onClick={props.onOpenWorkspace}
-            >
-              Add
-            </Button>
-          ) : null}
         </div>
-      </div>
+      ) : null}
+
+      {projectFormOpen ? (
+        <form
+          className="mt-3 border-t border-zinc-200/80 px-3 pt-3"
+          onSubmit={(event) => {
+            event.preventDefault();
+            if (props.workspacePath) {
+              props.onOpenWorkspace();
+              setProjectFormOpen(false);
+            }
+          }}
+        >
+          <div className="flex gap-2">
+            <input
+              aria-label="Project path"
+              className="h-9 min-w-0 flex-1 rounded-xl border border-zinc-200 bg-white px-3 text-sm outline-none placeholder:text-zinc-400 focus:border-zinc-400"
+              onChange={(event) => props.onWorkspacePathChange(event.target.value)}
+              placeholder="/path/to/workspace"
+              value={props.workspacePath}
+            />
+            {props.workspacePath ? (
+              <Button className="h-9 shrink-0" icon={<FolderOpen size={15} />} type="submit">
+                Add
+              </Button>
+            ) : null}
+          </div>
+        </form>
+      ) : null}
 
       <div className="min-h-0 flex-1 overflow-auto px-3 pb-3 pt-4">
         <RailSection title="Projects">
@@ -100,7 +160,9 @@ export function AgentRail(props: AgentRailProps) {
               />
             ))
           ) : (
-            <div className="px-3 py-2 text-sm text-zinc-400">No projects</div>
+            <div className="px-3 py-2 text-sm text-zinc-400">
+              {props.workspaces.length > 0 ? "No matches" : "No projects"}
+            </div>
           )}
         </RailSection>
       </div>
@@ -235,6 +297,33 @@ interface ProjectGroupModel {
   readonly sessions: readonly Session[];
   readonly workspace: Workspace;
   readonly workspaceIds: readonly WorkspaceId[];
+}
+
+function filterProjectGroups(
+  groups: readonly ProjectGroupModel[],
+  query: string,
+): readonly ProjectGroupModel[] {
+  const normalizedQuery = query.trim().toLowerCase();
+  if (!normalizedQuery) {
+    return groups;
+  }
+
+  return groups
+    .map((group) => {
+      const projectMatches =
+        group.workspace.name.toLowerCase().includes(normalizedQuery) ||
+        group.workspace.path.toLowerCase().includes(normalizedQuery);
+      const sessions = group.sessions.filter((session) =>
+        session.title.toLowerCase().includes(normalizedQuery),
+      );
+      return projectMatches ? group : { ...group, sessions };
+    })
+    .filter((group) => {
+      const projectMatches =
+        group.workspace.name.toLowerCase().includes(normalizedQuery) ||
+        group.workspace.path.toLowerCase().includes(normalizedQuery);
+      return projectMatches || group.sessions.length > 0;
+    });
 }
 
 function groupWorkspaces(
