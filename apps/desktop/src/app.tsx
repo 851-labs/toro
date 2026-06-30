@@ -125,6 +125,7 @@ export function App() {
           onSelectEnvironment={setSelectedEnvironmentId}
           onSelectSession={selectSession}
           onSelectWorkspace={selectWorkspace}
+          onToggleSidebar={() => setSidebarOpen((open) => !open)}
           onWorkspacePathChange={setWorkspacePath}
         />
       ) : null}

@@ -82,6 +82,8 @@
 - Compact permission card stills: `.artifacts/verification/2026-06-30T05-05-38-110Z/*.png`
 - Compact permission card design-guide capture: `.artifacts/verification/design-guide/2026-06-30T05-06-39-871Z/page@3fef7405bbded6ac688a12e129ce14d4.webm`
 - Compact permission card design-guide stills: `.artifacts/verification/design-guide/2026-06-30T05-06-39-871Z/*.png`
+- Codex-like rail modes capture: `.artifacts/verification/2026-06-30T05-17-40-806Z/page@d815cead8d9cde6ed81f5dd1f687113c.webm`
+- Codex-like rail modes stills: `.artifacts/verification/2026-06-30T05-17-40-806Z/*.png`
 
 Manual verification:
 
@@ -116,6 +118,7 @@ Manual verification:
 - Confirmed the raw project path form is hidden by default and opens through a compact Projects action while preserving the project-open flow.
 - Confirmed the header sidebar icon is now a functional Codex-style toggle that hides and restores the sidebar during verification.
 - Confirmed permission requests use a compact shared chat primitive instead of the older amber alert card while keeping allow/reject actions functional.
+- Confirmed the sidebar now uses Codex-like traffic controls and functional Scheduled/Plugins rail modes, while project rows hide filesystem paths unless hovered.
 
 Automated verification:
 

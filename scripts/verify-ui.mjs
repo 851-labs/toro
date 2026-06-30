@@ -21,12 +21,13 @@ const context = await browser.newContext({
 const page = await context.newPage();
 
 await page.goto(appUrl, { waitUntil: "domcontentloaded" });
-await page.getByText("Toro").first().waitFor({ timeout: 5_000 });
+await page.getByRole("button", { exact: true, name: "Search" }).waitFor({ timeout: 5_000 });
 await assertDeadControlsRemoved(page);
 await assertPrimarySidebarSimplified(page);
 await assertProjectFormHidden(page);
 await assertOnlyFunctionalButtons(page);
 await assertHostSettingsToggle(page);
+await assertCodexRailModes(page);
 const composer = page.getByLabel("Message agent");
 await selectComposerOption(page, "Access mode", "Ask first");
 await selectComposerOption(page, "Model", "5.5 High");
@@ -46,6 +47,7 @@ await page.getByLabel("Project path").fill(workspacePath);
 await page.getByRole("button", { exact: true, name: "Open" }).click();
 await page.getByText("toro").first().waitFor({ timeout: 5_000 });
 await assertProjectFormHidden(page);
+await assertProjectPathHiddenInSidebar(page);
 await assertOnlyFunctionalButtons(page);
 await screenshot(page, "02-workspace-opened.png");
 await pause();
@@ -59,7 +61,7 @@ await screenshot(page, "03-search-filtered.png");
 await page.getByRole("button", { exact: true, name: "Search" }).click();
 await pause();
 
-await page.getByRole("button", { exact: true, name: "Session" }).click();
+await page.getByRole("button", { exact: true, name: "New chat" }).click();
 await page
   .getByText(/Toro Demo in/)
   .first()
@@ -192,6 +194,12 @@ async function assertProjectFormHidden(page) {
   }
 }
 
+async function assertProjectPathHiddenInSidebar(page) {
+  if ((await page.locator("aside").getByText(workspacePath, { exact: true }).count()) > 0) {
+    throw new Error("Sidebar project rows should not render the full filesystem path.");
+  }
+}
+
 async function assertPermissionCardIsCompact(page) {
   const permissionCard = page.locator("section").filter({ hasText: "Validate Toro permission UI" });
   const className = (await permissionCard.first().getAttribute("class")) ?? "";
@@ -212,6 +220,28 @@ async function assertSidebarToggle(page) {
   await toggle.click();
   await page.locator("aside").waitFor({ timeout: 5_000 });
   await page.getByText("Projects").waitFor({ timeout: 5_000 });
+}
+
+async function assertCodexRailModes(page) {
+  await page.getByRole("button", { exact: true, name: "Scheduled" }).click();
+  await expectPressed(page.getByRole("button", { exact: true, name: "Scheduled" }));
+  await page.getByText("No scheduled chats").waitFor({ timeout: 5_000 });
+  await assertOnlyFunctionalButtons(page);
+  await screenshot(page, "00-sidebar-scheduled.png");
+
+  await page.getByRole("button", { exact: true, name: "Plugins" }).click();
+  await expectPressed(page.getByRole("button", { exact: true, name: "Plugins" }));
+  await page.getByRole("button", { exact: true, name: "Select agent Toro Demo" }).waitFor({
+    timeout: 5_000,
+  });
+  await assertOnlyFunctionalButtons(page);
+  await screenshot(page, "00-sidebar-plugins.png");
+
+  await page.getByRole("button", { exact: true, name: "Search" }).click();
+  await page.getByLabel("Search projects and chats").waitFor({ timeout: 5_000 });
+  await page.getByRole("button", { exact: true, name: "Search" }).click();
+  await page.getByText("Projects").waitFor({ timeout: 5_000 });
+  await assertProjectFormHidden(page);
 }
 
 async function assertSidebarChatRowsAreNavigationOnly(page) {
@@ -251,10 +281,14 @@ function isKnownFunctionalButton(label, extraAllowedLabels) {
       "Open",
       "Open project",
       "Search",
+      "Scheduled",
+      "Plugins",
       "Send",
       "Stop",
       "Host settings",
       "Toggle sidebar",
+      "Collapse sidebar",
+      "New chat",
       "Copy message",
       "Copied message",
       "Good response",
@@ -266,7 +300,11 @@ function isKnownFunctionalButton(label, extraAllowedLabels) {
   ) {
     return true;
   }
-  return label.startsWith("Chat ") || label.startsWith(workspaceName);
+  return (
+    label.startsWith("Chat ") ||
+    label.startsWith("Select agent ") ||
+    label.startsWith(workspaceName)
+  );
 }
 
 async function expectPressed(locator) {

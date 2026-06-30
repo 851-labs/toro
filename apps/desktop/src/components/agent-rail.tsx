@@ -9,15 +9,27 @@ import {
 import type { AgentProfile, EnvironmentProfile, Session, Workspace } from "@toro/domain";
 import { Button, cn } from "@toro/ui";
 import {
-  CirclePlus,
+  Clock3,
   FolderOpen,
   FolderPlus,
-  Layers,
-  MessageSquare,
+  PanelLeft,
+  Plug,
   Search,
   SlidersHorizontal,
+  SquarePen,
 } from "lucide-react";
 import { useState } from "react";
+import {
+  filterProjectGroups,
+  groupWorkspaces,
+  NavButton,
+  PluginsView,
+  ProjectGroup,
+  RailSection,
+  ScheduledView,
+} from "./agent-rail-parts";
+
+type RailView = "plugins" | "projects" | "scheduled" | "search";
 
 interface AgentRailProps {
   readonly activeWorkspace: Workspace | null;
@@ -37,15 +49,17 @@ interface AgentRailProps {
   readonly onSelectEnvironment: (id: EnvironmentId) => void;
   readonly onSelectSession: (id: SessionId) => void;
   readonly onSelectWorkspace: (id: WorkspaceId) => void;
+  readonly onToggleSidebar: () => void;
   readonly onWorkspacePathChange: (path: string) => void;
 }
 
 export function AgentRail(props: AgentRailProps) {
+  const [activeView, setActiveView] = useState<RailView>("projects");
   const [projectFormOpen, setProjectFormOpen] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [settingsOpen, setSettingsOpen] = useState(false);
   const canOpenProject = props.workspacePath.trim().length > 0;
+  const searchOpen = activeView === "search";
   const projectGroups = filterProjectGroups(
     groupWorkspaces(props.workspaces, props.sessions),
     searchQuery,
@@ -53,116 +67,142 @@ export function AgentRail(props: AgentRailProps) {
 
   return (
     <aside className="flex min-h-0 flex-col border-r border-zinc-200 bg-[#f2f5f5]/95">
-      <div className="flex h-16 items-center gap-2 px-5">
-        <div className="flex size-7 items-center justify-center rounded-full bg-zinc-950 text-sm font-semibold text-white">
-          T
+      <div className="flex h-14 items-center justify-between px-5">
+        <div aria-hidden="true" className="flex items-center gap-2">
+          <span className="size-3 rounded-full bg-[#ff5f57]" />
+          <span className="size-3 rounded-full bg-[#ffbd2e]" />
+          <span className="size-3 rounded-full bg-[#28c840]" />
         </div>
-        <div className="font-semibold">Toro</div>
+        <button
+          aria-label="Collapse sidebar"
+          className="flex size-8 items-center justify-center rounded-lg text-zinc-500 hover:bg-zinc-200/70 hover:text-zinc-900"
+          onClick={props.onToggleSidebar}
+          type="button"
+        >
+          <PanelLeft size={17} />
+        </button>
       </div>
 
       <div className="space-y-1 px-3">
         {props.activeWorkspace ? (
           <button
-            aria-label="Session"
+            aria-label="New chat"
             className="flex h-10 w-full items-center gap-3 rounded-xl px-3 text-left text-sm font-medium text-zinc-800 hover:bg-zinc-200/70"
-            onClick={props.onCreateSession}
+            onClick={() => {
+              setActiveView("projects");
+              props.onCreateSession();
+            }}
             type="button"
           >
-            <CirclePlus size={17} />
+            <SquarePen size={17} />
             New chat
           </button>
         ) : (
           <div className="flex h-10 w-full items-center gap-3 rounded-xl px-3 text-left text-sm font-medium text-zinc-400">
-            <CirclePlus size={17} />
+            <SquarePen size={17} />
             New chat
           </div>
         )}
-        <button
-          aria-expanded={searchOpen}
-          aria-label="Search"
-          className={cn(
-            "flex h-10 w-full items-center gap-3 rounded-xl px-3 text-left text-sm font-medium text-zinc-800 hover:bg-zinc-200/70",
-            searchOpen && "bg-zinc-200/70",
-          )}
-          onClick={() => setSearchOpen((open) => !open)}
-          type="button"
-        >
-          <Search size={17} />
-          Search
-        </button>
+        <NavButton
+          active={searchOpen}
+          icon={<Search size={17} />}
+          label="Search"
+          onClick={() => setActiveView((view) => (view === "search" ? "projects" : "search"))}
+        />
+        <NavButton
+          active={activeView === "scheduled"}
+          icon={<Clock3 size={17} />}
+          label="Scheduled"
+          onClick={() => setActiveView("scheduled")}
+        />
+        <NavButton
+          active={activeView === "plugins"}
+          icon={<Plug size={17} />}
+          label="Plugins"
+          onClick={() => setActiveView("plugins")}
+        />
       </div>
 
-      {searchOpen ? (
-        <div className="mt-3 border-t border-zinc-200/80 px-3 pt-3">
-          <input
-            aria-label="Search projects and chats"
-            className="h-9 w-full rounded-xl border border-zinc-200 bg-white px-3 text-sm outline-none placeholder:text-zinc-400 focus:border-zinc-400"
-            onChange={(event) => setSearchQuery(event.target.value)}
-            placeholder="Search projects and chats"
-            value={searchQuery}
-          />
-        </div>
-      ) : null}
-
       <div className="min-h-0 flex-1 overflow-auto px-3 pb-3 pt-4">
-        <RailSection
-          actionIcon={<FolderPlus size={15} />}
-          actionLabel="Open project"
-          actionPressed={projectFormOpen}
-          title="Projects"
-          onAction={() => setProjectFormOpen((open) => !open)}
-        >
-          {projectFormOpen ? (
-            <form
-              className="mb-2"
-              onSubmit={(event) => {
-                event.preventDefault();
-                if (canOpenProject) {
-                  props.onOpenWorkspace();
-                  setProjectFormOpen(false);
-                }
-              }}
-            >
-              <div className="flex gap-2">
+        {activeView === "scheduled" ? (
+          <ScheduledView />
+        ) : activeView === "plugins" ? (
+          <PluginsView
+            agents={props.agents}
+            selectedAgentId={props.selectedAgentId}
+            onSelectAgent={props.onSelectAgent}
+          />
+        ) : (
+          <RailSection
+            actionIcon={<FolderPlus size={15} />}
+            actionLabel="Open project"
+            actionPressed={projectFormOpen}
+            title="Projects"
+            onAction={() => setProjectFormOpen((open) => !open)}
+          >
+            {searchOpen ? (
+              <div className="mb-3">
                 <input
-                  aria-label="Project path"
-                  className="h-9 min-w-0 flex-1 rounded-xl border border-zinc-200 bg-white px-3 text-sm outline-none placeholder:text-zinc-400 focus:border-zinc-400"
-                  onChange={(event) => props.onWorkspacePathChange(event.target.value)}
-                  placeholder="/path/to/workspace"
-                  value={props.workspacePath}
+                  aria-label="Search projects and chats"
+                  className="h-9 w-full rounded-xl border border-zinc-200 bg-white px-3 text-sm outline-none placeholder:text-zinc-400 focus:border-zinc-400"
+                  onChange={(event) => setSearchQuery(event.target.value)}
+                  placeholder="Search projects and chats"
+                  value={searchQuery}
                 />
-                {canOpenProject ? (
-                  <Button className="h-9 shrink-0" icon={<FolderOpen size={15} />} type="submit">
-                    Open
-                  </Button>
-                ) : (
-                  <span className="inline-flex h-9 shrink-0 items-center gap-2 rounded-xl border border-zinc-200 bg-white px-3 text-sm font-medium text-zinc-400">
-                    <FolderOpen size={15} />
-                    Open
-                  </span>
-                )}
               </div>
-            </form>
-          ) : null}
-          {projectGroups.length > 0 ? (
-            projectGroups.map((group) => (
-              <ProjectGroup
-                activeSessionId={props.activeSessionId}
-                activeWorkspaceId={props.activeWorkspace?.id ?? null}
-                key={`${group.workspace.environmentId}:${group.workspace.path}`}
-                sessions={group.sessions}
-                workspace={group.workspace}
-                workspaceIds={group.workspaceIds}
-                onSelectSession={props.onSelectSession}
-                onSelectWorkspace={props.onSelectWorkspace}
-              />
-            ))
-          ) : (
-            <div className="px-3 py-2 text-sm text-zinc-400">
-              {props.workspaces.length > 0 ? "No matches" : "No projects"}
-            </div>
-          )}
-        </RailSection>
+            ) : null}
+            {projectFormOpen ? (
+              <form
+                className="mb-2"
+                onSubmit={(event) => {
+                  event.preventDefault();
+                  if (canOpenProject) {
+                    props.onOpenWorkspace();
+                    setProjectFormOpen(false);
+                  }
+                }}
+              >
+                <div className="flex gap-2">
+                  <input
+                    aria-label="Project path"
+                    className="h-9 min-w-0 flex-1 rounded-xl border border-zinc-200 bg-white px-3 text-sm outline-none placeholder:text-zinc-400 focus:border-zinc-400"
+                    onChange={(event) => props.onWorkspacePathChange(event.target.value)}
+                    placeholder="/path/to/workspace"
+                    value={props.workspacePath}
+                  />
+                  {canOpenProject ? (
+                    <Button className="h-9 shrink-0" icon={<FolderOpen size={15} />} type="submit">
+                      Open
+                    </Button>
+                  ) : (
+                    <span className="inline-flex h-9 shrink-0 items-center gap-2 rounded-xl border border-zinc-200 bg-white px-3 text-sm font-medium text-zinc-400">
+                      <FolderOpen size={15} />
+                      Open
+                    </span>
+                  )}
+                </div>
+              </form>
+            ) : null}
+            {projectGroups.length > 0 ? (
+              projectGroups.map((group) => (
+                <ProjectGroup
+                  activeSessionId={props.activeSessionId}
+                  activeWorkspaceId={props.activeWorkspace?.id ?? null}
+                  key={`${group.workspace.environmentId}:${group.workspace.path}`}
+                  sessions={group.sessions}
+                  workspace={group.workspace}
+                  workspaceIds={group.workspaceIds}
+                  onSelectSession={props.onSelectSession}
+                  onSelectWorkspace={props.onSelectWorkspace}
+                />
+              ))
+            ) : (
+              <div className="px-3 py-2 text-sm text-zinc-400">
+                {props.workspaces.length > 0 ? "No matches" : "No projects"}
+              </div>
+            )}
+          </RailSection>
+        )}
       </div>
 
       {props.error ? (
@@ -235,197 +275,5 @@ export function AgentRail(props: AgentRailProps) {
         </div>
       </div>
     </aside>
-  );
-}
-
-function ProjectGroup({
-  activeSessionId,
-  activeWorkspaceId,
-  sessions,
-  workspace,
-  workspaceIds,
-  onSelectSession,
-  onSelectWorkspace,
-}: {
-  readonly activeSessionId: SessionId | null;
-  readonly activeWorkspaceId: WorkspaceId | null;
-  readonly sessions: readonly Session[];
-  readonly workspace: Workspace;
-  readonly workspaceIds: readonly WorkspaceId[];
-  readonly onSelectSession: (id: SessionId) => void;
-  readonly onSelectWorkspace: (id: WorkspaceId) => void;
-}) {
-  return (
-    <div className="space-y-1">
-      <RailButton
-        active={activeWorkspaceId ? workspaceIds.includes(activeWorkspaceId) : false}
-        icon={<Layers size={16} />}
-        label={workspace.name}
-        meta={workspace.path}
-        onClick={() => onSelectWorkspace(workspace.id)}
-      />
-      <div className="ml-6 space-y-1 border-l border-zinc-200 pl-2">
-        {sessions.length > 0 ? (
-          sessions.map((session) => (
-            <button
-              aria-label={`Chat ${session.title}`}
-              className={cn(
-                "flex min-h-9 w-full items-center gap-2 rounded-xl px-2 py-1.5 text-left text-sm hover:bg-zinc-200/70",
-                activeSessionId === session.id && "bg-zinc-200 text-zinc-950",
-              )}
-              key={session.id}
-              onClick={() => onSelectSession(session.id)}
-            >
-              <MessageSquare size={14} className="shrink-0 text-zinc-500" />
-              <span className="min-w-0 flex-1 truncate font-medium text-zinc-800">
-                {session.title}
-              </span>
-            </button>
-          ))
-        ) : (
-          <div className="px-2 py-1.5 text-sm text-zinc-400">No chats</div>
-        )}
-      </div>
-    </div>
-  );
-}
-
-interface ProjectGroupModel {
-  readonly sessions: readonly Session[];
-  readonly workspace: Workspace;
-  readonly workspaceIds: readonly WorkspaceId[];
-}
-
-function filterProjectGroups(
-  groups: readonly ProjectGroupModel[],
-  query: string,
-): readonly ProjectGroupModel[] {
-  const normalizedQuery = query.trim().toLowerCase();
-  if (!normalizedQuery) {
-    return groups;
-  }
-
-  return groups
-    .map((group) => {
-      const projectMatches =
-        group.workspace.name.toLowerCase().includes(normalizedQuery) ||
-        group.workspace.path.toLowerCase().includes(normalizedQuery);
-      const sessions = group.sessions.filter((session) =>
-        session.title.toLowerCase().includes(normalizedQuery),
-      );
-      return projectMatches ? group : { ...group, sessions };
-    })
-    .filter((group) => {
-      const projectMatches =
-        group.workspace.name.toLowerCase().includes(normalizedQuery) ||
-        group.workspace.path.toLowerCase().includes(normalizedQuery);
-      return projectMatches || group.sessions.length > 0;
-    });
-}
-
-function groupWorkspaces(
-  workspaces: readonly Workspace[],
-  sessions: readonly Session[],
-): readonly ProjectGroupModel[] {
-  const groups = new Map<
-    string,
-    { sessions: Session[]; workspace: Workspace; workspaceIds: WorkspaceId[] }
-  >();
-  for (const workspace of workspaces) {
-    const key = `${workspace.environmentId}:${workspace.path}`;
-    const existing = groups.get(key);
-    if (existing) {
-      existing.workspaceIds.push(workspace.id);
-    } else {
-      groups.set(key, { sessions: [], workspace, workspaceIds: [workspace.id] });
-    }
-  }
-
-  for (const session of sessions) {
-    const group = Array.from(groups.values()).find((candidate) =>
-      candidate.workspaceIds.includes(session.workspaceId),
-    );
-    group?.sessions.push(session);
-  }
-
-  return Array.from(groups.values());
-}
-
-function RailSection({
-  actionIcon,
-  actionLabel,
-  actionPressed,
-  title,
-  onAction,
-  children,
-}: {
-  readonly actionIcon?: React.ReactNode;
-  readonly actionLabel?: string;
-  readonly actionPressed?: boolean;
-  readonly title: string;
-  readonly onAction?: () => void;
-  readonly children: React.ReactNode;
-}) {
-  return (
-    <section className="mb-5">
-      <div className="mb-1 flex items-center justify-between px-3">
-        <h2 className="text-sm font-medium text-zinc-400">{title}</h2>
-        {onAction && actionLabel ? (
-          <button
-            aria-label={actionLabel}
-            aria-pressed={actionPressed}
-            className={cn(
-              "flex size-7 items-center justify-center rounded-full text-zinc-400 hover:bg-zinc-200/70 hover:text-zinc-700",
-              actionPressed && "bg-zinc-200 text-zinc-800",
-            )}
-            onClick={onAction}
-            type="button"
-          >
-            {actionIcon}
-          </button>
-        ) : null}
-      </div>
-      <div className="space-y-1">{children}</div>
-    </section>
-  );
-}
-
-function RailButton(props: {
-  readonly active?: boolean;
-  readonly disabled?: boolean;
-  readonly icon: React.ReactNode;
-  readonly label: string;
-  readonly meta?: string;
-  readonly onClick: () => void;
-}) {
-  const className = cn(
-    "flex min-h-11 w-full items-center gap-3 rounded-xl px-3 py-2 text-left text-sm",
-    props.disabled ? "cursor-default opacity-45" : "hover:bg-zinc-200/70",
-    props.active && "bg-zinc-200 text-zinc-950",
-  );
-  const content = (
-    <>
-      <span className="text-zinc-500">{props.icon}</span>
-      <span className="min-w-0 flex-1">
-        <span className="block truncate font-medium">{props.label}</span>
-        {props.meta ? (
-          <span className="block truncate text-xs text-zinc-400">{props.meta}</span>
-        ) : null}
-      </span>
-    </>
-  );
-
-  if (props.disabled) {
-    return (
-      <div aria-disabled="true" className={className}>
-        {content}
-      </div>
-    );
-  }
-
-  return (
-    <button className={className} onClick={props.onClick}>
-      {content}
-    </button>
   );
 }
