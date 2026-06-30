@@ -68,7 +68,11 @@ export function ChatDesignGuide() {
           <h1 className="text-lg font-semibold">{viewTitle(activeView)}</h1>
           <StatusBadge label="reference" tone="neutral" />
         </header>
-        <div className="min-h-0 overflow-auto px-8 py-8">
+        <div
+          className={
+            activeView === "sidebar" ? "min-h-0 overflow-hidden" : "min-h-0 overflow-auto px-8 py-8"
+          }
+        >
           {activeView === "chat" ? (
             <ChatElements
               permissionDecision={permissionDecision}
@@ -209,10 +213,15 @@ const planEntries = [
 ];
 
 function SidebarGroups() {
+  const [value, setValue] = useState("");
+
   return (
-    <div className="mx-auto grid max-w-5xl grid-cols-[390px_minmax(0,1fr)] overflow-hidden rounded-lg border border-zinc-200 bg-white">
+    <div
+      className="grid h-full min-h-[620px] grid-cols-[390px_minmax(0,1fr)] overflow-hidden bg-white"
+      data-sidebar-story-shell="true"
+    >
       <aside
-        className="relative min-h-[620px] border-r border-zinc-200 bg-[#f7f8f8] px-3 py-4"
+        className="relative min-h-0 border-r border-zinc-200 bg-[#f7f8f8] px-3 py-4"
         data-sidebar-story-rail="true"
       >
         <div className="mb-5 flex h-8 items-center gap-3 px-2">
@@ -275,9 +284,27 @@ function SidebarGroups() {
           </span>
         </div>
       </aside>
-      <div className="flex items-center justify-center text-2xl font-medium tracking-tight">
-        What should we build in toro?
-      </div>
+      <section className="grid min-h-0 grid-rows-[1fr_auto] bg-white">
+        <div className="min-h-0 overflow-hidden px-6 py-8">
+          <CodexTranscriptSurface className="h-full justify-end pb-16">
+            <CodexEmptyState placement="composer" workspaceName="toro" />
+          </CodexTranscriptSurface>
+        </div>
+        <CodexComposer
+          accessLabel="Ask first"
+          canSend={value.trim().length > 0}
+          contextStrip={{
+            branchLabel: "main",
+            environmentLabel: "Work locally",
+            projectLabel: "toro",
+          }}
+          modelLabel="5.5 High"
+          onChange={setValue}
+          onSubmit={() => setValue("")}
+          placeholder="Do anything"
+          value={value}
+        />
+      </section>
     </div>
   );
 }

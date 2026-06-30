@@ -52,6 +52,10 @@ await page.getByText("Codex Sidebar Groups").waitFor({ timeout: 5_000 });
 await page.getByLabel("Sidebar titlebar controls").waitFor({ timeout: 5_000 });
 await page.getByText("Verify the Toro ACP UI loop").waitFor({ timeout: 5_000 });
 await page.getByText("Composer context picker").waitFor({ timeout: 5_000 });
+await page
+  .getByRole("heading", { exact: true, name: "What should we build in toro?" })
+  .waitFor({ timeout: 5_000 });
+await assertSidebarStoryShell(page);
 await assertSidebarStoryWidth(page);
 await screenshot(page, "04-sidebar-groups.png");
 await pause();
@@ -139,6 +143,14 @@ async function assertSidebarStoryWidth(page) {
     .evaluate((node) => node.getBoundingClientRect().width);
   if (width < 370 || width > 410) {
     throw new Error(`Design-guide sidebar story should match desktop rail width, got ${width}.`);
+  }
+}
+
+async function assertSidebarStoryShell(page) {
+  const className =
+    (await page.locator("[data-sidebar-story-shell='true']").getAttribute("class")) ?? "";
+  if (className.includes("rounded") || className.includes("border ")) {
+    throw new Error("Design-guide sidebar story should render as an unframed app shell.");
   }
 }
 
