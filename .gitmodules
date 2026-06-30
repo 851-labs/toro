@@ -1,6 +1,3 @@
-[submodule ".repos/tokenmaxxing"]
-	path = .repos/tokenmaxxing
-	url = https://github.com/851-labs/tokenmaxxing.git
 [submodule ".repos/acp-typescript-sdk"]
 	path = .repos/acp-typescript-sdk
 	url = https://github.com/agentclientprotocol/typescript-sdk.git
