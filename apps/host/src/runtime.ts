@@ -1,3 +1,4 @@
+import { spawn } from "node:child_process";
 import { AcpAgentSession } from "@toro/acp";
 import { agentPresets, environmentPresets } from "@toro/config";
 import {
@@ -9,6 +10,7 @@ import {
   workspaceId,
   type AgentId,
   type EnvironmentId,
+  type ExternalOpenTarget,
   type HostCatalog,
   type HostEvent,
   type PermissionRequestId,
@@ -21,9 +23,15 @@ import { EnvironmentRegistry } from "@toro/environments";
 import type { FileTreeEntry } from "@toro/environments";
 
 type Listener = (event: HostEvent) => void;
+type ExternalLauncher = (command: string, args: readonly string[]) => void;
+
+interface HostRuntimeOptions {
+  readonly launchExternal?: ExternalLauncher;
+}
 
 export class HostRuntime {
   private readonly environments = new EnvironmentRegistry();
+  private readonly launchExternal: ExternalLauncher;
   private readonly listeners = new Set<Listener>();
   private readonly sessions = new Map<SessionId, AcpAgentSession>();
   private state: ToroState = applyHostEvent(emptyToroState, {
@@ -31,6 +39,10 @@ export class HostRuntime {
     environments: environmentPresets,
     type: "catalog_loaded",
   });
+
+  constructor(options: HostRuntimeOptions = {}) {
+    this.launchExternal = options.launchExternal ?? launchExternalProcess;
+  }
 
   listCatalog(): HostCatalog {
     return { agents: this.state.agents, environments: this.state.environments };
@@ -73,6 +85,12 @@ export class HostRuntime {
   async readTextFile(workspaceIdValue: WorkspaceId, path: string): Promise<string> {
     const workspace = this.requireWorkspace(workspaceIdValue);
     return this.environments.get(workspace.environmentId).readTextFile(workspace, path);
+  }
+
+  openWorkspaceExternal(workspaceIdValue: WorkspaceId, target: ExternalOpenTarget): void {
+    const workspace = this.requireWorkspace(workspaceIdValue);
+    const command = externalOpenCommand(workspace.path, target);
+    this.launchExternal(command.command, command.args);
   }
 
   async createSession(input: {
@@ -209,6 +227,30 @@ export class HostRuntime {
     }
     return session;
   }
+}
+
+function externalOpenCommand(
+  path: string,
+  target: ExternalOpenTarget,
+): { readonly args: readonly string[]; readonly command: string } {
+  if (process.platform === "darwin") {
+    return target === "vscode"
+      ? { args: ["-a", "Visual Studio Code", path], command: "open" }
+      : { args: [path], command: "open" };
+  }
+  if (process.platform === "win32") {
+    return target === "vscode"
+      ? { args: ["/c", "start", "", "code", path], command: "cmd" }
+      : { args: [path], command: "explorer" };
+  }
+  return target === "vscode"
+    ? { args: [path], command: "code" }
+    : { args: [path], command: "xdg-open" };
+}
+
+function launchExternalProcess(command: string, args: readonly string[]): void {
+  const child = spawn(command, [...args], { detached: true, stdio: "ignore" });
+  child.unref();
 }
 
 function errorMessage(error: unknown): string {

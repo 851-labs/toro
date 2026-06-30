@@ -34,6 +34,9 @@ export function routeRequest(runtime: HostRuntime, request: Request): Response |
     if (request.method === "POST" && url.pathname === "/api/workspaces") {
       return openWorkspace(runtime, request);
     }
+    if (request.method === "POST" && url.pathname.endsWith("/open")) {
+      return openWorkspaceExternal(runtime, url.pathname, request);
+    }
     if (request.method === "POST" && url.pathname === "/api/sessions") {
       return createSession(runtime, request);
     }
@@ -69,6 +72,16 @@ async function openWorkspace(runtime: HostRuntime, request: Request): Promise<Re
   return json(
     await runtime.openWorkspace(body.path, environmentId(body.environmentId ?? "local-desktop")),
   );
+}
+
+async function openWorkspaceExternal(runtime: HostRuntime, pathname: string, request: Request) {
+  const id = workspaceId(pathname.split("/").at(-2) ?? "");
+  const body = (await request.json()) as { target?: string };
+  if (body.target !== "finder" && body.target !== "vscode") {
+    return json({ error: "target must be finder or vscode" }, 400);
+  }
+  runtime.openWorkspaceExternal(id, body.target);
+  return json({ ok: true });
 }
 
 async function createSession(runtime: HostRuntime, request: Request): Promise<Response> {

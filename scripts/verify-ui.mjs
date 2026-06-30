@@ -50,6 +50,7 @@ await assertProjectFormHidden(page);
 await assertProjectPathHiddenInSidebar(page);
 await assertComposerFooterIsCodexCompact(page);
 await assertComposerContextPicker(page);
+await assertOpenInMenu(page);
 await assertOnlyFunctionalButtons(page);
 await screenshot(page, "02-workspace-opened.png");
 await pause();
@@ -172,7 +173,6 @@ async function pause() {
 
 async function assertDeadControlsRemoved(page) {
   const deadButtons = [
-    "Open in",
     "Chat settings",
     "Toggle preview",
     "Dictate",
@@ -329,6 +329,21 @@ async function assertHeaderActions(page) {
   await page.getByRole("button", { exact: true, name: "More chat actions" }).click();
 }
 
+async function assertOpenInMenu(page) {
+  await page.getByRole("button", { exact: true, name: "Open in" }).click();
+  await page.getByRole("button", { exact: true, name: "Open in VS Code" }).waitFor({
+    timeout: 5_000,
+  });
+  await page.getByRole("button", { exact: true, name: "Reveal in Finder" }).waitFor({
+    timeout: 5_000,
+  });
+  await page.getByRole("button", { exact: true, name: "Copy workspace path" }).click();
+  await page.getByText("Copied workspace path").waitFor({ timeout: 5_000 });
+  await assertOnlyFunctionalButtons(page);
+  await screenshot(page, "02-open-in-menu.png");
+  await page.getByRole("button", { exact: true, name: "Open in" }).click();
+}
+
 async function assertSidebarChatRowsAreNavigationOnly(page) {
   const chatRows = await page
     .locator("aside button[aria-label^='Chat ']")
@@ -363,7 +378,10 @@ function isKnownFunctionalButton(label, extraAllowedLabels) {
   if (
     [
       "Open",
+      "Open in",
+      "Open in VS Code",
       "Open project",
+      "Reveal in Finder",
       "Search",
       "Send",
       "Stop",

@@ -122,6 +122,10 @@
 - Chronological transcript stills: `.artifacts/verification/2026-06-30T07-17-21-922Z/*.png`
 - Chronological transcript design-guide regression capture: `.artifacts/verification/design-guide/2026-06-30T07-17-34-385Z/page@e2d99f5ecdfab71dd89df65a235ab048.webm`
 - Chronological transcript design-guide regression stills: `.artifacts/verification/design-guide/2026-06-30T07-17-34-385Z/*.png`
+- Functional Open in header capture: `.artifacts/verification/2026-06-30T07-23-30-079Z/page@d3be2b3fe583cb53b6a02c0ad69852af.webm`
+- Functional Open in header stills: `.artifacts/verification/2026-06-30T07-23-30-079Z/*.png`
+- Functional Open in design-guide regression capture: `.artifacts/verification/design-guide/2026-06-30T07-23-43-167Z/page@b6c73f19cfbde96abd5fe97d02a42e8b.webm`
+- Functional Open in design-guide regression stills: `.artifacts/verification/design-guide/2026-06-30T07-23-43-167Z/*.png`
 
 Manual verification:
 
@@ -169,6 +173,7 @@ Manual verification:
 - Confirmed the shared composer send affordance uses a Codex-like upward arrow instead of the previous paper-plane icon in both desktop and the design guide.
 - Confirmed the sidebar footer now matches the Codex account row more closely with a compact host pill while preserving agent and environment switching through Host settings.
 - Confirmed desktop transcript items now render chronologically by event time so the user prompt, thinking, tool call, and assistant response read as a Codex-like stream instead of separate content buckets.
+- Confirmed the Codex-like `Open in` header control is restored as a functional Host API menu for VS Code, Finder, and workspace path copy instead of an inert placeholder.
 
 Automated verification:
 

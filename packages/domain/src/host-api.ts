@@ -25,11 +25,21 @@ export interface PermissionDecisionRequest {
   readonly optionId: string;
 }
 
+export type ExternalOpenTarget = "finder" | "vscode";
+
+export interface OpenWorkspaceExternalRequest {
+  readonly target: ExternalOpenTarget;
+}
+
 export interface HostApi {
   listCatalog(): Promise<HostCatalog>;
   listWorkspaces(): Promise<readonly Workspace[]>;
   getState(): Promise<ToroState>;
   openWorkspace(request: OpenWorkspaceRequest): Promise<Workspace>;
+  openWorkspaceExternal(
+    workspaceId: WorkspaceId,
+    request: OpenWorkspaceExternalRequest,
+  ): Promise<void>;
   createSession(request: CreateSessionRequest): Promise<{ readonly sessionId: SessionId }>;
   sendUserMessage(sessionId: SessionId, request: SendMessageRequest): Promise<void>;
   respondToPermission(

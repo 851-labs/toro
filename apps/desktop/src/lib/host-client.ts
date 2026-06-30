@@ -1,6 +1,7 @@
 import type {
   AgentId,
   EnvironmentId,
+  ExternalOpenTarget,
   HostCatalog,
   HostEvent,
   PermissionRequestId,
@@ -26,6 +27,10 @@ export class HttpHostClient {
 
   openWorkspace(path: string, environmentId: EnvironmentId): Promise<Workspace> {
     return this.post("/api/workspaces", { environmentId, path });
+  }
+
+  openWorkspaceExternal(workspaceId: WorkspaceId, target: ExternalOpenTarget): Promise<void> {
+    return this.post(`/api/workspaces/${workspaceId}/open`, { target });
   }
 
   listFiles(workspaceId: WorkspaceId): Promise<readonly FileTreeEntry[]> {

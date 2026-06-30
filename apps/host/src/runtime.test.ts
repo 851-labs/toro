@@ -12,6 +12,19 @@ describe("HostRuntime", () => {
     expect(runtime.getState().workspaces).toHaveLength(1);
   });
 
+  it("opens a workspace through an injected external launcher", async () => {
+    const launched: Array<{ readonly args: readonly string[]; readonly command: string }> = [];
+    const runtime = new HostRuntime({
+      launchExternal: (command, args) => launched.push({ args, command }),
+    });
+    const workspace = await runtime.openWorkspace(process.cwd(), environmentId("local-desktop"));
+
+    runtime.openWorkspaceExternal(workspace.id, "vscode");
+
+    expect(launched).toHaveLength(1);
+    expect(launched[0]?.args).toContain(workspace.path);
+  });
+
   it("runs the deterministic demo ACP agent flow", async () => {
     const runtime = new HostRuntime();
     const workspace = await runtime.openWorkspace(process.cwd(), environmentId("local-desktop"));

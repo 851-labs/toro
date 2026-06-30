@@ -12,6 +12,7 @@ import { useMemo, useState } from "react";
 import { AgentRail } from "./components/agent-rail";
 import { ChatHeaderActions } from "./components/chat-header-actions";
 import { ChatPanel } from "./components/chat-panel";
+import { OpenInMenu } from "./components/open-in-menu";
 import { hostClient } from "./lib/host-client";
 import { useHostState } from "./lib/use-host-state";
 
@@ -161,6 +162,9 @@ export function App() {
               />
             </div>
             <div className="flex items-center gap-2 text-sm text-zinc-500">
+              {activeWorkspace ? (
+                <OpenInMenu workspaceId={activeWorkspace.id} workspacePath={activeWorkspace.path} />
+              ) : null}
               {isLoading ? <RefreshCw className="animate-spin" size={16} /> : null}
             </div>
           </header>
