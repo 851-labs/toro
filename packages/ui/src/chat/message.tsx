@@ -32,6 +32,7 @@ export function CodexChatMessage({ children, copyText, isStreaming, role }: Code
     <article
       className={cn("group flex", isUser ? "justify-end" : "justify-start")}
       data-chat-message="true"
+      data-chat-message-role={role}
     >
       <div
         className={cn(
@@ -39,9 +40,10 @@ export function CodexChatMessage({ children, copyText, isStreaming, role }: Code
           isUser
             ? "max-w-[82%] items-end"
             : expanded
-              ? "max-w-[92%] items-start"
-              : "max-w-[72%] items-start",
+              ? "max-w-[96%] items-start"
+              : "max-w-[88%] items-start",
         )}
+        data-chat-message-shell="true"
       >
         <div
           className={cn(

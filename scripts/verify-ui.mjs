@@ -1,6 +1,7 @@
 import { chromium } from "@playwright/test";
 import { mkdir, readdir } from "node:fs/promises";
 import { basename, resolve } from "node:path";
+import { assertSharedChatMessages } from "./verify-ui-chat-helpers.mjs";
 import { createVerifyUiHelpers } from "./verify-ui-helpers.mjs";
 
 const appUrl = process.env.TORO_APP_URL ?? "http://127.0.0.1:1420";
@@ -333,13 +334,6 @@ async function assertSharedPermissionElements(page) {
 async function assertSharedToolCall(toolCall) {
   if ((await toolCall.getAttribute("data-tool-call")) !== "true") {
     throw new Error("Desktop tool calls should use the shared Codex tool-call primitive.");
-  }
-}
-
-async function assertSharedChatMessages(page) {
-  const messages = await page.locator("[data-chat-message='true']").count();
-  if (messages < 1) {
-    throw new Error("Desktop transcript should use shared Codex chat message primitives.");
   }
 }
 
