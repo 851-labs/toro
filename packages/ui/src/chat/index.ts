@@ -7,6 +7,7 @@ export * from "./message-action";
 export * from "./permission-action";
 export * from "./permission-card";
 export * from "./plan";
+export * from "./sidebar-avatar";
 export * from "./sidebar-command";
 export * from "./sidebar-command-group";
 export * from "./sidebar-content";

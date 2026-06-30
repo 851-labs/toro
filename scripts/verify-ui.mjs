@@ -287,9 +287,10 @@ async function assertStreamingCursorAnimated(locator) {
 async function assertSidebarFooterShared(page) {
   const footer = page.locator("[data-sidebar-rail='true'] [data-sidebar-footer='true']");
   const footers = await footer.count();
-  if (footers !== 1) {
+  if (footers !== 1)
     throw new Error(`Desktop sidebar should use one shared footer, got ${footers}.`);
-  }
+  if ((await footer.locator("[data-sidebar-avatar='true']").textContent()) !== "T")
+    throw new Error("Desktop sidebar footer should use the shared initial avatar.");
   await footer.getByText("Local host", { exact: true }).waitFor({ timeout: 5_000 });
   await footer.getByText("connected", { exact: true }).waitFor({ timeout: 5_000 });
   if ((await footer.getByText("Toro Demo", { exact: true }).count()) > 0) {

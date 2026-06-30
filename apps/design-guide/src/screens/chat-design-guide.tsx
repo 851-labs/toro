@@ -7,6 +7,7 @@ import {
   CodexEmptyState,
   CodexChatHeader,
   CodexSidebarFooter,
+  CodexSidebarAvatar,
   CodexPermissionCard,
   CodexPlanDisclosure,
   CodexSidebarRail,
@@ -280,12 +281,7 @@ function SidebarGroups() {
               <Smartphone size={16} />
             </span>
           }
-          avatar={
-            <div
-              aria-hidden="true"
-              className="size-9 rounded-full bg-[conic-gradient(from_210deg,#28d6a6,#3b82f6,#7c3aed,#ef4444,#f59e0b,#28d6a6)] shadow-inner"
-            />
-          }
+          avatar={<CodexSidebarAvatar>T</CodexSidebarAvatar>}
           subtitle="connected"
           title="Local host"
         />

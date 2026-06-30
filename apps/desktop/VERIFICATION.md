@@ -475,8 +475,11 @@ Manual verification:
 - Compact disclosure summary desktop stills: `.artifacts/verification/2026-06-30T13-43-49-857Z/*.png`
 - Compact disclosure summary design-guide capture: `.artifacts/verification/design-guide/2026-06-30T13-43-42-308Z/page@fb55a1439ea41b3ca4719955a5c5f857.webm`
 - Compact disclosure summary design-guide stills: `.artifacts/verification/design-guide/2026-06-30T13-43-42-308Z/*.png`
-- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T13-43-49-857Z/`.
-- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T13-43-42-308Z/`.
+- Confirmed the sidebar footer now uses a shared Codex-like gradient initial avatar instead of the previous conic color wheel, with desktop and design-guide verification asserting the shared avatar marker.
+- Sidebar initial avatar desktop capture: `.artifacts/verification/2026-06-30T13-48-11-518Z/page@e7b91914a975473dec2e32eabe67e7c6.webm`
+- Sidebar initial avatar design-guide capture: `.artifacts/verification/design-guide/2026-06-30T13-48-11-518Z/page@d9357473c0aba10a55be6d768e4654b8.webm`
+- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T13-48-11-518Z/`.
+- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T13-48-11-518Z/`.
 
 Automated verification:
 

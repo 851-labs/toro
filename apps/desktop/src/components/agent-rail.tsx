@@ -9,6 +9,7 @@ import {
 import type { AgentProfile, EnvironmentProfile, Session, Workspace } from "@toro/domain";
 import {
   Button,
+  CodexSidebarAvatar,
   CodexSidebarCommand,
   CodexSidebarCommandGroup,
   CodexSidebarContent,
@@ -218,12 +219,7 @@ export function AgentRail(props: AgentRailProps) {
             <Smartphone size={16} />
           </button>
         }
-        avatar={
-          <div
-            aria-hidden="true"
-            className="size-9 rounded-full bg-[conic-gradient(from_210deg,#28d6a6,#3b82f6,#7c3aed,#ef4444,#f59e0b,#28d6a6)] shadow-inner"
-          />
-        }
+        avatar={<CodexSidebarAvatar>T</CodexSidebarAvatar>}
         subtitle={props.streamStatus}
         title="Local host"
       >
