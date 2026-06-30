@@ -59,7 +59,12 @@ export function ChatDesignGuide() {
               ]}
               title="Validate Toro permission UI"
             />
-            <CodexToolCall kind="execute" status="completed" title="Validate Toro permission UI">
+            <CodexToolCall
+              defaultOpen
+              kind="execute"
+              status="completed"
+              title="Validate Toro permission UI"
+            >
               tool cards are working
             </CodexToolCall>
             <CodexDisclosure icon={<Terminal size={16} />} title="Activity logs">
