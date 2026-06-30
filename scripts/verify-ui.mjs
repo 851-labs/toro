@@ -39,6 +39,8 @@ await composer.fill("");
 await screenshot(page, "01-initial-shell.png");
 await pause();
 
+await assertSidebarToggle(page);
+
 await page.getByRole("button", { exact: true, name: "Open project" }).click();
 await page.getByLabel("Project path").fill(workspacePath);
 await page.getByRole("button", { exact: true, name: "Open" }).click();
@@ -189,6 +191,20 @@ async function assertProjectFormHidden(page) {
   }
 }
 
+async function assertSidebarToggle(page) {
+  const toggle = page.getByRole("button", { exact: true, name: "Toggle sidebar" });
+  await toggle.click();
+  if ((await page.locator("aside").count()) > 0) {
+    throw new Error("Sidebar should be hidden after toggling it closed.");
+  }
+  await screenshot(page, "01-sidebar-hidden.png");
+  await pause();
+
+  await toggle.click();
+  await page.locator("aside").waitFor({ timeout: 5_000 });
+  await page.getByText("Projects").waitFor({ timeout: 5_000 });
+}
+
 async function assertSidebarChatRowsAreNavigationOnly(page) {
   const chatRows = await page
     .locator("aside button[aria-label^='Chat ']")
@@ -229,6 +245,7 @@ function isKnownFunctionalButton(label, extraAllowedLabels) {
       "Send",
       "Stop",
       "Host settings",
+      "Toggle sidebar",
       "Copy message",
       "Copied message",
       "Good response",

@@ -76,6 +76,8 @@
 - Navigation-only chat rows stills: `.artifacts/verification/2026-06-30T04-48-44-848Z/*.png`
 - Collapsed project opener capture: `.artifacts/verification/2026-06-30T04-53-52-357Z/page@1ad9066f2f87e58d03c82931d40ffb58.webm`
 - Collapsed project opener stills: `.artifacts/verification/2026-06-30T04-53-52-357Z/*.png`
+- Functional sidebar toggle capture: `.artifacts/verification/2026-06-30T05-00-08-320Z/page@0cae13a01fd991bca3fe5c6ea97ba953.webm`
+- Functional sidebar toggle stills: `.artifacts/verification/2026-06-30T05-00-08-320Z/*.png`
 
 Manual verification:
 
@@ -108,6 +110,7 @@ Manual verification:
 - Confirmed thinking disclosures use the same compact Codex-style row treatment as plan and tool calls, including a visible streaming `working` affordance.
 - Confirmed sidebar chat rows no longer render status pills and behave as plain Codex-style navigation rows.
 - Confirmed the raw project path form is hidden by default and opens through a compact Projects action while preserving the project-open flow.
+- Confirmed the header sidebar icon is now a functional Codex-style toggle that hides and restores the sidebar during verification.
 
 Automated verification:
 

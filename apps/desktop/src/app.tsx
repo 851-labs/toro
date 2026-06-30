@@ -24,6 +24,7 @@ export function App() {
   const [selectedEnvironmentId, setSelectedEnvironmentId] = useState<EnvironmentId>(
     environmentId("local-desktop"),
   );
+  const [sidebarOpen, setSidebarOpen] = useState(true);
   const [selectedWorkspaceId, setSelectedWorkspaceId] = useState<WorkspaceId | null>(null);
   const [selectedSessionId, setSelectedSessionId] = useState<SessionId | null>(null);
 
@@ -98,34 +99,48 @@ export function App() {
   }
 
   return (
-    <div className="grid h-full overflow-hidden bg-white text-zinc-950 md:grid-cols-[320px_minmax(0,1fr)]">
-      <AgentRail
-        activeWorkspace={activeWorkspace}
-        agents={state.agents}
-        environments={state.environments}
-        error={error ?? openWorkspace.error?.message ?? createSession.error?.message ?? null}
-        activeSessionId={activeSession?.id ?? null}
-        onCreateSession={() => createSession.mutate()}
-        onOpenWorkspace={() => openWorkspace.mutate()}
-        selectedAgentId={selectedAgentId}
-        selectedEnvironmentId={selectedEnvironmentId}
-        sessions={state.sessions}
-        streamStatus={streamStatus}
-        workspacePath={workspacePath}
-        workspaces={state.workspaces}
-        onSelectAgent={setSelectedAgentId}
-        onSelectEnvironment={setSelectedEnvironmentId}
-        onSelectSession={selectSession}
-        onSelectWorkspace={selectWorkspace}
-        onWorkspacePathChange={setWorkspacePath}
-      />
+    <div
+      className={
+        sidebarOpen
+          ? "grid h-full overflow-hidden bg-white text-zinc-950 md:grid-cols-[320px_minmax(0,1fr)]"
+          : "grid h-full grid-cols-1 overflow-hidden bg-white text-zinc-950"
+      }
+    >
+      {sidebarOpen ? (
+        <AgentRail
+          activeWorkspace={activeWorkspace}
+          agents={state.agents}
+          environments={state.environments}
+          error={error ?? openWorkspace.error?.message ?? createSession.error?.message ?? null}
+          activeSessionId={activeSession?.id ?? null}
+          onCreateSession={() => createSession.mutate()}
+          onOpenWorkspace={() => openWorkspace.mutate()}
+          selectedAgentId={selectedAgentId}
+          selectedEnvironmentId={selectedEnvironmentId}
+          sessions={state.sessions}
+          streamStatus={streamStatus}
+          workspacePath={workspacePath}
+          workspaces={state.workspaces}
+          onSelectAgent={setSelectedAgentId}
+          onSelectEnvironment={setSelectedEnvironmentId}
+          onSelectSession={selectSession}
+          onSelectWorkspace={selectWorkspace}
+          onWorkspacePathChange={setWorkspacePath}
+        />
+      ) : null}
       <main className="grid min-h-0 min-w-0 grid-cols-1">
         <section className="grid min-h-0 min-w-0 grid-rows-[64px_1fr] bg-white">
           <header className="flex items-center justify-between border-b border-zinc-200/80 px-5">
             <div className="flex min-w-0 items-center gap-3">
-              <div className="text-zinc-500">
+              <button
+                aria-expanded={sidebarOpen}
+                aria-label="Toggle sidebar"
+                className="flex size-8 shrink-0 items-center justify-center rounded-lg text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900"
+                onClick={() => setSidebarOpen((open) => !open)}
+                type="button"
+              >
                 <PanelLeft size={18} />
-              </div>
+              </button>
               <h1 className="truncate text-lg font-semibold">
                 {activeSession?.title ?? "New chat"}
               </h1>
