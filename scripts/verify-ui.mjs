@@ -64,6 +64,7 @@ await page
   .first()
   .waitFor({ timeout: 5_000 });
 await assertPrimarySidebarSimplified(page);
+await assertSidebarChatRowsAreNavigationOnly(page);
 await assertDesktopDebugLogsHidden(page);
 await assertOnlyFunctionalButtons(page);
 await screenshot(page, "04-session-created.png");
@@ -82,6 +83,7 @@ await screenshot(page, "05-thinking.png");
 await pause();
 
 await page.getByText("Validate Toro permission UI").waitFor({ timeout: 10_000 });
+await assertSidebarChatRowsAreNavigationOnly(page);
 await assertOnlyFunctionalButtons(page, ["Allow once", "Reject"]);
 await screenshot(page, "06-permission-request.png");
 await pause();
@@ -175,6 +177,20 @@ async function assertPrimarySidebarSimplified(page) {
 async function assertDesktopDebugLogsHidden(page) {
   if ((await page.getByText("Activity logs").count()) > 0) {
     throw new Error("Desktop chat should not render raw activity logs.");
+  }
+}
+
+async function assertSidebarChatRowsAreNavigationOnly(page) {
+  const chatRows = await page
+    .locator("aside button[aria-label^='Chat ']")
+    .evaluateAll((nodes) => nodes.map((node) => node.textContent?.trim() ?? ""));
+  const statusWords = ["completed", "running", "waiting", "failed", "cancelled", "connecting"];
+  const rowsWithStatus = chatRows.filter((row) =>
+    statusWords.some((status) => row.toLowerCase().includes(status)),
+  );
+
+  if (rowsWithStatus.length > 0) {
+    throw new Error(`Sidebar chat rows should not show status pills: ${rowsWithStatus.join(", ")}`);
   }
 }
 

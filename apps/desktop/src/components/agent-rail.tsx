@@ -7,7 +7,7 @@ import {
   type WorkspaceId,
 } from "@toro/domain";
 import type { AgentProfile, EnvironmentProfile, Session, Workspace } from "@toro/domain";
-import { Button, StatusBadge, cn } from "@toro/ui";
+import { Button, cn } from "@toro/ui";
 import {
   CirclePlus,
   FolderOpen,
@@ -270,7 +270,6 @@ function ProjectGroup({
               <span className="min-w-0 flex-1 truncate font-medium text-zinc-800">
                 {session.title}
               </span>
-              <StatusBadge label={session.status} tone={statusTone(session.status)} />
             </button>
           ))
         ) : (
@@ -395,11 +394,4 @@ function RailButton(props: {
       {content}
     </button>
   );
-}
-
-function statusTone(status: Session["status"]) {
-  if (status === "completed") return "good";
-  if (status === "failed" || status === "cancelled") return "bad";
-  if (status === "running" || status === "waiting" || status === "connecting") return "warn";
-  return "neutral";
 }

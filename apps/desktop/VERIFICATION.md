@@ -72,6 +72,8 @@
 - Compact thinking disclosure stills: `.artifacts/verification/2026-06-30T04-42-53-092Z/*.png`
 - Compact thinking disclosure design-guide capture: `.artifacts/verification/design-guide/2026-06-30T04-43-54-760Z/page@e6c36c112cca38d3f02019bc397d4013.webm`
 - Compact thinking disclosure design-guide stills: `.artifacts/verification/design-guide/2026-06-30T04-43-54-760Z/*.png`
+- Navigation-only chat rows capture: `.artifacts/verification/2026-06-30T04-48-44-848Z/page@5da457ab43a95fdb570d87249f8d93ed.webm`
+- Navigation-only chat rows stills: `.artifacts/verification/2026-06-30T04-48-44-848Z/*.png`
 
 Manual verification:
 
@@ -102,6 +104,7 @@ Manual verification:
 - Confirmed tool calls use a quieter Codex-style disclosure row with a compact output well and still expand/collapse during verification.
 - Confirmed plan rendering now comes from the shared UI chat primitive package and appears in both desktop and the TanStack Start design guide.
 - Confirmed thinking disclosures use the same compact Codex-style row treatment as plan and tool calls, including a visible streaming `working` affordance.
+- Confirmed sidebar chat rows no longer render status pills and behave as plain Codex-style navigation rows.
 
 Automated verification:
 
