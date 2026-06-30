@@ -429,6 +429,9 @@ async function assertComposerContextStrip(page) {
   if ((await strip.locator("button").count()) > 0) {
     throw new Error("Design-guide composer context strip should not render buttons.");
   }
+  if ((await strip.locator("[data-composer-context-chevron='true']").count()) < 2) {
+    throw new Error("Design-guide composer context strip should show passive chevrons.");
+  }
 }
 
 async function surfaceBounds(page, selector) {

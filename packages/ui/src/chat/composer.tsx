@@ -261,15 +261,15 @@ export function CodexComposer({
 }
 
 function ComposerContextStrip({ context }: { readonly context: CodexComposerContextStrip }) {
-  const items: { icon: ReactNode; label: string }[] = [];
+  const items: { icon: ReactNode; label: string; menuHint?: boolean }[] = [];
   if (context.projectLabel) {
     items.push({ icon: <FileText size={15} />, label: context.projectLabel });
   }
   if (context.environmentLabel) {
-    items.push({ icon: <Laptop size={15} />, label: context.environmentLabel });
+    items.push({ icon: <Laptop size={15} />, label: context.environmentLabel, menuHint: true });
   }
   if (context.branchLabel) {
-    items.push({ icon: <GitBranch size={15} />, label: context.branchLabel });
+    items.push({ icon: <GitBranch size={15} />, label: context.branchLabel, menuHint: true });
   }
 
   if (items.length === 0) {
@@ -286,6 +286,14 @@ function ComposerContextStrip({ context }: { readonly context: CodexComposerCont
           <span className="inline-flex min-w-0 items-center gap-1.5" key={item.label}>
             <span className="shrink-0 text-zinc-400">{item.icon}</span>
             <span className="truncate font-medium">{item.label}</span>
+            {item.menuHint ? (
+              <ChevronDown
+                aria-hidden="true"
+                className="shrink-0 text-zinc-500"
+                data-composer-context-chevron="true"
+                size={13}
+              />
+            ) : null}
           </span>
         ))}
       </div>

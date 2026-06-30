@@ -76,20 +76,20 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
     if ((await page.getByText("Open a project to start").count()) > 0) {
       throw new Error("Composer footer should not render old workspace status copy.");
     }
-
     const strip = page.locator("[data-composer-context-strip='true']");
-    if ((await strip.count()) === 0) {
-      return;
-    }
-
+    if ((await strip.count()) === 0) return;
     if ((await strip.locator("button").count()) > 0) {
       throw new Error("Composer context strip should render passive metadata, not inert buttons.");
     }
-
     for (const text of [workspaceName, "Work locally", "main"]) {
       if ((await strip.getByText(text, { exact: true }).count()) === 0) {
         throw new Error(`Composer context strip is missing Codex-like metadata: ${text}`);
       }
+    }
+    if ((await strip.locator("[data-composer-context-chevron='true']").count()) < 2) {
+      throw new Error(
+        "Composer context strip should show passive chevrons for selectable metadata.",
+      );
     }
   }
 

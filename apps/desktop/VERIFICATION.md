@@ -294,6 +294,10 @@
 - Active sidebar row contrast stills: `.artifacts/verification/2026-06-30T12-21-38-703Z/*.png`
 - Active sidebar row contrast design-guide capture: `.artifacts/verification/design-guide/2026-06-30T12-21-38-705Z/page@44f8aa128f4ecb9aea7d554c58ffe2b1.webm`
 - Active sidebar row contrast design-guide stills: `.artifacts/verification/design-guide/2026-06-30T12-21-38-705Z/*.png`
+- Passive context strip chevrons capture: `.artifacts/verification/2026-06-30T12-26-13-653Z/page@109d2776253c036d72106d46d68ab307.webm`
+- Passive context strip chevrons stills: `.artifacts/verification/2026-06-30T12-26-13-653Z/*.png`
+- Passive context strip chevrons design-guide capture: `.artifacts/verification/design-guide/2026-06-30T12-26-13-653Z/page@872b3721fdc75ca6f8060547283509a4.webm`
+- Passive context strip chevrons design-guide stills: `.artifacts/verification/design-guide/2026-06-30T12-26-13-653Z/*.png`
 
 Manual verification:
 
@@ -325,6 +329,7 @@ Manual verification:
 - Confirmed empty-project starter cards now use shared Codex-reference Slack, GitHub, and Linear-style marks, with desktop and design-guide verification asserting all three icon types render.
 - Confirmed the sidebar footer now reads as a Codex-like account row with gradient avatar, `Local host` primary text, and `connected` secondary status while preserving the functional host settings control.
 - Confirmed active sidebar project/chat rows now expose active state in the shared row primitive and use stronger selected icon/text styling, with desktop and design-guide verification rejecting muted active icons.
+- Confirmed the composer context strip now shows passive Codex-like chevrons for environment and branch metadata while desktop and design-guide verification still reject inert strip buttons.
 - Confirmed the sidebar visually groups chats under their project and coalesces duplicate opens of the same project path.
 - Confirmed every rendered button in the desktop flow is limited to a wired action: new chat, open project, project/chat selection, send/stop, or permission response.
 - Confirmed the design guide permission buttons update visible state instead of acting as no-op controls.
