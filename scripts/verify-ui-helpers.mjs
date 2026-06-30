@@ -292,6 +292,10 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
 
   async function assertHostSettingsToggle(page) {
     const settingsButton = page.getByRole("button", { exact: true, name: "Host settings" });
+    const visibleLabel = ((await settingsButton.textContent()) ?? "").trim();
+    if (visibleLabel.length > 0) {
+      throw new Error("Host settings should render as a compact icon button, not a text chip.");
+    }
     if ((await page.getByRole("combobox", { exact: true, name: "Agent" }).count()) > 0) {
       throw new Error("Agent selector should be hidden until host settings are opened.");
     }

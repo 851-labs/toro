@@ -142,6 +142,10 @@
 - Permission transcript row stills: `.artifacts/verification/2026-06-30T07-46-22-783Z/*.png`
 - Permission transcript row design-guide capture: `.artifacts/verification/design-guide/2026-06-30T07-46-36-251Z/page@9d7ac16598c2ff921c3f907388b5134d.webm`
 - Permission transcript row design-guide stills: `.artifacts/verification/design-guide/2026-06-30T07-46-36-251Z/*.png`
+- Icon-only host settings capture: `.artifacts/verification/2026-06-30T07-49-04-743Z/page@1fdcffbb7d379c0b40e4c6ff5f206222.webm`
+- Icon-only host settings stills: `.artifacts/verification/2026-06-30T07-49-04-743Z/*.png`
+- Icon-only host settings design-guide capture: `.artifacts/verification/design-guide/2026-06-30T07-49-17-999Z/page@4aa229f995ca329d0d27a280c61f38f5.webm`
+- Icon-only host settings design-guide stills: `.artifacts/verification/design-guide/2026-06-30T07-49-17-999Z/*.png`
 
 Manual verification:
 
@@ -194,6 +198,7 @@ Manual verification:
 - Confirmed the design-guide sidebar story now documents the functional Toro sidebar state without Scheduled or Plugins placeholders, and the UI verifier helpers are split out to keep future verification changes under the 500-line file limit.
 - Confirmed the shared chat package no longer exports a separate logs disclosure primitive and the design-guide chat surface now documents only the active Codex-style chat atoms.
 - Confirmed the permission request now renders as a compact transcript row without the old bordered alert shell, while Allow once and Reject remain functional in the desktop flow and design guide.
+- Confirmed the sidebar footer host settings control is back to a quiet icon-only button with the agent/environment panel still opening and closing during desktop verification.
 
 Automated verification:
 

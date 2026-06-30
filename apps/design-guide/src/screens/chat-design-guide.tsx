@@ -7,7 +7,7 @@ import {
   CodexToolCall,
   StatusBadge,
 } from "@toro/ui";
-import { FolderPlus, MessageSquare, Search, SquarePen } from "lucide-react";
+import { FolderPlus, MessageSquare, Search, SlidersHorizontal, SquarePen } from "lucide-react";
 import { useState } from "react";
 
 type GuideView = "chat" | "composer" | "sidebar";
@@ -219,8 +219,8 @@ function SidebarGroups() {
             <div className="truncate text-sm font-medium">Local host</div>
             <div className="truncate text-xs text-zinc-500">Toro Demo / connected</div>
           </div>
-          <span className="rounded-full bg-[#2583ff] px-3 py-1 text-xs font-semibold text-white">
-            Host
+          <span className="flex size-8 shrink-0 items-center justify-center rounded-lg text-zinc-500">
+            <SlidersHorizontal size={16} />
           </span>
         </div>
       </aside>

@@ -8,7 +8,14 @@ import {
 } from "@toro/domain";
 import type { AgentProfile, EnvironmentProfile, Session, Workspace } from "@toro/domain";
 import { Button, cn } from "@toro/ui";
-import { FolderOpen, FolderPlus, PanelLeft, Search, SquarePen } from "lucide-react";
+import {
+  FolderOpen,
+  FolderPlus,
+  PanelLeft,
+  Search,
+  SlidersHorizontal,
+  SquarePen,
+} from "lucide-react";
 import { useState } from "react";
 import {
   filterProjectGroups,
@@ -234,15 +241,13 @@ export function AgentRail(props: AgentRailProps) {
             aria-expanded={settingsOpen}
             aria-label="Host settings"
             className={cn(
-              "inline-flex h-7 shrink-0 items-center rounded-full px-3 text-xs font-semibold shadow-sm transition",
-              settingsOpen
-                ? "bg-zinc-900 text-white"
-                : "bg-[#2583ff] text-white hover:bg-[#1473ef]",
+              "inline-flex size-8 shrink-0 items-center justify-center rounded-lg text-zinc-500 transition hover:bg-zinc-200/70 hover:text-zinc-900",
+              settingsOpen ? "bg-zinc-200 text-zinc-950" : "bg-transparent",
             )}
             onClick={() => setSettingsOpen((open) => !open)}
             type="button"
           >
-            Host
+            <SlidersHorizontal size={16} />
           </button>
         </div>
       </div>
