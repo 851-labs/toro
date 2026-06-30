@@ -25,6 +25,9 @@ await page.getByText("Reviewing project context").waitFor({ timeout: 5_000 });
 await page.getByText("Validate Toro permission UI").first().waitFor({ timeout: 5_000 });
 await page.getByText("tool cards are working").waitFor({ timeout: 5_000 });
 await page.waitForFunction(() => Boolean(window.__TSR_ROUTER__), null, { timeout: 5_000 });
+await screenshot(page, "01-chat-elements.png");
+await pause();
+
 await page.getByRole("button", { exact: true, name: "Good response" }).click();
 await expectPressed(page.getByRole("button", { exact: true, name: "Good response" }));
 await page.getByRole("button", { exact: true, name: "Bad response" }).click();
@@ -35,19 +38,19 @@ await page.getByRole("button", { exact: true, name: "Collapse message" }).waitFo
 });
 await page.getByRole("button", { exact: true, name: "Copy message" }).click();
 await page.getByRole("button", { exact: true, name: "Copied message" }).waitFor({ timeout: 5_000 });
-await screenshot(page, "01-chat-elements.png");
+await screenshot(page, "02-message-actions.png");
 await pause();
 
 await page.getByRole("button", { exact: true, name: "Allow once" }).click();
 await page.getByText("allowed once").waitFor({ timeout: 5_000 });
-await screenshot(page, "02-permission-responded.png");
+await screenshot(page, "03-permission-responded.png");
 await pause();
 
 await page.getByRole("button", { exact: true, name: "Sidebar Groups" }).click();
 await expectPressed(page.getByRole("button", { exact: true, name: "Sidebar Groups" }));
 await page.getByText("Codex Sidebar Groups").waitFor({ timeout: 5_000 });
 await page.getByText("Composer context picker").waitFor({ timeout: 5_000 });
-await screenshot(page, "03-sidebar-groups.png");
+await screenshot(page, "04-sidebar-groups.png");
 await pause();
 
 await page.getByRole("button", { exact: true, name: "Composer States" }).click();
@@ -66,7 +69,7 @@ await expectPressed(page.getByRole("button", { exact: true, name: "Attach contex
 await page.getByRole("button", { exact: true, name: "Remove context composer.tsx" }).waitFor({
   timeout: 5_000,
 });
-await screenshot(page, "04-context-attached.png");
+await screenshot(page, "05-context-attached.png");
 await page.getByRole("button", { exact: true, name: "Remove context composer.tsx" }).click();
 await page.getByRole("button", { exact: true, name: "Add context" }).click();
 await pause();
@@ -75,7 +78,7 @@ await page.getByRole("button", { exact: true, name: "Send" }).click();
 if ((await composer.inputValue()) !== "") {
   throw new Error("Design guide composer did not clear after send.");
 }
-await screenshot(page, "05-composer-cleared.png");
+await screenshot(page, "06-composer-cleared.png");
 await pause();
 
 await context.close();

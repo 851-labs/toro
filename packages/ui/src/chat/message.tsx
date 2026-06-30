@@ -50,7 +50,7 @@ export function CodexChatMessage({ children, copyText, isStreaming, role }: Code
           {children}
         </div>
         {showActions ? (
-          <div className="mt-1 flex items-center gap-1 text-zinc-400 opacity-0 transition-opacity group-hover:opacity-100 group-focus-within:opacity-100">
+          <div className="mt-1 flex items-center gap-1 text-zinc-400">
             {canCopy ? (
               <MessageAction
                 label={copied ? "Copied message" : "Copy message"}

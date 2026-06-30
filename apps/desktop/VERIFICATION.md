@@ -146,6 +146,10 @@
 - Icon-only host settings stills: `.artifacts/verification/2026-06-30T07-49-04-743Z/*.png`
 - Icon-only host settings design-guide capture: `.artifacts/verification/design-guide/2026-06-30T07-49-17-999Z/page@4aa229f995ca329d0d27a280c61f38f5.webm`
 - Icon-only host settings design-guide stills: `.artifacts/verification/design-guide/2026-06-30T07-49-17-999Z/*.png`
+- Visible message actions capture: `.artifacts/verification/2026-06-30T07-54-50-371Z/page@6b89056020426b889d609d1eb20d87b2.webm`
+- Visible message actions stills: `.artifacts/verification/2026-06-30T07-54-50-371Z/*.png`
+- Visible message actions design-guide capture: `.artifacts/verification/design-guide/2026-06-30T07-54-50-382Z/page@3df75df474edd53ed4eecb168666a63e.webm`
+- Visible message actions design-guide stills: `.artifacts/verification/design-guide/2026-06-30T07-54-50-382Z/*.png`
 
 Manual verification:
 
@@ -199,6 +203,7 @@ Manual verification:
 - Confirmed the shared chat package no longer exports a separate logs disclosure primitive and the design-guide chat surface now documents only the active Codex-style chat atoms.
 - Confirmed the permission request now renders as a compact transcript row without the old bordered alert shell, while Allow once and Reject remain functional in the desktop flow and design guide.
 - Confirmed the sidebar footer host settings control is back to a quiet icon-only button with the agent/environment panel still opening and closing during desktop verification.
+- Confirmed completed assistant message actions now remain visible in the idle final state, and the desktop/design-guide verifiers capture idle and exercised action states separately.
 
 Automated verification:
 
