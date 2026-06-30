@@ -86,7 +86,7 @@ export function CodexComposer({
   return (
     <form className={cn("px-6 pb-6", lifted && "mb-16")} onSubmit={submit}>
       <div
-        className="relative z-10 mx-auto max-w-[960px] rounded-[22px] border border-zinc-200 bg-white p-3 shadow-[0_14px_50px_rgba(15,23,42,0.12)] dark:border-zinc-700 dark:bg-[#2b2b2b] dark:shadow-none"
+        className="relative z-10 mx-auto max-w-[760px] rounded-[22px] border border-zinc-200 bg-white p-3 shadow-[0_14px_50px_rgba(15,23,42,0.12)] dark:border-zinc-700 dark:bg-[#2b2b2b] dark:shadow-none"
         data-composer-surface="true"
       >
         <textarea
@@ -279,7 +279,7 @@ function ComposerContextStrip({ context }: { readonly context: CodexComposerCont
 
   return (
     <div
-      className="-mt-3 mx-auto max-w-[960px] rounded-b-[22px] bg-zinc-50 px-5 pb-4 pt-6 text-sm text-zinc-500 dark:bg-[#242424] dark:text-zinc-400"
+      className="-mt-3 mx-auto max-w-[760px] rounded-b-[22px] bg-zinc-50 px-5 pb-4 pt-6 text-sm text-zinc-500 dark:bg-[#242424] dark:text-zinc-400"
       data-composer-context-strip="true"
     >
       <div className="flex min-w-0 items-center gap-5">

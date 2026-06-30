@@ -9,7 +9,7 @@ export interface CodexTranscriptSurfaceProps {
 export function CodexTranscriptSurface({ children, className }: CodexTranscriptSurfaceProps) {
   return (
     <div
-      className={cn("mx-auto flex max-w-[960px] flex-col gap-5", className)}
+      className={cn("mx-auto flex max-w-[760px] flex-col gap-5", className)}
       data-transcript-surface="true"
     >
       {children}

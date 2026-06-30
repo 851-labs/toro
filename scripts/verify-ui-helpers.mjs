@@ -116,7 +116,7 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
 
   async function assertComposerWidthIsCodexLike(page) {
     const width = await composerSurfaceBounds(page, "width");
-    if (width < 880 || width > 980) {
+    if (width < 720 || width > 800) {
       throw new Error(`Composer width should be close to Codex desktop width, got ${width}.`);
     }
   }
