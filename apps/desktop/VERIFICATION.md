@@ -64,6 +64,10 @@
 - Compact tool-call stills: `.artifacts/verification/2026-06-30T04-28-54-345Z/*.png`
 - Compact tool-call design-guide capture: `.artifacts/verification/design-guide/2026-06-30T04-29-37-533Z/page@51e924bfc253da21be2d06a35cbfe5e0.webm`
 - Compact tool-call design-guide stills: `.artifacts/verification/design-guide/2026-06-30T04-29-37-533Z/*.png`
+- Shared plan primitive capture: `.artifacts/verification/2026-06-30T04-35-50-657Z/page@be8b2336595b226ded33c24eb859161b.webm`
+- Shared plan primitive stills: `.artifacts/verification/2026-06-30T04-35-50-657Z/*.png`
+- Shared plan primitive design-guide capture: `.artifacts/verification/design-guide/2026-06-30T04-37-21-679Z/page@ba3978b2ea1112c225203f66f262e049.webm`
+- Shared plan primitive design-guide stills: `.artifacts/verification/design-guide/2026-06-30T04-37-21-679Z/*.png`
 
 Manual verification:
 
@@ -92,6 +96,7 @@ Manual verification:
 - Confirmed completed assistant message actions now behave like Codex affordances by revealing on hover/focus while remaining keyboard-accessible.
 - Confirmed desktop chat no longer renders raw activity logs, while the internal design guide still documents the disclosure primitive.
 - Confirmed tool calls use a quieter Codex-style disclosure row with a compact output well and still expand/collapse during verification.
+- Confirmed plan rendering now comes from the shared UI chat primitive package and appears in both desktop and the TanStack Start design guide.
 
 Automated verification:
 

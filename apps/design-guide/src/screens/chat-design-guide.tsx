@@ -3,11 +3,12 @@ import {
   CodexComposer,
   CodexDisclosure,
   CodexPermissionCard,
+  CodexPlanDisclosure,
   CodexThinkingDisclosure,
   CodexToolCall,
   StatusBadge,
 } from "@toro/ui";
-import { ClipboardList, Terminal } from "lucide-react";
+import { Terminal } from "lucide-react";
 import { useState } from "react";
 
 export function ChatDesignGuide() {
@@ -39,13 +40,23 @@ export function ChatDesignGuide() {
         </header>
         <div className="min-h-0 overflow-auto px-8 py-8">
           <div className="mx-auto flex max-w-3xl flex-col gap-5">
-            <CodexDisclosure icon={<ClipboardList size={16} />} title="Plan">
-              <ol className="space-y-2">
-                <li>Match Codex message rhythm and spacing.</li>
-                <li>Render tool calls as compact disclosures.</li>
-                <li>Keep composer controls functional only.</li>
-              </ol>
-            </CodexDisclosure>
+            <CodexPlanDisclosure
+              defaultOpen
+              entries={[
+                {
+                  content: "Match Codex message rhythm and spacing.",
+                  status: "completed",
+                },
+                {
+                  content: "Render tool calls as compact disclosures.",
+                  status: "completed",
+                },
+                {
+                  content: "Keep composer controls functional only.",
+                  status: "in_progress",
+                },
+              ]}
+            />
             <CodexChatMessage role="user">
               Make the chat UI look exactly like Codex.
             </CodexChatMessage>

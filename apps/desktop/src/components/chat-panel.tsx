@@ -1,20 +1,12 @@
-import type {
-  ChatMessage,
-  PermissionRequest,
-  PlanEntry,
-  Session,
-  ThoughtEntry,
-  ToolCall,
-} from "@toro/domain";
+import type { ChatMessage, PermissionRequest, Session, ThoughtEntry, ToolCall } from "@toro/domain";
 import {
   CodexChatMessage,
   CodexComposer,
   CodexPermissionCard,
+  CodexPlanDisclosure,
   CodexThinkingDisclosure,
   CodexToolCall,
-  StatusBadge,
 } from "@toro/ui";
-import { ClipboardList } from "lucide-react";
 import { useMemo, useState } from "react";
 import { hostClient } from "../lib/host-client";
 
@@ -49,7 +41,7 @@ export function ChatPanel({ agentName, session, workspaceName }: ChatPanelProps)
         <div className="mx-auto flex max-w-3xl flex-col gap-5">
           {session ? (
             <>
-              <PlanBlock entries={session.plan} />
+              <CodexPlanDisclosure entries={session.plan} />
               {(session.thoughts ?? []).map((thought) => (
                 <ThoughtBlock key={thought.id} thought={thought} />
               ))}
@@ -114,28 +106,6 @@ function EmptyState({
   );
 }
 
-function PlanBlock({ entries }: { readonly entries: readonly PlanEntry[] }) {
-  if (entries.length === 0) {
-    return null;
-  }
-  return (
-    <details className="rounded-2xl border border-zinc-200 bg-white p-4 text-sm">
-      <summary className="flex cursor-pointer items-center gap-2 font-medium text-zinc-900">
-        <ClipboardList size={16} />
-        Plan
-      </summary>
-      <ol className="space-y-2">
-        {entries.map((entry, index) => (
-          <li className="flex items-center gap-3 text-sm" key={`${entry.content}-${index}`}>
-            <StatusBadge label={entry.status} tone={planTone(entry.status)} />
-            <span className="min-w-0 flex-1 text-zinc-700">{entry.content}</span>
-          </li>
-        ))}
-      </ol>
-    </details>
-  );
-}
-
 function ThoughtBlock({ thought }: { readonly thought: ThoughtEntry }) {
   return (
     <CodexThinkingDisclosure
@@ -181,10 +151,4 @@ function ToolCallCard({ toolCall }: { readonly toolCall: ToolCall }) {
       {toolCall.content.length > 0 ? toolCall.content.join("\n") : null}
     </CodexToolCall>
   );
-}
-
-function planTone(status: PlanEntry["status"]) {
-  if (status === "completed") return "good";
-  if (status === "in_progress") return "warn";
-  return "neutral";
 }
