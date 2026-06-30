@@ -42,6 +42,7 @@ await page.getByRole("button", { exact: true, name: "Collapse message" }).waitFo
 });
 await page.getByRole("button", { exact: true, name: "Copy message" }).click();
 await page.getByRole("button", { exact: true, name: "Copied message" }).waitFor({ timeout: 5_000 });
+await assertSharedMessageActions(page);
 await screenshot(page, "02-message-actions.png");
 await pause();
 
@@ -156,6 +157,15 @@ async function assertSidebarStoryWidth(page) {
     .evaluate((node) => node.getBoundingClientRect().width);
   if (width < 370 || width > 410) {
     throw new Error(`Design-guide sidebar story should match desktop rail width, got ${width}.`);
+  }
+}
+
+async function assertSharedMessageActions(page) {
+  const actions = await page.locator("[data-message-action='true']").count();
+  if (actions < 4) {
+    throw new Error(
+      `Design-guide assistant actions should use shared message actions, got ${actions}.`,
+    );
   }
 }
 

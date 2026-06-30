@@ -17,6 +17,7 @@ export function CodexMessageAction({ children, label, onClick, pressed }: CodexM
         "flex size-7 items-center justify-center rounded-md transition hover:bg-zinc-100 hover:text-zinc-700",
         pressed ? "bg-zinc-100 text-zinc-800" : "text-zinc-400",
       )}
+      data-message-action="true"
       onClick={onClick}
       type="button"
     >

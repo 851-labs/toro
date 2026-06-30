@@ -248,6 +248,10 @@
 - Codex-like footer hierarchy stills: `.artifacts/verification/2026-06-30T11-28-08-168Z/*.png`
 - Codex-like footer hierarchy design-guide capture: `.artifacts/verification/design-guide/2026-06-30T11-28-08-168Z/page@f41b9ac834031bb7676a9482d4e5fe2f.webm`
 - Codex-like footer hierarchy design-guide stills: `.artifacts/verification/design-guide/2026-06-30T11-28-08-168Z/*.png`
+- Shared message action marker capture: `.artifacts/verification/2026-06-30T11-32-09-780Z/page@1fc3ca42778bd20dad867708f406995a.webm`
+- Shared message action marker stills: `.artifacts/verification/2026-06-30T11-32-09-780Z/*.png`
+- Shared message action marker design-guide capture: `.artifacts/verification/design-guide/2026-06-30T11-32-10-368Z/page@831c4472013495827527f7eb760d4b75.webm`
+- Shared message action marker design-guide stills: `.artifacts/verification/design-guide/2026-06-30T11-32-10-368Z/*.png`
 
 Manual verification:
 
@@ -266,6 +270,7 @@ Manual verification:
 - Confirmed the shared composer syncs access/model selector state from changing props, preserving Codex-style footer defaults across host-driven environment or model changes.
 - Confirmed assistant and thinking streaming cursors now use the shared pulsing Codex-style inline dot, with desktop and design-guide verification asserting the animated cursor class before streaming screenshots.
 - Confirmed the sidebar footer now uses the selected agent as the primary identity line and `Local host / connected` as secondary metadata in both desktop and design-guide verification.
+- Confirmed assistant message controls expose the shared `@toro/ui` message action marker, with desktop and design-guide verification asserting the shared primitive is used for copy, feedback, and expand actions.
 - Confirmed the sidebar visually groups chats under their project and coalesces duplicate opens of the same project path.
 - Confirmed every rendered button in the desktop flow is limited to a wired action: new chat, open project, project/chat selection, send/stop, or permission response.
 - Confirmed the design guide permission buttons update visible state instead of acting as no-op controls.

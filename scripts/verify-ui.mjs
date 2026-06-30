@@ -219,6 +219,7 @@ await page.getByRole("button", { exact: true, name: "Expand message" }).last().c
 await page.getByRole("button", { exact: true, name: "Collapse message" }).waitFor({
   timeout: 5_000,
 });
+await assertSharedMessageActions(page);
 await screenshot(page, "10-message-actions.png");
 await pause();
 
@@ -271,6 +272,13 @@ async function assertSidebarFooterShared(page) {
   }
   await footer.getByText("Toro Demo", { exact: true }).waitFor({ timeout: 5_000 });
   await footer.getByText("Local host / connected", { exact: true }).waitFor({ timeout: 5_000 });
+}
+
+async function assertSharedMessageActions(page) {
+  const actions = await page.locator("[data-message-action='true']").count();
+  if (actions < 4) {
+    throw new Error(`Desktop assistant actions should use shared message actions, got ${actions}.`);
+  }
 }
 
 async function assertSidebarCommandGroupShared(page) {
