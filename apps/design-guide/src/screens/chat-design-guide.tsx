@@ -30,7 +30,6 @@ export function ChatDesignGuide() {
   const [permissionDecision, setPermissionDecision] = useState<
     "allowed once" | "rejected" | "waiting"
   >("waiting");
-  const permissionTone = permissionDecision === "rejected" ? "bad" : "neutral";
 
   return (
     <main className="grid h-full grid-cols-[280px_minmax(0,1fr)] overflow-hidden bg-white text-zinc-950">
@@ -73,7 +72,6 @@ export function ChatDesignGuide() {
           {activeView === "chat" ? (
             <ChatElements
               permissionDecision={permissionDecision}
-              permissionTone={permissionTone}
               onPermissionDecision={setPermissionDecision}
             />
           ) : activeView === "sidebar" ? (
@@ -155,11 +153,9 @@ function viewTitle(view: GuideView) {
 
 function ChatElements({
   permissionDecision,
-  permissionTone,
   onPermissionDecision,
 }: {
   readonly permissionDecision: "allowed once" | "rejected" | "waiting";
-  readonly permissionTone: "bad" | "neutral";
   readonly onPermissionDecision: (decision: "allowed once" | "rejected") => void;
 }) {
   return (
@@ -188,9 +184,9 @@ function ChatElements({
           { id: "reject", kind: "reject", name: "Reject" },
         ]}
         title={
-          <span className="inline-flex min-w-0 items-center gap-2">
+          <span className="inline-flex min-w-0 items-baseline gap-2">
             <span>Validate Toro permission UI</span>
-            <StatusBadge label={permissionDecision} tone={permissionTone} />
+            <span className="text-xs font-normal text-zinc-400">{permissionDecision}</span>
           </span>
         }
       />
