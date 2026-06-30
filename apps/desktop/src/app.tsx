@@ -219,7 +219,7 @@ export function App() {
             }
             rightActions={
               <>
-                {activeWorkspace ? (
+                {activeWorkspace && activeSession ? (
                   <OpenInMenu
                     workspaceId={activeWorkspace.id}
                     workspacePath={activeWorkspace.path}

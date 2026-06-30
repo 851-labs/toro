@@ -278,6 +278,8 @@
 - Passive reference sidebar rows stills: `.artifacts/verification/2026-06-30T12-02-12-126Z/*.png`
 - Passive reference sidebar rows design-guide capture: `.artifacts/verification/design-guide/2026-06-30T12-01-58-972Z/page@d49dcb33380f6295bcd0c5d6c3a2f31d.webm`
 - Passive reference sidebar rows design-guide stills: `.artifacts/verification/design-guide/2026-06-30T12-01-58-972Z/*.png`
+- Session-scoped Open in capture: `.artifacts/verification/2026-06-30T12-04-51-411Z/page@df2a0dd07f306e73f56104f85e5c0e3a.webm`
+- Session-scoped Open in stills: `.artifacts/verification/2026-06-30T12-04-51-411Z/*.png`
 
 Manual verification:
 
@@ -304,6 +306,7 @@ Manual verification:
 - Confirmed the desktop empty-project shell now follows the fresh dark Codex reference for the app background, sidebar rail, chat header, composer, context strip, starter cards, and readable transcript text.
 - Confirmed the empty-project desktop header no longer renders a redundant `New chat` title or session-only overflow action while active sessions still keep their title and header controls.
 - Confirmed Scheduled and Plugins are restored as passive Codex-reference sidebar rows, with desktop and design-guide verification asserting they are not buttons until the features are wired.
+- Confirmed the `Open in` header menu is hidden in the quiet empty-project header and remains functional once a session exists.
 - Confirmed the sidebar visually groups chats under their project and coalesces duplicate opens of the same project path.
 - Confirmed every rendered button in the desktop flow is limited to a wired action: new chat, open project, project/chat selection, send/stop, or permission response.
 - Confirmed the design guide permission buttons update visible state instead of acting as no-op controls.

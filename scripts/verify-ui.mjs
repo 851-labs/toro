@@ -96,7 +96,6 @@ await assertSharedStarterCards(page);
 await assertDarkReferenceShell(page);
 await assertEmptyWorkspaceHeaderIsQuiet(page);
 await assertComposerContextPicker(page);
-await assertOpenInMenu(page);
 await assertOnlyFunctionalButtons(page);
 await screenshot(page, "02-workspace-opened.png");
 await pause();
@@ -130,6 +129,7 @@ await assertSharedStarterCards(page);
 await assertDarkReferenceShell(page);
 await assertComposerFooterIsCodexCompact(page);
 await assertDesktopDebugLogsHidden(page);
+await assertOpenInMenu(page);
 await assertHeaderActions(page);
 await assertSessionDetailsToggle(page);
 await assertOnlyFunctionalButtons(page);
@@ -378,6 +378,9 @@ async function assertEmptyWorkspaceHeaderIsQuiet(page) {
   }
   if ((await header.getByRole("button", { exact: true, name: "More chat actions" }).count()) > 0) {
     throw new Error("Empty project header should not render session-only overflow actions.");
+  }
+  if ((await header.getByRole("button", { exact: true, name: "Open in" }).count()) > 0) {
+    throw new Error("Empty project header should not render the session-scoped Open in menu.");
   }
 }
 
