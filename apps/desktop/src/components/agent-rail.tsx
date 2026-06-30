@@ -8,14 +8,7 @@ import {
 } from "@toro/domain";
 import type { AgentProfile, EnvironmentProfile, Session, Workspace } from "@toro/domain";
 import { Button, cn } from "@toro/ui";
-import {
-  FolderOpen,
-  FolderPlus,
-  PanelLeft,
-  Search,
-  SlidersHorizontal,
-  SquarePen,
-} from "lucide-react";
+import { FolderOpen, FolderPlus, PanelLeft, Search, SquarePen } from "lucide-react";
 import { useState } from "react";
 import {
   filterProjectGroups,
@@ -56,6 +49,7 @@ export function AgentRail(props: AgentRailProps) {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const canOpenProject = props.workspacePath.trim().length > 0;
   const searchOpen = activeView === "search";
+  const selectedAgent = props.agents.find((agent) => agent.id === props.selectedAgentId);
   const projectGroups = filterProjectGroups(
     groupWorkspaces(props.workspaces, props.sessions),
     searchQuery,
@@ -187,13 +181,13 @@ export function AgentRail(props: AgentRailProps) {
 
       <div className="border-t border-zinc-200/80 p-3">
         {settingsOpen ? (
-          <div className="mb-2 rounded-2xl border border-zinc-200 bg-white p-2 shadow-sm">
-            <div className="grid gap-2">
+          <div className="mb-2 rounded-xl border border-zinc-200 bg-white p-2 shadow-sm">
+            <div className="grid gap-1.5">
               <label className="sr-only" htmlFor="agent-select">
                 Agent
               </label>
               <select
-                className="h-8 min-w-0 rounded-xl border border-zinc-200 bg-white px-2 text-xs font-medium text-zinc-700 outline-none"
+                className="h-8 min-w-0 rounded-lg border-0 bg-zinc-100 px-2 text-xs font-medium text-zinc-700 outline-none focus:ring-2 focus:ring-zinc-300"
                 id="agent-select"
                 onChange={(event) => props.onSelectAgent(agentId(event.target.value))}
                 value={props.selectedAgentId}
@@ -208,7 +202,7 @@ export function AgentRail(props: AgentRailProps) {
                 Environment
               </label>
               <select
-                className="h-8 min-w-0 rounded-xl border border-zinc-200 bg-white px-2 text-xs font-medium text-zinc-700 outline-none"
+                className="h-8 min-w-0 rounded-lg border-0 bg-zinc-100 px-2 text-xs font-medium text-zinc-700 outline-none focus:ring-2 focus:ring-zinc-300"
                 id="environment-select"
                 onChange={(event) => props.onSelectEnvironment(environmentId(event.target.value))}
                 value={props.selectedEnvironmentId}
@@ -226,25 +220,29 @@ export function AgentRail(props: AgentRailProps) {
             </div>
           </div>
         ) : null}
-        <div className="flex items-center gap-3 rounded-2xl px-2 py-2">
-          <div className="flex size-9 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 to-violet-500 text-sm font-semibold text-white">
+        <div className="flex items-center gap-3 rounded-xl px-2 py-2">
+          <div className="flex size-9 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 via-blue-500 to-violet-500 text-sm font-semibold text-white">
             T
           </div>
           <div className="min-w-0 flex-1">
             <div className="truncate text-sm font-medium">Local host</div>
-            <div className="text-xs text-zinc-500">{props.streamStatus}</div>
+            <div className="truncate text-xs text-zinc-500">
+              {selectedAgent?.name ?? "Agent"} / {props.streamStatus}
+            </div>
           </div>
           <button
             aria-expanded={settingsOpen}
             aria-label="Host settings"
             className={cn(
-              "flex size-8 shrink-0 items-center justify-center rounded-full text-zinc-500 hover:bg-zinc-200/70 hover:text-zinc-800",
-              settingsOpen && "bg-zinc-200 text-zinc-900",
+              "inline-flex h-7 shrink-0 items-center rounded-full px-3 text-xs font-semibold shadow-sm transition",
+              settingsOpen
+                ? "bg-zinc-900 text-white"
+                : "bg-[#2583ff] text-white hover:bg-[#1473ef]",
             )}
             onClick={() => setSettingsOpen((open) => !open)}
             type="button"
           >
-            <SlidersHorizontal size={16} />
+            Host
           </button>
         </div>
       </div>

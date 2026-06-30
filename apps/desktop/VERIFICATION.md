@@ -114,6 +114,10 @@
 - Arrow send composer stills: `.artifacts/verification/2026-06-30T07-05-09-311Z/*.png`
 - Arrow send composer design-guide capture: `.artifacts/verification/design-guide/2026-06-30T07-05-09-583Z/page@294fd49d35dc0702708fc0163331a8ec.webm`
 - Arrow send composer design-guide stills: `.artifacts/verification/design-guide/2026-06-30T07-05-09-583Z/*.png`
+- Codex-like host footer capture: `.artifacts/verification/2026-06-30T07-11-25-756Z/page@e7026cbb47c247103d675da0353e291e.webm`
+- Codex-like host footer stills: `.artifacts/verification/2026-06-30T07-11-25-756Z/*.png`
+- Host footer design-guide regression capture: `.artifacts/verification/design-guide/2026-06-30T07-11-39-845Z/page@e02eeed7c71f6633894ace971d9191fd.webm`
+- Host footer design-guide regression stills: `.artifacts/verification/design-guide/2026-06-30T07-11-39-845Z/*.png`
 
 Manual verification:
 
@@ -159,6 +163,7 @@ Manual verification:
 - Confirmed plan and thinking disclosures now use compact shared transcript rows instead of large framed cards in both desktop and the design guide.
 - Confirmed the shared composer footer no longer renders workspace/status text and keeps the Codex-like control row focused on context, access, model, and send controls.
 - Confirmed the shared composer send affordance uses a Codex-like upward arrow instead of the previous paper-plane icon in both desktop and the design guide.
+- Confirmed the sidebar footer now matches the Codex account row more closely with a compact host pill while preserving agent and environment switching through Host settings.
 
 Automated verification:
 
