@@ -7,7 +7,6 @@ import {
   FileText,
   GitBranch,
   Laptop,
-  Mic,
   Plus,
   Shield,
   Square,
@@ -239,13 +238,6 @@ export function CodexComposer({
               options={modelOptions}
               value={selectedModel}
             />
-            <span
-              aria-hidden="true"
-              className="hidden size-8 shrink-0 items-center justify-center text-zinc-400 sm:flex"
-              data-composer-affordance="voice"
-            >
-              <Mic size={17} />
-            </span>
             {isRunning ? (
               <Button
                 aria-label="Stop"

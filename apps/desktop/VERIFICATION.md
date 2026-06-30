@@ -14,8 +14,8 @@ Current reference evidence:
 
 Latest verified desktop artifacts:
 
-- Desktop capture: `.artifacts/verification/2026-06-30T17-59-31-628Z/page@0b4e6e589d6863cef9b556cef48d1e48.webm`
-- Desktop stills: `.artifacts/verification/2026-06-30T17-59-31-628Z/*.png`
+- Desktop capture: `.artifacts/verification/2026-06-30T18-01-59-373Z/page@b3f7bedfdc5ad569a412e3f85d769ee9.webm`
+- Desktop stills: `.artifacts/verification/2026-06-30T18-01-59-373Z/*.png`
 - Grouped-sidebar capture: `.artifacts/verification/sidebar-groups/2026-06-30T15-10-20-395Z/page@d9d7ed776cdd64de9144ac1f4a6ab547.webm`
 - Grouped-sidebar still: `.artifacts/verification/sidebar-groups/2026-06-30T15-10-20-395Z/01-project-grouped-chats.png`
 - Design-guide capture: `.artifacts/verification/design-guide/2026-06-30T17-59-31-628Z/page@4fbd6ae0d6c8db0ef112e93865b54e73.webm`
@@ -33,6 +33,7 @@ Most recent manual checks:
 - Confirmed streaming assistant markdown renders through Streamdown and completed chat markdown renders through React Markdown.
 - Confirmed streaming assistant and thinking text no longer append an inline cursor dot.
 - Confirmed composer plain Enter submits the message and Shift+Enter inserts a newline.
+- Confirmed the composer no longer renders the passive microphone affordance.
 - Confirmed completed tool-call status renders as muted transcript metadata instead of bright emerald text.
 - Confirmed assistant messages use a wider Codex-like transcript rail instead of the previous narrow 72% cap.
 - Confirmed the UI verifier resets host state before loading the desktop shell.

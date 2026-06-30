@@ -91,10 +91,11 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
     );
     const kinds = new Set(affordances.map((affordance) => affordance.kind));
 
-    for (const kind of ["status", "voice"]) {
-      if (!kinds.has(kind)) {
-        throw new Error(`Missing passive composer affordance: ${kind}`);
-      }
+    if (!kinds.has("status")) {
+      throw new Error("Missing passive composer affordance: status");
+    }
+    if (kinds.has("voice")) {
+      throw new Error("Composer should not render the passive microphone affordance.");
     }
 
     const interactive = affordances.filter((affordance) => affordance.insideButton);
