@@ -59,6 +59,9 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
       .waitFor({
         timeout: 5_000,
       });
+    if ((await page.getByText("Toro Demo is ready.").count()) > 0) {
+      throw new Error("Empty project chat should not render redundant ready-state subcopy.");
+    }
   }
 
   async function assertComposerFooterIsCodexCompact(page) {

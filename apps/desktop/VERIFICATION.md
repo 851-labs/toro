@@ -178,6 +178,8 @@
 - Recent-first project chats stills: `.artifacts/verification/2026-06-30T08-28-48-821Z/*.png`
 - Empty project chat prompt capture: `.artifacts/verification/2026-06-30T08-33-01-811Z/page@d9192de567648e571912a9594e7ff64d.webm`
 - Empty project chat prompt stills: `.artifacts/verification/2026-06-30T08-33-01-811Z/*.png`
+- Quiet empty project chat capture: `.artifacts/verification/2026-06-30T08-36-53-025Z/page@4c51ca3e7d29f3197d020c4c5c05636e.webm`
+- Quiet empty project chat stills: `.artifacts/verification/2026-06-30T08-36-53-025Z/*.png`
 
 Manual verification:
 
@@ -240,6 +242,7 @@ Manual verification:
 - Confirmed the desktop transcript rail now aligns to the shared 960px composer surface so assistant text starts on the Codex-like composer left edge, with desktop and design-guide verifiers measuring the alignment.
 - Confirmed project chat rows now sort newest-first and mark the active chat with `aria-current`, with the UI verifier asserting the current chat is the first row in its project group.
 - Confirmed newly created empty project chats render the centered Codex-style "What should we build in toro?" prompt instead of a blank canvas, with the UI verifier checking the prompt before any message is sent.
+- Confirmed empty project chats no longer render redundant ready-state subcopy under the prompt, leaving the Codex-style empty canvas quieter before the first message.
 
 Automated verification:
 

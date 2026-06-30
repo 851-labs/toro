@@ -32,7 +32,7 @@ interface ChatPanelProps {
   readonly workspace: Workspace | null;
 }
 
-export function ChatPanel({ agentName, session, workspace }: ChatPanelProps) {
+export function ChatPanel({ session, workspace }: ChatPanelProps) {
   const [value, setValue] = useState("");
   const files = useQuery({
     enabled: Boolean(workspace),
@@ -65,7 +65,7 @@ export function ChatPanel({ agentName, session, workspace }: ChatPanelProps) {
         <div className="mx-auto flex max-w-[960px] flex-col gap-5" data-transcript-surface="true">
           {session ? (
             sessionIsEmpty ? (
-              <EmptyState agentName={agentName} workspaceName={workspaceName} />
+              <EmptyState workspaceName={workspaceName} />
             ) : (
               <>
                 <CodexPlanDisclosure entries={session.plan} />
@@ -75,7 +75,7 @@ export function ChatPanel({ agentName, session, workspace }: ChatPanelProps) {
               </>
             )
           ) : (
-            <EmptyState agentName={agentName} workspaceName={workspaceName} />
+            <EmptyState workspaceName={workspaceName} />
           )}
         </div>
       </div>
@@ -179,21 +179,17 @@ function contextPriority(path: string) {
   return 0;
 }
 
-function EmptyState({
-  agentName,
-  workspaceName,
-}: {
-  readonly agentName: string;
-  readonly workspaceName: string | null;
-}) {
+function EmptyState({ workspaceName }: { readonly workspaceName: string | null }) {
   return (
     <div className="flex min-h-[44vh] flex-col items-center justify-center text-center">
       <h2 className="text-3xl font-medium tracking-tight">
         What should we build{workspaceName ? ` in ${workspaceName}` : ""}?
       </h2>
-      <p className="mt-3 max-w-md text-base leading-7 text-zinc-400">
-        {workspaceName ? `${agentName} is ready.` : "Open a project, then start a new chat."}
-      </p>
+      {workspaceName ? null : (
+        <p className="mt-3 max-w-md text-base leading-7 text-zinc-400">
+          Open a project, then start a new chat.
+        </p>
+      )}
     </div>
   );
 }
