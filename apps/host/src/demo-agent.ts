@@ -1,7 +1,7 @@
 import * as acp from "@agentclientprotocol/sdk";
 
 const sessions = new Set<string>();
-const streamChunkDelayMs = Number(process.env.TORO_DEMO_STREAM_DELAY_MS ?? 90);
+const streamChunkDelayMs = Number(process.env.TORO_DEMO_STREAM_DELAY_MS ?? 35);
 
 const app = acp
   .agent({ name: "Toro Demo Agent" })
@@ -97,7 +97,7 @@ async function streamThought(
   ctx: acp.AgentRequestContext<acp.PromptRequest>,
   text: string,
 ): Promise<void> {
-  for (const chunk of text.match(/\S+\s*/g) ?? []) {
+  for (const chunk of textFragments(text)) {
     await new Promise((resolve) => setTimeout(resolve, streamChunkDelayMs));
     await ctx.client.notify(acp.methods.client.session.update, {
       sessionId: ctx.params.sessionId,
@@ -114,7 +114,7 @@ async function streamText(
   ctx: acp.AgentRequestContext<acp.PromptRequest>,
   text: string,
 ): Promise<void> {
-  for (const chunk of text.match(/\S+\s*/g) ?? []) {
+  for (const chunk of textFragments(text)) {
     await new Promise((resolve) => setTimeout(resolve, streamChunkDelayMs));
     await ctx.client.notify(acp.methods.client.session.update, {
       sessionId: ctx.params.sessionId,
@@ -125,6 +125,33 @@ async function streamText(
       },
     });
   }
+}
+
+function textFragments(text: string): readonly string[] {
+  const fragments: string[] = [];
+  let cursor = 0;
+
+  while (cursor < text.length) {
+    const nextBreak = nextFragmentBreak(text, cursor);
+    fragments.push(text.slice(cursor, nextBreak));
+    cursor = nextBreak;
+  }
+
+  return fragments;
+}
+
+function nextFragmentBreak(text: string, start: number): number {
+  const target = Math.min(start + 7, text.length);
+  if (target === text.length) {
+    return target;
+  }
+
+  const wordBoundary = text.indexOf(" ", target);
+  if (wordBoundary !== -1 && wordBoundary - start <= 12) {
+    return wordBoundary + 1;
+  }
+
+  return target;
 }
 
 function ReadableStreamFromStdin(): ReadableStream<Uint8Array> {
