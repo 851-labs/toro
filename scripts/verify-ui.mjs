@@ -1,10 +1,11 @@
 import { chromium } from "@playwright/test";
 import { mkdir, readdir } from "node:fs/promises";
-import { resolve } from "node:path";
+import { basename, resolve } from "node:path";
 
 const appUrl = process.env.TORO_APP_URL ?? "http://127.0.0.1:1420";
 const hostUrl = process.env.TORO_HOST_URL ?? "http://127.0.0.1:17345";
 const workspacePath = process.env.TORO_VERIFY_WORKSPACE ?? resolve(".");
+const workspaceName = basename(workspacePath);
 const stepDelayMs = Number(process.env.TORO_VERIFY_STEP_DELAY_MS ?? 0);
 const timestamp = new Date().toISOString().replaceAll(":", "-").replaceAll(".", "-");
 const artifactDir = resolve(".artifacts/verification", timestamp);
@@ -22,6 +23,8 @@ const page = await context.newPage();
 await page.goto(appUrl, { waitUntil: "domcontentloaded" });
 await page.getByText("Toro").first().waitFor({ timeout: 5_000 });
 await assertDeadControlsRemoved(page);
+await assertPrimarySidebarSimplified(page);
+await assertOnlyFunctionalButtons(page);
 const composer = page.getByLabel("Message agent");
 const initialComposerText = "Typing before a session should work.";
 await composer.fill(initialComposerText);
@@ -35,6 +38,7 @@ await pause();
 await page.getByPlaceholder("/path/to/workspace").fill(workspacePath);
 await page.getByRole("button", { exact: true, name: "Add" }).click();
 await page.getByText("toro").first().waitFor({ timeout: 5_000 });
+await assertOnlyFunctionalButtons(page);
 await screenshot(page, "02-workspace-opened.png");
 await pause();
 
@@ -47,17 +51,21 @@ await page
   .getByRole("button", { name: /Chat Toro Demo in toro/ })
   .first()
   .waitFor({ timeout: 5_000 });
+await assertPrimarySidebarSimplified(page);
+await assertOnlyFunctionalButtons(page);
 await screenshot(page, "03-session-created.png");
 await pause();
 
 await composer.fill("Verify the Toro ACP UI loop.");
 await page.getByRole("button", { exact: true, name: "Send" }).click();
 await page.getByText("Validate Toro permission UI").waitFor({ timeout: 10_000 });
+await assertOnlyFunctionalButtons(page, ["Allow once", "Reject"]);
 await screenshot(page, "04-permission-request.png");
 await pause();
 
 await page.getByRole("button", { name: "Allow once" }).click();
 await page.getByText(/tool cards are working/).waitFor({ timeout: 10_000 });
+await assertOnlyFunctionalButtons(page);
 await screenshot(page, "05-streaming-complete.png");
 await pause();
 
@@ -102,6 +110,39 @@ async function assertDeadControlsRemoved(page) {
       throw new Error(`Dead control is still rendered as a button: ${name}`);
     }
   }
+}
+
+async function assertPrimarySidebarSimplified(page) {
+  const removedSections = ["Files", "Run With", "Environment"];
+
+  for (const name of removedSections) {
+    if ((await page.getByRole("heading", { exact: true, name }).count()) > 0) {
+      throw new Error(`Non-Codex sidebar section is still rendered: ${name}`);
+    }
+  }
+}
+
+async function assertOnlyFunctionalButtons(page, extraAllowedLabels = []) {
+  const buttons = await page.locator("button").evaluateAll((nodes) =>
+    nodes.map((node) => ({
+      disabled: node.hasAttribute("disabled"),
+      label: node.getAttribute("aria-label") ?? node.textContent?.replace(/\s+/g, " ").trim() ?? "",
+    })),
+  );
+  const unexpected = buttons.filter(
+    ({ label }) => !isKnownFunctionalButton(label, extraAllowedLabels),
+  );
+
+  if (unexpected.length > 0) {
+    throw new Error(`Unexpected button controls: ${JSON.stringify(unexpected)}`);
+  }
+}
+
+function isKnownFunctionalButton(label, extraAllowedLabels) {
+  if (["Session", "Add", "Send", "Stop", ...extraAllowedLabels].includes(label)) {
+    return true;
+  }
+  return label.startsWith("Chat ") || label.startsWith(workspaceName);
 }
 
 async function assertReachable(url, label) {

@@ -25,13 +25,18 @@ await page.getByText("tool cards are working").waitFor({ timeout: 5_000 });
 await screenshot(page, "01-chat-elements.png");
 await pause();
 
+await page.getByRole("button", { exact: true, name: "Allow once" }).click();
+await page.getByText("allowed once").waitFor({ timeout: 5_000 });
+await screenshot(page, "02-permission-responded.png");
+await pause();
+
 const composer = page.getByLabel("Message agent");
 await composer.fill("Design guide composer check");
 await page.getByRole("button", { exact: true, name: "Send" }).click();
 if ((await composer.inputValue()) !== "") {
   throw new Error("Design guide composer did not clear after send.");
 }
-await screenshot(page, "02-composer-cleared.png");
+await screenshot(page, "03-composer-cleared.png");
 await pause();
 
 await context.close();

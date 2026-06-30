@@ -11,6 +11,10 @@ import { useState } from "react";
 
 export function ChatDesignGuide() {
   const [composerValue, setComposerValue] = useState("");
+  const [permissionDecision, setPermissionDecision] = useState<
+    "allowed once" | "rejected" | "waiting"
+  >("waiting");
+  const permissionTone = permissionDecision === "rejected" ? "bad" : "neutral";
 
   return (
     <main className="grid h-full grid-cols-[280px_minmax(0,1fr)] overflow-hidden bg-white text-zinc-950">
@@ -52,12 +56,19 @@ export function ChatDesignGuide() {
               Streaming text keeps a quiet inline cursor while the final response is still arriving
             </CodexChatMessage>
             <CodexPermissionCard
-              onRespond={() => undefined}
+              onRespond={(optionId) =>
+                setPermissionDecision(optionId === "allow" ? "allowed once" : "rejected")
+              }
               options={[
                 { id: "allow", kind: "allow_once", name: "Allow once" },
                 { id: "reject", kind: "reject", name: "Reject" },
               ]}
-              title="Validate Toro permission UI"
+              title={
+                <span className="inline-flex min-w-0 items-center gap-2">
+                  <span>Validate Toro permission UI</span>
+                  <StatusBadge label={permissionDecision} tone={permissionTone} />
+                </span>
+              }
             />
             <CodexToolCall
               defaultOpen
