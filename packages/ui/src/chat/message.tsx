@@ -62,7 +62,7 @@ export function CodexChatMessage({ children, copyText, isStreaming, role }: Code
                 label={copied ? "Copied message" : "Copy message"}
                 onClick={() => void copyMessage()}
               >
-                {copied ? <Check size={15} /> : <Copy size={15} />}
+                {copied ? <Check size={16} /> : <Copy size={16} />}
               </CodexMessageAction>
             ) : null}
             <CodexMessageAction
@@ -70,21 +70,21 @@ export function CodexChatMessage({ children, copyText, isStreaming, role }: Code
               onClick={() => setFeedback((value) => (value === "good" ? null : "good"))}
               pressed={feedback === "good"}
             >
-              <ThumbsUp size={15} />
+              <ThumbsUp size={16} />
             </CodexMessageAction>
             <CodexMessageAction
               label="Bad response"
               onClick={() => setFeedback((value) => (value === "bad" ? null : "bad"))}
               pressed={feedback === "bad"}
             >
-              <ThumbsDown size={15} />
+              <ThumbsDown size={16} />
             </CodexMessageAction>
             <CodexMessageAction
               label={expanded ? "Collapse message" : "Expand message"}
               onClick={() => setExpanded((value) => !value)}
               pressed={expanded}
             >
-              {expanded ? <Minimize2 size={15} /> : <Maximize2 size={15} />}
+              {expanded ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
             </CodexMessageAction>
           </div>
         ) : null}

@@ -449,8 +449,13 @@ Manual verification:
 - Medium header title desktop stills: `.artifacts/verification/2026-06-30T13-08-52-608Z/*.png`
 - Medium header title design-guide capture: `.artifacts/verification/design-guide/2026-06-30T13-08-53-273Z/page@eaab898f8b6c49af3dc12f03559a2cb4.webm`
 - Medium header title design-guide stills: `.artifacts/verification/design-guide/2026-06-30T13-08-53-273Z/*.png`
-- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T13-08-52-608Z/`.
-- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T13-08-53-273Z/`.
+- Confirmed shared assistant message actions now use slightly larger Codex-like 16px glyphs, with design-guide verification measuring rendered SVG width.
+- Larger message actions desktop capture: `.artifacts/verification/2026-06-30T13-15-30-084Z/page@a170f40e0e2b89620fda3fcadd7d575c.webm`
+- Larger message actions desktop stills: `.artifacts/verification/2026-06-30T13-15-30-084Z/*.png`
+- Larger message actions design-guide capture: `.artifacts/verification/design-guide/2026-06-30T13-15-30-084Z/page@e8478ca238f0566a5b3a59fbcb689415.webm`
+- Larger message actions design-guide stills: `.artifacts/verification/design-guide/2026-06-30T13-15-30-084Z/*.png`
+- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T13-15-30-084Z/`.
+- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T13-15-30-084Z/`.
 
 Automated verification:
 

@@ -177,6 +177,13 @@ async function assertSharedMessageActions(page) {
       `Design-guide assistant actions should use shared message actions, got ${actions}.`,
     );
   }
+  const iconWidth = await page
+    .locator("[data-message-action='true'] svg")
+    .first()
+    .evaluate((node) => node.getBoundingClientRect().width);
+  if (iconWidth < 16) {
+    throw new Error(`Design-guide message action icon is too small: ${iconWidth}.`);
+  }
 }
 
 async function assertSharedPermissionElements(page) {
