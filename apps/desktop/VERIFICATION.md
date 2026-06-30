@@ -78,6 +78,10 @@
 - Collapsed project opener stills: `.artifacts/verification/2026-06-30T04-53-52-357Z/*.png`
 - Functional sidebar toggle capture: `.artifacts/verification/2026-06-30T05-00-08-320Z/page@0cae13a01fd991bca3fe5c6ea97ba953.webm`
 - Functional sidebar toggle stills: `.artifacts/verification/2026-06-30T05-00-08-320Z/*.png`
+- Compact permission card capture: `.artifacts/verification/2026-06-30T05-05-38-110Z/page@a22bd12768246e1c952be25198e50c18.webm`
+- Compact permission card stills: `.artifacts/verification/2026-06-30T05-05-38-110Z/*.png`
+- Compact permission card design-guide capture: `.artifacts/verification/design-guide/2026-06-30T05-06-39-871Z/page@3fef7405bbded6ac688a12e129ce14d4.webm`
+- Compact permission card design-guide stills: `.artifacts/verification/design-guide/2026-06-30T05-06-39-871Z/*.png`
 
 Manual verification:
 
@@ -111,6 +115,7 @@ Manual verification:
 - Confirmed sidebar chat rows no longer render status pills and behave as plain Codex-style navigation rows.
 - Confirmed the raw project path form is hidden by default and opens through a compact Projects action while preserving the project-open flow.
 - Confirmed the header sidebar icon is now a functional Codex-style toggle that hides and restores the sidebar during verification.
+- Confirmed permission requests use a compact shared chat primitive instead of the older amber alert card while keeping allow/reject actions functional.
 
 Automated verification:
 

@@ -88,6 +88,7 @@ await screenshot(page, "05-thinking.png");
 await pause();
 
 await page.getByText("Validate Toro permission UI").waitFor({ timeout: 10_000 });
+await assertPermissionCardIsCompact(page);
 await assertSidebarChatRowsAreNavigationOnly(page);
 await assertOnlyFunctionalButtons(page, ["Allow once", "Reject"]);
 await screenshot(page, "06-permission-request.png");
@@ -188,6 +189,14 @@ async function assertDesktopDebugLogsHidden(page) {
 async function assertProjectFormHidden(page) {
   if ((await page.getByLabel("Project path").count()) > 0) {
     throw new Error("Project path form should be hidden until Open project is clicked.");
+  }
+}
+
+async function assertPermissionCardIsCompact(page) {
+  const permissionCard = page.locator("section").filter({ hasText: "Validate Toro permission UI" });
+  const className = (await permissionCard.first().getAttribute("class")) ?? "";
+  if (className.includes("bg-amber-50")) {
+    throw new Error("Permission card should not use the old amber alert background.");
   }
 }
 
