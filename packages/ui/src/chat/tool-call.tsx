@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
-import { ChevronRight, SquareTerminal } from "lucide-react";
+import { SquareTerminal } from "lucide-react";
 import { cn } from "../cn";
+import { CodexDisclosureSummary } from "./disclosure-summary";
 
 export interface CodexToolCallProps {
   readonly children?: ReactNode;
@@ -13,25 +14,20 @@ export interface CodexToolCallProps {
 export function CodexToolCall({ children, defaultOpen, kind, status, title }: CodexToolCallProps) {
   return (
     <details className="group/tool text-sm" open={defaultOpen}>
-      <summary className="flex cursor-pointer list-none items-center gap-2 rounded-xl px-2 py-2 text-zinc-600 hover:bg-zinc-50 [&::-webkit-details-marker]:hidden">
-        <span className="flex size-6 shrink-0 items-center justify-center text-zinc-500">
-          <SquareTerminal size={14} />
-        </span>
-        <div className="min-w-0 flex-1 leading-5">
-          <div className="truncate font-medium text-zinc-900">{title}</div>
-          <div className="flex min-w-0 items-center gap-1.5 text-xs text-zinc-500">
+      <CodexDisclosureSummary
+        chevronClassName="group-open/tool:rotate-90"
+        icon={<SquareTerminal size={14} />}
+        meta={
+          <span className="flex min-w-0 items-center gap-1.5">
             <span className="truncate">{kind}</span>
             <span aria-hidden="true" className="text-zinc-300">
               /
             </span>
             <span className={cn("shrink-0", statusClass(status))}>{statusLabel(status)}</span>
-          </div>
-        </div>
-        <ChevronRight
-          className="shrink-0 text-zinc-400 transition group-open/tool:rotate-90"
-          size={15}
-        />
-      </summary>
+          </span>
+        }
+        title={title}
+      />
       {children ? (
         <pre
           className="ml-8 mt-1 max-h-52 overflow-auto whitespace-pre-wrap border-l border-zinc-200 py-1 pl-3 text-xs leading-5 text-zinc-600"

@@ -1,4 +1,5 @@
 export * from "./composer";
+export * from "./disclosure-summary";
 export * from "./empty-state";
 export * from "./message";
 export * from "./message-action";

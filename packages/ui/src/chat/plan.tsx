@@ -1,5 +1,6 @@
-import { ChevronRight, ClipboardList } from "lucide-react";
+import { ClipboardList } from "lucide-react";
 import { cn } from "../cn";
+import { CodexDisclosureSummary } from "./disclosure-summary";
 
 export interface CodexPlanItem {
   readonly content: string;
@@ -26,21 +27,12 @@ export function CodexPlanDisclosure({
 
   return (
     <details className="group/plan text-sm" open={defaultOpen}>
-      <summary className="flex cursor-pointer list-none items-center gap-2 rounded-xl px-2 py-2 text-zinc-600 hover:bg-zinc-50 [&::-webkit-details-marker]:hidden">
-        <span className="flex size-6 shrink-0 items-center justify-center text-zinc-500">
-          <ClipboardList size={14} />
-        </span>
-        <div className="min-w-0 flex-1 leading-5">
-          <div className="truncate font-medium text-zinc-900">{title}</div>
-          <div className="text-xs text-zinc-500">
-            {completedCount} of {entries.length} complete
-          </div>
-        </div>
-        <ChevronRight
-          className="shrink-0 text-zinc-400 transition group-open/plan:rotate-90"
-          size={15}
-        />
-      </summary>
+      <CodexDisclosureSummary
+        chevronClassName="group-open/plan:rotate-90"
+        icon={<ClipboardList size={14} />}
+        meta={`${completedCount} of ${entries.length} complete`}
+        title={title}
+      />
       <ol className="ml-8 mt-1 space-y-1 border-l border-zinc-200 pl-3">
         {entries.map((entry, index) => (
           <li className="flex items-start gap-2 text-sm" key={`${entry.content}-${index}`}>
