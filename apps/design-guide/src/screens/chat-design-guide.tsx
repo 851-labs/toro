@@ -6,6 +6,7 @@ import {
   CodexPlanDisclosure,
   CodexThinkingDisclosure,
   CodexToolCall,
+  CodexTranscriptSurface,
   StatusBadge,
 } from "@toro/ui";
 import { FolderPlus, MessageSquare, Search, SlidersHorizontal, SquarePen } from "lucide-react";
@@ -147,7 +148,7 @@ function ChatElements({
   readonly onPermissionDecision: (decision: "allowed once" | "rejected") => void;
 }) {
   return (
-    <div className="mx-auto flex max-w-[960px] flex-col gap-5" data-transcript-surface="true">
+    <CodexTranscriptSurface>
       <CodexPlanDisclosure defaultOpen entries={planEntries} />
       <CodexChatMessage role="user">Make the chat UI look exactly like Codex.</CodexChatMessage>
       <CodexChatMessage
@@ -186,7 +187,7 @@ function ChatElements({
       >
         tool cards are working
       </CodexToolCall>
-    </div>
+    </CodexTranscriptSurface>
   );
 }
 
@@ -256,21 +257,21 @@ function SidebarRow({ icon, label }: { readonly icon: React.ReactNode; readonly 
 
 function ComposerStates() {
   return (
-    <div className="mx-auto max-w-[960px] space-y-5" data-transcript-surface="true">
+    <CodexTranscriptSurface>
       <CodexChatMessage role="assistant">
         Use app.tsx and composer.tsx as context for the next Toro chat pass.
       </CodexChatMessage>
       <CodexToolCall kind="read" status="completed" title="Load composer context candidates">
         app.tsx, composer.tsx, verify-ui.mjs
       </CodexToolCall>
-    </div>
+    </CodexTranscriptSurface>
   );
 }
 
 function EmptyStates() {
   return (
-    <div className="mx-auto max-w-[960px]" data-transcript-surface="true">
+    <CodexTranscriptSurface className="gap-0">
       <CodexEmptyState workspaceName="toro" />
-    </div>
+    </CodexTranscriptSurface>
   );
 }

@@ -17,6 +17,7 @@ import {
   CodexPlanDisclosure,
   CodexThinkingDisclosure,
   CodexToolCall,
+  CodexTranscriptSurface,
 } from "@toro/ui";
 import { useMemo, useState } from "react";
 import { hostClient } from "../lib/host-client";
@@ -62,7 +63,7 @@ export function ChatPanel({ session, workspace }: ChatPanelProps) {
   return (
     <section className="grid min-h-0 min-w-0 grid-rows-[1fr_auto] bg-white">
       <div className="min-h-0 overflow-auto px-6 py-8">
-        <div className="mx-auto flex max-w-[960px] flex-col gap-5" data-transcript-surface="true">
+        <CodexTranscriptSurface>
           {session ? (
             sessionIsEmpty ? (
               <CodexEmptyState workspaceName={workspaceName} />
@@ -77,7 +78,7 @@ export function ChatPanel({ session, workspace }: ChatPanelProps) {
           ) : (
             <CodexEmptyState workspaceName={workspaceName} />
           )}
-        </div>
+        </CodexTranscriptSurface>
       </div>
 
       <CodexComposer
