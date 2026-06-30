@@ -10,9 +10,12 @@ import {
   StatusBadge,
 } from "@toro/ui";
 import {
+  ChevronLeft,
+  ChevronRight,
   FileText,
   FolderPlus,
   MessageSquare,
+  PanelLeft,
   Search,
   SlidersHorizontal,
   SquarePen,
@@ -216,10 +219,23 @@ function SidebarGroups() {
         className="relative min-h-[620px] border-r border-zinc-200 bg-[#f7f8f8] px-3 py-4"
         data-sidebar-story-rail="true"
       >
-        <div aria-hidden="true" className="mb-5 flex items-center gap-2 px-2">
-          <span className="size-3 rounded-full bg-[#ff5f57]" />
-          <span className="size-3 rounded-full bg-[#ffbd2e]" />
-          <span className="size-3 rounded-full bg-[#28c840]" />
+        <div className="mb-5 flex h-8 items-center gap-3 px-2">
+          <div aria-hidden="true" className="flex items-center gap-2">
+            <span className="size-3 rounded-full bg-[#ff5f57]" />
+            <span className="size-3 rounded-full bg-[#ffbd2e]" />
+            <span className="size-3 rounded-full bg-[#28c840]" />
+          </div>
+          <div aria-label="Sidebar titlebar controls" className="ml-2 flex items-center gap-1">
+            <span className="flex size-8 items-center justify-center rounded-lg text-zinc-500">
+              <PanelLeft size={17} />
+            </span>
+            <span className="flex size-8 items-center justify-center rounded-lg text-zinc-500">
+              <ChevronLeft size={18} />
+            </span>
+            <span className="flex size-8 items-center justify-center rounded-lg text-zinc-300">
+              <ChevronRight size={18} />
+            </span>
+          </div>
         </div>
         <SidebarRow icon={<SquarePen size={16} />} label="New chat" />
         <SidebarRow icon={<Search size={16} />} label="Search" />
@@ -232,13 +248,21 @@ function SidebarGroups() {
           <div className="truncate font-medium">toro</div>
         </div>
         <div className="mt-0.5 space-y-0.5">
-          {["Toro Demo in toro", "Codex in toro", "Composer context picker"].map((label) => (
+          {[
+            { active: true, label: "Verify the Toro ACP UI loop" },
+            { active: false, label: "Composer context picker" },
+            { active: false, label: "Quiet expanded tool output" },
+          ].map((chat) => (
             <div
-              className="flex h-9 items-center gap-2 rounded-lg py-1.5 pl-8 pr-3 text-sm"
-              key={label}
+              className={
+                chat.active
+                  ? "flex h-9 items-center gap-2 rounded-lg bg-zinc-200/80 py-1.5 pl-8 pr-3 text-sm"
+                  : "flex h-9 items-center gap-2 rounded-lg py-1.5 pl-8 pr-3 text-sm"
+              }
+              key={chat.label}
             >
               <MessageSquare size={14} className="text-zinc-500" />
-              <span className="truncate">{label}</span>
+              <span className="truncate">{chat.label}</span>
             </div>
           ))}
         </div>

@@ -307,8 +307,10 @@ Manual verification:
 - Confirmed sidebar Back returns from a new chat to the lifted empty project composer and Forward restores the selected chat, with the desktop UI verifier capturing `04-history-back.png`.
 - Confirmed expanded tool output no longer renders a vertical rule or hover-filled summary band, keeping completed tool calls closer to Codex's quiet transcript text.
 - Confirmed new chats are renamed from the first user prompt through a domain session-title event, with desktop verification asserting the updated header and active sidebar row.
-- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T09-57-45-140Z/`.
-- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T09-57-45-135Z/`.
+- Confirmed the design-guide sidebar story now reflects the current desktop rail titlebar controls and prompt-derived active chat title, with verifier coverage for both.
+- Confirmed desktop verification targets the active prompt-derived sidebar row, so duplicate historical chat titles do not make the assertion ambiguous.
+- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T10-02-06-601Z/`.
+- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T10-01-31-055Z/`.
 
 Automated verification:
 

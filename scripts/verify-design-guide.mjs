@@ -49,6 +49,8 @@ await pause();
 await page.getByRole("button", { exact: true, name: "Sidebar Groups" }).click();
 await expectPressed(page.getByRole("button", { exact: true, name: "Sidebar Groups" }));
 await page.getByText("Codex Sidebar Groups").waitFor({ timeout: 5_000 });
+await page.getByLabel("Sidebar titlebar controls").waitFor({ timeout: 5_000 });
+await page.getByText("Verify the Toro ACP UI loop").waitFor({ timeout: 5_000 });
 await page.getByText("Composer context picker").waitFor({ timeout: 5_000 });
 await assertSidebarStoryWidth(page);
 await screenshot(page, "04-sidebar-groups.png");
