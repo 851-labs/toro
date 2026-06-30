@@ -444,8 +444,13 @@ Manual verification:
 - Sidebar gray shell desktop stills: `.artifacts/verification/2026-06-30T13-04-28-323Z/*.png`
 - Sidebar gray shell design-guide capture: `.artifacts/verification/design-guide/2026-06-30T13-04-28-331Z/page@be6df66b3604e5323aa11858bdc4077c.webm`
 - Sidebar gray shell design-guide stills: `.artifacts/verification/design-guide/2026-06-30T13-04-28-331Z/*.png`
-- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T13-04-28-323Z/`.
-- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T13-04-28-331Z/`.
+- Confirmed shared chat header titles now use Codex-like medium weight instead of the heavier semibold treatment, with design-guide verification asserting it.
+- Medium header title desktop capture: `.artifacts/verification/2026-06-30T13-08-52-608Z/page@78f580359dce77c5d2218ac1ff4309dc.webm`
+- Medium header title desktop stills: `.artifacts/verification/2026-06-30T13-08-52-608Z/*.png`
+- Medium header title design-guide capture: `.artifacts/verification/design-guide/2026-06-30T13-08-53-273Z/page@eaab898f8b6c49af3dc12f03559a2cb4.webm`
+- Medium header title design-guide stills: `.artifacts/verification/design-guide/2026-06-30T13-08-53-273Z/*.png`
+- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T13-08-52-608Z/`.
+- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T13-08-53-273Z/`.
 
 Automated verification:
 

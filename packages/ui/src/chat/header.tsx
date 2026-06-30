@@ -35,7 +35,7 @@ export function CodexChatHeader({
       <div className="flex min-w-0 items-center gap-3">
         {leading}
         {title ? (
-          <Title className="truncate text-lg font-semibold dark:text-zinc-100">{title}</Title>
+          <Title className="truncate text-lg font-medium dark:text-zinc-100">{title}</Title>
         ) : null}
         {actions}
       </div>

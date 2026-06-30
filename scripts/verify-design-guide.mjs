@@ -316,6 +316,10 @@ async function assertSidebarStoryHeader(page) {
   await header.getByText("New chat", { exact: true }).waitFor({ timeout: 5_000 });
   await header.getByText("Open in", { exact: true }).waitFor({ timeout: 5_000 });
   await header.locator("[data-vscode-mark='true']").waitFor({ timeout: 5_000 });
+  const titleWeight = await header
+    .getByText("New chat", { exact: true })
+    .evaluate((node) => Number(getComputedStyle(node).fontWeight));
+  if (titleWeight > 550) throw new Error(`Chat header title is too bold: ${titleWeight}.`);
   if ((await header.getAttribute("data-chat-header")) !== "true") {
     throw new Error("Design-guide sidebar story should use the shared chat header primitive.");
   }
