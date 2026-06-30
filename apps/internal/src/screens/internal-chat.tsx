@@ -55,12 +55,7 @@ export function InternalChat() {
   return (
     <main className="grid h-full grid-cols-[280px_minmax(0,1fr)] overflow-hidden bg-white text-zinc-950">
       <aside className="border-r border-zinc-200 bg-[#f2f5f5] px-5 py-5">
-        <div className="mb-8 flex items-center gap-2 font-semibold">
-          <div className="flex size-7 items-center justify-center rounded-full bg-zinc-950 text-sm text-white">
-            T
-          </div>
-          Toro UI
-        </div>
+        <div className="mb-8 font-semibold">Toro UI</div>
         <nav className="space-y-1 text-sm">
           <GuideNavButton
             active={activeView === "chat"}

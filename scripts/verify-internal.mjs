@@ -18,6 +18,8 @@ const page = await context.newPage();
 
 await page.goto(appUrl, { waitUntil: "networkidle" });
 await page.getByText("Codex Chat Surface").waitFor({ timeout: 5_000 });
+if ((await page.locator("aside").getByText("T", { exact: true }).count()) > 0)
+  throw new Error("Internal sidebar should not render the T circle logo.");
 await page.getByText(streamingMarkdownText).waitFor({ timeout: 5_000 });
 await page.getByText("Thinking").waitFor({ timeout: 5_000 });
 await page.getByText("Reviewing project context").waitFor({ timeout: 5_000 });
