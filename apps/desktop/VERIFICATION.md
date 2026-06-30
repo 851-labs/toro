@@ -305,8 +305,9 @@ Manual verification:
 - Confirmed the header action and Open in menus use tighter Codex-like radii and lighter shadows, and the UI verifier still exercises copy, Finder, VS Code, and session details flows.
 - Confirmed the sidebar titlebar now clusters traffic controls, collapse, Back, and Forward like Codex, with Back/Forward rendered as passive glyphs until real navigation history exists.
 - Confirmed sidebar Back returns from a new chat to the lifted empty project composer and Forward restores the selected chat, with the desktop UI verifier capturing `04-history-back.png`.
-- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T09-49-11-724Z/`.
-- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T09-49-11-718Z/`.
+- Confirmed expanded tool output no longer renders a vertical rule or hover-filled summary band, keeping completed tool calls closer to Codex's quiet transcript text.
+- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T09-52-34-831Z/`.
+- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T09-52-35-349Z/`.
 
 Automated verification:
 

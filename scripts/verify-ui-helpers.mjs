@@ -192,7 +192,11 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
 
     const outputClassName =
       (await toolCall.locator("[data-tool-output='true']").first().getAttribute("class")) ?? "";
-    if (outputClassName.includes("rounded-xl") || outputClassName.includes("bg-zinc-50")) {
+    if (
+      outputClassName.includes("rounded-xl") ||
+      outputClassName.includes("bg-zinc-50") ||
+      outputClassName.includes("border-l")
+    ) {
       throw new Error("Expanded tool output should render as a quiet indented block.");
     }
   }

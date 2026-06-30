@@ -26,11 +26,12 @@ export function CodexToolCall({ children, defaultOpen, kind, status, title }: Co
             <span className={cn("shrink-0", statusClass(status))}>{statusLabel(status)}</span>
           </span>
         }
+        summaryClassName="group-open/tool:hover:bg-transparent"
         title={title}
       />
       {children ? (
         <pre
-          className="ml-8 mt-1 max-h-52 overflow-auto whitespace-pre-wrap border-l border-zinc-200 py-1 pl-3 text-xs leading-5 text-zinc-600"
+          className="ml-10 mt-1 max-h-52 overflow-auto whitespace-pre-wrap py-0.5 text-xs leading-5 text-zinc-500"
           data-tool-output="true"
         >
           {children}
