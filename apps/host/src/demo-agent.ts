@@ -70,6 +70,20 @@ async function requestDemoPermission(
   await ctx.client.notify(acp.methods.client.session.update, {
     sessionId: ctx.params.sessionId,
     update: {
+      content: [
+        {
+          content: {
+            text: [
+              "$ toro demo verify --workspace toro",
+              "permission granted",
+              "streaming transcript checked",
+              "status: ok",
+            ].join("\n"),
+            type: "text",
+          },
+          type: "content",
+        },
+      ],
       kind: "execute",
       status: response.outcome.outcome === "selected" ? "completed" : "failed",
       title: "Validate Toro permission UI",

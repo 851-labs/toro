@@ -34,6 +34,12 @@ describe("AcpEventNormalizer", () => {
     const updated = normalizer.normalizeSessionUpdate({
       sessionId: "acp-session",
       update: {
+        content: [
+          {
+            content: { text: "status: ok", type: "text" },
+            type: "content",
+          },
+        ],
         status: "completed",
         toolCallId: "tool-1",
         sessionUpdate: "tool_call_update",
@@ -41,7 +47,9 @@ describe("AcpEventNormalizer", () => {
     } satisfies SessionNotification);
 
     expect(created[0]).toMatchObject({ toolCall: { title: "Run tests", status: "pending" } });
-    expect(updated[0]).toMatchObject({ toolCall: { title: "Run tests", status: "completed" } });
+    expect(updated[0]).toMatchObject({
+      toolCall: { content: ["status: ok"], title: "Run tests", status: "completed" },
+    });
   });
 
   it("normalizes thought chunks separately from assistant messages", () => {

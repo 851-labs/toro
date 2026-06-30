@@ -34,6 +34,8 @@
 - Thinking disclosure stills: `.artifacts/verification/2026-06-30T03-36-57-321Z/*.png`
 - Thinking design-guide capture: `.artifacts/verification/design-guide/2026-06-30T03-35-45-161Z/page@0df05d131476dfa85a5fc9fc68263bd0.webm`
 - Thinking design-guide stills: `.artifacts/verification/design-guide/2026-06-30T03-35-45-161Z/*.png`
+- Tool-call content capture: `.artifacts/verification/2026-06-30T03-45-38-262Z/page@f29a61af729cc4cfee0dff7a161b0700.webm`
+- Tool-call content stills: `.artifacts/verification/2026-06-30T03-45-38-262Z/*.png`
 
 Manual verification:
 
@@ -53,6 +55,7 @@ Manual verification:
 - Confirmed the deterministic ACP demo emits a visible mid-stream assistant response before the final assistant text is present.
 - Confirmed completed assistant messages expose a functional Codex-style copy action with visible copied state.
 - Confirmed ACP thought chunks are stored separately from assistant messages and render as a shared Codex-style thinking disclosure.
+- Confirmed completed tool calls carry ACP text content and expand to show deterministic command output.
 
 Automated verification:
 

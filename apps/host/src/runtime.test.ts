@@ -39,6 +39,7 @@ describe("HostRuntime", () => {
 
     expect(session?.messages.some((message) => message.content.includes("ACP session"))).toBe(true);
     expect(session?.thoughts[0]?.content).toContain("Checking project context");
+    expect(session?.toolCalls[0]?.content[0]).toContain("status: ok");
     expect(session?.toolCalls[0]?.status).toBe("completed");
     expect(session?.plan.length).toBeGreaterThan(0);
   }, 15_000);

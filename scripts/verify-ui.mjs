@@ -84,16 +84,22 @@ await pause();
 
 await page.getByText(/tool cards are working/).waitFor({ timeout: 10_000 });
 await assertOnlyFunctionalButtons(page);
+const toolCall = page.locator("details").filter({ hasText: "Validate Toro permission UI" }).last();
+await toolCall.locator("summary").click();
+await page.getByText("status: ok").waitFor({ timeout: 5_000 });
+await screenshot(page, "07-tool-call-expanded.png");
+await pause();
+
 await page.getByRole("button", { exact: true, name: "Copy message" }).last().click();
 await page.getByRole("button", { exact: true, name: "Copied message" }).waitFor({ timeout: 5_000 });
-await screenshot(page, "07-streaming-complete.png");
+await screenshot(page, "08-streaming-complete.png");
 await pause();
 
 const packageJson = page.getByRole("button", { name: "package.json" }).first();
 if (await packageJson.count()) {
   await packageJson.click();
   await page.waitForTimeout(500);
-  await screenshot(page, "08-file-preview.png");
+  await screenshot(page, "09-file-preview.png");
   await pause();
 }
 

@@ -201,10 +201,63 @@ function toolContentToText(content: unknown): string {
   if (typeof content === "string") {
     return content;
   }
-  if (typeof content === "object" && content !== null && "content" in content) {
-    return String(content.content);
+  if (typeof content !== "object" || content === null) {
+    return JSON.stringify(content);
+  }
+  if ("type" in content && content.type === "content" && "content" in content) {
+    return contentBlockToText(content.content);
+  }
+  if ("type" in content && content.type === "diff") {
+    return diffContentToText(content);
+  }
+  if ("type" in content && content.type === "terminal" && "terminalId" in content) {
+    return `Terminal ${String(content.terminalId)}`;
   }
   return JSON.stringify(content);
+}
+
+function contentBlockToText(content: unknown): string {
+  if (typeof content !== "object" || content === null) {
+    return String(content);
+  }
+  if ("type" in content && content.type === "text" && "text" in content) {
+    return String(content.text);
+  }
+  if ("type" in content && content.type === "resource_link" && "uri" in content) {
+    return String(content.uri);
+  }
+  if ("type" in content && content.type === "resource" && "resource" in content) {
+    return embeddedResourceToText(content.resource);
+  }
+  return JSON.stringify(content);
+}
+
+function embeddedResourceToText(resource: unknown): string {
+  if (typeof resource === "object" && resource !== null && "text" in resource) {
+    return String(resource.text);
+  }
+  if (typeof resource === "object" && resource !== null && "uri" in resource) {
+    return String(resource.uri);
+  }
+  return JSON.stringify(resource);
+}
+
+function diffContentToText(content: object): string {
+  const path = objectFieldToText(content, "path") ?? "unknown";
+  const oldText = objectFieldToText(content, "oldText") ?? "";
+  const newText = objectFieldToText(content, "newText") ?? "";
+  return [`--- ${path}`, oldText, `+++ ${path}`, newText].filter(Boolean).join("\n");
+}
+
+function objectFieldToText(content: object, key: string): string | null {
+  if (!(key in content)) {
+    return null;
+  }
+  const value = (content as Record<string, unknown>)[key];
+  if (value === null || value === undefined) {
+    return null;
+  }
+  return typeof value === "string" ? value : JSON.stringify(value);
 }
 
 function planEntryFromAcp(entry: AcpPlanEntry): PlanEntry {
