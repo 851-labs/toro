@@ -50,6 +50,7 @@ await page.getByRole("button", { exact: true, name: "Sidebar Groups" }).click();
 await expectPressed(page.getByRole("button", { exact: true, name: "Sidebar Groups" }));
 await page.getByText("Codex Sidebar Groups").waitFor({ timeout: 5_000 });
 await page.getByText("Composer context picker").waitFor({ timeout: 5_000 });
+await assertSidebarStoryWidth(page);
 await screenshot(page, "04-sidebar-groups.png");
 await pause();
 
@@ -113,6 +114,15 @@ async function selectComposerOption(page, label, value) {
   await select.selectOption(value);
   if ((await select.inputValue()) !== value) {
     throw new Error(`Design-guide composer ${label} did not select ${value}.`);
+  }
+}
+
+async function assertSidebarStoryWidth(page) {
+  const width = await page
+    .locator("[data-sidebar-story-rail='true']")
+    .evaluate((node) => node.getBoundingClientRect().width);
+  if (width < 370 || width > 410) {
+    throw new Error(`Design-guide sidebar story should match desktop rail width, got ${width}.`);
   }
 }
 

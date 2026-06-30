@@ -166,6 +166,10 @@
 - Compact composer height stills: `.artifacts/verification/2026-06-30T08-13-14-143Z/*.png`
 - Compact composer height design-guide capture: `.artifacts/verification/design-guide/2026-06-30T08-13-15-197Z/page@c6a470bdb35e19319d406d88aaa4cee1.webm`
 - Compact composer height design-guide stills: `.artifacts/verification/design-guide/2026-06-30T08-13-15-197Z/*.png`
+- Design-guide wide sidebar story capture: `.artifacts/verification/2026-06-30T08-19-01-015Z/page@a432027ff9ee992b9b13c82e140045d9.webm`
+- Design-guide wide sidebar story stills: `.artifacts/verification/2026-06-30T08-19-01-015Z/*.png`
+- Design-guide wide sidebar story guide capture: `.artifacts/verification/design-guide/2026-06-30T08-19-01-015Z/page@a7959ebb1073c1024324ba85165cfe71.webm`
+- Design-guide wide sidebar story guide stills: `.artifacts/verification/design-guide/2026-06-30T08-19-01-015Z/*.png`
 
 Manual verification:
 
@@ -224,6 +228,7 @@ Manual verification:
 - Confirmed the shared composer now uses a wider Codex-like surface, with the desktop UI verifier measuring the rendered composer width to prevent regressing to the older narrow cap.
 - Confirmed the desktop sidebar rail now uses a wider Codex-like width, with the UI verifier measuring the rendered rail to keep it close to the reference proportions.
 - Confirmed the shared composer now uses a more compact Codex-like height, with the desktop UI verifier measuring the rendered composer height.
+- Confirmed the design-guide sidebar story now uses the same Codex-like rail width as desktop, with the design-guide verifier measuring the story rail.
 
 Automated verification:
 

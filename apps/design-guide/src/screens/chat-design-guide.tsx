@@ -187,8 +187,11 @@ const planEntries = [
 
 function SidebarGroups() {
   return (
-    <div className="mx-auto grid max-w-4xl grid-cols-[280px_minmax(0,1fr)] overflow-hidden rounded-lg border border-zinc-200 bg-white">
-      <aside className="relative min-h-[620px] border-r border-zinc-200 bg-[#f2f5f5] px-3 py-4">
+    <div className="mx-auto grid max-w-5xl grid-cols-[390px_minmax(0,1fr)] overflow-hidden rounded-lg border border-zinc-200 bg-white">
+      <aside
+        className="relative min-h-[620px] border-r border-zinc-200 bg-[#f2f5f5] px-3 py-4"
+        data-sidebar-story-rail="true"
+      >
         <div aria-hidden="true" className="mb-5 flex items-center gap-2 px-2">
           <span className="size-3 rounded-full bg-[#ff5f57]" />
           <span className="size-3 rounded-full bg-[#ffbd2e]" />
