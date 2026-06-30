@@ -27,7 +27,7 @@ export function ChatDesignGuide() {
           <div className="px-3 py-2 text-zinc-500">Composer States</div>
         </nav>
       </aside>
-      <section className="grid min-h-0 grid-rows-[64px_1fr]">
+      <section className="grid min-h-0 grid-rows-[64px_minmax(0,1fr)_auto]">
         <header className="flex items-center justify-between border-b border-zinc-200/80 px-5">
           <h1 className="text-lg font-semibold">Codex Chat Surface</h1>
           <StatusBadge label="reference" tone="neutral" />
