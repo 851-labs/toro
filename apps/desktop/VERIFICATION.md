@@ -12,6 +12,8 @@
 - Edge-to-edge shell stills: `.artifacts/verification/2026-06-30T02-25-58-481Z/*.png`
 - Inert-control cleanup capture: `.artifacts/verification/2026-06-30T02-35-09-746Z/page@255e5302a79ce0369749316ba4a4ae86.webm`
 - Inert-control cleanup stills: `.artifacts/verification/2026-06-30T02-35-09-746Z/*.png`
+- Design guide capture: `.artifacts/verification/design-guide/2026-06-30T02-49-12-104Z/page@ee2706e8fe8dc0331deadeaf46728eba.webm`
+- Design guide stills: `.artifacts/verification/design-guide/2026-06-30T02-49-12-104Z/*.png`
 
 Manual verification:
 
@@ -22,9 +24,11 @@ Manual verification:
 - Confirmed the desktop composer accepts typing before a session exists and that the rebuilt `Toro.app` accepts keyboard input in the composer.
 - Confirmed the rebuilt `Toro.app` renders edge-to-edge without the blue inset or rounded outer app frame.
 - Confirmed inert header, sidebar, and composer controls were removed while workspace open, session start, send, permission approval, and file preview still work.
+- Confirmed the internal design guide renders shared chat messages, streaming state, permission prompt, expanded tool call, logs disclosure, and composer.
 
 Automated verification:
 
 - `bun run verify`
+- `TORO_VERIFY_STEP_DELAY_MS=300 bun run verify:design-guide`
 - `TORO_VERIFY_STEP_DELAY_MS=1000 bun run verify:ui`
 - `bun --filter @toro/desktop tauri build --debug --bundles app`
