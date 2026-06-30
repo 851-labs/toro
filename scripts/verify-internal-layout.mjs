@@ -7,8 +7,10 @@ export async function assertInternalSidebarLayout(page) {
     .evaluate((node) => getComputedStyle(node));
   const sidebar = page.locator(sidebarSelector);
   const item = page.locator(itemSelector).first();
+  const secondItem = page.locator(itemSelector).nth(1);
   const box = await sidebar.boundingBox();
   const itemBox = await item.boundingBox();
+  const secondItemBox = await secondItem.boundingBox();
   const sidebarStyle = await sidebar.evaluate((node) => getComputedStyle(node));
   const itemStyle = await item.evaluate((node) => getComputedStyle(node));
 
@@ -19,6 +21,11 @@ export async function assertInternalSidebarLayout(page) {
   assertNear(parseFloat(sidebarStyle.paddingLeft), 12, "Internal sidebar left padding");
   assertNear(parseFloat(sidebarStyle.paddingRight), 12, "Internal sidebar right padding");
   assertNear(itemBox?.height ?? 0, 28, "Internal sidebar item height");
+  assertNear(
+    (secondItemBox?.y ?? 0) - ((itemBox?.y ?? 0) + (itemBox?.height ?? 0)),
+    2,
+    "Internal sidebar item gap",
+  );
   assertNear(parseFloat(itemStyle.fontSize), 13, "Internal sidebar item font size");
   assertNear(parseFloat(itemStyle.borderRadius), 8, "Internal sidebar item radius");
 }

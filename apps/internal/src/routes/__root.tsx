@@ -53,7 +53,7 @@ function InternalLayout({ children }: { readonly children: ReactNode }) {
         data-internal-sidebar="true"
       >
         <div className="mb-8 font-semibold">Toro UI</div>
-        <nav className="space-y-1 text-[13px]">
+        <nav className="flex flex-col gap-0.5 text-[13px]">
           {guideNavItems.map((item) => (
             <GuideNavLink active={activeRoute === item.to} key={item.to} {...item} />
           ))}
