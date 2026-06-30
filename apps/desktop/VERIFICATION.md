@@ -454,8 +454,14 @@ Manual verification:
 - Larger message actions desktop stills: `.artifacts/verification/2026-06-30T13-15-30-084Z/*.png`
 - Larger message actions design-guide capture: `.artifacts/verification/design-guide/2026-06-30T13-15-30-084Z/page@e8478ca238f0566a5b3a59fbcb689415.webm`
 - Larger message actions design-guide stills: `.artifacts/verification/design-guide/2026-06-30T13-15-30-084Z/*.png`
-- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T13-15-30-084Z/`.
-- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T13-15-30-084Z/`.
+- Confirmed the shared sidebar titlebar no longer renders fake macOS traffic lights inside the app chrome, avoiding duplicate window controls in the native Tauri window.
+- Native Tauri window still: `.artifacts/verification/2026-06-30T13-23-18-042Z/native-tauri-window.png`
+- Native no-traffic desktop capture: `.artifacts/verification/2026-06-30T13-23-18-042Z/page@28807a2c57b4d26e79b1a3545e35f095.webm`
+- Native no-traffic desktop stills: `.artifacts/verification/2026-06-30T13-23-18-042Z/*.png`
+- Native no-traffic design-guide capture: `.artifacts/verification/design-guide/2026-06-30T13-23-08-040Z/page@9095a03a4a97dfa894a3cc50ce9d63c7.webm`
+- Native no-traffic design-guide stills: `.artifacts/verification/design-guide/2026-06-30T13-23-08-040Z/*.png`
+- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T13-23-18-042Z/`.
+- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T13-23-08-040Z/`.
 
 Automated verification:
 

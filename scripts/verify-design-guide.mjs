@@ -302,11 +302,20 @@ async function assertSidebarStoryRail(page) {
 }
 
 async function assertSidebarStoryTitlebar(page) {
-  const titlebars = await page
-    .locator("[data-sidebar-story-rail='true'] [data-sidebar-titlebar='true']")
-    .count();
+  const titlebar = page.locator("[data-sidebar-story-rail='true'] [data-sidebar-titlebar='true']");
+  const titlebars = await titlebar.count();
   if (titlebars !== 1) {
     throw new Error(`Design-guide sidebar story should use one shared titlebar, got ${titlebars}.`);
+  }
+  const colors = await titlebar.evaluate((node) =>
+    [...node.querySelectorAll("span")].map((span) => getComputedStyle(span).backgroundColor),
+  );
+  if (
+    colors.some((color) =>
+      ["rgb(255, 95, 87)", "rgb(255, 189, 46)", "rgb(40, 200, 64)"].includes(color),
+    )
+  ) {
+    throw new Error("Design-guide sidebar titlebar should not render fake macOS traffic lights.");
   }
 }
 

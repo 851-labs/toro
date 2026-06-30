@@ -13,16 +13,8 @@ export function CodexSidebarTitlebar({
   className,
 }: CodexSidebarTitlebarProps) {
   return (
-    <div
-      className={cn("flex h-14 items-center gap-3 px-5", className)}
-      data-sidebar-titlebar="true"
-    >
-      <div className="flex items-center gap-2">
-        <span aria-hidden="true" className="size-3 rounded-full bg-[#ff5f57]" />
-        <span aria-hidden="true" className="size-3 rounded-full bg-[#ffbd2e]" />
-        <span aria-hidden="true" className="size-3 rounded-full bg-[#28c840]" />
-      </div>
-      <div aria-label={ariaLabel} className="ml-2 flex items-center gap-1">
+    <div className={cn("flex h-14 items-center px-5", className)} data-sidebar-titlebar="true">
+      <div aria-label={ariaLabel} className="flex items-center gap-1">
         {children}
       </div>
     </div>
