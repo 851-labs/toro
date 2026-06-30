@@ -7,7 +7,7 @@ import {
   type SessionId,
   type WorkspaceId,
 } from "@toro/domain";
-import { NotebookTabs, PanelLeft, RefreshCw, SlidersHorizontal } from "lucide-react";
+import { NotebookTabs, PanelLeft, PanelRight, RefreshCw } from "lucide-react";
 import { useMemo, useState } from "react";
 import { AgentRail } from "./components/agent-rail";
 import { ChatHeaderActions } from "./components/chat-header-actions";
@@ -169,13 +169,13 @@ export function App() {
                   aria-label="Toggle session details"
                   className={
                     detailsOpen
-                      ? "flex size-9 shrink-0 items-center justify-center rounded-xl bg-zinc-100 text-zinc-900"
-                      : "flex size-9 shrink-0 items-center justify-center rounded-xl text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900"
+                      ? "flex size-8 shrink-0 items-center justify-center rounded-lg bg-zinc-100 text-zinc-900"
+                      : "flex size-8 shrink-0 items-center justify-center rounded-lg text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900"
                   }
                   onClick={() => setDetailsOpen((open) => !open)}
                   type="button"
                 >
-                  <SlidersHorizontal size={18} />
+                  <PanelRight size={18} />
                 </button>
               ) : null}
               {isLoading ? <RefreshCw className="animate-spin" size={16} /> : null}

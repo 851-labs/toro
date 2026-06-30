@@ -33,7 +33,7 @@ export function ChatHeaderActions({ title, workspacePath }: ChatHeaderActionsPro
         <MoreHorizontal size={18} />
       </button>
       {open ? (
-        <div className="absolute left-0 top-9 z-20 w-56 rounded-2xl border border-zinc-200 bg-white p-1.5 shadow-lg">
+        <div className="absolute left-0 top-9 z-20 w-56 rounded-xl border border-zinc-200 bg-white p-1.5 shadow-md">
           <HeaderActionButton
             copied={copiedTarget === "title"}
             label="Copy chat title"
@@ -69,7 +69,7 @@ function HeaderActionButton({
   return (
     <button
       aria-label={label}
-      className="flex min-h-9 w-full items-center gap-2 rounded-xl px-2 text-left text-sm text-zinc-700 hover:bg-zinc-100"
+      className="flex min-h-9 w-full items-center gap-2 rounded-lg px-2 text-left text-sm text-zinc-700 hover:bg-zinc-100"
       onClick={onClick}
       type="button"
     >

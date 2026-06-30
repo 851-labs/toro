@@ -301,6 +301,10 @@ Manual verification:
 - Confirmed the 960px Codex transcript rail now lives in the shared `@toro/ui` chat primitives and is reused by desktop and the TanStack Start design guide, with visual verifiers still measuring transcript/composer alignment.
 - Confirmed expanded tool output now renders as a quiet indented transcript block instead of a rounded bordered card, with the desktop UI verifier asserting the output shell stays unframed.
 - Confirmed Codex-style message action buttons now live in a shared `@toro/ui` chat atom while desktop and design-guide flows still exercise copy, feedback, and expand/collapse states.
+- Confirmed the chat header session details control now uses a Codex-like right-panel icon and compact square hit area while still opening and closing the functional details rail.
+- Confirmed the header action and Open in menus use tighter Codex-like radii and lighter shadows, and the UI verifier still exercises copy, Finder, VS Code, and session details flows.
+- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T09-41-25-643Z/`.
+- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T09-41-44-122Z/`.
 
 Automated verification:
 

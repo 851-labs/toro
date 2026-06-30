@@ -43,7 +43,7 @@ export function OpenInMenu({ workspaceId, workspacePath }: OpenInMenuProps) {
         <ChevronDown size={14} />
       </button>
       {open ? (
-        <div className="absolute right-0 top-10 z-20 w-56 rounded-2xl border border-zinc-200 bg-white p-1.5 shadow-lg">
+        <div className="absolute right-0 top-10 z-20 w-56 rounded-xl border border-zinc-200 bg-white p-1.5 shadow-md">
           <OpenInAction label="Open in VS Code" onClick={() => void openExternal("vscode")}>
             <Code2 size={15} className="text-zinc-400" />
           </OpenInAction>
@@ -78,7 +78,7 @@ function OpenInAction({
   return (
     <button
       aria-label={label}
-      className="flex min-h-9 w-full items-center gap-2 rounded-xl px-2 text-left text-sm text-zinc-700 hover:bg-zinc-100"
+      className="flex min-h-9 w-full items-center gap-2 rounded-lg px-2 text-left text-sm text-zinc-700 hover:bg-zinc-100"
       onClick={onClick}
       type="button"
     >
