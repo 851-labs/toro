@@ -56,6 +56,10 @@
 - TanStack Start design-guide stills: `.artifacts/verification/design-guide/2026-06-30T04-17-19-630Z/*.png`
 - TanStack Start app regression capture: `.artifacts/verification/2026-06-30T04-18-57-673Z/page@ee41f7538d4ca61c59d04da8d1f9c807.webm`
 - TanStack Start app regression stills: `.artifacts/verification/2026-06-30T04-18-57-673Z/*.png`
+- Codex-like project strip capture: `.artifacts/verification/2026-06-30T04-23-06-575Z/page@5dc7240a13a043b86cf002c7132a250e.webm`
+- Codex-like project strip stills: `.artifacts/verification/2026-06-30T04-23-06-575Z/*.png`
+- Hover message actions design-guide capture: `.artifacts/verification/design-guide/2026-06-30T04-23-58-262Z/page@556dd2ae2f221452a7e33e6d4a5a5b88.webm`
+- Hover message actions design-guide stills: `.artifacts/verification/design-guide/2026-06-30T04-23-58-262Z/*.png`
 
 Manual verification:
 
@@ -69,22 +73,23 @@ Manual verification:
 - Confirmed the internal design guide renders shared chat messages, streaming state, thinking disclosure, permission prompt, expanded tool call, logs disclosure, and composer.
 - Confirmed the desktop chat flow still passes after moving messages, composer, permission prompt, tool call, and logs into shared UI primitives.
 - Confirmed the sidebar visually groups chats under their project and coalesces duplicate opens of the same project path.
-- Confirmed every rendered button in the desktop flow is limited to a wired action: new chat, add project, project/chat selection, send/stop, or permission response.
+- Confirmed every rendered button in the desktop flow is limited to a wired action: new chat, open project, project/chat selection, send/stop, or permission response.
 - Confirmed the design guide permission buttons update visible state instead of acting as no-op controls.
 - Confirmed the sidebar footer matches Codex more closely by defaulting to a compact host row while the functional host settings button still exposes agent and environment selection.
 - Confirmed the deterministic ACP demo emits a visible mid-stream assistant response before the final assistant text is present.
 - Confirmed completed assistant messages expose a functional Codex-style copy action with visible copied state.
 - Confirmed ACP thought chunks are stored separately from assistant messages and render as a shared Codex-style thinking disclosure.
 - Confirmed completed tool calls carry ACP text content and expand to show deterministic command output.
-- Confirmed New chat, Add, and Send are only rendered as buttons when they can perform an action, and the UI verifier fails if any disabled button is present.
+- Confirmed New chat, Open, and Send are only rendered as buttons when they can perform an action, and the UI verifier fails if any disabled button is present.
 - Confirmed completed assistant messages expose Codex-style copy, thumbs up, thumbs down, and expand controls, and each control changes visible state during verification.
-- Confirmed the sidebar no longer exposes a raw workspace path field by default, Add project opens a functional project path flow, and Search filters projects/chats with a visible no-match state.
+- Confirmed the sidebar exposes a Codex-like project path strip instead of a separate Add project row, and Search filters projects/chats with a visible no-match state.
 - Confirmed composer access and model controls render as Codex-style selectors and visibly update selected state in both the desktop flow and design guide.
 - Confirmed the internal design guide runs through a TanStack Start file-route entry with generated route tree, client/server build output, and hydrated interactive controls.
+- Confirmed completed assistant message actions now behave like Codex affordances by revealing on hover/focus while remaining keyboard-accessible.
 
 Automated verification:
 
 - `bun run verify`
-- `TORO_VERIFY_STEP_DELAY_MS=300 bun run verify:design-guide`
-- `TORO_VERIFY_STEP_DELAY_MS=300 bun run verify:ui`
+- `TORO_VERIFY_STEP_DELAY_MS=200 bun run verify:design-guide`
+- `TORO_VERIFY_STEP_DELAY_MS=200 bun run verify:ui`
 - `bun --filter @toro/desktop tauri build --debug --bundles app`

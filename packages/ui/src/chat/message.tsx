@@ -28,7 +28,7 @@ export function CodexChatMessage({ children, copyText, isStreaming, role }: Code
   }
 
   return (
-    <article className={cn("flex", isUser ? "justify-end" : "justify-start")}>
+    <article className={cn("group flex", isUser ? "justify-end" : "justify-start")}>
       <div
         className={cn(
           "flex flex-col",
@@ -50,7 +50,7 @@ export function CodexChatMessage({ children, copyText, isStreaming, role }: Code
           {children}
         </div>
         {showActions ? (
-          <div className="mt-1 flex items-center gap-1 text-zinc-400">
+          <div className="mt-1 flex items-center gap-1 text-zinc-400 opacity-0 transition-opacity group-hover:opacity-100 group-focus-within:opacity-100">
             {canCopy ? (
               <MessageAction
                 label={copied ? "Copied message" : "Copy message"}

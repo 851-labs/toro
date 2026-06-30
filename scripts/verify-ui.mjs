@@ -38,9 +38,8 @@ await composer.fill("");
 await screenshot(page, "01-initial-shell.png");
 await pause();
 
-await page.getByRole("button", { exact: true, name: "Add project" }).click();
 await page.getByLabel("Project path").fill(workspacePath);
-await page.getByRole("button", { exact: true, name: "Add" }).click();
+await page.getByRole("button", { exact: true, name: "Open" }).click();
 await page.getByText("toro").first().waitFor({ timeout: 5_000 });
 await assertOnlyFunctionalButtons(page);
 await screenshot(page, "02-workspace-opened.png");
@@ -190,8 +189,7 @@ function isKnownFunctionalButton(label, extraAllowedLabels) {
   if (
     [
       "Session",
-      "Add",
-      "Add project",
+      "Open",
       "Search",
       "Send",
       "Stop",
