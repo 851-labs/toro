@@ -1,6 +1,6 @@
 import * as acp from "@agentclientprotocol/sdk";
 
-const sessions = new Set<string>();
+const sessions = new Map<string, number>();
 const streamChunkDelayMs = Number(process.env.TORO_DEMO_STREAM_DELAY_MS ?? 35);
 
 const app = acp
@@ -12,13 +12,15 @@ const app = acp
   }))
   .onRequest(acp.methods.agent.session.new, () => {
     const sessionId = `demo-${crypto.randomUUID()}`;
-    sessions.add(sessionId);
+    sessions.set(sessionId, 0);
     return { sessionId };
   })
   .onRequest(acp.methods.agent.session.prompt, async (ctx) => {
     if (!sessions.has(ctx.params.sessionId)) {
       throw new Error(`Unknown session: ${ctx.params.sessionId}`);
     }
+    const turn = (sessions.get(ctx.params.sessionId) ?? 0) + 1;
+    sessions.set(ctx.params.sessionId, turn);
 
     await ctx.client.notify(acp.methods.client.session.update, {
       sessionId: ctx.params.sessionId,
@@ -36,14 +38,10 @@ const app = acp
       },
     });
 
-    await streamThought(ctx, "Checking project context and deciding the next UI action.");
+    await streamThought(ctx, turn, "Checking project context and deciding the next UI action.");
     await new Promise((resolve) => setTimeout(resolve, streamChunkDelayMs * 2));
-    await requestDemoPermission(ctx);
-    await streamText(ctx, "Toro demo agent received your prompt. ");
-    await streamText(
-      ctx,
-      "The ACP session, permission loop, streaming transcript, plan, and tool cards are working.",
-    );
+    await requestDemoPermission(ctx, turn);
+    await streamText(ctx, turn, assistantText(turn));
     return { stopReason: "end_turn" };
   })
   .onNotification(acp.methods.agent.session.cancel, () => undefined);
@@ -52,7 +50,9 @@ app.connect(acp.ndJsonStream(WritableStreamFromStdout(), ReadableStreamFromStdin
 
 async function requestDemoPermission(
   ctx: acp.AgentRequestContext<acp.PromptRequest>,
+  turn: number,
 ): Promise<void> {
+  const toolCallId = `demo-permission-${turn}`;
   const response = await ctx.client.request(acp.methods.client.session.requestPermission, {
     options: [
       { kind: "allow_once", name: "Allow once", optionId: "allow-once" },
@@ -63,7 +63,7 @@ async function requestDemoPermission(
       kind: "execute",
       status: "pending",
       title: "Validate Toro permission UI",
-      toolCallId: "demo-permission",
+      toolCallId,
     },
   });
 
@@ -87,7 +87,7 @@ async function requestDemoPermission(
       kind: "execute",
       status: response.outcome.outcome === "selected" ? "completed" : "failed",
       title: "Validate Toro permission UI",
-      toolCallId: "demo-permission",
+      toolCallId,
       sessionUpdate: "tool_call_update",
     },
   });
@@ -95,6 +95,7 @@ async function requestDemoPermission(
 
 async function streamThought(
   ctx: acp.AgentRequestContext<acp.PromptRequest>,
+  turn: number,
   text: string,
 ): Promise<void> {
   for (const chunk of textFragments(text)) {
@@ -103,7 +104,7 @@ async function streamThought(
       sessionId: ctx.params.sessionId,
       update: {
         content: { text: chunk, type: "text" },
-        messageId: "demo-thinking",
+        messageId: `demo-thinking-${turn}`,
         sessionUpdate: "agent_thought_chunk",
       },
     });
@@ -112,6 +113,7 @@ async function streamThought(
 
 async function streamText(
   ctx: acp.AgentRequestContext<acp.PromptRequest>,
+  turn: number,
   text: string,
 ): Promise<void> {
   for (const chunk of textFragments(text)) {
@@ -120,11 +122,24 @@ async function streamText(
       sessionId: ctx.params.sessionId,
       update: {
         content: { text: chunk, type: "text" },
-        messageId: "demo-answer",
+        messageId: `demo-answer-${turn}`,
         sessionUpdate: "agent_message_chunk",
       },
     });
   }
+}
+
+function assistantText(turn: number) {
+  if (turn > 1) {
+    return [
+      "Toro demo agent received your follow-up. ",
+      "The same chat kept prior messages, tool calls, and streaming state.",
+    ].join("");
+  }
+  return [
+    "Toro demo agent received your prompt. ",
+    "The ACP session, permission loop, streaming transcript, plan, and tool cards are working.",
+  ].join("");
 }
 
 function textFragments(text: string): readonly string[] {

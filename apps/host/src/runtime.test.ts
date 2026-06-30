@@ -69,6 +69,40 @@ describe("HostRuntime", () => {
     expect(session?.plan.length).toBeGreaterThan(0);
   }, 15_000);
 
+  it("keeps multiple user turns in the same session", async () => {
+    const runtime = new HostRuntime();
+    const workspace = await runtime.openWorkspace(process.cwd(), environmentId("local-desktop"));
+    const sessionId = await runtime.createSession({
+      agentId: agentId("toro-demo"),
+      environmentId: environmentId("local-desktop"),
+      workspaceId: workspace.id,
+    });
+
+    runtime.subscribe((event) => {
+      if (event.type === "permission_requested") {
+        runtime.respondToPermission(event.requestId, "allow-once");
+      }
+    });
+
+    runtime.sendUserMessage(sessionId, "verify the first turn");
+    await waitForTurn(runtime, sessionId, 1);
+    runtime.sendUserMessage(sessionId, "verify the follow-up turn");
+    await waitForTurn(runtime, sessionId, 2);
+
+    const session = runtime.getState().sessions.find((candidate) => candidate.id === sessionId);
+    runtime.closeAll();
+
+    expect(session?.messages.map((message) => message.role)).toEqual([
+      "user",
+      "assistant",
+      "user",
+      "assistant",
+    ]);
+    expect(session?.messages.at(-1)?.content).toContain("received your follow-up");
+    expect(session?.thoughts).toHaveLength(2);
+    expect(session?.toolCalls).toHaveLength(2);
+  }, 20_000);
+
   it("renames a new session from the first user prompt", async () => {
     const runtime = new HostRuntime();
     const workspace = await runtime.openWorkspace(process.cwd(), environmentId("local-desktop"));
@@ -111,6 +145,20 @@ describe("HostRuntime", () => {
     );
   });
 });
+
+async function waitForTurn(
+  runtime: HostRuntime,
+  sessionId: string,
+  assistantMessages: number,
+): Promise<void> {
+  await waitFor(() => {
+    const session = runtime.getState().sessions.find((candidate) => candidate.id === sessionId);
+    return (
+      session?.status === "completed" &&
+      session.messages.filter((message) => message.role === "assistant").length >= assistantMessages
+    );
+  });
+}
 
 async function waitFor(predicate: () => boolean): Promise<void> {
   const started = Date.now();

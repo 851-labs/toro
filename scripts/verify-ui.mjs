@@ -240,6 +240,16 @@ await page.getByRole("button", { exact: true, name: "Copied message" }).waitFor(
 await screenshot(page, "11-copy-feedback.png");
 await pause();
 
+await composer.fill("Keep this in the same chat.");
+await page.getByRole("button", { exact: true, name: "Send" }).click();
+await chatHelpers.assertPendingPermissionToolCall(page);
+await page.getByRole("button", { exact: true, name: "Allow once" }).click();
+await page.getByText(/received your follow-up/).waitFor({ timeout: 10_000 });
+await chatHelpers.assertMultiMessageSameChat(page);
+await assertOnlyFunctionalButtons(page);
+await screenshot(page, "12-multi-message-flow.png");
+await pause();
+
 await chatHelpers.assertEditorPaneToggle(page, screenshot);
 await pause();
 
