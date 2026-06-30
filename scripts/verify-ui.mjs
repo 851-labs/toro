@@ -75,6 +75,8 @@ if ((await composer.inputValue()) !== initialComposerText) {
   throw new Error("Composer did not accept text before a session was created.");
 }
 await composer.fill("");
+await selectComposerOption(page, "Access mode", "Full access");
+await selectComposerOption(page, "Model", "5.5 Medium");
 await screenshot(page, "01-initial-shell.png");
 await pause();
 

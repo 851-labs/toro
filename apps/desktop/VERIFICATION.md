@@ -232,6 +232,10 @@
 - Shared sidebar row design-guide stills: `.artifacts/verification/design-guide/2026-06-30T11-11-28-348Z/*.png`
 - Dead file-explorer cleanup capture: `.artifacts/verification/2026-06-30T11-14-18-438Z/page@680f75cee096fa08a241ffa5b1220a4f.webm`
 - Dead file-explorer cleanup stills: `.artifacts/verification/2026-06-30T11-14-18-438Z/*.png`
+- Reference-default composer capture: `.artifacts/verification/2026-06-30T11-16-15-490Z/page@3c2a65eb584d9a126219e218dfe39739.webm`
+- Reference-default composer stills: `.artifacts/verification/2026-06-30T11-16-15-490Z/*.png`
+- Reference-default composer design-guide capture: `.artifacts/verification/design-guide/2026-06-30T11-16-36-368Z/page@8196b351582f428dd55d759a1af1e17b.webm`
+- Reference-default composer design-guide stills: `.artifacts/verification/design-guide/2026-06-30T11-16-36-368Z/*.png`
 
 Manual verification:
 
@@ -246,6 +250,7 @@ Manual verification:
 - Confirmed the desktop chat flow still passes after moving messages, composer, permission prompt, tool call, and logs into shared UI primitives.
 - Confirmed desktop project rows now call the shared `@toro/ui` sidebar row primitive directly, with no local row wrapper, while UI verification still asserts active project/chat row behavior.
 - Confirmed the unused desktop file explorer component was removed, leaving no live references to its stale clickable tree rows while the desktop UI flow still passes.
+- Confirmed the desktop verification flow still exercises access/model selectors, then restores Codex-reference defaults (`Full access`, `5.5 Medium`) before screenshots and recordings.
 - Confirmed the sidebar visually groups chats under their project and coalesces duplicate opens of the same project path.
 - Confirmed every rendered button in the desktop flow is limited to a wired action: new chat, open project, project/chat selection, send/stop, or permission response.
 - Confirmed the design guide permission buttons update visible state instead of acting as no-op controls.
