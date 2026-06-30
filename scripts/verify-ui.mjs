@@ -21,6 +21,7 @@ const page = await context.newPage();
 
 await page.goto(appUrl, { waitUntil: "domcontentloaded" });
 await page.getByText("Toro").first().waitFor({ timeout: 5_000 });
+await assertDeadControlsRemoved(page);
 const composer = page.getByLabel("Message agent");
 const initialComposerText = "Typing before a session should work.";
 await composer.fill(initialComposerText);
@@ -77,6 +78,24 @@ async function screenshot(page, name) {
 async function pause() {
   if (stepDelayMs > 0) {
     await new Promise((resolvePause) => setTimeout(resolvePause, stepDelayMs));
+  }
+}
+
+async function assertDeadControlsRemoved(page) {
+  const deadButtons = [
+    "Search",
+    "More chat actions",
+    "Open in",
+    "Chat settings",
+    "Toggle preview",
+    "Add context",
+    "Dictate",
+  ];
+
+  for (const name of deadButtons) {
+    if ((await page.getByRole("button", { exact: true, name }).count()) > 0) {
+      throw new Error(`Dead control is still rendered as a button: ${name}`);
+    }
   }
 }
 

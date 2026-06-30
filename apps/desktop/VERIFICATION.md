@@ -10,6 +10,8 @@
 - Composer regression stills: `.artifacts/verification/2026-06-30T02-22-13-334Z/*.png`
 - Edge-to-edge shell capture: `.artifacts/verification/2026-06-30T02-25-58-481Z/page@b0f7b439d2c6890a548e08d14bac02ef.webm`
 - Edge-to-edge shell stills: `.artifacts/verification/2026-06-30T02-25-58-481Z/*.png`
+- Inert-control cleanup capture: `.artifacts/verification/2026-06-30T02-31-35-282Z/page@411047484d965d63dc46d2ddc6dba20f.webm`
+- Inert-control cleanup stills: `.artifacts/verification/2026-06-30T02-31-35-282Z/*.png`
 
 Manual verification:
 
@@ -19,6 +21,7 @@ Manual verification:
 - Confirmed Toro still completes the deterministic ACP demo flow, including workspace open, session start, permission prompt, assistant response, tool activity, and file preview.
 - Confirmed the desktop composer accepts typing before a session exists and that the rebuilt `Toro.app` accepts keyboard input in the composer.
 - Confirmed the rebuilt `Toro.app` renders edge-to-edge without the blue inset or rounded outer app frame.
+- Confirmed inert header, sidebar, and composer controls were removed while workspace open, session start, send, permission approval, and file preview still work.
 
 Automated verification:
 
