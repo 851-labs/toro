@@ -32,9 +32,10 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import {
+  ChatRows,
   filterProjectGroups,
   groupWorkspaces,
-  ProjectGroup,
+  ProjectRows,
   RailSection,
 } from "./agent-rail-parts";
 
@@ -174,23 +175,29 @@ export function AgentRail(props: AgentRailProps) {
             </form>
           ) : null}
           {projectGroups.length > 0 ? (
-            projectGroups.map((group) => (
-              <ProjectGroup
-                activeSessionId={props.activeSessionId}
-                activeWorkspaceId={props.activeWorkspace?.id ?? null}
-                key={`${group.workspace.environmentId}:${group.workspace.path}`}
-                sessions={group.sessions}
-                workspace={group.workspace}
-                workspaceIds={group.workspaceIds}
-                onSelectSession={props.onSelectSession}
-                onSelectWorkspace={props.onSelectWorkspace}
-              />
-            ))
+            <ProjectRows
+              activeSessionId={props.activeSessionId}
+              activeWorkspaceId={props.activeWorkspace?.id ?? null}
+              groups={projectGroups}
+              onSelectWorkspace={props.onSelectWorkspace}
+            />
+          ) : props.workspaces.length > 0 ? (
+            <div className="px-3 py-2 text-sm text-zinc-400">No matches</div>
           ) : (
-            <div className="px-3 py-2 text-sm text-zinc-400">
-              {props.workspaces.length > 0 ? "No matches" : "No projects"}
-            </div>
+            <ProjectRows
+              activeSessionId={props.activeSessionId}
+              activeWorkspaceId={props.activeWorkspace?.id ?? null}
+              groups={projectGroups}
+              onSelectWorkspace={props.onSelectWorkspace}
+            />
           )}
+        </RailSection>
+        <RailSection title="Chats">
+          <ChatRows
+            activeSessionId={props.activeSessionId}
+            groups={projectGroups}
+            onSelectSession={props.onSelectSession}
+          />
         </RailSection>
       </CodexSidebarContent>
 

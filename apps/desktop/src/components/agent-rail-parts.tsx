@@ -10,55 +10,69 @@ export interface ProjectGroupModel {
   readonly workspaceIds: readonly WorkspaceId[];
 }
 
-export function ProjectGroup({
+export function ProjectRows({
   activeSessionId,
   activeWorkspaceId,
-  sessions,
-  workspace,
-  workspaceIds,
-  onSelectSession,
+  groups,
   onSelectWorkspace,
 }: {
   readonly activeSessionId: SessionId | null;
   readonly activeWorkspaceId: WorkspaceId | null;
-  readonly sessions: readonly Session[];
-  readonly workspace: Workspace;
-  readonly workspaceIds: readonly WorkspaceId[];
-  readonly onSelectSession: (id: SessionId) => void;
+  readonly groups: readonly ProjectGroupModel[];
   readonly onSelectWorkspace: (id: WorkspaceId) => void;
 }) {
-  const activeChatInGroup = sessions.some((session) => session.id === activeSessionId);
-  return (
-    <div className="space-y-0.5">
+  if (groups.length === 0) {
+    return <div className="px-3 py-2 text-sm text-zinc-400">No projects</div>;
+  }
+
+  return groups.map((group) => {
+    const activeChatInGroup = group.sessions.some((session) => session.id === activeSessionId);
+    return (
       <CodexSidebarRow
         active={Boolean(
-          activeWorkspaceId && workspaceIds.includes(activeWorkspaceId) && !activeChatInGroup,
+          activeWorkspaceId && group.workspaceIds.includes(activeWorkspaceId) && !activeChatInGroup,
         )}
         icon={<FileText size={16} />}
-        label={workspace.name}
-        onClick={() => onSelectWorkspace(workspace.id)}
-        title={workspace.path}
+        key={`${group.workspace.environmentId}:${group.workspace.path}`}
+        label={group.workspace.name}
+        onClick={() => onSelectWorkspace(group.workspace.id)}
+        title={group.workspace.path}
       />
-      <div className="space-y-0.5">
-        {sessions.length > 0 ? (
-          sessions.map((session) => (
-            <CodexSidebarRow
-              active={activeSessionId === session.id}
-              ariaCurrent={activeSessionId === session.id ? "page" : undefined}
-              ariaLabel={`Chat ${session.title}`}
-              icon={<MessageSquare size={14} />}
-              indent
-              key={session.id}
-              label={session.title}
-              onClick={() => onSelectSession(session.id)}
-            />
-          ))
-        ) : (
-          <div className="px-3 py-1.5 text-sm text-zinc-400">No chats</div>
-        )}
-      </div>
-    </div>
+    );
+  });
+}
+
+export function ChatRows({
+  activeSessionId,
+  groups,
+  onSelectSession,
+}: {
+  readonly activeSessionId: SessionId | null;
+  readonly groups: readonly ProjectGroupModel[];
+  readonly onSelectSession: (id: SessionId) => void;
+}) {
+  const rows = groups.flatMap((group) =>
+    group.sessions.map((session) => ({
+      projectName: group.workspace.name,
+      session,
+    })),
   );
+  if (rows.length === 0) {
+    return <div className="px-3 py-2 text-sm text-zinc-400">No chats</div>;
+  }
+
+  return rows.map(({ projectName, session }) => (
+    <CodexSidebarRow
+      active={activeSessionId === session.id}
+      ariaCurrent={activeSessionId === session.id ? "page" : undefined}
+      ariaLabel={`Chat ${session.title}`}
+      icon={<MessageSquare size={14} />}
+      key={session.id}
+      label={session.title}
+      meta={groups.length > 1 ? projectName : undefined}
+      onClick={() => onSelectSession(session.id)}
+    />
+  ));
 }
 
 export function filterProjectGroups(

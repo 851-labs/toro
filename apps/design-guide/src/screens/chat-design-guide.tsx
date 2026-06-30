@@ -258,21 +258,20 @@ function SidebarGroups() {
         <CodexSidebarContent>
           <CodexSidebarSection actionIcon={<FolderPlus size={15} />} title="Projects">
             <CodexSidebarRow icon={<FileText size={16} />} label="toro" />
-            <div className="mt-0.5 space-y-0.5">
-              {[
-                { active: true, label: "Verify the Toro ACP UI loop" },
-                { active: false, label: "Composer context picker" },
-                { active: false, label: "Quiet expanded tool output" },
-              ].map((chat) => (
-                <CodexSidebarRow
-                  active={chat.active}
-                  icon={<MessageSquare size={14} />}
-                  indent
-                  key={chat.label}
-                  label={chat.label}
-                />
-              ))}
-            </div>
+          </CodexSidebarSection>
+          <CodexSidebarSection title="Chats">
+            {[
+              { active: true, label: "Verify the Toro ACP UI loop" },
+              { active: false, label: "Composer context picker" },
+              { active: false, label: "Quiet expanded tool output" },
+            ].map((chat) => (
+              <CodexSidebarRow
+                active={chat.active}
+                icon={<MessageSquare size={14} />}
+                key={chat.label}
+                label={chat.label}
+              />
+            ))}
           </CodexSidebarSection>
         </CodexSidebarContent>
         <CodexSidebarFooter

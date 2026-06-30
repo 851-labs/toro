@@ -14,10 +14,11 @@ Current reference evidence:
 
 Latest verified desktop artifacts:
 
-- Desktop capture: `.artifacts/verification/2026-06-30T14-23-01-907Z/page@f4b6600b1c6412ede103c0718f6d19b4.webm`
-- Desktop stills: `.artifacts/verification/2026-06-30T14-23-01-907Z/*.png`
-- Design-guide capture: `.artifacts/verification/design-guide/2026-06-30T14-15-17-388Z/page@52ea18447072bc1518924b11ed2646b8.webm`
-- Design-guide stills: `.artifacts/verification/design-guide/2026-06-30T14-15-17-388Z/*.png`
+- Desktop capture: `.artifacts/verification/2026-06-30T14-32-42-604Z/page@a1d4844cf499eb0459236ae31dac3b5a.webm`
+- Desktop stills: `.artifacts/verification/2026-06-30T14-32-42-604Z/*.png`
+- Design-guide capture: `.artifacts/verification/design-guide/2026-06-30T14-33-02-601Z/page@93611283a1c9477a80c4d00af6bee111.webm`
+- Design-guide stills: `.artifacts/verification/design-guide/2026-06-30T14-33-02-601Z/*.png`
+- Native still: `.artifacts/verification/native/2026-06-30-sidebar-projects-chats.png`
 
 Most recent manual checks:
 
@@ -25,6 +26,7 @@ Most recent manual checks:
 - Confirmed completed tool-call status renders as muted transcript metadata instead of bright emerald text.
 - Confirmed assistant messages use a wider Codex-like transcript rail instead of the previous narrow 72% cap.
 - Confirmed the UI verifier resets host state before loading the desktop shell.
+- Confirmed the desktop sidebar renders Codex-like top-level Projects and Chats sections.
 - Confirmed native Tauri renders the latest Codex-like chat shell after rebuild.
 
 Automated verification:

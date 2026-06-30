@@ -336,21 +336,22 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
   }
 
   async function assertCurrentChatIsFirstInProject(page) {
-    const chats = await page.locator("aside button[aria-label^='Chat ']").evaluateAll((nodes) =>
+    const sections = await page.locator("[data-sidebar-section='true']").evaluateAll((nodes) =>
       nodes.map((node) => ({
-        current: node.getAttribute("aria-current"),
-        label: node.getAttribute("aria-label"),
+        chats: Array.from(node.querySelectorAll("button[aria-label^='Chat ']")).map((chat) =>
+          chat.getAttribute("aria-current"),
+        ),
+        title: node.querySelector("h2")?.textContent?.trim() ?? "",
       })),
     );
-
-    if (chats.length === 0) {
-      throw new Error("Expected at least one project chat row.");
-    }
-    if (chats[0]?.current !== "page") {
-      throw new Error(`Current project chat should be first, got ${JSON.stringify(chats)}`);
-    }
+    const projects = sections.find((section) => section.title === "Projects");
+    const chats = sections.find((section) => section.title === "Chats");
+    if (!projects || !chats) throw new Error("Missing Projects or Chats sidebar section.");
+    if (projects.chats.length > 0)
+      throw new Error("Project rows should not contain nested chat rows.");
+    if (chats.chats.length === 0) throw new Error("Expected at least one chat row.");
+    if (chats.chats[0] !== "page") throw new Error("Current chat should be first in Chats.");
   }
-
   async function assertOnlyFunctionalButtons(page, extraAllowedLabels = []) {
     const buttons = await page.locator("button").evaluateAll((nodes) =>
       nodes.map((node) => ({
