@@ -7,11 +7,12 @@ import {
   type SessionId,
   type WorkspaceId,
 } from "@toro/domain";
-import { NotebookTabs, PanelLeft, RefreshCw } from "lucide-react";
+import { NotebookTabs, PanelLeft, RefreshCw, SlidersHorizontal } from "lucide-react";
 import { useMemo, useState } from "react";
 import { AgentRail } from "./components/agent-rail";
 import { ChatHeaderActions } from "./components/chat-header-actions";
 import { ChatPanel } from "./components/chat-panel";
+import { InspectorPanel } from "./components/inspector-panel";
 import { OpenInMenu } from "./components/open-in-menu";
 import { hostClient } from "./lib/host-client";
 import { useHostState } from "./lib/use-host-state";
@@ -27,6 +28,7 @@ export function App() {
     environmentId("local-desktop"),
   );
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [detailsOpen, setDetailsOpen] = useState(false);
   const [selectedWorkspaceId, setSelectedWorkspaceId] = useState<WorkspaceId | null>(null);
   const [selectedSessionId, setSelectedSessionId] = useState<SessionId | null>(null);
 
@@ -165,14 +167,38 @@ export function App() {
               {activeWorkspace ? (
                 <OpenInMenu workspaceId={activeWorkspace.id} workspacePath={activeWorkspace.path} />
               ) : null}
+              {activeSession ? (
+                <button
+                  aria-expanded={detailsOpen}
+                  aria-label="Toggle session details"
+                  className={
+                    detailsOpen
+                      ? "flex size-9 shrink-0 items-center justify-center rounded-xl bg-zinc-100 text-zinc-900"
+                      : "flex size-9 shrink-0 items-center justify-center rounded-xl text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900"
+                  }
+                  onClick={() => setDetailsOpen((open) => !open)}
+                  type="button"
+                >
+                  <SlidersHorizontal size={18} />
+                </button>
+              ) : null}
               {isLoading ? <RefreshCw className="animate-spin" size={16} /> : null}
             </div>
           </header>
-          <ChatPanel
-            agentName={activeAgent?.name ?? "Agent"}
-            session={activeSession}
-            workspace={activeWorkspace}
-          />
+          <div
+            className={
+              detailsOpen && activeSession
+                ? "grid min-h-0 min-w-0 grid-cols-[minmax(0,1fr)_320px]"
+                : "grid min-h-0 min-w-0 grid-cols-1"
+            }
+          >
+            <ChatPanel
+              agentName={activeAgent?.name ?? "Agent"}
+              session={activeSession}
+              workspace={activeWorkspace}
+            />
+            {detailsOpen && activeSession ? <InspectorPanel session={activeSession} /> : null}
+          </div>
         </section>
       </main>
     </div>

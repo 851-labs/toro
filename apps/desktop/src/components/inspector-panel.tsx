@@ -1,5 +1,5 @@
 import type { PermissionRequest, PlanEntry, Session, ToolCall } from "@toro/domain";
-import { Button, StatusBadge } from "@toro/ui";
+import { Button, CodexToolCall, StatusBadge } from "@toro/ui";
 import { Check, ClipboardList, Shield, Terminal, X } from "lucide-react";
 import { hostClient } from "../lib/host-client";
 
@@ -9,7 +9,10 @@ interface InspectorPanelProps {
 
 export function InspectorPanel({ session }: InspectorPanelProps) {
   return (
-    <aside className="grid min-h-0 min-w-0 grid-rows-[auto_auto_1fr] border-l border-zinc-800 bg-zinc-950">
+    <aside
+      aria-label="Session details"
+      className="grid min-h-0 min-w-0 grid-rows-[auto_auto_1fr] border-l border-zinc-200 bg-white"
+    >
       <Panel title="Plan" icon={<ClipboardList size={15} />}>
         <Plan entries={session?.plan ?? []} />
       </Panel>
@@ -23,17 +26,14 @@ export function InspectorPanel({ session }: InspectorPanelProps) {
           ) : null}
         </div>
       </Panel>
-      <Panel title="Activity" icon={<Terminal size={15} />} scroll>
+      <Panel title="Tool calls" icon={<Terminal size={15} />} scroll>
         <div className="space-y-3">
           {(session?.toolCalls ?? []).map((toolCall) => (
             <ToolCallCard key={toolCall.id} toolCall={toolCall} />
           ))}
-          <div className="rounded-md border border-zinc-800 bg-zinc-900 p-2">
-            <div className="mb-2 text-xs font-medium text-zinc-400">Logs</div>
-            <pre className="max-h-48 overflow-auto whitespace-pre-wrap text-xs text-zinc-500">
-              {session?.logs.join("\n") ?? ""}
-            </pre>
-          </div>
+          {session?.toolCalls.length === 0 ? (
+            <div className="text-sm text-zinc-400">No tool calls</div>
+          ) : null}
         </div>
       </Panel>
     </aside>
@@ -47,10 +47,10 @@ function Panel(props: {
   readonly scroll?: boolean;
 }) {
   return (
-    <section className="min-h-0 border-b border-zinc-800">
-      <div className="flex h-9 items-center gap-2 border-b border-zinc-800 px-3 text-xs font-medium uppercase tracking-wide text-zinc-500">
+    <section className="min-h-0 border-b border-zinc-200">
+      <div className="flex h-10 items-center gap-2 border-b border-zinc-100 px-3 text-xs font-medium uppercase tracking-wide text-zinc-400">
         {props.icon}
-        {props.title}
+        <h2 className="text-xs font-medium uppercase tracking-wide">{props.title}</h2>
       </div>
       <div className={props.scroll ? "h-[calc(100%-36px)] overflow-auto p-3" : "p-3"}>
         {props.children}
@@ -77,7 +77,7 @@ function Plan({ entries }: { readonly entries: readonly PlanEntry[] }) {
                   : "neutral"
             }
           />
-          <span className="min-w-0 flex-1 text-zinc-200">{entry.content}</span>
+          <span className="min-w-0 flex-1 text-zinc-700">{entry.content}</span>
         </li>
       ))}
     </ol>
@@ -86,8 +86,8 @@ function Plan({ entries }: { readonly entries: readonly PlanEntry[] }) {
 
 function PermissionCard({ request }: { readonly request: PermissionRequest }) {
   return (
-    <div className="rounded-md border border-amber-500/30 bg-amber-500/10 p-3">
-      <div className="mb-3 text-sm font-medium text-amber-100">{request.toolCall.title}</div>
+    <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-3">
+      <div className="mb-3 text-sm font-medium text-zinc-900">{request.toolCall.title}</div>
       <div className="flex flex-wrap gap-2">
         {request.options.map((option) => (
           <Button
@@ -106,22 +106,8 @@ function PermissionCard({ request }: { readonly request: PermissionRequest }) {
 
 function ToolCallCard({ toolCall }: { readonly toolCall: ToolCall }) {
   return (
-    <div className="rounded-md border border-zinc-800 bg-zinc-900 p-3">
-      <div className="mb-2 flex items-center justify-between gap-2">
-        <div className="min-w-0 truncate text-sm font-medium text-zinc-200">{toolCall.title}</div>
-        <StatusBadge
-          label={toolCall.status}
-          tone={
-            toolCall.status === "completed" ? "good" : toolCall.status === "failed" ? "bad" : "warn"
-          }
-        />
-      </div>
-      <div className="text-xs text-zinc-500">{toolCall.kind}</div>
-      {toolCall.content.length > 0 ? (
-        <pre className="mt-2 whitespace-pre-wrap text-xs text-zinc-400">
-          {toolCall.content.join("\n")}
-        </pre>
-      ) : null}
-    </div>
+    <CodexToolCall kind={toolCall.kind} status={toolCall.status} title={toolCall.title}>
+      {toolCall.content.length > 0 ? toolCall.content.join("\n") : null}
+    </CodexToolCall>
   );
 }

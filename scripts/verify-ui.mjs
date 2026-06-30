@@ -77,6 +77,7 @@ await assertPrimarySidebarSimplified(page);
 await assertSidebarChatRowsAreNavigationOnly(page);
 await assertDesktopDebugLogsHidden(page);
 await assertHeaderActions(page);
+await assertSessionDetailsToggle(page);
 await assertOnlyFunctionalButtons(page);
 await screenshot(page, "04-session-created.png");
 await pause();
@@ -344,6 +345,26 @@ async function assertOpenInMenu(page) {
   await page.getByRole("button", { exact: true, name: "Open in" }).click();
 }
 
+async function assertSessionDetailsToggle(page) {
+  const toggle = page.getByRole("button", { exact: true, name: "Toggle session details" });
+  await toggle.click();
+  await page.getByRole("complementary", { exact: true, name: "Session details" }).waitFor({
+    timeout: 5_000,
+  });
+  await page.getByRole("heading", { exact: true, name: "Plan" }).waitFor({ timeout: 5_000 });
+  await page.getByRole("heading", { exact: true, name: "Tool calls" }).waitFor({
+    timeout: 5_000,
+  });
+  await assertOnlyFunctionalButtons(page);
+  await screenshot(page, "04-session-details.png");
+  await toggle.click();
+  if (
+    (await page.getByRole("complementary", { exact: true, name: "Session details" }).count()) > 0
+  ) {
+    throw new Error("Session details panel should close after toggling.");
+  }
+}
+
 async function assertSidebarChatRowsAreNavigationOnly(page) {
   const chatRows = await page
     .locator("aside button[aria-label^='Chat ']")
@@ -387,6 +408,7 @@ function isKnownFunctionalButton(label, extraAllowedLabels) {
       "Stop",
       "Host settings",
       "Toggle sidebar",
+      "Toggle session details",
       "Collapse sidebar",
       "New chat",
       "Add context",
