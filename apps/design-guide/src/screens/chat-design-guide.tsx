@@ -85,6 +85,11 @@ export function ChatDesignGuide() {
           <CodexComposer
             accessLabel="Full access"
             canSend={composerValue.trim().length > 0}
+            contextStrip={{
+              branchLabel: "main",
+              environmentLabel: "Work locally",
+              projectLabel: "toro",
+            }}
             contextItems={contextItems}
             modelLabel="5.5 Medium"
             onChange={setComposerValue}

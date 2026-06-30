@@ -84,6 +84,15 @@ export function ChatPanel({ session, workspace }: ChatPanelProps) {
       <CodexComposer
         accessLabel="Full access"
         canSend={canSend}
+        contextStrip={
+          sessionIsEmpty && workspace
+            ? {
+                branchLabel: "main",
+                environmentLabel: "Work locally",
+                projectLabel: workspace.name,
+              }
+            : undefined
+        }
         contextItems={contextItems}
         isRunning={session?.status === "running"}
         modelLabel="5.5 Medium"

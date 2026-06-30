@@ -71,6 +71,7 @@ await expectPressed(page.getByRole("button", { exact: true, name: "Composer Stat
 await page.getByText("Codex Composer States").waitFor({ timeout: 5_000 });
 await page.getByText("Use app.tsx and composer.tsx").waitFor({ timeout: 5_000 });
 await assertTranscriptAlignsWithComposer(page);
+await assertComposerContextStrip(page);
 const composer = page.getByLabel("Message agent");
 await selectComposerOption(page, "Access mode", "Read only");
 await selectComposerOption(page, "Model", "5.5 Low");
@@ -151,6 +152,19 @@ async function assertTranscriptAlignsWithComposer(page) {
     throw new Error(
       `Design-guide transcript should align to composer surface, got left delta ${leftDelta} and width delta ${widthDelta}.`,
     );
+  }
+}
+
+async function assertComposerContextStrip(page) {
+  const strip = page.locator("[data-composer-context-strip='true']");
+  await strip.getByText("toro", { exact: true }).waitFor({ timeout: 5_000 });
+  for (const text of ["Work locally", "main"]) {
+    if ((await strip.getByText(text, { exact: true }).count()) === 0) {
+      throw new Error(`Design-guide composer context strip is missing ${text}.`);
+    }
+  }
+  if ((await strip.locator("button").count()) > 0) {
+    throw new Error("Design-guide composer context strip should not render buttons.");
   }
 }
 

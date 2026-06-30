@@ -1,5 +1,18 @@
+import type { ReactNode } from "react";
 import { FormEvent, useState } from "react";
-import { ArrowUp, ChevronDown, FileText, Mic, Plus, Shield, Square, X, Zap } from "lucide-react";
+import {
+  ArrowUp,
+  ChevronDown,
+  FileText,
+  GitBranch,
+  Laptop,
+  Mic,
+  Plus,
+  Shield,
+  Square,
+  X,
+  Zap,
+} from "lucide-react";
 import { Button } from "../button";
 import { cn } from "../cn";
 
@@ -13,6 +26,7 @@ export interface CodexComposerProps {
   readonly accessLabel: string;
   readonly canSend: boolean;
   readonly contextItems?: readonly CodexComposerContextItem[];
+  readonly contextStrip?: CodexComposerContextStrip;
   readonly isRunning?: boolean;
   readonly modelLabel: string;
   readonly placeholder: string;
@@ -22,6 +36,12 @@ export interface CodexComposerProps {
   readonly onSubmit: () => void;
 }
 
+export interface CodexComposerContextStrip {
+  readonly branchLabel?: string;
+  readonly environmentLabel?: string;
+  readonly projectLabel?: string;
+}
+
 const accessOptions = ["Full access", "Ask first", "Read only"] as const;
 const modelOptions = ["5.5 Medium", "5.5 High", "5.5 Low"] as const;
 
@@ -29,6 +49,7 @@ export function CodexComposer({
   accessLabel,
   canSend,
   contextItems = [],
+  contextStrip,
   isRunning,
   modelLabel,
   onChange,
@@ -53,7 +74,7 @@ export function CodexComposer({
   return (
     <form className="px-6 pb-6" onSubmit={submit}>
       <div
-        className="mx-auto max-w-[960px] rounded-[22px] border border-zinc-200 bg-white p-3 shadow-[0_14px_50px_rgba(15,23,42,0.12)]"
+        className="relative z-10 mx-auto max-w-[960px] rounded-[22px] border border-zinc-200 bg-white p-3 shadow-[0_14px_50px_rgba(15,23,42,0.12)]"
         data-composer-surface="true"
       >
         <textarea
@@ -220,6 +241,40 @@ export function CodexComposer({
           </div>
         </div>
       </div>
+      {contextStrip ? <ComposerContextStrip context={contextStrip} /> : null}
     </form>
+  );
+}
+
+function ComposerContextStrip({ context }: { readonly context: CodexComposerContextStrip }) {
+  const items: { icon: ReactNode; label: string }[] = [];
+  if (context.projectLabel) {
+    items.push({ icon: <FileText size={15} />, label: context.projectLabel });
+  }
+  if (context.environmentLabel) {
+    items.push({ icon: <Laptop size={15} />, label: context.environmentLabel });
+  }
+  if (context.branchLabel) {
+    items.push({ icon: <GitBranch size={15} />, label: context.branchLabel });
+  }
+
+  if (items.length === 0) {
+    return null;
+  }
+
+  return (
+    <div
+      className="-mt-3 mx-auto max-w-[960px] rounded-b-[22px] bg-zinc-50 px-5 pb-4 pt-6 text-sm text-zinc-500"
+      data-composer-context-strip="true"
+    >
+      <div className="flex min-w-0 items-center gap-5">
+        {items.map((item) => (
+          <span className="inline-flex min-w-0 items-center gap-1.5" key={item.label}>
+            <span className="shrink-0 text-zinc-400">{item.icon}</span>
+            <span className="truncate font-medium">{item.label}</span>
+          </span>
+        ))}
+      </div>
+    </div>
   );
 }

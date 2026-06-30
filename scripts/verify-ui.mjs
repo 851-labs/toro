@@ -113,6 +113,7 @@ await assertPrimarySidebarSimplified(page);
 await assertSidebarChatRowsAreNavigationOnly(page);
 await assertCurrentChatIsFirstInProject(page);
 await assertEmptySessionPrompt(page);
+await assertComposerFooterIsCodexCompact(page);
 await assertDesktopDebugLogsHidden(page);
 await assertHeaderActions(page);
 await assertSessionDetailsToggle(page);

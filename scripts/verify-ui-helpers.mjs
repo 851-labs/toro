@@ -65,9 +65,22 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
   }
 
   async function assertComposerFooterIsCodexCompact(page) {
-    for (const text of ["Open a project to start", "Work locally"]) {
-      if ((await page.getByText(text).count()) > 0) {
-        throw new Error(`Composer footer should not render workspace status text: ${text}`);
+    if ((await page.getByText("Open a project to start").count()) > 0) {
+      throw new Error("Composer footer should not render old workspace status copy.");
+    }
+
+    const strip = page.locator("[data-composer-context-strip='true']");
+    if ((await strip.count()) === 0) {
+      return;
+    }
+
+    if ((await strip.locator("button").count()) > 0) {
+      throw new Error("Composer context strip should render passive metadata, not inert buttons.");
+    }
+
+    for (const text of [workspaceName, "Work locally", "main"]) {
+      if ((await strip.getByText(text, { exact: true }).count()) === 0) {
+        throw new Error(`Composer context strip is missing Codex-like metadata: ${text}`);
       }
     }
   }
