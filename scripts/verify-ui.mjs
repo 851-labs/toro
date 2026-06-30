@@ -157,7 +157,7 @@ await chatHelpers.assertSharedChatMessages(page);
 await assertSharedThinkingDisclosure(page);
 await assertSharedPlanAndSummaries(page);
 await assertLightReferenceShell(page);
-await assertStreamingCursorAnimated(page.locator("[data-thinking-body='true']").first());
+await assertNoInlineStreamingCursor(page.locator("[data-thinking-body='true']").first());
 await assertTranscriptDisclosureIsCompact(
   page.locator("[data-plan-disclosure='true']").first(),
   "Plan",
@@ -188,7 +188,7 @@ await pause();
 await page.getByRole("button", { name: "Allow once" }).click();
 await page.getByText(/Toro demo agent received your prompt/).waitFor({ timeout: 10_000 });
 await chatHelpers.assertStreamingMarkdownMessage(page);
-await assertStreamingCursorAnimated(
+await assertNoInlineStreamingCursor(
   page
     .locator("article")
     .filter({ hasText: /Toro demo agent received your prompt/ })
@@ -275,15 +275,15 @@ async function resetHostState() {
   if (!response.ok) throw new Error(`Failed to reset Toro host: ${response.status}`);
 }
 
-async function assertStreamingCursorAnimated(locator) {
+async function assertNoInlineStreamingCursor(locator) {
   const className = await locator.first().evaluate((node) => {
     const target = node.matches("[class*='after:']")
       ? node
       : node.querySelector("[class*='after:']");
     return target?.getAttribute("class") ?? "";
   });
-  if (!className.includes("after:motion-safe:animate-pulse")) {
-    throw new Error("Streaming cursor should pulse like Codex while text is arriving.");
+  if (className.includes("after:")) {
+    throw new Error("Streaming text should not render an inline cursor dot.");
   }
 }
 

@@ -25,10 +25,10 @@ await page.getByText("Reviewing project context").waitFor({ timeout: 5_000 });
 await assertSharedChatMessages(page);
 await assertSharedThinkingDisclosure(page);
 await assertSharedPlanAndSummaries(page);
-await assertStreamingCursorAnimated(
+await assertNoInlineStreamingCursor(
   page.locator("article").filter({ hasText: streamingMarkdownText }).first(),
 );
-await assertStreamingCursorAnimated(page.locator("[data-thinking-body='true']").first());
+await assertNoInlineStreamingCursor(page.locator("[data-thinking-body='true']").first());
 await page.getByText("Validate Toro permission UI").first().waitFor({ timeout: 5_000 });
 await page.getByText("tool cards are working").waitFor({ timeout: 5_000 });
 await assertSharedPermissionElements(page);
@@ -284,15 +284,15 @@ async function assertStarterCardIcons(page) {
   }
 }
 
-async function assertStreamingCursorAnimated(locator) {
+async function assertNoInlineStreamingCursor(locator) {
   const className = await locator.first().evaluate((node) => {
     const target = node.matches("[class*='after:']")
       ? node
       : node.querySelector("[class*='after:']");
     return target?.getAttribute("class") ?? "";
   });
-  if (!className.includes("animate-pulse") || !className.includes("size-1.5")) {
-    throw new Error("Design-guide streaming cursor should be a small pulsing Codex cursor.");
+  if (className.includes("after:")) {
+    throw new Error("Design-guide streaming text should not render an inline cursor dot.");
   }
 }
 

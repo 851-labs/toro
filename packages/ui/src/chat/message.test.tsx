@@ -29,5 +29,17 @@ describe("CodexChatMessage", () => {
 
     expect(html).toContain('data-markdown-renderer="streamdown"');
     expect(html).toContain("Streaming");
+    expect(html).not.toContain("after:motion-safe:animate-pulse");
+  });
+
+  it("hides empty markdown list items so partial streams do not show a bare dot", () => {
+    const html = renderToStaticMarkup(
+      createElement(CodexChatMessage, {
+        children: "- Complete item",
+        role: "assistant",
+      }),
+    );
+
+    expect(html).toContain("empty:hidden");
   });
 });

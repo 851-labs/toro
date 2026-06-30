@@ -120,7 +120,7 @@ const markdownComponents = {
   },
   li({ children, className, node: _node, ...props }: MarkdownListItemProps) {
     return (
-      <li className={cn("pl-1 leading-7", className)} {...props}>
+      <li className={cn("empty:hidden pl-1 leading-7", className)} {...props}>
         {children}
       </li>
     );

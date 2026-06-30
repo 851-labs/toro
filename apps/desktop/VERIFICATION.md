@@ -14,12 +14,12 @@ Current reference evidence:
 
 Latest verified desktop artifacts:
 
-- Desktop capture: `.artifacts/verification/2026-06-30T17-47-55-367Z/page@f96f736c5ec0c7a6cb074647cbc08728.webm`
-- Desktop stills: `.artifacts/verification/2026-06-30T17-47-55-367Z/*.png`
+- Desktop capture: `.artifacts/verification/2026-06-30T17-52-57-526Z/page@870eb514d7f871a87598247b533017f1.webm`
+- Desktop stills: `.artifacts/verification/2026-06-30T17-52-57-526Z/*.png`
 - Grouped-sidebar capture: `.artifacts/verification/sidebar-groups/2026-06-30T15-10-20-395Z/page@d9d7ed776cdd64de9144ac1f4a6ab547.webm`
 - Grouped-sidebar still: `.artifacts/verification/sidebar-groups/2026-06-30T15-10-20-395Z/01-project-grouped-chats.png`
-- Design-guide capture: `.artifacts/verification/design-guide/2026-06-30T17-44-29-972Z/page@81f4c72ca1e0a3701ad62f0e32462797.webm`
-- Design-guide stills: `.artifacts/verification/design-guide/2026-06-30T17-44-29-972Z/*.png`
+- Design-guide capture: `.artifacts/verification/design-guide/2026-06-30T17-52-33-159Z/page@a65f95447fc68b96d4426797c49bcd0c.webm`
+- Design-guide stills: `.artifacts/verification/design-guide/2026-06-30T17-52-33-159Z/*.png`
 - Native still: `.artifacts/verification/native/2026-06-30-native-project-picker.png`
 
 Most recent manual checks:
@@ -30,6 +30,7 @@ Most recent manual checks:
 - Confirmed completed thinking rows and grouped tool-call blocks use shared Codex-like collapsible activity summaries.
 - Confirmed shared buttons, composer selects, and activity collapsibles are built on Base UI primitives.
 - Confirmed streaming assistant markdown renders through Streamdown and completed chat markdown renders through React Markdown.
+- Confirmed streaming assistant and thinking text no longer append an inline cursor dot.
 - Confirmed composer plain Enter submits the message and Shift+Enter inserts a newline.
 - Confirmed completed tool-call status renders as muted transcript metadata instead of bright emerald text.
 - Confirmed assistant messages use a wider Codex-like transcript rail instead of the previous narrow 72% cap.

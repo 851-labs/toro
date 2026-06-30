@@ -2,7 +2,6 @@ import type { ReactNode } from "react";
 import { useEffect, useState } from "react";
 import { Collapsible } from "@base-ui-components/react/collapsible";
 import { BrainCircuit } from "lucide-react";
-import { cn } from "../cn";
 import { CodexDisclosureSummary } from "./disclosure-summary";
 
 export interface CodexThinkingDisclosureProps {
@@ -51,11 +50,7 @@ export function CodexThinkingDisclosure({
       />
       {children ? (
         <Collapsible.Panel
-          className={cn(
-            "ml-8 mt-1 whitespace-pre-wrap py-0.5 text-sm leading-6 text-zinc-600 dark:text-zinc-400",
-            isStreaming &&
-              "after:ml-1 after:inline-block after:size-1.5 after:align-middle after:rounded-full after:bg-zinc-400 after:motion-safe:animate-pulse",
-          )}
+          className="ml-8 mt-1 whitespace-pre-wrap py-0.5 text-sm leading-6 text-zinc-600 dark:text-zinc-400"
           data-thinking-body="true"
           keepMounted
         >
