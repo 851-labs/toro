@@ -90,16 +90,27 @@ await page.getByText("status: ok").waitFor({ timeout: 5_000 });
 await screenshot(page, "07-tool-call-expanded.png");
 await pause();
 
+await page.getByRole("button", { exact: true, name: "Good response" }).last().click();
+await expectPressed(page.getByRole("button", { exact: true, name: "Good response" }).last());
+await page.getByRole("button", { exact: true, name: "Bad response" }).last().click();
+await expectPressed(page.getByRole("button", { exact: true, name: "Bad response" }).last());
+await page.getByRole("button", { exact: true, name: "Expand message" }).last().click();
+await page.getByRole("button", { exact: true, name: "Collapse message" }).waitFor({
+  timeout: 5_000,
+});
+await screenshot(page, "08-message-actions.png");
+await pause();
+
 await page.getByRole("button", { exact: true, name: "Copy message" }).last().click();
 await page.getByRole("button", { exact: true, name: "Copied message" }).waitFor({ timeout: 5_000 });
-await screenshot(page, "08-streaming-complete.png");
+await screenshot(page, "09-streaming-complete.png");
 await pause();
 
 const packageJson = page.getByRole("button", { name: "package.json" }).first();
 if (await packageJson.count()) {
   await packageJson.click();
   await page.waitForTimeout(500);
-  await screenshot(page, "09-file-preview.png");
+  await screenshot(page, "10-file-preview.png");
   await pause();
 }
 
@@ -174,12 +185,23 @@ function isKnownFunctionalButton(label, extraAllowedLabels) {
       "Host settings",
       "Copy message",
       "Copied message",
+      "Good response",
+      "Bad response",
+      "Expand message",
+      "Collapse message",
       ...extraAllowedLabels,
     ].includes(label)
   ) {
     return true;
   }
   return label.startsWith("Chat ") || label.startsWith(workspaceName);
+}
+
+async function expectPressed(locator) {
+  const pressed = await locator.getAttribute("aria-pressed");
+  if (pressed !== "true") {
+    throw new Error("Expected message action to become pressed.");
+  }
 }
 
 async function assertHostSettingsToggle(page) {

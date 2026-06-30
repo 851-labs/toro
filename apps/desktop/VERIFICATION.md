@@ -42,6 +42,10 @@
 - Fresh-host disabled-button cleanup stills: `.artifacts/verification/2026-06-30T03-51-07-791Z/*.png`
 - Disabled-button design-guide capture: `.artifacts/verification/design-guide/2026-06-30T03-49-43-978Z/page@bc7130b0baf94258d472c8d5e66eb011.webm`
 - Disabled-button design-guide stills: `.artifacts/verification/design-guide/2026-06-30T03-49-43-978Z/*.png`
+- Message actions capture: `.artifacts/verification/2026-06-30T03-55-10-297Z/page@37152e3971d2110261704d7d63180d97.webm`
+- Message actions stills: `.artifacts/verification/2026-06-30T03-55-10-297Z/*.png`
+- Message actions design-guide capture: `.artifacts/verification/design-guide/2026-06-30T03-55-29-660Z/page@e362b4e3b886a2d3a9c1d968f1976295.webm`
+- Message actions design-guide stills: `.artifacts/verification/design-guide/2026-06-30T03-55-29-660Z/*.png`
 
 Manual verification:
 
@@ -63,6 +67,7 @@ Manual verification:
 - Confirmed ACP thought chunks are stored separately from assistant messages and render as a shared Codex-style thinking disclosure.
 - Confirmed completed tool calls carry ACP text content and expand to show deterministic command output.
 - Confirmed New chat, Add, and Send are only rendered as buttons when they can perform an action, and the UI verifier fails if any disabled button is present.
+- Confirmed completed assistant messages expose Codex-style copy, thumbs up, thumbs down, and expand controls, and each control changes visible state during verification.
 
 Automated verification:
 

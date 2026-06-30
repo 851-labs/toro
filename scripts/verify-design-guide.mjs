@@ -24,6 +24,14 @@ await page.getByText("Thinking").waitFor({ timeout: 5_000 });
 await page.getByText("Reviewing project context").waitFor({ timeout: 5_000 });
 await page.getByText("Validate Toro permission UI").first().waitFor({ timeout: 5_000 });
 await page.getByText("tool cards are working").waitFor({ timeout: 5_000 });
+await page.getByRole("button", { exact: true, name: "Good response" }).click();
+await expectPressed(page.getByRole("button", { exact: true, name: "Good response" }));
+await page.getByRole("button", { exact: true, name: "Bad response" }).click();
+await expectPressed(page.getByRole("button", { exact: true, name: "Bad response" }));
+await page.getByRole("button", { exact: true, name: "Expand message" }).click();
+await page.getByRole("button", { exact: true, name: "Collapse message" }).waitFor({
+  timeout: 5_000,
+});
 await page.getByRole("button", { exact: true, name: "Copy message" }).click();
 await page.getByRole("button", { exact: true, name: "Copied message" }).waitFor({ timeout: 5_000 });
 await screenshot(page, "01-chat-elements.png");
@@ -56,6 +64,13 @@ async function screenshot(page, name) {
 async function pause() {
   if (stepDelayMs > 0) {
     await new Promise((resolvePause) => setTimeout(resolvePause, stepDelayMs));
+  }
+}
+
+async function expectPressed(locator) {
+  const pressed = await locator.getAttribute("aria-pressed");
+  if (pressed !== "true") {
+    throw new Error("Expected design-guide message action to become pressed.");
   }
 }
 
