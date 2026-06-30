@@ -46,7 +46,7 @@ function statusLabel(status: CodexToolCallProps["status"]) {
 }
 
 function statusClass(status: CodexToolCallProps["status"]) {
-  if (status === "completed") return "text-emerald-600";
+  if (status === "completed") return "text-zinc-500";
   if (status === "failed") return "text-red-600";
   return "text-zinc-500";
 }

@@ -181,9 +181,8 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
       .filter({ hasText: /^completed$/ })
       .first();
     const statusClassName = (await status.getAttribute("class")) ?? "";
-    if (statusClassName.includes("rounded-full") || statusClassName.includes("border-emerald")) {
-      throw new Error("Tool call status should render as quiet metadata, not a status pill.");
-    }
+    if (/rounded-full|border-emerald|text-emerald/.test(statusClassName))
+      throw new Error("Tool call status should render as quiet metadata.");
     const outputClassName =
       (await toolCall.locator("[data-tool-output='true']").first().getAttribute("class")) ?? "";
     if (

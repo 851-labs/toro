@@ -481,9 +481,9 @@ Manual verification:
 - Confirmed the sidebar footer action now uses a Codex-like sliders glyph instead of the previous phone icon, with desktop and design-guide verification asserting the compact footer action marker.
 - Sidebar footer sliders desktop capture: `.artifacts/verification/2026-06-30T13-52-24-787Z/page@d192d7013ba0bf9766a64adaff668596.webm`
 - Sidebar footer sliders design-guide capture: `.artifacts/verification/design-guide/2026-06-30T13-52-24-479Z/page@404ca17e239dd59a38297afa33485d69.webm`
-- Confirmed the desktop sidebar no longer renders inert Scheduled or Plugins rows until those features are wired, with desktop verification asserting the labels are absent from the functional app rail.
-- Sidebar command cleanup desktop capture: `.artifacts/verification/2026-06-30T13-56-34-264Z/page@275dc55eb2cc12e592eaa3cd1cf7f859.webm`
-- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T13-56-34-264Z/`.
+- Confirmed the desktop sidebar no longer renders inert Scheduled or Plugins rows until those features are wired: `.artifacts/verification/2026-06-30T13-56-34-264Z/page@275dc55eb2cc12e592eaa3cd1cf7f859.webm`
+- Confirmed completed tool-call status now renders as muted transcript metadata instead of bright emerald text: `.artifacts/verification/2026-06-30T14-01-12-046Z/page@86bc714509d69498645785e4ac17e477.webm`
+- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T14-01-12-046Z/`.
 - Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T13-52-24-479Z/`.
 
 Automated verification:
