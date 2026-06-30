@@ -3,16 +3,10 @@ import { Button, StatusBadge, cn } from "@toro/ui";
 import {
   Check,
   ClipboardList,
-  Copy,
-  Expand,
-  Mic,
-  Plus,
   Send,
   Shield,
   Square,
   Terminal,
-  ThumbsDown,
-  ThumbsUp,
   X,
   Zap,
 } from "lucide-react";
@@ -80,36 +74,19 @@ export function ChatPanel({ agentName, session, workspaceName }: ChatPanelProps)
           />
           <div className="flex items-center justify-between gap-3 border-t border-zinc-100 pt-3">
             <div className="flex min-w-0 items-center gap-3 text-sm text-zinc-500">
-              <button
-                className="rounded-full p-1.5 hover:bg-zinc-100"
-                type="button"
-                aria-label="Add context"
-              >
-                <Plus size={18} />
-              </button>
-              <button
-                className="inline-flex items-center gap-1 rounded-full px-2 py-1 font-medium text-orange-600 hover:bg-orange-50"
-                type="button"
-              >
+              <span className="inline-flex items-center gap-1 px-2 py-1 font-medium text-orange-600">
                 <Shield size={16} />
                 Full access
-              </button>
+              </span>
               <span className="hidden truncate sm:inline">
                 {workspaceName ? `${workspaceName} / Work locally` : "Open a project to start"}
               </span>
             </div>
             <div className="flex items-center gap-2 text-sm text-zinc-500">
               <span className="hidden items-center gap-1 font-medium sm:inline-flex">
-                <Zap size={15} />
-                5.5 Medium
-              </span>
-              <button
-                className="rounded-full p-1.5 hover:bg-zinc-100"
-                type="button"
-                aria-label="Dictate"
-              >
-                <Mic size={17} />
-              </button>
+                  <Zap size={15} />
+                  5.5 Medium
+                </span>
               {session?.status === "running" ? (
                 <Button
                   aria-label="Stop"
@@ -191,14 +168,6 @@ function MessageBlock({ message }: { readonly message: ChatMessage }) {
         )}
       >
         <div className="whitespace-pre-wrap">{message.content}</div>
-        {!isUser ? (
-          <div className="mt-3 flex items-center gap-3 text-zinc-400">
-            <Copy size={16} />
-            <ThumbsUp size={16} />
-            <ThumbsDown size={16} />
-            <Expand size={16} />
-          </div>
-        ) : null}
       </div>
     </article>
   );

@@ -7,9 +7,7 @@ import {
   FolderOpen,
   Layers,
   Monitor,
-  Search,
   Server,
-  Settings2,
 } from "lucide-react";
 import { FileExplorer } from "./file-explorer";
 
@@ -18,7 +16,6 @@ interface AgentRailProps {
   readonly agents: readonly AgentProfile[];
   readonly environments: readonly EnvironmentProfile[];
   readonly error: string | null;
-  readonly isLoading: boolean;
   readonly selectedAgentId: AgentId;
   readonly selectedEnvironmentId: EnvironmentId;
   readonly selectedFilePath: string | null;
@@ -54,10 +51,6 @@ export function AgentRail(props: AgentRailProps) {
         >
           <CirclePlus size={17} />
           New chat
-        </button>
-        <button className="flex h-10 w-full items-center gap-3 rounded-xl px-3 text-left text-sm text-zinc-700 hover:bg-zinc-200/70">
-          <Search size={17} />
-          Search
         </button>
       </div>
 
@@ -166,10 +159,6 @@ export function AgentRail(props: AgentRailProps) {
             <div className="truncate text-sm font-medium">Local host</div>
             <div className="text-xs text-zinc-500">{props.streamStatus}</div>
           </div>
-          <Settings2
-            className={props.isLoading ? "animate-spin text-zinc-400" : "text-zinc-400"}
-            size={16}
-          />
         </div>
       </div>
     </aside>

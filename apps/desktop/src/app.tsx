@@ -7,12 +7,7 @@ import {
   type WorkspaceId,
 } from "@toro/domain";
 import {
-  ChevronDown,
-  Code2,
-  ListFilter,
-  MoreHorizontal,
   PanelLeft,
-  PanelRight,
   RefreshCw,
 } from "lucide-react";
 import { useMemo, useState } from "react";
@@ -53,12 +48,6 @@ export function App() {
     () => state.agents.find((agent) => agent.id === selectedAgentId) ?? null,
     [selectedAgentId, state.agents],
   );
-  const activeEnvironment = useMemo(
-    () =>
-      state.environments.find((environment) => environment.id === selectedEnvironmentId) ?? null,
-    [selectedEnvironmentId, state.environments],
-  );
-
   const openWorkspace = useMutation({
     mutationFn: async () => hostClient.openWorkspace(workspacePath, selectedEnvironmentId),
     onSuccess: (workspace) => {
@@ -123,27 +112,9 @@ export function App() {
               <h1 className="truncate text-lg font-semibold">
                 {activeSession?.title ?? "New chat"}
               </h1>
-              <button
-                className="rounded-full p-1 text-zinc-500 hover:bg-zinc-100"
-                aria-label="More chat actions"
-              >
-                <MoreHorizontal size={18} />
-              </button>
             </div>
             <div className="flex items-center gap-2 text-sm text-zinc-500">
               {isLoading ? <RefreshCw className="animate-spin" size={16} /> : null}
-              <button className="inline-flex h-9 items-center gap-2 rounded-xl border border-zinc-200 bg-white px-3 font-medium text-zinc-700 shadow-sm">
-                <Code2 size={16} />
-                Open in
-                <ChevronDown size={15} />
-              </button>
-              <button className="rounded-full p-2 hover:bg-zinc-100" aria-label="Chat settings">
-                <ListFilter size={18} />
-              </button>
-              <button className="rounded-full p-2 hover:bg-zinc-100" aria-label="Toggle preview">
-                <PanelRight size={18} />
-              </button>
-              <span className="sr-only">{activeEnvironment?.name ?? "Environment"}</span>
             </div>
           </header>
           <ChatPanel
