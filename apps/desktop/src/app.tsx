@@ -8,7 +8,7 @@ import {
   type WorkspaceId,
 } from "@toro/domain";
 import { CodexChatHeader } from "@toro/ui";
-import { NotebookTabs, PanelLeft, PanelRight, RefreshCw } from "lucide-react";
+import { ListFilter, NotebookTabs, PanelLeft, PanelRight, RefreshCw } from "lucide-react";
 import { useMemo, useState } from "react";
 import { AgentRail } from "./components/agent-rail";
 import { ChatHeaderActions } from "./components/chat-header-actions";
@@ -224,6 +224,21 @@ export function App() {
                     workspaceId={activeWorkspace.id}
                     workspacePath={activeWorkspace.path}
                   />
+                ) : null}
+                {activeSession ? (
+                  <button
+                    aria-expanded={detailsOpen}
+                    aria-label="Toggle session controls"
+                    className={
+                      detailsOpen
+                        ? "flex size-8 shrink-0 items-center justify-center rounded-lg bg-zinc-100 text-zinc-900"
+                        : "flex size-8 shrink-0 items-center justify-center rounded-lg text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900"
+                    }
+                    onClick={() => setDetailsOpen((open) => !open)}
+                    type="button"
+                  >
+                    <ListFilter size={18} />
+                  </button>
                 ) : null}
                 {activeSession ? (
                   <button

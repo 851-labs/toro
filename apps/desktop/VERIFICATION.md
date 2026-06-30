@@ -14,13 +14,13 @@ Current reference evidence:
 
 Latest verified desktop artifacts:
 
-- Desktop capture: `.artifacts/verification/2026-06-30T15-21-30-530Z/page@46a813bd3599082dfda7c9369fb44df7.webm`
-- Desktop stills: `.artifacts/verification/2026-06-30T15-21-30-530Z/*.png`
+- Desktop capture: `.artifacts/verification/2026-06-30T15-27-45-136Z/page@81412b173dc6280ae3055c3e973edf46.webm`
+- Desktop stills: `.artifacts/verification/2026-06-30T15-27-45-136Z/*.png`
 - Grouped-sidebar capture: `.artifacts/verification/sidebar-groups/2026-06-30T15-10-20-395Z/page@d9d7ed776cdd64de9144ac1f4a6ab547.webm`
 - Grouped-sidebar still: `.artifacts/verification/sidebar-groups/2026-06-30T15-10-20-395Z/01-project-grouped-chats.png`
-- Design-guide capture: `.artifacts/verification/design-guide/2026-06-30T15-21-46-049Z/page@1a328dc044af3e486ac6a5cd4b5a5e14.webm`
-- Design-guide stills: `.artifacts/verification/design-guide/2026-06-30T15-21-46-049Z/*.png`
-- Native still: `.artifacts/verification/native/2026-06-30-new-chat-opens-project.png`
+- Design-guide capture: `.artifacts/verification/design-guide/2026-06-30T15-30-52-932Z/page@3105c0e5b0d76b93912f15531c84aabb.webm`
+- Design-guide stills: `.artifacts/verification/design-guide/2026-06-30T15-30-52-932Z/*.png`
+- Native still: `.artifacts/verification/native/2026-06-30-header-controls-button.png`
 
 Most recent manual checks:
 
@@ -35,6 +35,7 @@ Most recent manual checks:
 - Confirmed pending permission tool calls appear in the transcript before approval.
 - Confirmed pending and running tool-call statuses show a live Codex-like activity dot.
 - Confirmed expanded plan rows use muted transcript metadata instead of bright status colors.
+- Confirmed the chat header includes a Codex-like controls glyph that opens session details.
 - Confirmed the design guide catalogs both live and completed tool-call states.
 - Confirmed the design guide catalogs project-grouped sidebar chats.
 - Confirmed native Tauri renders the latest Codex-like chat shell after rebuild.

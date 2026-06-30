@@ -29,6 +29,7 @@ import {
   Clock,
   FileText,
   FolderPlus,
+  ListFilter,
   MessageSquare,
   MoreHorizontal,
   NotebookTabs,
@@ -328,6 +329,9 @@ function SidebarGroups() {
                 <VsCodeMark size={16} />
                 Open in
                 <ChevronDown size={15} />
+              </span>
+              <span className="flex size-8 shrink-0 items-center justify-center rounded-lg text-zinc-500">
+                <ListFilter size={18} />
               </span>
               <span className="flex size-8 shrink-0 items-center justify-center rounded-lg text-zinc-500">
                 <PanelRight size={18} />

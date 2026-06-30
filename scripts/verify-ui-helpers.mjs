@@ -300,7 +300,7 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
   }
 
   async function assertSessionDetailsToggle(page) {
-    const toggle = page.getByRole("button", { exact: true, name: "Toggle session details" });
+    const toggle = page.getByRole("button", { exact: true, name: "Toggle session controls" });
     await toggle.click();
     await page.getByRole("complementary", { exact: true, name: "Session details" }).waitFor({
       timeout: 5_000,
@@ -368,7 +368,6 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
       throw new Error(`Unexpected or disabled button controls: ${JSON.stringify(unexpected)}`);
     }
   }
-
   function isKnownFunctionalButton(label, extraAllowedLabels) {
     if (
       [
@@ -383,6 +382,7 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
         "Host settings",
         "Toggle sidebar",
         "Toggle session details",
+        "Toggle session controls",
         "Collapse sidebar",
         "New chat",
         "Add context",
