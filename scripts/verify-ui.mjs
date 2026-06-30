@@ -33,7 +33,7 @@ await screenshot(page, "01-initial-shell.png");
 await pause();
 
 await page.getByPlaceholder("/path/to/workspace").fill(workspacePath);
-await page.getByRole("button", { exact: true, name: "Open" }).click();
+await page.getByRole("button", { exact: true, name: "Add" }).click();
 await page.getByText("toro").first().waitFor({ timeout: 5_000 });
 await screenshot(page, "02-workspace-opened.png");
 await pause();
@@ -43,6 +43,7 @@ await page
   .getByText(/Toro Demo in/)
   .first()
   .waitFor({ timeout: 10_000 });
+await page.getByRole("button", { name: /Chat Toro Demo in toro/ }).waitFor({ timeout: 5_000 });
 await screenshot(page, "03-session-created.png");
 await pause();
 

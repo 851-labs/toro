@@ -1,11 +1,12 @@
-import type { AgentId, EnvironmentId, WorkspaceId } from "@toro/domain";
+import type { AgentId, EnvironmentId, SessionId, WorkspaceId } from "@toro/domain";
 import type { AgentProfile, EnvironmentProfile, Session, Workspace } from "@toro/domain";
 import { Button, StatusBadge, cn } from "@toro/ui";
-import { Bot, CirclePlus, FolderOpen, Layers, Monitor, Server } from "lucide-react";
+import { Bot, CirclePlus, FolderOpen, Layers, MessageSquare, Monitor, Server } from "lucide-react";
 import { FileExplorer } from "./file-explorer";
 
 interface AgentRailProps {
   readonly activeWorkspace: Workspace | null;
+  readonly activeSessionId: SessionId | null;
   readonly agents: readonly AgentProfile[];
   readonly environments: readonly EnvironmentProfile[];
   readonly error: string | null;
@@ -21,6 +22,7 @@ interface AgentRailProps {
   readonly onSelectAgent: (id: AgentId) => void;
   readonly onSelectEnvironment: (id: EnvironmentId) => void;
   readonly onSelectFile: (path: string) => void;
+  readonly onSelectSession: (id: SessionId) => void;
   readonly onSelectWorkspace: (id: WorkspaceId) => void;
   readonly onWorkspacePathChange: (path: string) => void;
 }
@@ -61,13 +63,46 @@ export function AgentRail(props: AgentRailProps) {
             icon={<FolderOpen size={15} />}
             onClick={props.onOpenWorkspace}
           >
-            Open
+            Add
           </Button>
         </div>
       </div>
 
       <div className="min-h-0 flex-1 overflow-auto px-3 pb-3 pt-4">
-        <RailSection title="Agents">
+        <RailSection title="Projects">
+          {props.workspaces.length > 0 ? (
+            props.workspaces.map((workspace) => {
+              const projectSessions = props.sessions.filter(
+                (session) => session.workspaceId === workspace.id,
+              );
+              return (
+                <ProjectGroup
+                  activeSessionId={props.activeSessionId}
+                  activeWorkspaceId={props.activeWorkspace?.id ?? null}
+                  key={workspace.id}
+                  sessions={projectSessions}
+                  workspace={workspace}
+                  onSelectSession={props.onSelectSession}
+                  onSelectWorkspace={props.onSelectWorkspace}
+                />
+              );
+            })
+          ) : (
+            <div className="px-3 py-2 text-sm text-zinc-400">No projects</div>
+          )}
+        </RailSection>
+
+        {props.activeWorkspace ? (
+          <RailSection title="Files">
+            <FileExplorer
+              selectedFilePath={props.selectedFilePath}
+              workspace={props.activeWorkspace}
+              onSelectFile={props.onSelectFile}
+            />
+          </RailSection>
+        ) : null}
+
+        <RailSection title="Run With">
           {props.agents.map((agent) => (
             <RailButton
               active={props.selectedAgentId === agent.id}
@@ -80,7 +115,7 @@ export function AgentRail(props: AgentRailProps) {
           ))}
         </RailSection>
 
-        <RailSection title="Environments">
+        <RailSection title="Environment">
           {props.environments.map((environment) => (
             <RailButton
               active={props.selectedEnvironmentId === environment.id}
@@ -95,46 +130,6 @@ export function AgentRail(props: AgentRailProps) {
             />
           ))}
         </RailSection>
-
-        <RailSection title="Projects">
-          {props.workspaces.length > 0 ? (
-            props.workspaces.map((workspace) => (
-              <RailButton
-                active={props.activeWorkspace?.id === workspace.id}
-                icon={<Layers size={16} />}
-                key={workspace.id}
-                label={workspace.name}
-                meta={workspace.path}
-                onClick={() => props.onSelectWorkspace(workspace.id)}
-              />
-            ))
-          ) : (
-            <div className="px-3 py-2 text-sm text-zinc-400">No projects</div>
-          )}
-        </RailSection>
-
-        <RailSection title="Chats">
-          {props.sessions.length > 0 ? (
-            props.sessions.map((session) => (
-              <div className="rounded-xl px-3 py-2 text-sm hover:bg-zinc-200/70" key={session.id}>
-                <div className="truncate font-medium text-zinc-800">{session.title}</div>
-                <StatusBadge label={session.status} tone={statusTone(session.status)} />
-              </div>
-            ))
-          ) : (
-            <div className="px-3 py-2 text-sm text-zinc-400">No chats</div>
-          )}
-        </RailSection>
-
-        {props.activeWorkspace ? (
-          <RailSection title="Files">
-            <FileExplorer
-              selectedFilePath={props.selectedFilePath}
-              workspace={props.activeWorkspace}
-              onSelectFile={props.onSelectFile}
-            />
-          </RailSection>
-        ) : null}
       </div>
 
       {props.error ? (
@@ -155,6 +150,57 @@ export function AgentRail(props: AgentRailProps) {
         </div>
       </div>
     </aside>
+  );
+}
+
+function ProjectGroup({
+  activeSessionId,
+  activeWorkspaceId,
+  sessions,
+  workspace,
+  onSelectSession,
+  onSelectWorkspace,
+}: {
+  readonly activeSessionId: SessionId | null;
+  readonly activeWorkspaceId: WorkspaceId | null;
+  readonly sessions: readonly Session[];
+  readonly workspace: Workspace;
+  readonly onSelectSession: (id: SessionId) => void;
+  readonly onSelectWorkspace: (id: WorkspaceId) => void;
+}) {
+  return (
+    <div className="space-y-1">
+      <RailButton
+        active={activeWorkspaceId === workspace.id}
+        icon={<Layers size={16} />}
+        label={workspace.name}
+        meta={workspace.path}
+        onClick={() => onSelectWorkspace(workspace.id)}
+      />
+      <div className="ml-6 space-y-1 border-l border-zinc-200 pl-2">
+        {sessions.length > 0 ? (
+          sessions.map((session) => (
+            <button
+              aria-label={`Chat ${session.title}`}
+              className={cn(
+                "flex min-h-9 w-full items-center gap-2 rounded-xl px-2 py-1.5 text-left text-sm hover:bg-zinc-200/70",
+                activeSessionId === session.id && "bg-zinc-200 text-zinc-950",
+              )}
+              key={session.id}
+              onClick={() => onSelectSession(session.id)}
+            >
+              <MessageSquare size={14} className="shrink-0 text-zinc-500" />
+              <span className="min-w-0 flex-1 truncate font-medium text-zinc-800">
+                {session.title}
+              </span>
+              <StatusBadge label={session.status} tone={statusTone(session.status)} />
+            </button>
+          ))
+        ) : (
+          <div className="px-2 py-1.5 text-sm text-zinc-400">No chats</div>
+        )}
+      </div>
+    </div>
   );
 }
 

@@ -4,6 +4,7 @@ import {
   environmentId,
   type AgentId,
   type EnvironmentId,
+  type SessionId,
   type WorkspaceId,
 } from "@toro/domain";
 import { PanelLeft, RefreshCw } from "lucide-react";
@@ -25,21 +26,32 @@ export function App() {
     environmentId("local-desktop"),
   );
   const [selectedWorkspaceId, setSelectedWorkspaceId] = useState<WorkspaceId | null>(null);
+  const [selectedSessionId, setSelectedSessionId] = useState<SessionId | null>(null);
   const [selectedFilePath, setSelectedFilePath] = useState<string | null>(null);
 
+  const selectedSession = useMemo(
+    () => state.sessions.find((session) => session.id === selectedSessionId) ?? null,
+    [selectedSessionId, state.sessions],
+  );
   const activeWorkspace = useMemo(
     () =>
       state.workspaces.find(
-        (workspace) => workspace.id === (selectedWorkspaceId ?? state.workspaces.at(-1)?.id),
+        (workspace) =>
+          workspace.id ===
+          (selectedWorkspaceId ?? selectedSession?.workspaceId ?? state.workspaces.at(-1)?.id),
       ) ?? null,
-    [selectedWorkspaceId, state.workspaces],
+    [selectedSession?.workspaceId, selectedWorkspaceId, state.workspaces],
   );
   const activeSession = useMemo(
     () =>
-      state.sessions.find((session) => session.id === state.activeSessionId) ??
-      state.sessions.at(-1) ??
+      selectedSession ??
+      state.sessions.find(
+        (session) =>
+          session.id === state.activeSessionId && session.workspaceId === activeWorkspace?.id,
+      ) ??
+      state.sessions.findLast((session) => session.workspaceId === activeWorkspace?.id) ??
       null,
-    [state.activeSessionId, state.sessions],
+    [activeWorkspace?.id, selectedSession, state.activeSessionId, state.sessions],
   );
   const activeAgent = useMemo(
     () => state.agents.find((agent) => agent.id === selectedAgentId) ?? null,
@@ -49,6 +61,8 @@ export function App() {
     mutationFn: async () => hostClient.openWorkspace(workspacePath, selectedEnvironmentId),
     onSuccess: (workspace) => {
       setSelectedWorkspaceId(workspace.id);
+      setSelectedSessionId(null);
+      setSelectedFilePath(null);
       void queryClient.invalidateQueries({ queryKey: ["host-state"] });
       void queryClient.invalidateQueries({ queryKey: ["files", workspace.id] });
     },
@@ -65,10 +79,28 @@ export function App() {
         workspaceId: activeWorkspace.id,
       });
     },
-    onSuccess: () => {
+    onSuccess: (result) => {
+      setSelectedSessionId(result.sessionId);
       void queryClient.invalidateQueries({ queryKey: ["host-state"] });
     },
   });
+
+  function selectWorkspace(workspaceId: WorkspaceId) {
+    setSelectedWorkspaceId(workspaceId);
+    setSelectedFilePath(null);
+    setSelectedSessionId(
+      state.sessions.findLast((session) => session.workspaceId === workspaceId)?.id ?? null,
+    );
+  }
+
+  function selectSession(sessionId: SessionId) {
+    const session = state.sessions.find((candidate) => candidate.id === sessionId);
+    if (session) {
+      setSelectedWorkspaceId(session.workspaceId);
+      setSelectedSessionId(session.id);
+      setSelectedFilePath(null);
+    }
+  }
 
   return (
     <div className="grid h-full overflow-hidden bg-white text-zinc-950 md:grid-cols-[320px_minmax(0,1fr)]">
@@ -77,6 +109,7 @@ export function App() {
         agents={state.agents}
         environments={state.environments}
         error={error ?? openWorkspace.error?.message ?? createSession.error?.message ?? null}
+        activeSessionId={activeSession?.id ?? null}
         onCreateSession={() => createSession.mutate()}
         onOpenWorkspace={() => openWorkspace.mutate()}
         selectedAgentId={selectedAgentId}
@@ -89,7 +122,8 @@ export function App() {
         onSelectAgent={setSelectedAgentId}
         onSelectEnvironment={setSelectedEnvironmentId}
         onSelectFile={setSelectedFilePath}
-        onSelectWorkspace={setSelectedWorkspaceId}
+        onSelectSession={selectSession}
+        onSelectWorkspace={selectWorkspace}
         onWorkspacePathChange={setWorkspacePath}
       />
       <main
