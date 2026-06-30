@@ -7,6 +7,8 @@ import {
   CodexPlanDisclosure,
   CodexSidebarRow,
   CodexSidebarSection,
+  CodexSidebarTitlebar,
+  CodexSidebarTitlebarControl,
   CodexThinkingDisclosure,
   CodexToolCall,
   CodexTranscriptSurface,
@@ -232,24 +234,15 @@ function SidebarGroups() {
         className="relative min-h-0 border-r border-zinc-200 bg-[#f7f8f8] px-3 py-4"
         data-sidebar-story-rail="true"
       >
-        <div className="mb-5 flex h-8 items-center gap-3 px-2">
-          <div aria-hidden="true" className="flex items-center gap-2">
-            <span className="size-3 rounded-full bg-[#ff5f57]" />
-            <span className="size-3 rounded-full bg-[#ffbd2e]" />
-            <span className="size-3 rounded-full bg-[#28c840]" />
-          </div>
-          <div aria-label="Sidebar titlebar controls" className="ml-2 flex items-center gap-1">
-            <span className="flex size-8 items-center justify-center rounded-lg text-zinc-500">
-              <PanelLeft size={17} />
-            </span>
-            <span className="flex size-8 items-center justify-center rounded-lg text-zinc-500">
-              <ChevronLeft size={18} />
-            </span>
-            <span className="flex size-8 items-center justify-center rounded-lg text-zinc-300">
-              <ChevronRight size={18} />
-            </span>
-          </div>
-        </div>
+        <CodexSidebarTitlebar ariaLabel="Sidebar titlebar controls" className="-mx-3 -mt-4 mb-1">
+          <CodexSidebarTitlebarControl icon={<PanelLeft size={17} />} label="Collapse sidebar" />
+          <CodexSidebarTitlebarControl icon={<ChevronLeft size={18} />} label="Back" />
+          <CodexSidebarTitlebarControl
+            active={false}
+            icon={<ChevronRight size={18} />}
+            label="Forward"
+          />
+        </CodexSidebarTitlebar>
         <SidebarRow icon={<SquarePen size={16} />} label="New chat" />
         <SidebarRow icon={<Search size={16} />} label="Search" />
         <div className="mt-8">

@@ -317,8 +317,9 @@ Manual verification:
 - Confirmed the desktop app and design-guide sidebar story now share a `@toro/ui` chat header primitive, with the design-guide verifier asserting the shared `data-chat-header` marker and desktop verification preserving the functional header controls.
 - Confirmed project and chat rows now share a `@toro/ui` sidebar row primitive across desktop and the design-guide sidebar story, with the design-guide verifier asserting the shared `data-sidebar-row` markers.
 - Confirmed the Projects sidebar section now shares a `@toro/ui` section primitive across desktop and the design-guide sidebar story, with the design-guide verifier asserting the shared `data-sidebar-section` marker.
-- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T10-35-16-738Z/`.
-- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T10-35-16-738Z/`.
+- Confirmed the sidebar traffic-light titlebar now shares a `@toro/ui` titlebar primitive across desktop and the design-guide sidebar story, with the design-guide verifier asserting the shared `data-sidebar-titlebar` marker.
+- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T10-39-18-135Z/`.
+- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T10-39-17-974Z/`.
 
 Automated verification:
 

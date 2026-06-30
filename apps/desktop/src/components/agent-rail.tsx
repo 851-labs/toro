@@ -7,7 +7,7 @@ import {
   type WorkspaceId,
 } from "@toro/domain";
 import type { AgentProfile, EnvironmentProfile, Session, Workspace } from "@toro/domain";
-import { Button, cn } from "@toro/ui";
+import { Button, CodexSidebarTitlebar, CodexSidebarTitlebarControl, cn } from "@toro/ui";
 import {
   ChevronLeft,
   ChevronRight,
@@ -26,7 +26,6 @@ import {
   ProjectGroup,
   RailSection,
 } from "./agent-rail-parts";
-import type { ReactNode } from "react";
 
 type RailView = "projects" | "search";
 
@@ -74,35 +73,25 @@ export function AgentRail(props: AgentRailProps) {
       className="flex min-h-0 flex-col border-r border-zinc-200 bg-[#f7f8f8]"
       data-sidebar-rail="true"
     >
-      <div className="flex h-14 items-center gap-3 px-5">
-        <div className="flex items-center gap-2">
-          <span aria-hidden="true" className="size-3 rounded-full bg-[#ff5f57]" />
-          <span aria-hidden="true" className="size-3 rounded-full bg-[#ffbd2e]" />
-          <span aria-hidden="true" className="size-3 rounded-full bg-[#28c840]" />
-        </div>
-        <div className="ml-2 flex items-center gap-1">
-          <button
-            aria-label="Collapse sidebar"
-            className="flex size-8 items-center justify-center rounded-lg text-zinc-500 hover:bg-zinc-200/70 hover:text-zinc-900"
-            onClick={props.onToggleSidebar}
-            type="button"
-          >
-            <PanelLeft size={17} />
-          </button>
-          <HistoryControl
-            active={props.canNavigateBack}
-            icon={<ChevronLeft size={18} />}
-            label="Back"
-            onClick={props.onNavigateBack}
-          />
-          <HistoryControl
-            active={props.canNavigateForward}
-            icon={<ChevronRight size={18} />}
-            label="Forward"
-            onClick={props.onNavigateForward}
-          />
-        </div>
-      </div>
+      <CodexSidebarTitlebar ariaLabel="Sidebar titlebar controls">
+        <CodexSidebarTitlebarControl
+          icon={<PanelLeft size={17} />}
+          label="Collapse sidebar"
+          onClick={props.onToggleSidebar}
+        />
+        <CodexSidebarTitlebarControl
+          active={props.canNavigateBack}
+          icon={<ChevronLeft size={18} />}
+          label="Back"
+          onClick={props.onNavigateBack}
+        />
+        <CodexSidebarTitlebarControl
+          active={props.canNavigateForward}
+          icon={<ChevronRight size={18} />}
+          label="Forward"
+          onClick={props.onNavigateForward}
+        />
+      </CodexSidebarTitlebar>
 
       <div className="space-y-1 px-3">
         {props.activeWorkspace ? (
@@ -276,36 +265,5 @@ export function AgentRail(props: AgentRailProps) {
         </div>
       </div>
     </aside>
-  );
-}
-
-function HistoryControl({
-  active,
-  icon,
-  label,
-  onClick,
-}: {
-  readonly active: boolean;
-  readonly icon: ReactNode;
-  readonly label: string;
-  readonly onClick: () => void;
-}) {
-  const className = cn(
-    "flex size-8 items-center justify-center rounded-lg",
-    active ? "text-zinc-500 hover:bg-zinc-200/70 hover:text-zinc-900" : "text-zinc-300",
-  );
-
-  if (!active) {
-    return (
-      <span aria-disabled="true" aria-label={label} className={className} role="img">
-        {icon}
-      </span>
-    );
-  }
-
-  return (
-    <button aria-label={label} className={className} onClick={onClick} type="button">
-      {icon}
-    </button>
   );
 }

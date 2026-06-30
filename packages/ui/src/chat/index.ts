@@ -9,6 +9,7 @@ export * from "./permission-card";
 export * from "./plan";
 export * from "./sidebar-row";
 export * from "./sidebar-section";
+export * from "./sidebar-titlebar";
 export * from "./thinking-disclosure";
 export * from "./tool-call";
 export * from "./transcript-surface";
