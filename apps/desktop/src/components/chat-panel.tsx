@@ -13,21 +13,28 @@ import {
   CodexComposer,
   type CodexComposerContextItem,
   CodexEmptyState,
+  CodexMarkdownMessage,
   CodexPermissionCard,
   CodexPlanDisclosure,
   CodexStarterCards,
   CodexThinkingDisclosure,
   CodexToolCall,
+  CodexToolCallGroup,
   CodexTranscriptSurface,
 } from "@toro/ui";
 import { useMemo, useState } from "react";
 import { hostClient } from "../lib/host-client";
 
 type TranscriptItem =
-  | { readonly at: string; readonly kind: "message"; readonly message: ChatMessage }
+  | {
+      readonly at: string;
+      readonly kind: "message";
+      readonly message: ChatMessage;
+      readonly toolCalls: readonly ToolCall[];
+    }
   | { readonly at: string; readonly kind: "permission"; readonly request: PermissionRequest }
   | { readonly at: string; readonly kind: "thought"; readonly thought: ThoughtEntry }
-  | { readonly at: string; readonly kind: "tool"; readonly toolCall: ToolCall };
+  | { readonly at: string; readonly kind: "tool-group"; readonly toolCalls: readonly ToolCall[] };
 
 interface ChatPanelProps {
   readonly session: Session | null;
@@ -122,14 +129,36 @@ function transcriptItems(session: Session | null): readonly TranscriptItem[] {
     return [];
   }
 
+  const assignedToolIds = new Set<string>();
+  const messages = session.messages.toSorted(compareCreatedAt);
+  const messageItems = messages.map((message, index): TranscriptItem => {
+    const previousMessage = messages[index - 1];
+    const toolCalls =
+      message.role === "assistant"
+        ? session.toolCalls.filter((toolCall) => {
+            const afterPreviousMessage =
+              !previousMessage || toolCall.createdAt >= previousMessage.createdAt;
+            return afterPreviousMessage && toolCall.createdAt <= message.createdAt;
+          })
+        : [];
+
+    for (const toolCall of toolCalls) {
+      assignedToolIds.add(toolCall.id);
+    }
+
+    return {
+      at: message.createdAt,
+      kind: "message",
+      message,
+      toolCalls,
+    };
+  });
+  const unassignedToolCalls = session.toolCalls.filter(
+    (toolCall) => !assignedToolIds.has(toolCall.id),
+  );
+
   return [
-    ...session.messages.map(
-      (message): TranscriptItem => ({
-        at: message.createdAt,
-        kind: "message",
-        message,
-      }),
-    ),
+    ...messageItems,
     ...session.thoughts.map(
       (thought): TranscriptItem => ({
         at: thought.createdAt,
@@ -144,13 +173,15 @@ function transcriptItems(session: Session | null): readonly TranscriptItem[] {
         request,
       }),
     ),
-    ...session.toolCalls.map(
-      (toolCall): TranscriptItem => ({
-        at: toolCall.createdAt,
-        kind: "tool",
-        toolCall,
-      }),
-    ),
+    ...(unassignedToolCalls.length > 0
+      ? [
+          {
+            at: unassignedToolCalls[0]?.createdAt ?? "",
+            kind: "tool-group" as const,
+            toolCalls: unassignedToolCalls,
+          },
+        ]
+      : []),
   ].toSorted(compareTranscriptItems);
 }
 
@@ -159,14 +190,14 @@ function compareTranscriptItems(a: TranscriptItem, b: TranscriptItem) {
 }
 
 function transcriptRank(kind: TranscriptItem["kind"]) {
-  return ["message", "thought", "permission", "tool"].indexOf(kind);
+  return ["message", "thought", "permission", "tool-group"].indexOf(kind);
 }
 
 function itemId(item: TranscriptItem) {
   if (item.kind === "message") return item.message.id;
   if (item.kind === "thought") return item.thought.id;
   if (item.kind === "permission") return item.request.id;
-  return item.toolCall.id;
+  return item.toolCalls.map((toolCall) => toolCall.id).join(":");
 }
 
 function fileContextItems(entries: readonly FileTreeEntry[]): readonly CodexComposerContextItem[] {
@@ -211,21 +242,37 @@ function ThoughtBlock({ thought }: { readonly thought: ThoughtEntry }) {
   );
 }
 
-function MessageBlock({ message }: { readonly message: ChatMessage }) {
+function MessageBlock({
+  message,
+  toolCalls,
+}: {
+  readonly message: ChatMessage;
+  readonly toolCalls: readonly ToolCall[];
+}) {
+  const isAssistantWithTools = message.role === "assistant" && toolCalls.length > 0;
+
   return (
     <CodexChatMessage
       copyText={message.role === "assistant" ? message.content : undefined}
       isStreaming={message.status === "streaming"}
       role={message.role}
     >
-      {message.content}
+      {isAssistantWithTools ? (
+        <AssistantMessageContent
+          content={message.content}
+          isStreaming={message.status === "streaming"}
+          toolCalls={toolCalls}
+        />
+      ) : (
+        message.content
+      )}
     </CodexChatMessage>
   );
 }
 
 function TranscriptBlock({ item }: { readonly item: TranscriptItem }) {
   if (item.kind === "message") {
-    return <MessageBlock message={item.message} />;
+    return <MessageBlock message={item.message} toolCalls={item.toolCalls} />;
   }
   if (item.kind === "thought") {
     return <ThoughtBlock thought={item.thought} />;
@@ -233,7 +280,7 @@ function TranscriptBlock({ item }: { readonly item: TranscriptItem }) {
   if (item.kind === "permission") {
     return <PermissionCard request={item.request} />;
   }
-  return <ToolCallCard toolCall={item.toolCall} />;
+  return <ToolCallGroupBlock toolCalls={item.toolCalls} />;
 }
 
 function PermissionCard({ request }: { readonly request: PermissionRequest }) {
@@ -252,4 +299,58 @@ function ToolCallCard({ toolCall }: { readonly toolCall: ToolCall }) {
       {toolCall.content.length > 0 ? toolCall.content.join("\n") : null}
     </CodexToolCall>
   );
+}
+
+function AssistantMessageContent({
+  content,
+  isStreaming,
+  toolCalls,
+}: {
+  readonly content: string;
+  readonly isStreaming: boolean;
+  readonly toolCalls: readonly ToolCall[];
+}) {
+  return (
+    <div className="space-y-3" data-message-tool-block="true">
+      <ToolCallCluster toolCalls={toolCalls} />
+      <CodexMarkdownMessage isStreaming={isStreaming}>{content}</CodexMarkdownMessage>
+    </div>
+  );
+}
+
+function ToolCallGroupBlock({ toolCalls }: { readonly toolCalls: readonly ToolCall[] }) {
+  return (
+    <CodexChatMessage role="assistant" showActions={false}>
+      <ToolCallCluster toolCalls={toolCalls} />
+    </CodexChatMessage>
+  );
+}
+
+function ToolCallCluster({ toolCalls }: { readonly toolCalls: readonly ToolCall[] }) {
+  if (toolCalls.length === 0) {
+    return null;
+  }
+
+  if (toolCalls.length === 1) {
+    return <ToolCallCard toolCall={toolCalls[0]!} />;
+  }
+
+  const completedCount = toolCalls.filter((toolCall) => toolCall.status === "completed").length;
+  const hasActiveTool = toolCalls.some((toolCall) => toolCall.status !== "completed");
+
+  return (
+    <CodexToolCallGroup
+      completedCount={completedCount}
+      count={toolCalls.length}
+      defaultOpen={hasActiveTool}
+    >
+      {toolCalls.map((toolCall) => (
+        <ToolCallCard key={toolCall.id} toolCall={toolCall} />
+      ))}
+    </CodexToolCallGroup>
+  );
+}
+
+function compareCreatedAt(a: { readonly createdAt: string }, b: { readonly createdAt: string }) {
+  return a.createdAt.localeCompare(b.createdAt);
 }

@@ -216,12 +216,13 @@ await page
 await assertDesktopDebugLogsHidden(page);
 await assertOnlyFunctionalButtons(page);
 await assertTranscriptOrder(page);
-const toolCall = page.locator("[data-tool-call='true']").last();
+const toolGroup = page.locator("[data-tool-call-group='true']").first();
+const toolCall = toolGroup.locator("[data-tool-call='true']").first();
 await assertToolCallIsCompact(toolCall);
 await assertSharedToolCall(toolCall);
 await screenshot(page, "08-streaming-complete.png");
 await pause();
-
+await toolGroup.locator("[data-disclosure-summary='true']").first().click();
 await toolCall.locator("[data-disclosure-summary='true']").click();
 await page.getByText("status: ok").waitFor({ timeout: 5_000 });
 await screenshot(page, "09-tool-call-expanded.png");

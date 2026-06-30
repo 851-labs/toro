@@ -38,11 +38,11 @@ await screenshot(page, "01-chat-elements.png");
 await pause();
 
 await assertNoFeedbackMessageActions(page);
-await page.getByRole("button", { exact: true, name: "Expand message" }).click();
+await page.getByRole("button", { exact: true, name: "Expand message" }).first().click();
 await page.getByRole("button", { exact: true, name: "Collapse message" }).waitFor({
   timeout: 5_000,
 });
-await page.getByRole("button", { exact: true, name: "Copy message" }).click();
+await page.getByRole("button", { exact: true, name: "Copy message" }).first().click();
 await page.getByRole("button", { exact: true, name: "Copied message" }).waitFor({ timeout: 5_000 });
 await assertSharedMessageActions(page);
 await screenshot(page, "02-message-actions.png");

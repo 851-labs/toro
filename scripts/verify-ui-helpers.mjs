@@ -190,11 +190,12 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
   async function assertTranscriptOrder(page) {
     const userTop = await locatorTop(page.getByText("Verify the Toro ACP UI loop.").first());
     const thinkingTop = await locatorTop(page.locator("[data-thinking-disclosure='true']").first());
-    const toolTop = await locatorTop(page.locator("[data-tool-call='true']").last());
+    const toolTop = await locatorTop(
+      page.locator("[data-message-tool-block='true'] [data-tool-call-group='true']").first(),
+    );
     const assistantTop = await locatorTop(
       page.getByText(/Toro demo agent received your prompt/).first(),
     );
-
     if (!(userTop < thinkingTop && thinkingTop < toolTop && toolTop < assistantTop)) {
       throw new Error(
         `Transcript is not chronological: user=${userTop}, thinking=${thinkingTop}, tool=${toolTop}, assistant=${assistantTop}`,
@@ -209,7 +210,6 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
     }
     return box.y;
   }
-
   async function assertTranscriptDisclosureIsCompact(disclosure, label) {
     const className = (await disclosure.getAttribute("class")) ?? "";
     if (className.includes("rounded-[18px]") || className.includes("border ")) {
@@ -397,8 +397,10 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
       label.startsWith("Chat ") ||
       label.startsWith("Plan") ||
       label.startsWith("Thinking") ||
+      /^\d+ tool calls/.test(label) ||
       label.startsWith("Remove context ") ||
       label.startsWith("Validate Toro permission UI") ||
+      label.startsWith("Collect workspace context") ||
       label.startsWith(workspaceName)
     );
   }

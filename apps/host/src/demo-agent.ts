@@ -41,6 +41,7 @@ const app = acp
     await streamThought(ctx, turn, "Checking project context and deciding the next UI action.");
     await new Promise((resolve) => setTimeout(resolve, streamChunkDelayMs * 2));
     await requestDemoPermission(ctx, turn);
+    await recordWorkspaceSnapshot(ctx, turn);
     await streamText(ctx, turn, assistantText(turn));
     return { stopReason: "end_turn" };
   })
@@ -88,6 +89,31 @@ async function requestDemoPermission(
       status: response.outcome.outcome === "selected" ? "completed" : "failed",
       title: "Validate Toro permission UI",
       toolCallId,
+      sessionUpdate: "tool_call_update",
+    },
+  });
+}
+
+async function recordWorkspaceSnapshot(
+  ctx: acp.AgentRequestContext<acp.PromptRequest>,
+  turn: number,
+): Promise<void> {
+  await ctx.client.notify(acp.methods.client.session.update, {
+    sessionId: ctx.params.sessionId,
+    update: {
+      content: [
+        {
+          content: {
+            text: ["$ toro inspect workspace", "files indexed", "context ready"].join("\n"),
+            type: "text",
+          },
+          type: "content",
+        },
+      ],
+      kind: "execute",
+      status: "completed",
+      title: "Collect workspace context",
+      toolCallId: `demo-context-${turn}`,
       sessionUpdate: "tool_call_update",
     },
   });

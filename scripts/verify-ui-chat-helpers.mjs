@@ -89,7 +89,9 @@ export async function assertActivityDisclosuresCollapse(page) {
     .locator("[data-thinking-body='true']")
     .waitFor({ state: "hidden", timeout: 5_000 });
 
-  const tool = page.locator("[data-tool-call='true']").last();
+  const toolGroup = page.locator("[data-tool-call-group='true']").last();
+  await toolGroup.locator("[data-disclosure-summary='true']").first().click();
+  const tool = toolGroup.locator("[data-tool-call='true']").last();
   await tool.locator("[data-tool-output='true']").waitFor({ state: "hidden", timeout: 5_000 });
   await tool.locator("[data-disclosure-summary='true']").click();
   await tool.locator("[data-tool-output='true']").waitFor({ state: "visible", timeout: 5_000 });

@@ -66,6 +66,7 @@ describe("HostRuntime", () => {
     expect(thoughtDeltas.join("")).toContain("deciding the next UI action");
     expect(session?.toolCalls[0]?.content[0]).toContain("status: ok");
     expect(session?.toolCalls[0]?.status).toBe("completed");
+    expect(session?.toolCalls[1]?.title).toBe("Collect workspace context");
     expect(session?.plan.length).toBeGreaterThan(0);
   }, 15_000);
 
@@ -100,7 +101,7 @@ describe("HostRuntime", () => {
     ]);
     expect(session?.messages.at(-1)?.content).toContain("received your **follow-up**");
     expect(session?.thoughts).toHaveLength(2);
-    expect(session?.toolCalls).toHaveLength(2);
+    expect(session?.toolCalls).toHaveLength(4);
   }, 20_000);
 
   it("renames a new session from the first user prompt", async () => {

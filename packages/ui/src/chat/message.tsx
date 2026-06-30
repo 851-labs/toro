@@ -10,15 +10,22 @@ export interface CodexChatMessageProps {
   readonly copyText?: string;
   readonly isStreaming?: boolean;
   readonly role: "assistant" | "system" | "user";
+  readonly showActions?: boolean;
 }
 
-export function CodexChatMessage({ children, copyText, isStreaming, role }: CodexChatMessageProps) {
+export function CodexChatMessage({
+  children,
+  copyText,
+  isStreaming,
+  role,
+  showActions: showActionsProp,
+}: CodexChatMessageProps) {
   const [copied, setCopied] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const isUser = role === "user";
   const usesMarkdown = typeof children === "string";
   const canCopy = role === "assistant" && !isStreaming && copyText && copyText.length > 0;
-  const showActions = role === "assistant" && !isStreaming;
+  const showActions = showActionsProp ?? (role === "assistant" && !isStreaming);
   const renderedChildren = usesMarkdown ? (
     <CodexMarkdownMessage isStreaming={isStreaming}>{children}</CodexMarkdownMessage>
   ) : (

@@ -6,6 +6,7 @@ import {
   CodexSidebarContent,
   CodexEmptyState,
   CodexChatHeader,
+  CodexMarkdownMessage,
   CodexSidebarFooter,
   CodexSidebarAvatar,
   CodexPermissionCard,
@@ -18,6 +19,7 @@ import {
   CodexStarterCards,
   CodexThinkingDisclosure,
   CodexToolCall,
+  CodexToolCallGroup,
   CodexTranscriptSurface,
   StatusBadge,
   VsCodeMark,
@@ -225,15 +227,25 @@ function ChatElements({
           </span>
         }
       />
-      <CodexToolCall kind="execute" status="in_progress" title="Run deterministic verifier" />
-      <CodexToolCall
-        defaultOpen
-        kind="execute"
-        status="completed"
-        title="Validate Toro permission UI"
-      >
-        tool cards are working
-      </CodexToolCall>
+      <CodexChatMessage copyText="Tool calls now sit inside the assistant answer." role="assistant">
+        <div className="space-y-3" data-message-tool-block="true">
+          <CodexToolCallGroup completedCount={1} count={2} defaultOpen>
+            <CodexToolCall kind="execute" status="in_progress" title="Run deterministic verifier" />
+            <CodexToolCall
+              defaultOpen
+              kind="execute"
+              status="completed"
+              title="Validate Toro permission UI"
+            >
+              tool cards are working
+            </CodexToolCall>
+          </CodexToolCallGroup>
+          <CodexMarkdownMessage>
+            Tool calls now sit inside the **assistant answer** and stay grouped when there are
+            multiple calls.
+          </CodexMarkdownMessage>
+        </div>
+      </CodexChatMessage>
     </CodexTranscriptSurface>
   );
 }
@@ -385,11 +397,15 @@ function ComposerStates() {
   return (
     <CodexTranscriptSurface>
       <CodexChatMessage role="assistant">
-        Use app.tsx and composer.tsx as context for the next Toro chat pass.
+        <div className="space-y-3" data-message-tool-block="true">
+          <CodexToolCall kind="read" status="completed" title="Load composer context candidates">
+            app.tsx, composer.tsx, verify-ui.mjs
+          </CodexToolCall>
+          <CodexMarkdownMessage>
+            Use app.tsx and composer.tsx as context for the next Toro chat pass.
+          </CodexMarkdownMessage>
+        </div>
       </CodexChatMessage>
-      <CodexToolCall kind="read" status="completed" title="Load composer context candidates">
-        app.tsx, composer.tsx, verify-ui.mjs
-      </CodexToolCall>
     </CodexTranscriptSurface>
   );
 }

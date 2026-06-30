@@ -21,4 +21,5 @@ export * from "./sidebar-titlebar";
 export * from "./starter-cards";
 export * from "./thinking-disclosure";
 export * from "./tool-call";
+export * from "./tool-call-group";
 export * from "./transcript-surface";
