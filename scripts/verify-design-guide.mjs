@@ -22,6 +22,10 @@ await page.getByText("Codex Chat Surface").waitFor({ timeout: 5_000 });
 await page.getByText("Streaming text keeps").waitFor({ timeout: 5_000 });
 await page.getByText("Thinking").waitFor({ timeout: 5_000 });
 await page.getByText("Reviewing project context").waitFor({ timeout: 5_000 });
+await assertStreamingCursorAnimated(
+  page.locator("article").filter({ hasText: "Streaming text keeps" }).first(),
+);
+await assertStreamingCursorAnimated(page.locator("[data-thinking-body='true']").first());
 await page.getByText("Validate Toro permission UI").first().waitFor({ timeout: 5_000 });
 await page.getByText("tool cards are working").waitFor({ timeout: 5_000 });
 await page.waitForFunction(() => Boolean(window.__TSR_ROUTER__), null, { timeout: 5_000 });
@@ -152,6 +156,18 @@ async function assertSidebarStoryWidth(page) {
     .evaluate((node) => node.getBoundingClientRect().width);
   if (width < 370 || width > 410) {
     throw new Error(`Design-guide sidebar story should match desktop rail width, got ${width}.`);
+  }
+}
+
+async function assertStreamingCursorAnimated(locator) {
+  const className = await locator.first().evaluate((node) => {
+    const target = node.matches("[class*='after:']")
+      ? node
+      : node.querySelector("[class*='after:']");
+    return target?.getAttribute("class") ?? "";
+  });
+  if (!className.includes("after:motion-safe:animate-pulse")) {
+    throw new Error("Design-guide streaming cursor should pulse like Codex.");
   }
 }
 
