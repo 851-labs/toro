@@ -52,7 +52,10 @@ export function CodexComposer({
 
   return (
     <form className="px-6 pb-6" onSubmit={submit}>
-      <div className="mx-auto max-w-3xl rounded-[22px] border border-zinc-200 bg-white p-3 shadow-[0_14px_50px_rgba(15,23,42,0.12)]">
+      <div
+        className="mx-auto max-w-[960px] rounded-[22px] border border-zinc-200 bg-white p-3 shadow-[0_14px_50px_rgba(15,23,42,0.12)]"
+        data-composer-surface="true"
+      >
         <textarea
           aria-label="Message agent"
           className="max-h-48 min-h-20 w-full resize-none bg-transparent px-2 py-2 text-base leading-6 text-zinc-950 outline-none placeholder:text-zinc-300"

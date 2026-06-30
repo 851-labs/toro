@@ -75,6 +75,15 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
     }
   }
 
+  async function assertComposerWidthIsCodexLike(page) {
+    const width = await page
+      .locator("[data-composer-surface='true']")
+      .evaluate((node) => node.getBoundingClientRect().width);
+    if (width < 880 || width > 980) {
+      throw new Error(`Composer width should be close to Codex desktop width, got ${width}.`);
+    }
+  }
+
   async function assertPermissionCardIsCompact(page) {
     const permissionCard = page
       .locator("section")
@@ -354,6 +363,7 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
     assertComposerAffordancesArePassive,
     assertComposerContextPicker,
     assertComposerFooterIsCodexCompact,
+    assertComposerWidthIsCodexLike,
     assertDeadControlsRemoved,
     assertDesktopDebugLogsHidden,
     assertHeaderActions,

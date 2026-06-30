@@ -14,6 +14,7 @@ const {
   assertComposerAffordancesArePassive,
   assertComposerContextPicker,
   assertComposerFooterIsCodexCompact,
+  assertComposerWidthIsCodexLike,
   assertDeadControlsRemoved,
   assertDesktopDebugLogsHidden,
   assertHeaderActions,
@@ -52,6 +53,7 @@ await assertPrimarySidebarSimplified(page);
 await assertProjectFormHidden(page);
 await assertComposerFooterIsCodexCompact(page);
 await assertComposerAffordancesArePassive(page);
+await assertComposerWidthIsCodexLike(page);
 await assertOnlyFunctionalButtons(page);
 await assertHostSettingsToggle(page);
 const composer = page.getByLabel("Message agent");

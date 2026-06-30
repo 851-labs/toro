@@ -154,6 +154,10 @@
 - Passive composer affordances stills: `.artifacts/verification/2026-06-30T07-59-15-936Z/*.png`
 - Passive composer affordances design-guide capture: `.artifacts/verification/design-guide/2026-06-30T07-59-16-501Z/page@6ed0756583a2fcbcfc5b6f2ec69b00ac.webm`
 - Passive composer affordances design-guide stills: `.artifacts/verification/design-guide/2026-06-30T07-59-16-501Z/*.png`
+- Wider composer surface capture: `.artifacts/verification/2026-06-30T08-03-07-664Z/page@0e55a2c71c2e046cadf0d031bab582d1.webm`
+- Wider composer surface stills: `.artifacts/verification/2026-06-30T08-03-07-664Z/*.png`
+- Wider composer surface design-guide capture: `.artifacts/verification/design-guide/2026-06-30T08-03-08-330Z/page@aebf942acc6a6801e44da6e3b357f432.webm`
+- Wider composer surface design-guide stills: `.artifacts/verification/design-guide/2026-06-30T08-03-08-330Z/*.png`
 
 Manual verification:
 
@@ -209,6 +213,7 @@ Manual verification:
 - Confirmed the sidebar footer host settings control is back to a quiet icon-only button with the agent/environment panel still opening and closing during desktop verification.
 - Confirmed completed assistant message actions now remain visible in the idle final state, and the desktop/design-guide verifiers capture idle and exercised action states separately.
 - Confirmed the composer now includes Codex-like status and microphone affordances as passive glyphs, with the UI verifier asserting they are present without adding inert buttons.
+- Confirmed the shared composer now uses a wider Codex-like surface, with the desktop UI verifier measuring the rendered composer width to prevent regressing to the older narrow cap.
 
 Automated verification:
 
