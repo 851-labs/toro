@@ -7,7 +7,13 @@ import {
   type WorkspaceId,
 } from "@toro/domain";
 import type { AgentProfile, EnvironmentProfile, Session, Workspace } from "@toro/domain";
-import { Button, CodexSidebarTitlebar, CodexSidebarTitlebarControl, cn } from "@toro/ui";
+import {
+  Button,
+  CodexSidebarCommand,
+  CodexSidebarTitlebar,
+  CodexSidebarTitlebarControl,
+  cn,
+} from "@toro/ui";
 import {
   ChevronLeft,
   ChevronRight,
@@ -22,7 +28,6 @@ import { useState } from "react";
 import {
   filterProjectGroups,
   groupWorkspaces,
-  NavButton,
   ProjectGroup,
   RailSection,
 } from "./agent-rail-parts";
@@ -94,26 +99,20 @@ export function AgentRail(props: AgentRailProps) {
       </CodexSidebarTitlebar>
 
       <div className="space-y-1 px-3">
-        {props.activeWorkspace ? (
-          <button
-            aria-label="New chat"
-            className="flex h-9 w-full items-center gap-3 rounded-lg px-3 text-left text-sm font-medium text-zinc-800 hover:bg-zinc-200/70"
-            onClick={() => {
-              setActiveView("projects");
-              props.onCreateSession();
-            }}
-            type="button"
-          >
-            <SquarePen size={17} />
-            New chat
-          </button>
-        ) : (
-          <div className="flex h-9 w-full items-center gap-3 rounded-lg px-3 text-left text-sm font-medium text-zinc-400">
-            <SquarePen size={17} />
-            New chat
-          </div>
-        )}
-        <NavButton
+        <CodexSidebarCommand
+          disabled={!props.activeWorkspace}
+          icon={<SquarePen size={17} />}
+          label="New chat"
+          onClick={
+            props.activeWorkspace
+              ? () => {
+                  setActiveView("projects");
+                  props.onCreateSession();
+                }
+              : undefined
+          }
+        />
+        <CodexSidebarCommand
           active={searchOpen}
           icon={<Search size={17} />}
           label="Search"

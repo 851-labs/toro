@@ -57,6 +57,7 @@ await page
   .getByRole("heading", { exact: true, name: "What should we build in toro?" })
   .waitFor({ timeout: 5_000 });
 await assertSidebarStoryHeader(page);
+await assertSidebarStoryCommands(page);
 await assertSidebarStoryRows(page);
 await assertSidebarStorySections(page);
 await assertSidebarStoryShell(page);
@@ -188,6 +189,17 @@ async function assertSidebarStoryRows(page) {
     .count();
   if (rows < 4) {
     throw new Error(`Design-guide sidebar story should use shared sidebar rows, got ${rows}.`);
+  }
+}
+
+async function assertSidebarStoryCommands(page) {
+  const commands = await page
+    .locator("[data-sidebar-story-rail='true'] [data-sidebar-command='true']")
+    .count();
+  if (commands < 2) {
+    throw new Error(
+      `Design-guide sidebar story should use shared sidebar commands, got ${commands}.`,
+    );
   }
 }
 

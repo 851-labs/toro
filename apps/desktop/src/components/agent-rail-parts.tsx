@@ -1,6 +1,6 @@
 import type { SessionId, WorkspaceId } from "@toro/domain";
 import type { Session, Workspace } from "@toro/domain";
-import { CodexSidebarRow, CodexSidebarSection, cn } from "@toro/ui";
+import { CodexSidebarRow, CodexSidebarSection } from "@toro/ui";
 import { FileText, MessageSquare } from "lucide-react";
 import type { ReactNode } from "react";
 
@@ -8,34 +8,6 @@ export interface ProjectGroupModel {
   readonly sessions: readonly Session[];
   readonly workspace: Workspace;
   readonly workspaceIds: readonly WorkspaceId[];
-}
-
-export function NavButton({
-  active,
-  icon,
-  label,
-  onClick,
-}: {
-  readonly active: boolean;
-  readonly icon: ReactNode;
-  readonly label: string;
-  readonly onClick: () => void;
-}) {
-  return (
-    <button
-      aria-label={label}
-      aria-pressed={active}
-      className={cn(
-        "flex h-9 w-full items-center gap-3 rounded-lg px-3 text-left text-sm font-medium text-zinc-800 hover:bg-zinc-200/70",
-        active && "bg-zinc-200/70",
-      )}
-      onClick={onClick}
-      type="button"
-    >
-      {icon}
-      {label}
-    </button>
-  );
 }
 
 export function ProjectGroup({

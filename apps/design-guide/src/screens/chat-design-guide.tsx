@@ -1,6 +1,7 @@
 import {
   CodexChatMessage,
   CodexComposer,
+  CodexSidebarCommand,
   CodexEmptyState,
   CodexChatHeader,
   CodexPermissionCard,
@@ -243,8 +244,8 @@ function SidebarGroups() {
             label="Forward"
           />
         </CodexSidebarTitlebar>
-        <SidebarRow icon={<SquarePen size={16} />} label="New chat" />
-        <SidebarRow icon={<Search size={16} />} label="Search" />
+        <CodexSidebarCommand icon={<SquarePen size={16} />} label="New chat" />
+        <CodexSidebarCommand icon={<Search size={16} />} label="Search" />
         <div className="mt-8">
           <CodexSidebarSection actionIcon={<FolderPlus size={15} />} title="Projects">
             <CodexSidebarRow icon={<FileText size={16} />} label="toro" />
@@ -329,15 +330,6 @@ function SidebarGroups() {
           value={value}
         />
       </section>
-    </div>
-  );
-}
-
-function SidebarRow({ icon, label }: { readonly icon: React.ReactNode; readonly label: string }) {
-  return (
-    <div className="flex h-9 items-center gap-3 rounded-lg px-3 text-sm font-medium text-zinc-800">
-      {icon}
-      {label}
     </div>
   );
 }
