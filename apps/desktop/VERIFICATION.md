@@ -230,6 +230,8 @@
 - Shared sidebar row desktop stills: `.artifacts/verification/2026-06-30T11-11-35-617Z/*.png`
 - Shared sidebar row design-guide capture: `.artifacts/verification/design-guide/2026-06-30T11-11-28-348Z/page@713851ed1281f934edca0718d4a72c45.webm`
 - Shared sidebar row design-guide stills: `.artifacts/verification/design-guide/2026-06-30T11-11-28-348Z/*.png`
+- Dead file-explorer cleanup capture: `.artifacts/verification/2026-06-30T11-14-18-438Z/page@680f75cee096fa08a241ffa5b1220a4f.webm`
+- Dead file-explorer cleanup stills: `.artifacts/verification/2026-06-30T11-14-18-438Z/*.png`
 
 Manual verification:
 
@@ -243,6 +245,7 @@ Manual verification:
 - Confirmed the internal design guide renders shared chat messages, streaming state, thinking disclosure, permission prompt, expanded tool call, sidebar groups, and composer.
 - Confirmed the desktop chat flow still passes after moving messages, composer, permission prompt, tool call, and logs into shared UI primitives.
 - Confirmed desktop project rows now call the shared `@toro/ui` sidebar row primitive directly, with no local row wrapper, while UI verification still asserts active project/chat row behavior.
+- Confirmed the unused desktop file explorer component was removed, leaving no live references to its stale clickable tree rows while the desktop UI flow still passes.
 - Confirmed the sidebar visually groups chats under their project and coalesces duplicate opens of the same project path.
 - Confirmed every rendered button in the desktop flow is limited to a wired action: new chat, open project, project/chat selection, send/stop, or permission response.
 - Confirmed the design guide permission buttons update visible state instead of acting as no-op controls.
