@@ -270,6 +270,8 @@
 - Shared starter-card stills: `.artifacts/verification/2026-06-30T11-49-05-747Z/*.png`
 - Shared starter-card design-guide capture: `.artifacts/verification/design-guide/2026-06-30T11-48-56-546Z/page@ecc21563767e99ae0810b709d4f56ff3.webm`
 - Shared starter-card design-guide stills: `.artifacts/verification/design-guide/2026-06-30T11-48-56-546Z/*.png`
+- Dark Codex reference shell capture: `.artifacts/verification/2026-06-30T11-55-22-715Z/page@c90e3b0b60fd922f917daf284d2fc134.webm`
+- Dark Codex reference shell stills: `.artifacts/verification/2026-06-30T11-55-22-715Z/*.png`
 
 Manual verification:
 
@@ -293,6 +295,7 @@ Manual verification:
 - Confirmed chat messages, plan disclosures, disclosure summaries, and empty states expose shared `@toro/ui` markers, with desktop and design-guide verification asserting those core chat primitives render in the relevant flows.
 - Confirmed thinking disclosures expose a shared `@toro/ui` marker, with desktop and design-guide verification asserting the Codex-style thinking primitive renders during streaming flows.
 - Captured a fresh installed Codex reference showing empty-project starter cards below the lifted composer, then added passive shared `@toro/ui` starter cards to Toro's empty project desktop and design-guide flows.
+- Confirmed the desktop empty-project shell now follows the fresh dark Codex reference for the app background, sidebar rail, chat header, composer, context strip, starter cards, and readable transcript text.
 - Confirmed the sidebar visually groups chats under their project and coalesces duplicate opens of the same project path.
 - Confirmed every rendered button in the desktop flow is limited to a wired action: new chat, open project, project/chat selection, send/stop, or permission response.
 - Confirmed the design guide permission buttons update visible state instead of acting as no-op controls.

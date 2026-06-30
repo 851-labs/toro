@@ -10,7 +10,11 @@ export interface CodexSidebarRailProps {
 export function CodexSidebarRail({ children, className, story }: CodexSidebarRailProps) {
   return (
     <aside
-      className={cn("flex min-h-0 flex-col border-r border-zinc-200 bg-[#f7f8f8]", className)}
+      className={cn(
+        "flex min-h-0 flex-col border-r border-zinc-200 bg-[#f7f8f8]",
+        "dark:border-zinc-700/60 dark:bg-[#464949]",
+        className,
+      )}
       data-sidebar-rail="true"
       data-sidebar-story-rail={story ? "true" : undefined}
     >

@@ -19,13 +19,18 @@ export function CodexSidebarFooter({
   title,
 }: CodexSidebarFooterProps) {
   return (
-    <div className={cn("border-t border-zinc-200/80 p-3", className)} data-sidebar-footer="true">
+    <div
+      className={cn("border-t border-zinc-200/80 p-3 dark:border-zinc-600/70", className)}
+      data-sidebar-footer="true"
+    >
       {children}
       <div className="flex items-center gap-3 rounded-lg px-2 py-2">
         {avatar}
         <div className="min-w-0 flex-1">
-          <div className="truncate text-sm font-medium text-zinc-950">{title}</div>
-          <div className="truncate text-xs text-zinc-500">{subtitle}</div>
+          <div className="truncate text-sm font-medium text-zinc-950 dark:text-zinc-100">
+            {title}
+          </div>
+          <div className="truncate text-xs text-zinc-500 dark:text-zinc-400">{subtitle}</div>
         </div>
         {action}
       </div>

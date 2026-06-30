@@ -46,7 +46,9 @@ export function CodexChatMessage({ children, copyText, isStreaming, role }: Code
         <div
           className={cn(
             "whitespace-pre-wrap text-base leading-7",
-            isUser ? "rounded-3xl bg-zinc-100 px-4 py-3 text-zinc-950" : "py-2 text-zinc-900",
+            isUser
+              ? "rounded-3xl bg-zinc-100 px-4 py-3 text-zinc-950 dark:bg-zinc-100 dark:text-zinc-950"
+              : "py-2 text-zinc-900 dark:text-zinc-100",
             isStreaming &&
               "after:ml-1 after:inline-block after:size-2 after:rounded-full after:bg-zinc-400 after:motion-safe:animate-pulse",
           )}

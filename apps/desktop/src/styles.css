@@ -1,8 +1,9 @@
 @import "tailwindcss";
 @source "../../../packages/ui/src";
+@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  color-scheme: light;
+  color-scheme: light dark;
   background: #ffffff;
   color: #18181b;
   font-family:

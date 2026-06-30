@@ -27,15 +27,18 @@ export function CodexSidebarRow({
   const className = cn(
     "flex h-9 w-full items-center rounded-lg py-1.5 text-left text-sm text-zinc-800",
     indent ? "gap-2 pl-8 pr-3" : "gap-3 px-3",
-    onClick && "hover:bg-zinc-200/70",
-    active && "bg-zinc-200/80 text-zinc-950",
+    "dark:text-zinc-200",
+    onClick && "hover:bg-zinc-200/70 dark:hover:bg-zinc-600/50",
+    active && "bg-zinc-200/80 text-zinc-950 dark:bg-zinc-300 dark:text-zinc-950",
   );
   const content = (
     <>
-      <span className="shrink-0 text-zinc-500">{icon}</span>
+      <span className="shrink-0 text-zinc-500 dark:text-zinc-400">{icon}</span>
       <span className="min-w-0 flex-1">
-        <span className="block truncate font-medium text-zinc-800">{label}</span>
-        {meta ? <span className="block truncate text-xs text-zinc-400">{meta}</span> : null}
+        <span className="block truncate font-medium text-zinc-800 dark:text-inherit">{label}</span>
+        {meta ? (
+          <span className="block truncate text-xs text-zinc-400 dark:text-zinc-500">{meta}</span>
+        ) : null}
       </span>
     </>
   );

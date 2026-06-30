@@ -92,6 +92,7 @@ await assertProjectPathHiddenInSidebar(page);
 await assertComposerFooterIsCodexCompact(page);
 await assertSharedEmptyState(page);
 await assertSharedStarterCards(page);
+await assertDarkReferenceShell(page);
 await assertComposerContextPicker(page);
 await assertOpenInMenu(page);
 await assertOnlyFunctionalButtons(page);
@@ -124,6 +125,7 @@ await assertCurrentChatIsFirstInProject(page);
 await assertEmptySessionPrompt(page);
 await assertSharedEmptyState(page);
 await assertSharedStarterCards(page);
+await assertDarkReferenceShell(page);
 await assertComposerFooterIsCodexCompact(page);
 await assertDesktopDebugLogsHidden(page);
 await assertHeaderActions(page);
@@ -141,6 +143,7 @@ await page
 await assertEmptySessionPrompt(page);
 await assertSharedEmptyState(page);
 await assertSharedStarterCards(page);
+await assertDarkReferenceShell(page);
 await assertOnlyFunctionalButtons(page);
 await screenshot(page, "04-history-back.png");
 await page.getByRole("button", { exact: true, name: "Forward" }).click();
@@ -159,6 +162,7 @@ await page.getByText(/Checking project context/).waitFor({ timeout: 10_000 });
 await assertSharedChatMessages(page);
 await assertSharedThinkingDisclosure(page);
 await assertSharedPlanAndSummaries(page);
+await assertDarkReferenceShell(page);
 await assertStreamingCursorAnimated(page.locator("[data-thinking-body='true']").first());
 await assertTranscriptDisclosureIsCompact(
   page.locator("details").filter({ hasText: "Plan" }).first(),
@@ -353,6 +357,53 @@ async function assertSharedStarterCards(page) {
   if ((await cardGrid.locator("button").count()) > 0) {
     throw new Error("Desktop starter cards should be passive until integrations are wired.");
   }
+}
+
+async function assertDarkReferenceShell(page) {
+  await assertDarkSurface(page, "[data-chat-header='true']", "chat header");
+  await assertDarkSurface(page, "[data-sidebar-rail='true']", "sidebar rail");
+  await assertDarkSurface(page, "[data-composer-surface='true']", "composer");
+  if ((await page.locator("[data-starter-card='true']").count()) > 0) {
+    await assertDarkSurface(page, "[data-starter-card='true']", "starter card");
+  }
+}
+
+async function assertDarkSurface(page, selector, label) {
+  const color = await page
+    .locator(selector)
+    .first()
+    .evaluate((node) => {
+      const background = getComputedStyle(node).backgroundColor;
+      const text = getComputedStyle(node).color;
+      return { background, text };
+    });
+  const backgroundLuma = rgbLuma(color.background);
+  const textLuma = rgbLuma(color.text);
+  if (backgroundLuma > 95) {
+    throw new Error(`${label} should use the dark Codex reference shell, got ${color.background}.`);
+  }
+  if (textLuma < 95) {
+    throw new Error(`${label} text should stay readable in dark mode, got ${color.text}.`);
+  }
+}
+
+function rgbLuma(color) {
+  if (color.startsWith("oklch(")) {
+    const lightness = Number(color.match(/oklch\(([\d.]+)/)?.[1]);
+    if (Number.isFinite(lightness)) {
+      return lightness <= 1 ? lightness * 255 : (lightness / 100) * 255;
+    }
+  }
+
+  const channels =
+    color
+      .match(/\d+(\.\d+)?/g)
+      ?.slice(0, 3)
+      .map(Number) ?? [];
+  if (channels.length < 3) {
+    throw new Error(`Could not parse rgb color: ${color}`);
+  }
+  return channels[0] * 0.2126 + channels[1] * 0.7152 + channels[2] * 0.0722;
 }
 
 async function assertSidebarCommandGroupShared(page) {

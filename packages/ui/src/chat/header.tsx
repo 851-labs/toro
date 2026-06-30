@@ -27,13 +27,14 @@ export function CodexChatHeader({
       aria-label={ariaLabel}
       className={cn(
         "flex h-16 items-center justify-between border-b border-zinc-200/80 px-5",
+        "dark:border-zinc-800 dark:bg-[#101010]",
         className,
       )}
       data-chat-header="true"
     >
       <div className="flex min-w-0 items-center gap-3">
         {leading}
-        <Title className="truncate text-lg font-semibold">{title}</Title>
+        <Title className="truncate text-lg font-semibold dark:text-zinc-100">{title}</Title>
         {actions}
       </div>
       {rightActions ? (

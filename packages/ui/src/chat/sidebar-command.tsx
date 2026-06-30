@@ -19,9 +19,9 @@ export function CodexSidebarCommand({
   const className = cn(
     "flex h-9 w-full items-center gap-3 rounded-lg px-3 text-left text-sm font-medium",
     disabled
-      ? "cursor-default text-zinc-400"
-      : "text-zinc-800 hover:bg-zinc-200/70 hover:text-zinc-900",
-    active && !disabled && "bg-zinc-200/70 text-zinc-900",
+      ? "cursor-default text-zinc-400 dark:text-zinc-500"
+      : "text-zinc-800 hover:bg-zinc-200/70 hover:text-zinc-900 dark:text-zinc-200 dark:hover:bg-zinc-600/50 dark:hover:text-white",
+    active && !disabled && "bg-zinc-200/70 text-zinc-900 dark:bg-zinc-600/70 dark:text-white",
   );
 
   if (!onClick || disabled) {

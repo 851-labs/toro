@@ -28,8 +28,8 @@ export function CodexSidebarSection({
               aria-label={actionLabel}
               aria-pressed={actionPressed}
               className={cn(
-                "flex size-7 items-center justify-center rounded-lg text-zinc-400 hover:bg-zinc-200/70 hover:text-zinc-700",
-                actionPressed && "bg-zinc-200 text-zinc-800",
+                "flex size-7 items-center justify-center rounded-lg text-zinc-400 hover:bg-zinc-200/70 hover:text-zinc-700 dark:hover:bg-zinc-600/50 dark:hover:text-zinc-100",
+                actionPressed && "bg-zinc-200 text-zinc-800 dark:bg-zinc-600 dark:text-zinc-100",
               )}
               onClick={onAction}
               type="button"

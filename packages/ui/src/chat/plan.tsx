@@ -33,13 +33,15 @@ export function CodexPlanDisclosure({
         meta={`${completedCount} of ${entries.length} complete`}
         title={title}
       />
-      <ol className="ml-8 mt-1 space-y-1 border-l border-zinc-200 pl-3">
+      <ol className="ml-8 mt-1 space-y-1 border-l border-zinc-200 pl-3 dark:border-zinc-700">
         {entries.map((entry, index) => (
           <li className="flex items-start gap-2 text-sm" key={`${entry.content}-${index}`}>
             <span
               className={cn("mt-2 size-1.5 shrink-0 rounded-full", statusDotClass(entry.status))}
             />
-            <span className="min-w-0 flex-1 leading-6 text-zinc-700">{entry.content}</span>
+            <span className="min-w-0 flex-1 leading-6 text-zinc-700 dark:text-zinc-300">
+              {entry.content}
+            </span>
             <span className={cn("shrink-0 text-xs leading-6", statusTextClass(entry.status))}>
               {statusLabel(entry.status)}
             </span>

@@ -20,7 +20,7 @@ export function CodexToolCall({ children, defaultOpen, kind, status, title }: Co
         meta={
           <span className="flex min-w-0 items-center gap-1.5">
             <span className="truncate">{kind}</span>
-            <span aria-hidden="true" className="text-zinc-300">
+            <span aria-hidden="true" className="text-zinc-300 dark:text-zinc-600">
               /
             </span>
             <span className={cn("shrink-0", statusClass(status))}>{statusLabel(status)}</span>
@@ -31,7 +31,7 @@ export function CodexToolCall({ children, defaultOpen, kind, status, title }: Co
       />
       {children ? (
         <pre
-          className="ml-10 mt-1 max-h-52 overflow-auto whitespace-pre-wrap py-0.5 text-xs leading-5 text-zinc-500"
+          className="ml-10 mt-1 max-h-52 overflow-auto whitespace-pre-wrap py-0.5 text-xs leading-5 text-zinc-500 dark:text-zinc-400"
           data-tool-output="true"
         >
           {children}

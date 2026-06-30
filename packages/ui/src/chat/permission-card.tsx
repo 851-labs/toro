@@ -17,12 +17,12 @@ export interface CodexPermissionCardProps {
 export function CodexPermissionCard({ onRespond, options, title }: CodexPermissionCardProps) {
   return (
     <section className="text-sm" data-permission-card="true">
-      <div className="flex items-start gap-2 rounded-xl px-2 py-2 text-zinc-600 hover:bg-zinc-50">
+      <div className="flex items-start gap-2 rounded-xl px-2 py-2 text-zinc-600 hover:bg-zinc-50 dark:text-zinc-400 dark:hover:bg-zinc-800/80">
         <span className="flex size-6 shrink-0 items-center justify-center text-orange-600">
           <Shield size={14} />
         </span>
         <div className="min-w-0 flex-1">
-          <div className="min-w-0 font-medium text-zinc-900">{title}</div>
+          <div className="min-w-0 font-medium text-zinc-900 dark:text-zinc-100">{title}</div>
           <div className="mt-2 flex flex-wrap gap-2">
             {options.map((option) => {
               const isAllow = option.kind.startsWith("allow");

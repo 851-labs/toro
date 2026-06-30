@@ -63,7 +63,7 @@ export function ChatPanel({ session, workspace }: ChatPanelProps) {
   }
 
   return (
-    <section className="grid min-h-0 min-w-0 grid-rows-[1fr_auto] bg-white">
+    <section className="grid min-h-0 min-w-0 grid-rows-[1fr_auto] bg-white dark:bg-[#101010]">
       <div className="min-h-0 overflow-auto px-6 py-8">
         <CodexTranscriptSurface className={projectEmpty ? "h-full justify-end pb-16" : undefined}>
           {session ? (

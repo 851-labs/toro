@@ -155,8 +155,8 @@ export function App() {
     <div
       className={
         sidebarOpen
-          ? "grid h-full overflow-hidden bg-white text-zinc-950 md:grid-cols-[390px_minmax(0,1fr)]"
-          : "grid h-full grid-cols-1 overflow-hidden bg-white text-zinc-950"
+          ? "dark grid h-full overflow-hidden bg-white text-zinc-950 dark:bg-[#101010] dark:text-zinc-100 md:grid-cols-[390px_minmax(0,1fr)]"
+          : "dark grid h-full grid-cols-1 overflow-hidden bg-white text-zinc-950 dark:bg-[#101010] dark:text-zinc-100"
       }
     >
       {sidebarOpen ? (
@@ -187,7 +187,7 @@ export function App() {
         />
       ) : null}
       <main className="grid min-h-0 min-w-0 grid-cols-1">
-        <section className="grid min-h-0 min-w-0 grid-rows-[64px_1fr] bg-white">
+        <section className="grid min-h-0 min-w-0 grid-rows-[64px_1fr] bg-white dark:bg-[#101010]">
           <CodexChatHeader
             actions={
               <ChatHeaderActions
