@@ -104,17 +104,16 @@ export function AgentRail(props: AgentRailProps) {
 
       <CodexSidebarCommandGroup>
         <CodexSidebarCommand
-          disabled={!props.activeWorkspace}
           icon={<SquarePen size={17} />}
           label="New chat"
-          onClick={
-            props.activeWorkspace
-              ? () => {
-                  setActiveView("projects");
-                  props.onCreateSession();
-                }
-              : undefined
-          }
+          onClick={() => {
+            setActiveView("projects");
+            if (props.activeWorkspace) {
+              props.onCreateSession();
+            } else {
+              setProjectFormOpen(true);
+            }
+          }}
         />
         <CodexSidebarCommand
           active={searchOpen}

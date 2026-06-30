@@ -85,7 +85,7 @@ await pause();
 
 await assertSidebarToggle(page);
 
-await page.getByRole("button", { exact: true, name: "Open project" }).click();
+await page.getByRole("button", { exact: true, name: "New chat" }).click();
 await assertSidebarInputsShared(page, 1);
 await page.getByLabel("Project path").fill(workspacePath);
 await page.getByRole("button", { exact: true, name: "Open" }).click();

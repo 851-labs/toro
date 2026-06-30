@@ -14,13 +14,13 @@ Current reference evidence:
 
 Latest verified desktop artifacts:
 
-- Desktop capture: `.artifacts/verification/2026-06-30T15-16-02-816Z/page@d15346b6c2ccdd611704ebe551251d22.webm`
-- Desktop stills: `.artifacts/verification/2026-06-30T15-16-02-816Z/*.png`
+- Desktop capture: `.artifacts/verification/2026-06-30T15-21-30-530Z/page@46a813bd3599082dfda7c9369fb44df7.webm`
+- Desktop stills: `.artifacts/verification/2026-06-30T15-21-30-530Z/*.png`
 - Grouped-sidebar capture: `.artifacts/verification/sidebar-groups/2026-06-30T15-10-20-395Z/page@d9d7ed776cdd64de9144ac1f4a6ab547.webm`
 - Grouped-sidebar still: `.artifacts/verification/sidebar-groups/2026-06-30T15-10-20-395Z/01-project-grouped-chats.png`
-- Design-guide capture: `.artifacts/verification/design-guide/2026-06-30T15-15-49-001Z/page@6da458351e120c6f7d1ac38b2ada561f.webm`
-- Design-guide stills: `.artifacts/verification/design-guide/2026-06-30T15-15-49-001Z/*.png`
-- Native still: `.artifacts/verification/native/2026-06-30-muted-plan-status.png`
+- Design-guide capture: `.artifacts/verification/design-guide/2026-06-30T15-21-46-049Z/page@1a328dc044af3e486ac6a5cd4b5a5e14.webm`
+- Design-guide stills: `.artifacts/verification/design-guide/2026-06-30T15-21-46-049Z/*.png`
+- Native still: `.artifacts/verification/native/2026-06-30-new-chat-opens-project.png`
 
 Most recent manual checks:
 
@@ -29,6 +29,7 @@ Most recent manual checks:
 - Confirmed assistant messages use a wider Codex-like transcript rail instead of the previous narrow 72% cap.
 - Confirmed the UI verifier resets host state before loading the desktop shell.
 - Confirmed the desktop sidebar renders Codex-like top-level Projects and Chats sections.
+- Confirmed the desktop New chat command opens the project picker before a project exists.
 - Confirmed the desktop Chats section shows chats grouped by project across opened projects.
 - Confirmed the transcript and composer use a narrower Codex-like centered rail.
 - Confirmed pending permission tool calls appear in the transcript before approval.
