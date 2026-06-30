@@ -26,7 +26,11 @@ export function CodexPlanDisclosure({
   const completedCount = entries.filter((entry) => entry.status === "completed").length;
 
   return (
-    <details className="group/plan text-sm" data-plan-disclosure="true" open={defaultOpen}>
+    <details
+      className="group/plan max-w-[720px] text-sm"
+      data-plan-disclosure="true"
+      open={defaultOpen}
+    >
       <CodexDisclosureSummary
         chevronClassName="group-open/plan:rotate-90"
         icon={<ClipboardList size={14} />}

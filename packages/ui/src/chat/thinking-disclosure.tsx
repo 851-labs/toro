@@ -18,7 +18,7 @@ export function CodexThinkingDisclosure({
 }: CodexThinkingDisclosureProps) {
   return (
     <details
-      className="group/thinking text-sm text-zinc-600 dark:text-zinc-400"
+      className="group/thinking max-w-[720px] text-sm text-zinc-600 dark:text-zinc-400"
       data-thinking-disclosure="true"
       open={defaultOpen}
     >

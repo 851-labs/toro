@@ -190,10 +190,12 @@ async function assertSharedPermissionElements(page) {
 }
 
 async function assertSharedToolCall(page) {
-  const toolCalls = await page.locator("[data-tool-call='true']").count();
+  const toolCall = page.locator("[data-tool-call='true']");
+  const toolCalls = await toolCall.count();
   if (toolCalls < 1) {
     throw new Error("Design-guide tool rows should use the shared Codex tool-call primitive.");
   }
+  await assertCompactTranscriptDisclosure(toolCall.first(), "Tool call");
 }
 
 async function assertSharedChatMessages(page) {
@@ -206,21 +208,32 @@ async function assertSharedChatMessages(page) {
 }
 
 async function assertSharedThinkingDisclosure(page) {
-  const thinking = await page.locator("[data-thinking-disclosure='true']").count();
+  const thinkingRow = page.locator("[data-thinking-disclosure='true']");
+  const thinking = await thinkingRow.count();
   if (thinking < 1) {
     throw new Error(
       "Design-guide thinking rows should use the shared Codex thinking disclosure primitive.",
     );
   }
+  await assertCompactTranscriptDisclosure(thinkingRow.first(), "Thinking");
 }
 
 async function assertSharedPlanAndSummaries(page) {
-  const plans = await page.locator("[data-plan-disclosure='true']").count();
+  const plan = page.locator("[data-plan-disclosure='true']");
+  const plans = await plan.count();
   const summaries = await page.locator("[data-disclosure-summary='true']").count();
   if (plans < 1 || summaries < 3) {
     throw new Error(
       `Design-guide chat surface should use shared plan and disclosure summaries, got plans=${plans}, summaries=${summaries}.`,
     );
+  }
+  await assertCompactTranscriptDisclosure(plan.first(), "Plan");
+}
+
+async function assertCompactTranscriptDisclosure(locator, label) {
+  const box = await locator.boundingBox();
+  if (!box || box.width > 760) {
+    throw new Error(`Design-guide ${label} disclosure is too wide.`);
   }
 }
 

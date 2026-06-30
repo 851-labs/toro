@@ -429,8 +429,13 @@ Manual verification:
 - Confirmed the desktop app no longer forces the dark Tailwind shell, so verification captures the light Codex-like reference shell by default.
 - Light Codex shell desktop capture: `.artifacts/verification/2026-06-30T12-47-44-809Z/page@4ce7ddd08559fe2a7d3fe9533af5d3f5.webm`
 - Light Codex shell desktop stills: `.artifacts/verification/2026-06-30T12-47-44-809Z/*.png`
-- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T12-47-44-809Z/`.
-- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T12-42-22-132Z/`.
+- Confirmed shared plan, thinking, and tool-call disclosures now stay in the compact assistant transcript column instead of stretching full-width across the rail.
+- Compact disclosure desktop capture: `.artifacts/verification/2026-06-30T12-52-50-438Z/page@263d507c09d154ab8c9724f7b9feeb50.webm`
+- Compact disclosure desktop stills: `.artifacts/verification/2026-06-30T12-52-50-438Z/*.png`
+- Compact disclosure design-guide capture: `.artifacts/verification/design-guide/2026-06-30T12-52-50-438Z/page@bea371156a86372dbfbfa57f91e5a9fc.webm`
+- Compact disclosure design-guide stills: `.artifacts/verification/design-guide/2026-06-30T12-52-50-438Z/*.png`
+- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T12-52-50-438Z/`.
+- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T12-52-50-438Z/`.
 
 Automated verification:
 

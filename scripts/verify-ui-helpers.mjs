@@ -176,7 +176,6 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
     if (className.includes("rounded-[18px]") || className.includes("border ")) {
       throw new Error("Tool call should render as a compact transcript row, not a framed card.");
     }
-
     const status = toolCall
       .locator("span")
       .filter({ hasText: /^completed$/ })
@@ -185,7 +184,6 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
     if (statusClassName.includes("rounded-full") || statusClassName.includes("border-emerald")) {
       throw new Error("Tool call status should render as quiet metadata, not a status pill.");
     }
-
     const outputClassName =
       (await toolCall.locator("[data-tool-output='true']").first().getAttribute("class")) ?? "";
     if (
@@ -229,6 +227,8 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
     if (className.includes("rounded-[18px]") || className.includes("border ")) {
       throw new Error(`${label} should render as a compact transcript row, not a framed card.`);
     }
+    const box = await disclosure.boundingBox();
+    if (!box || box.width > 760) throw new Error(`${label} disclosure is too wide.`);
     const bodyClassName = await disclosure.evaluate(
       (node) => node.querySelector("[data-thinking-body='true']")?.getAttribute("class") ?? "",
     );
