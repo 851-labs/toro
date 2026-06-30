@@ -159,6 +159,9 @@ async function assertSidebarStoryHeader(page) {
   const header = page.getByLabel("Sidebar story chat header");
   await header.getByText("New chat", { exact: true }).waitFor({ timeout: 5_000 });
   await header.getByText("Open in", { exact: true }).waitFor({ timeout: 5_000 });
+  if ((await header.getAttribute("data-chat-header")) !== "true") {
+    throw new Error("Design-guide sidebar story should use the shared chat header primitive.");
+  }
   const height = await header.evaluate((node) => node.getBoundingClientRect().height);
   if (height < 60 || height > 68) {
     throw new Error(

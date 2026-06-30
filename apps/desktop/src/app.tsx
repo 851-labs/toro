@@ -7,6 +7,7 @@ import {
   type SessionId,
   type WorkspaceId,
 } from "@toro/domain";
+import { CodexChatHeader } from "@toro/ui";
 import { NotebookTabs, PanelLeft, PanelRight, RefreshCw } from "lucide-react";
 import { useMemo, useState } from "react";
 import { AgentRail } from "./components/agent-rail";
@@ -187,9 +188,15 @@ export function App() {
       ) : null}
       <main className="grid min-h-0 min-w-0 grid-cols-1">
         <section className="grid min-h-0 min-w-0 grid-rows-[64px_1fr] bg-white">
-          <header className="flex items-center justify-between border-b border-zinc-200/80 px-5">
-            <div className="flex min-w-0 items-center gap-3">
-              {sidebarOpen ? (
+          <CodexChatHeader
+            actions={
+              <ChatHeaderActions
+                title={activeSession?.title ?? "New chat"}
+                workspacePath={activeWorkspace?.path ?? null}
+              />
+            }
+            leading={
+              sidebarOpen ? (
                 <span
                   aria-hidden="true"
                   className="flex size-8 shrink-0 items-center justify-center text-zinc-500"
@@ -206,37 +213,36 @@ export function App() {
                 >
                   <PanelLeft size={18} />
                 </button>
-              )}
-              <h1 className="truncate text-lg font-semibold">
-                {activeSession?.title ?? "New chat"}
-              </h1>
-              <ChatHeaderActions
-                title={activeSession?.title ?? "New chat"}
-                workspacePath={activeWorkspace?.path ?? null}
-              />
-            </div>
-            <div className="flex items-center gap-2 text-sm text-zinc-500">
-              {activeWorkspace ? (
-                <OpenInMenu workspaceId={activeWorkspace.id} workspacePath={activeWorkspace.path} />
-              ) : null}
-              {activeSession ? (
-                <button
-                  aria-expanded={detailsOpen}
-                  aria-label="Toggle session details"
-                  className={
-                    detailsOpen
-                      ? "flex size-8 shrink-0 items-center justify-center rounded-lg bg-zinc-100 text-zinc-900"
-                      : "flex size-8 shrink-0 items-center justify-center rounded-lg text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900"
-                  }
-                  onClick={() => setDetailsOpen((open) => !open)}
-                  type="button"
-                >
-                  <PanelRight size={18} />
-                </button>
-              ) : null}
-              {isLoading ? <RefreshCw className="animate-spin" size={16} /> : null}
-            </div>
-          </header>
+              )
+            }
+            rightActions={
+              <>
+                {activeWorkspace ? (
+                  <OpenInMenu
+                    workspaceId={activeWorkspace.id}
+                    workspacePath={activeWorkspace.path}
+                  />
+                ) : null}
+                {activeSession ? (
+                  <button
+                    aria-expanded={detailsOpen}
+                    aria-label="Toggle session details"
+                    className={
+                      detailsOpen
+                        ? "flex size-8 shrink-0 items-center justify-center rounded-lg bg-zinc-100 text-zinc-900"
+                        : "flex size-8 shrink-0 items-center justify-center rounded-lg text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900"
+                    }
+                    onClick={() => setDetailsOpen((open) => !open)}
+                    type="button"
+                  >
+                    <PanelRight size={18} />
+                  </button>
+                ) : null}
+                {isLoading ? <RefreshCw className="animate-spin" size={16} /> : null}
+              </>
+            }
+            title={activeSession?.title ?? "New chat"}
+          />
           <div
             className={
               detailsOpen && activeSession

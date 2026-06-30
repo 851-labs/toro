@@ -314,8 +314,9 @@ Manual verification:
 - Confirmed thinking disclosure bodies now render as plain transcript text without the old vertical rule, with the desktop verifier asserting the shared `@toro/ui` thinking body stays unframed.
 - Confirmed the design-guide sidebar story now renders as an unframed app shell with the shared empty-state and composer primitives, with the design-guide verifier rejecting rounded/card-framed story shells.
 - Confirmed the design-guide sidebar story now includes the desktop-like main chat header above the empty chat/composer shell, with the verifier checking the header label, Open in affordance, and 64px height.
-- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T10-22-35-564Z/`.
-- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T10-22-35-455Z/`.
+- Confirmed the desktop app and design-guide sidebar story now share a `@toro/ui` chat header primitive, with the design-guide verifier asserting the shared `data-chat-header` marker and desktop verification preserving the functional header controls.
+- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T10-27-23-367Z/`.
+- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T10-27-09-404Z/`.
 
 Automated verification:
 
