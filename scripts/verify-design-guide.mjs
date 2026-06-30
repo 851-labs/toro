@@ -54,6 +54,18 @@ await assertSidebarStoryWidth(page);
 await screenshot(page, "04-sidebar-groups.png");
 await pause();
 
+await page.getByRole("button", { exact: true, name: "Empty States" }).click();
+await expectPressed(page.getByRole("button", { exact: true, name: "Empty States" }));
+await page.getByText("Codex Empty States").waitFor({ timeout: 5_000 });
+await page
+  .getByRole("heading", { exact: true, name: "What should we build in toro?" })
+  .waitFor({ timeout: 5_000 });
+if ((await page.getByText("Toro Demo is ready.").count()) > 0) {
+  throw new Error("Design-guide empty state should not render ready-state subcopy.");
+}
+await screenshot(page, "05-empty-states.png");
+await pause();
+
 await page.getByRole("button", { exact: true, name: "Composer States" }).click();
 await expectPressed(page.getByRole("button", { exact: true, name: "Composer States" }));
 await page.getByText("Codex Composer States").waitFor({ timeout: 5_000 });
@@ -71,7 +83,7 @@ await expectPressed(page.getByRole("button", { exact: true, name: "Attach contex
 await page.getByRole("button", { exact: true, name: "Remove context composer.tsx" }).waitFor({
   timeout: 5_000,
 });
-await screenshot(page, "05-context-attached.png");
+await screenshot(page, "06-context-attached.png");
 await page.getByRole("button", { exact: true, name: "Remove context composer.tsx" }).click();
 await page.getByRole("button", { exact: true, name: "Add context" }).click();
 await pause();
@@ -80,7 +92,7 @@ await page.getByRole("button", { exact: true, name: "Send" }).click();
 if ((await composer.inputValue()) !== "") {
   throw new Error("Design guide composer did not clear after send.");
 }
-await screenshot(page, "06-composer-cleared.png");
+await screenshot(page, "07-composer-cleared.png");
 await pause();
 
 await context.close();

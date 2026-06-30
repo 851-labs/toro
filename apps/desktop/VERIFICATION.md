@@ -182,6 +182,10 @@
 - Quiet empty project chat stills: `.artifacts/verification/2026-06-30T08-36-53-025Z/*.png`
 - Word-token assistant streaming capture: `.artifacts/verification/2026-06-30T08-40-12-395Z/page@4f54d96c3918633133d74615e6c8e5c9.webm`
 - Word-token assistant streaming stills: `.artifacts/verification/2026-06-30T08-40-12-395Z/*.png`
+- Shared empty-state desktop capture: `.artifacts/verification/2026-06-30T08-44-12-941Z/page@6a5b3348fc1a77e3de474d4707854bab.webm`
+- Shared empty-state desktop stills: `.artifacts/verification/2026-06-30T08-44-12-941Z/*.png`
+- Shared empty-state design-guide capture: `.artifacts/verification/design-guide/2026-06-30T08-44-29-678Z/page@42ce2ba8756abf12db3b29f44c1f89af.webm`
+- Shared empty-state design-guide stills: `.artifacts/verification/design-guide/2026-06-30T08-44-29-678Z/*.png`
 
 Manual verification:
 
@@ -246,6 +250,7 @@ Manual verification:
 - Confirmed newly created empty project chats render the centered Codex-style "What should we build in toro?" prompt instead of a blank canvas, with the UI verifier checking the prompt before any message is sent.
 - Confirmed empty project chats no longer render redundant ready-state subcopy under the prompt, leaving the Codex-style empty canvas quieter before the first message.
 - Confirmed the deterministic ACP demo now streams assistant text by word tokens, with the host test asserting multiple message deltas and the UI verifier capturing a partial assistant response before the final text lands.
+- Confirmed the empty chat prompt now lives in the shared `@toro/ui` chat primitives and is covered by an interactive TanStack Start design-guide `Empty States` view.
 
 Automated verification:
 

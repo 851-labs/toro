@@ -56,10 +56,6 @@ export function App() {
       null,
     [activeWorkspace?.id, selectedSession, state.activeSessionId, state.sessions],
   );
-  const activeAgent = useMemo(
-    () => state.agents.find((agent) => agent.id === selectedAgentId) ?? null,
-    [selectedAgentId, state.agents],
-  );
   const openWorkspace = useMutation({
     mutationFn: async () => hostClient.openWorkspace(workspacePath, selectedEnvironmentId),
     onSuccess: (workspace) => {
@@ -192,11 +188,7 @@ export function App() {
                 : "grid min-h-0 min-w-0 grid-cols-1"
             }
           >
-            <ChatPanel
-              agentName={activeAgent?.name ?? "Agent"}
-              session={activeSession}
-              workspace={activeWorkspace}
-            />
+            <ChatPanel session={activeSession} workspace={activeWorkspace} />
             {detailsOpen && activeSession ? <InspectorPanel session={activeSession} /> : null}
           </div>
         </section>

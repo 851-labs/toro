@@ -1,6 +1,7 @@
 import {
   CodexChatMessage,
   CodexComposer,
+  CodexEmptyState,
   CodexPermissionCard,
   CodexPlanDisclosure,
   CodexThinkingDisclosure,
@@ -10,7 +11,7 @@ import {
 import { FolderPlus, MessageSquare, Search, SlidersHorizontal, SquarePen } from "lucide-react";
 import { useState } from "react";
 
-type GuideView = "chat" | "composer" | "sidebar";
+type GuideView = "chat" | "composer" | "empty" | "sidebar";
 
 export function ChatDesignGuide() {
   const [activeView, setActiveView] = useState<GuideView>("chat");
@@ -41,6 +42,11 @@ export function ChatDesignGuide() {
             onClick={() => setActiveView("sidebar")}
           />
           <GuideNavButton
+            active={activeView === "empty"}
+            label="Empty States"
+            onClick={() => setActiveView("empty")}
+          />
+          <GuideNavButton
             active={activeView === "composer"}
             label="Composer States"
             onClick={() => setActiveView("composer")}
@@ -61,6 +67,8 @@ export function ChatDesignGuide() {
             />
           ) : activeView === "sidebar" ? (
             <SidebarGroups />
+          ) : activeView === "empty" ? (
+            <EmptyStates />
           ) : (
             <ComposerStates />
           )}
@@ -122,6 +130,9 @@ function viewTitle(view: GuideView) {
   }
   if (view === "composer") {
     return "Codex Composer States";
+  }
+  if (view === "empty") {
+    return "Codex Empty States";
   }
   return "Codex Chat Surface";
 }
@@ -252,6 +263,14 @@ function ComposerStates() {
       <CodexToolCall kind="read" status="completed" title="Load composer context candidates">
         app.tsx, composer.tsx, verify-ui.mjs
       </CodexToolCall>
+    </div>
+  );
+}
+
+function EmptyStates() {
+  return (
+    <div className="mx-auto max-w-[960px]" data-transcript-surface="true">
+      <CodexEmptyState workspaceName="toro" />
     </div>
   );
 }

@@ -12,6 +12,7 @@ import {
   CodexChatMessage,
   CodexComposer,
   type CodexComposerContextItem,
+  CodexEmptyState,
   CodexPermissionCard,
   CodexPlanDisclosure,
   CodexThinkingDisclosure,
@@ -27,7 +28,6 @@ type TranscriptItem =
   | { readonly at: string; readonly kind: "tool"; readonly toolCall: ToolCall };
 
 interface ChatPanelProps {
-  readonly agentName: string;
   readonly session: Session | null;
   readonly workspace: Workspace | null;
 }
@@ -65,7 +65,7 @@ export function ChatPanel({ session, workspace }: ChatPanelProps) {
         <div className="mx-auto flex max-w-[960px] flex-col gap-5" data-transcript-surface="true">
           {session ? (
             sessionIsEmpty ? (
-              <EmptyState workspaceName={workspaceName} />
+              <CodexEmptyState workspaceName={workspaceName} />
             ) : (
               <>
                 <CodexPlanDisclosure entries={session.plan} />
@@ -75,7 +75,7 @@ export function ChatPanel({ session, workspace }: ChatPanelProps) {
               </>
             )
           ) : (
-            <EmptyState workspaceName={workspaceName} />
+            <CodexEmptyState workspaceName={workspaceName} />
           )}
         </div>
       </div>
@@ -177,21 +177,6 @@ function contextPriority(path: string) {
     return 1;
   }
   return 0;
-}
-
-function EmptyState({ workspaceName }: { readonly workspaceName: string | null }) {
-  return (
-    <div className="flex min-h-[44vh] flex-col items-center justify-center text-center">
-      <h2 className="text-3xl font-medium tracking-tight">
-        What should we build{workspaceName ? ` in ${workspaceName}` : ""}?
-      </h2>
-      {workspaceName ? null : (
-        <p className="mt-3 max-w-md text-base leading-7 text-zinc-400">
-          Open a project, then start a new chat.
-        </p>
-      )}
-    </div>
-  );
 }
 
 function ThoughtBlock({ thought }: { readonly thought: ThoughtEntry }) {
