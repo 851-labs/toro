@@ -202,6 +202,10 @@
 - Shared permission actions desktop stills: `.artifacts/verification/2026-06-30T09-04-11-056Z/*.png`
 - Shared permission actions design-guide capture: `.artifacts/verification/design-guide/2026-06-30T09-04-22-779Z/page@bedef3a06f82a3c3c00fdae4a011b6e4.webm`
 - Shared permission actions design-guide stills: `.artifacts/verification/design-guide/2026-06-30T09-04-22-779Z/*.png`
+- Flattened sidebar grouping desktop capture: `.artifacts/verification/2026-06-30T09-09-36-078Z/page@d9cb141ca97ba28c28a6a092656a939b.webm`
+- Flattened sidebar grouping desktop stills: `.artifacts/verification/2026-06-30T09-09-36-078Z/*.png`
+- Flattened sidebar grouping design-guide capture: `.artifacts/verification/design-guide/2026-06-30T09-09-51-049Z/page@65fa5a9ec6170124cd6ddbaec5cb1f2a.webm`
+- Flattened sidebar grouping design-guide stills: `.artifacts/verification/design-guide/2026-06-30T09-09-51-049Z/*.png`
 
 Manual verification:
 
@@ -223,6 +227,7 @@ Manual verification:
 - Confirmed ACP thought chunks are stored separately from assistant messages and render as a shared Codex-style thinking disclosure.
 - Confirmed completed tool calls carry ACP text content and expand to show deterministic command output.
 - Confirmed permission response buttons now use a shared `@toro/ui` chat atom while desktop and design-guide flows still exercise allow/reject states.
+- Confirmed the project/chat sidebar grouping uses compact Codex-like rows without a tree connector while retaining project-scoped chat selection.
 - Confirmed New chat, Open, and Send are only rendered as buttons when they can perform an action, and the UI verifier fails if any disabled button is present.
 - Confirmed completed assistant messages expose Codex-style copy, thumbs up, thumbs down, and expand controls, and each control changes visible state during verification.
 - Confirmed the sidebar exposes a Codex-like project path strip instead of a separate Add project row, and Search filters projects/chats with a visible no-match state.

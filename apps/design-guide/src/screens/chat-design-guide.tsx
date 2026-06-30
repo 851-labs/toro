@@ -9,7 +9,14 @@ import {
   CodexTranscriptSurface,
   StatusBadge,
 } from "@toro/ui";
-import { FolderPlus, MessageSquare, Search, SlidersHorizontal, SquarePen } from "lucide-react";
+import {
+  FileText,
+  FolderPlus,
+  MessageSquare,
+  Search,
+  SlidersHorizontal,
+  SquarePen,
+} from "lucide-react";
 import { useState } from "react";
 
 type GuideView = "chat" | "composer" | "empty" | "sidebar";
@@ -201,7 +208,7 @@ function SidebarGroups() {
   return (
     <div className="mx-auto grid max-w-5xl grid-cols-[390px_minmax(0,1fr)] overflow-hidden rounded-lg border border-zinc-200 bg-white">
       <aside
-        className="relative min-h-[620px] border-r border-zinc-200 bg-[#f2f5f5] px-3 py-4"
+        className="relative min-h-[620px] border-r border-zinc-200 bg-[#f7f8f8] px-3 py-4"
         data-sidebar-story-rail="true"
       >
         <div aria-hidden="true" className="mb-5 flex items-center gap-2 px-2">
@@ -215,12 +222,16 @@ function SidebarGroups() {
           <span>Projects</span>
           <FolderPlus size={15} />
         </div>
-        <div className="mt-2 rounded-xl bg-zinc-200 px-3 py-3">
-          <div className="font-medium">toro</div>
+        <div className="mt-2 flex h-9 items-center gap-3 rounded-lg bg-zinc-200 px-3 text-sm">
+          <FileText size={16} className="text-zinc-500" />
+          <div className="truncate font-medium">toro</div>
         </div>
-        <div className="ml-6 mt-2 space-y-1 border-l border-zinc-200 pl-2">
+        <div className="mt-0.5 space-y-0.5">
           {["Toro Demo in toro", "Codex in toro", "Composer context picker"].map((label) => (
-            <div className="flex h-9 items-center gap-2 rounded-xl px-2 text-sm" key={label}>
+            <div
+              className="flex h-9 items-center gap-2 rounded-lg py-1.5 pl-8 pr-3 text-sm"
+              key={label}
+            >
               <MessageSquare size={14} className="text-zinc-500" />
               <span className="truncate">{label}</span>
             </div>
@@ -248,7 +259,7 @@ function SidebarGroups() {
 
 function SidebarRow({ icon, label }: { readonly icon: React.ReactNode; readonly label: string }) {
   return (
-    <div className="flex h-10 items-center gap-3 rounded-xl px-3 text-sm font-medium text-zinc-800">
+    <div className="flex h-9 items-center gap-3 rounded-lg px-3 text-sm font-medium text-zinc-800">
       {icon}
       {label}
     </div>

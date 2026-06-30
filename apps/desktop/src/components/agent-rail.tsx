@@ -64,7 +64,7 @@ export function AgentRail(props: AgentRailProps) {
 
   return (
     <aside
-      className="flex min-h-0 flex-col border-r border-zinc-200 bg-[#f2f5f5]/95"
+      className="flex min-h-0 flex-col border-r border-zinc-200 bg-[#f7f8f8]"
       data-sidebar-rail="true"
     >
       <div className="flex h-14 items-center justify-between px-5">
@@ -87,7 +87,7 @@ export function AgentRail(props: AgentRailProps) {
         {props.activeWorkspace ? (
           <button
             aria-label="New chat"
-            className="flex h-10 w-full items-center gap-3 rounded-xl px-3 text-left text-sm font-medium text-zinc-800 hover:bg-zinc-200/70"
+            className="flex h-9 w-full items-center gap-3 rounded-lg px-3 text-left text-sm font-medium text-zinc-800 hover:bg-zinc-200/70"
             onClick={() => {
               setActiveView("projects");
               props.onCreateSession();
@@ -98,7 +98,7 @@ export function AgentRail(props: AgentRailProps) {
             New chat
           </button>
         ) : (
-          <div className="flex h-10 w-full items-center gap-3 rounded-xl px-3 text-left text-sm font-medium text-zinc-400">
+          <div className="flex h-9 w-full items-center gap-3 rounded-lg px-3 text-left text-sm font-medium text-zinc-400">
             <SquarePen size={17} />
             New chat
           </div>
@@ -123,7 +123,7 @@ export function AgentRail(props: AgentRailProps) {
             <div className="mb-3">
               <input
                 aria-label="Search projects and chats"
-                className="h-9 w-full rounded-xl border border-zinc-200 bg-white px-3 text-sm outline-none placeholder:text-zinc-400 focus:border-zinc-400"
+                className="h-9 w-full rounded-lg border border-zinc-200 bg-white px-3 text-sm outline-none placeholder:text-zinc-400 focus:border-zinc-400"
                 onChange={(event) => setSearchQuery(event.target.value)}
                 placeholder="Search projects and chats"
                 value={searchQuery}
@@ -144,7 +144,7 @@ export function AgentRail(props: AgentRailProps) {
               <div className="flex gap-2">
                 <input
                   aria-label="Project path"
-                  className="h-9 min-w-0 flex-1 rounded-xl border border-zinc-200 bg-white px-3 text-sm outline-none placeholder:text-zinc-400 focus:border-zinc-400"
+                  className="h-9 min-w-0 flex-1 rounded-lg border border-zinc-200 bg-white px-3 text-sm outline-none placeholder:text-zinc-400 focus:border-zinc-400"
                   onChange={(event) => props.onWorkspacePathChange(event.target.value)}
                   placeholder="/path/to/workspace"
                   value={props.workspacePath}
@@ -154,7 +154,7 @@ export function AgentRail(props: AgentRailProps) {
                     Open
                   </Button>
                 ) : (
-                  <span className="inline-flex h-9 shrink-0 items-center gap-2 rounded-xl border border-zinc-200 bg-white px-3 text-sm font-medium text-zinc-400">
+                  <span className="inline-flex h-9 shrink-0 items-center gap-2 rounded-lg border border-zinc-200 bg-white px-3 text-sm font-medium text-zinc-400">
                     <FolderOpen size={15} />
                     Open
                   </span>
@@ -191,7 +191,7 @@ export function AgentRail(props: AgentRailProps) {
 
       <div className="border-t border-zinc-200/80 p-3">
         {settingsOpen ? (
-          <div className="mb-2 rounded-xl border border-zinc-200 bg-white p-2 shadow-sm">
+          <div className="mb-2 rounded-lg border border-zinc-200 bg-white p-2 shadow-sm">
             <div className="grid gap-1.5">
               <label className="sr-only" htmlFor="agent-select">
                 Agent
@@ -230,7 +230,7 @@ export function AgentRail(props: AgentRailProps) {
             </div>
           </div>
         ) : null}
-        <div className="flex items-center gap-3 rounded-xl px-2 py-2">
+        <div className="flex items-center gap-3 rounded-lg px-2 py-2">
           <div className="flex size-9 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 via-blue-500 to-violet-500 text-sm font-semibold text-white">
             T
           </div>

@@ -1,7 +1,7 @@
 import type { SessionId, WorkspaceId } from "@toro/domain";
 import type { Session, Workspace } from "@toro/domain";
 import { cn } from "@toro/ui";
-import { Layers, MessageSquare } from "lucide-react";
+import { FileText, MessageSquare } from "lucide-react";
 import type { ReactNode } from "react";
 
 export interface ProjectGroupModel {
@@ -26,7 +26,7 @@ export function NavButton({
       aria-label={label}
       aria-pressed={active}
       className={cn(
-        "flex h-10 w-full items-center gap-3 rounded-xl px-3 text-left text-sm font-medium text-zinc-800 hover:bg-zinc-200/70",
+        "flex h-9 w-full items-center gap-3 rounded-lg px-3 text-left text-sm font-medium text-zinc-800 hover:bg-zinc-200/70",
         active && "bg-zinc-200/70",
       )}
       onClick={onClick}
@@ -56,23 +56,23 @@ export function ProjectGroup({
   readonly onSelectWorkspace: (id: WorkspaceId) => void;
 }) {
   return (
-    <div className="space-y-1">
+    <div className="space-y-0.5">
       <RailButton
         active={activeWorkspaceId ? workspaceIds.includes(activeWorkspaceId) : false}
-        icon={<Layers size={16} />}
+        icon={<FileText size={16} />}
         label={workspace.name}
         onClick={() => onSelectWorkspace(workspace.id)}
         title={workspace.path}
       />
-      <div className="ml-6 space-y-1 border-l border-zinc-200 pl-2">
+      <div className="space-y-0.5">
         {sessions.length > 0 ? (
           sessions.map((session) => (
             <button
               aria-current={activeSessionId === session.id ? "page" : undefined}
               aria-label={`Chat ${session.title}`}
               className={cn(
-                "flex min-h-9 w-full items-center gap-2 rounded-xl px-2 py-1.5 text-left text-sm hover:bg-zinc-200/70",
-                activeSessionId === session.id && "bg-zinc-200 text-zinc-950",
+                "flex h-9 w-full items-center gap-2 rounded-lg py-1.5 pl-8 pr-3 text-left text-sm text-zinc-800 hover:bg-zinc-200/70",
+                activeSessionId === session.id && "bg-zinc-200/80 text-zinc-950",
               )}
               key={session.id}
               onClick={() => onSelectSession(session.id)}
@@ -85,7 +85,7 @@ export function ProjectGroup({
             </button>
           ))
         ) : (
-          <div className="px-2 py-1.5 text-sm text-zinc-400">No chats</div>
+          <div className="px-3 py-1.5 text-sm text-zinc-400">No chats</div>
         )}
       </div>
     </div>
@@ -178,7 +178,7 @@ export function RailSection({
             aria-label={actionLabel}
             aria-pressed={actionPressed}
             className={cn(
-              "flex size-7 items-center justify-center rounded-full text-zinc-400 hover:bg-zinc-200/70 hover:text-zinc-700",
+              "flex size-7 items-center justify-center rounded-lg text-zinc-400 hover:bg-zinc-200/70 hover:text-zinc-700",
               actionPressed && "bg-zinc-200 text-zinc-800",
             )}
             onClick={onAction}
@@ -204,7 +204,7 @@ function RailButton(props: {
   readonly title?: string;
 }) {
   const className = cn(
-    "flex min-h-11 w-full items-center gap-3 rounded-xl px-3 py-2 text-left text-sm",
+    "flex h-9 w-full items-center gap-3 rounded-lg px-3 py-1.5 text-left text-sm",
     props.disabled ? "cursor-default opacity-45" : "hover:bg-zinc-200/70",
     props.active && "bg-zinc-200 text-zinc-950",
   );
