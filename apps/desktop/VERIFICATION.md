@@ -118,6 +118,10 @@
 - Codex-like host footer stills: `.artifacts/verification/2026-06-30T07-11-25-756Z/*.png`
 - Host footer design-guide regression capture: `.artifacts/verification/design-guide/2026-06-30T07-11-39-845Z/page@e02eeed7c71f6633894ace971d9191fd.webm`
 - Host footer design-guide regression stills: `.artifacts/verification/design-guide/2026-06-30T07-11-39-845Z/*.png`
+- Chronological transcript capture: `.artifacts/verification/2026-06-30T07-17-21-922Z/page@96ff38033923023587d17054aecd07c8.webm`
+- Chronological transcript stills: `.artifacts/verification/2026-06-30T07-17-21-922Z/*.png`
+- Chronological transcript design-guide regression capture: `.artifacts/verification/design-guide/2026-06-30T07-17-34-385Z/page@e2d99f5ecdfab71dd89df65a235ab048.webm`
+- Chronological transcript design-guide regression stills: `.artifacts/verification/design-guide/2026-06-30T07-17-34-385Z/*.png`
 
 Manual verification:
 
@@ -164,6 +168,7 @@ Manual verification:
 - Confirmed the shared composer footer no longer renders workspace/status text and keeps the Codex-like control row focused on context, access, model, and send controls.
 - Confirmed the shared composer send affordance uses a Codex-like upward arrow instead of the previous paper-plane icon in both desktop and the design guide.
 - Confirmed the sidebar footer now matches the Codex account row more closely with a compact host pill while preserving agent and environment switching through Host settings.
+- Confirmed desktop transcript items now render chronologically by event time so the user prompt, thinking, tool call, and assistant response read as a Codex-like stream instead of separate content buckets.
 
 Automated verification:
 

@@ -142,6 +142,7 @@ export class AcpEventNormalizer {
         "content" in update && update.content
           ? update.content.map(toolContentToText)
           : (previous?.content ?? []),
+      createdAt: previous?.createdAt ?? at,
       id: toolCallId(update.toolCallId),
       kind: update.kind ?? previous?.kind ?? "other",
       sessionId: this.sessionId,

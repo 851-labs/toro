@@ -56,6 +56,7 @@ describe("applyHostEvent", () => {
       requestId,
       toolCall: {
         content: [],
+        createdAt: "2026-06-30T00:00:01.000Z",
         id: toolCallId("tool-1"),
         kind: "execute",
         sessionId: id,

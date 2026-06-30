@@ -1,7 +1,11 @@
 import type { SessionNotification } from "@agentclientprotocol/sdk";
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { sessionId } from "@toro/domain";
 import { AcpEventNormalizer } from "./normalizer";
+
+afterEach(() => {
+  vi.useRealTimers();
+});
 
 describe("AcpEventNormalizer", () => {
   it("normalizes assistant chunks", () => {
@@ -20,7 +24,9 @@ describe("AcpEventNormalizer", () => {
   });
 
   it("normalizes tool calls and updates", () => {
+    vi.useFakeTimers();
     const normalizer = new AcpEventNormalizer(sessionId("session-1"));
+    vi.setSystemTime(new Date("2026-06-30T00:00:01.000Z"));
     const created = normalizer.normalizeSessionUpdate({
       sessionId: "acp-session",
       update: {
@@ -31,6 +37,7 @@ describe("AcpEventNormalizer", () => {
         sessionUpdate: "tool_call",
       },
     } satisfies SessionNotification);
+    vi.setSystemTime(new Date("2026-06-30T00:00:03.000Z"));
     const updated = normalizer.normalizeSessionUpdate({
       sessionId: "acp-session",
       update: {
@@ -49,6 +56,18 @@ describe("AcpEventNormalizer", () => {
     expect(created[0]).toMatchObject({ toolCall: { title: "Run tests", status: "pending" } });
     expect(updated[0]).toMatchObject({
       toolCall: { content: ["status: ok"], title: "Run tests", status: "completed" },
+    });
+    expect(created[0]).toMatchObject({
+      toolCall: {
+        createdAt: "2026-06-30T00:00:01.000Z",
+        updatedAt: "2026-06-30T00:00:01.000Z",
+      },
+    });
+    expect(updated[0]).toMatchObject({
+      toolCall: {
+        createdAt: "2026-06-30T00:00:01.000Z",
+        updatedAt: "2026-06-30T00:00:03.000Z",
+      },
     });
   });
 

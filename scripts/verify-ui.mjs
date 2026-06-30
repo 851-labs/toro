@@ -122,6 +122,7 @@ await pause();
 await page.getByText(/tool cards are working/).waitFor({ timeout: 10_000 });
 await assertDesktopDebugLogsHidden(page);
 await assertOnlyFunctionalButtons(page);
+await assertTranscriptOrder(page);
 const toolCall = page.locator("details").filter({ hasText: "Validate Toro permission UI" }).last();
 await assertToolCallIsCompact(toolCall);
 await toolCall.locator("summary").click();
@@ -245,6 +246,33 @@ async function assertToolCallIsCompact(toolCall) {
   if (statusClassName.includes("rounded-full") || statusClassName.includes("border-emerald")) {
     throw new Error("Tool call status should render as quiet metadata, not a status pill.");
   }
+}
+
+async function assertTranscriptOrder(page) {
+  const userTop = await locatorTop(page.getByText("Verify the Toro ACP UI loop.").first());
+  const thinkingTop = await locatorTop(
+    page.locator("details").filter({ hasText: "Thinking" }).first(),
+  );
+  const toolTop = await locatorTop(
+    page.locator("details").filter({ hasText: "Validate Toro permission UI" }).last(),
+  );
+  const assistantTop = await locatorTop(
+    page.getByText(/Toro demo agent received your prompt/).first(),
+  );
+
+  if (!(userTop < thinkingTop && thinkingTop < toolTop && toolTop < assistantTop)) {
+    throw new Error(
+      `Transcript is not chronological: user=${userTop}, thinking=${thinkingTop}, tool=${toolTop}, assistant=${assistantTop}`,
+    );
+  }
+}
+
+async function locatorTop(locator) {
+  const box = await locator.boundingBox();
+  if (!box) {
+    throw new Error("Expected transcript locator to have a bounding box.");
+  }
+  return box.y;
 }
 
 async function assertTranscriptDisclosureIsCompact(disclosure, label) {

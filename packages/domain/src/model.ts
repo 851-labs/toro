@@ -98,6 +98,7 @@ export interface ToolCall {
   readonly kind: ToolKind;
   readonly status: ToolStatus;
   readonly content: readonly string[];
+  readonly createdAt: string;
   readonly updatedAt: string;
 }
 

@@ -20,6 +20,12 @@ import {
 import { useMemo, useState } from "react";
 import { hostClient } from "../lib/host-client";
 
+type TranscriptItem =
+  | { readonly at: string; readonly kind: "message"; readonly message: ChatMessage }
+  | { readonly at: string; readonly kind: "permission"; readonly request: PermissionRequest }
+  | { readonly at: string; readonly kind: "thought"; readonly thought: ThoughtEntry }
+  | { readonly at: string; readonly kind: "tool"; readonly toolCall: ToolCall };
+
 interface ChatPanelProps {
   readonly agentName: string;
   readonly session: Session | null;
@@ -39,7 +45,7 @@ export function ChatPanel({ agentName, session, workspace }: ChatPanelProps) {
     session.status !== "running" &&
     session.status !== "connecting",
   );
-  const orderedMessages = useMemo(() => session?.messages ?? [], [session]);
+  const transcript = useMemo(() => transcriptItems(session), [session]);
   const workspaceName = workspace?.name ?? null;
   const contextItems = useMemo(() => fileContextItems(files.data ?? []), [files.data]);
 
@@ -59,25 +65,8 @@ export function ChatPanel({ agentName, session, workspace }: ChatPanelProps) {
           {session ? (
             <>
               <CodexPlanDisclosure entries={session.plan} />
-              {(session.thoughts ?? []).map((thought) => (
-                <ThoughtBlock key={thought.id} thought={thought} />
-              ))}
-              {orderedMessages.map((message, index) => (
-                <MessageBlock
-                  isStreaming={
-                    session.status === "running" &&
-                    index === orderedMessages.length - 1 &&
-                    message.role === "assistant"
-                  }
-                  key={message.id}
-                  message={message}
-                />
-              ))}
-              {session.permissions.map((request) => (
-                <PermissionCard key={request.id} request={request} />
-              ))}
-              {session.toolCalls.map((toolCall) => (
-                <ToolCallCard key={toolCall.id} toolCall={toolCall} />
+              {transcript.map((item) => (
+                <TranscriptBlock item={item} key={`${item.kind}:${item.at}:${itemId(item)}`} />
               ))}
             </>
           ) : (
@@ -100,6 +89,58 @@ export function ChatPanel({ agentName, session, workspace }: ChatPanelProps) {
       />
     </section>
   );
+}
+
+function transcriptItems(session: Session | null): readonly TranscriptItem[] {
+  if (!session) {
+    return [];
+  }
+
+  return [
+    ...session.messages.map(
+      (message): TranscriptItem => ({
+        at: message.createdAt,
+        kind: "message",
+        message,
+      }),
+    ),
+    ...session.thoughts.map(
+      (thought): TranscriptItem => ({
+        at: thought.createdAt,
+        kind: "thought",
+        thought,
+      }),
+    ),
+    ...session.permissions.map(
+      (request): TranscriptItem => ({
+        at: request.createdAt,
+        kind: "permission",
+        request,
+      }),
+    ),
+    ...session.toolCalls.map(
+      (toolCall): TranscriptItem => ({
+        at: toolCall.createdAt,
+        kind: "tool",
+        toolCall,
+      }),
+    ),
+  ].toSorted(compareTranscriptItems);
+}
+
+function compareTranscriptItems(a: TranscriptItem, b: TranscriptItem) {
+  return a.at.localeCompare(b.at) || transcriptRank(a.kind) - transcriptRank(b.kind);
+}
+
+function transcriptRank(kind: TranscriptItem["kind"]) {
+  return ["message", "thought", "permission", "tool"].indexOf(kind);
+}
+
+function itemId(item: TranscriptItem) {
+  if (item.kind === "message") return item.message.id;
+  if (item.kind === "thought") return item.thought.id;
+  if (item.kind === "permission") return item.request.id;
+  return item.toolCall.id;
 }
 
 function fileContextItems(entries: readonly FileTreeEntry[]): readonly CodexComposerContextItem[] {
@@ -163,22 +204,29 @@ function ThoughtBlock({ thought }: { readonly thought: ThoughtEntry }) {
   );
 }
 
-function MessageBlock({
-  isStreaming,
-  message,
-}: {
-  readonly isStreaming: boolean;
-  readonly message: ChatMessage;
-}) {
+function MessageBlock({ message }: { readonly message: ChatMessage }) {
   return (
     <CodexChatMessage
       copyText={message.role === "assistant" ? message.content : undefined}
-      isStreaming={isStreaming}
+      isStreaming={message.status === "streaming"}
       role={message.role}
     >
       {message.content}
     </CodexChatMessage>
   );
+}
+
+function TranscriptBlock({ item }: { readonly item: TranscriptItem }) {
+  if (item.kind === "message") {
+    return <MessageBlock message={item.message} />;
+  }
+  if (item.kind === "thought") {
+    return <ThoughtBlock thought={item.thought} />;
+  }
+  if (item.kind === "permission") {
+    return <PermissionCard request={item.request} />;
+  }
+  return <ToolCallCard toolCall={item.toolCall} />;
 }
 
 function PermissionCard({ request }: { readonly request: PermissionRequest }) {
