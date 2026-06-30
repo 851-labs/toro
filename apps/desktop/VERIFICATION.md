@@ -96,6 +96,8 @@
 - Incremental thinking stream stills: `.artifacts/verification/2026-06-30T05-51-47-941Z/*.png`
 - Placeholder rail cleanup capture: `.artifacts/verification/2026-06-30T05-54-47-952Z/page@9378d0874363ed452028b3b5c38b6645.webm`
 - Placeholder rail cleanup stills: `.artifacts/verification/2026-06-30T05-54-47-952Z/*.png`
+- Codex-like header glyph capture: `.artifacts/verification/2026-06-30T05-58-48-522Z/page@02e77857663db11b6b8c457f0b048d01.webm`
+- Codex-like header glyph stills: `.artifacts/verification/2026-06-30T05-58-48-522Z/*.png`
 
 Manual verification:
 
@@ -136,6 +138,7 @@ Manual verification:
 - Confirmed the internal TanStack Start design guide now has functional story views for chat elements, sidebar groups, and composer states.
 - Confirmed the deterministic ACP demo now streams thinking text incrementally and the UI verifier captures a partial thought before permission appears.
 - Confirmed placeholder Scheduled and Plugins rail buttons are removed from the desktop UI while agent selection remains available through Host settings.
+- Confirmed the chat header uses a static Codex-like session glyph while the sidebar is open, with the restore button appearing only after the sidebar is collapsed.
 
 Automated verification:
 

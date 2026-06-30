@@ -213,15 +213,15 @@ async function assertPermissionCardIsCompact(page) {
 }
 
 async function assertSidebarToggle(page) {
-  const toggle = page.getByRole("button", { exact: true, name: "Toggle sidebar" });
-  await toggle.click();
+  const collapse = page.getByRole("button", { exact: true, name: "Collapse sidebar" });
+  await collapse.click();
   if ((await page.locator("aside").count()) > 0) {
     throw new Error("Sidebar should be hidden after toggling it closed.");
   }
   await screenshot(page, "01-sidebar-hidden.png");
   await pause();
 
-  await toggle.click();
+  await page.getByRole("button", { exact: true, name: "Toggle sidebar" }).click();
   await page.locator("aside").waitFor({ timeout: 5_000 });
   await page.getByRole("heading", { exact: true, name: "Projects" }).waitFor({ timeout: 5_000 });
 }
@@ -292,7 +292,6 @@ async function assertOnlyFunctionalButtons(page, extraAllowedLabels = []) {
 function isKnownFunctionalButton(label, extraAllowedLabels) {
   if (
     [
-      "Session",
       "Open",
       "Open project",
       "Search",

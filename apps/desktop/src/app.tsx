@@ -7,7 +7,7 @@ import {
   type SessionId,
   type WorkspaceId,
 } from "@toro/domain";
-import { PanelLeft, RefreshCw } from "lucide-react";
+import { NotebookTabs, PanelLeft, RefreshCw } from "lucide-react";
 import { useMemo, useState } from "react";
 import { AgentRail } from "./components/agent-rail";
 import { ChatHeaderActions } from "./components/chat-header-actions";
@@ -134,15 +134,24 @@ export function App() {
         <section className="grid min-h-0 min-w-0 grid-rows-[64px_1fr] bg-white">
           <header className="flex items-center justify-between border-b border-zinc-200/80 px-5">
             <div className="flex min-w-0 items-center gap-3">
-              <button
-                aria-expanded={sidebarOpen}
-                aria-label="Toggle sidebar"
-                className="flex size-8 shrink-0 items-center justify-center rounded-lg text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900"
-                onClick={() => setSidebarOpen((open) => !open)}
-                type="button"
-              >
-                <PanelLeft size={18} />
-              </button>
+              {sidebarOpen ? (
+                <span
+                  aria-hidden="true"
+                  className="flex size-8 shrink-0 items-center justify-center text-zinc-500"
+                >
+                  <NotebookTabs size={18} />
+                </span>
+              ) : (
+                <button
+                  aria-expanded={sidebarOpen}
+                  aria-label="Toggle sidebar"
+                  className="flex size-8 shrink-0 items-center justify-center rounded-lg text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900"
+                  onClick={() => setSidebarOpen(true)}
+                  type="button"
+                >
+                  <PanelLeft size={18} />
+                </button>
+              )}
               <h1 className="truncate text-lg font-semibold">
                 {activeSession?.title ?? "New chat"}
               </h1>
