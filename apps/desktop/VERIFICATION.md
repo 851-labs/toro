@@ -18,23 +18,29 @@
 - Shared chat primitives stills: `.artifacts/verification/2026-06-30T02-50-41-423Z/*.png`
 - Grouped sidebar capture: `.artifacts/verification/2026-06-30T03-00-30-702Z/page@ce87e910aa84d417d31a69debfd97538.webm`
 - Grouped sidebar stills: `.artifacts/verification/2026-06-30T03-00-30-702Z/*.png`
+- Functional-button cleanup capture: `.artifacts/verification/2026-06-30T03-10-18-163Z/page@2b4fba00b8d84ffac67f189a8d838f48.webm`
+- Functional-button cleanup stills: `.artifacts/verification/2026-06-30T03-10-18-163Z/*.png`
+- Functional design-guide capture: `.artifacts/verification/design-guide/2026-06-30T03-10-18-163Z/page@c3cd3891c71fedb250393ac1331fe309.webm`
+- Functional design-guide stills: `.artifacts/verification/design-guide/2026-06-30T03-10-18-163Z/*.png`
 
 Manual verification:
 
 - Started a new chat in the installed Codex Desktop app.
 - Recorded the Codex chat transition and final chat state.
 - Compared Toro against the Codex reference for sidebar, title bar, empty state, message layout, composer controls, and follow-up composer copy.
-- Confirmed Toro still completes the deterministic ACP demo flow, including workspace open, session start, permission prompt, assistant response, tool activity, and file preview.
+- Confirmed Toro still completes the deterministic ACP demo flow, including workspace open, session start, permission prompt, assistant response, and tool activity.
 - Confirmed the desktop composer accepts typing before a session exists and that the rebuilt `Toro.app` accepts keyboard input in the composer.
 - Confirmed the rebuilt `Toro.app` renders edge-to-edge without the blue inset or rounded outer app frame.
-- Confirmed inert header, sidebar, and composer controls were removed while workspace open, session start, send, permission approval, and file preview still work.
+- Confirmed inert header, sidebar, and composer controls were removed while workspace open, session start, send, and permission approval still work.
 - Confirmed the internal design guide renders shared chat messages, streaming state, permission prompt, expanded tool call, logs disclosure, and composer.
 - Confirmed the desktop chat flow still passes after moving messages, composer, permission prompt, tool call, and logs into shared UI primitives.
 - Confirmed the sidebar visually groups chats under their project and coalesces duplicate opens of the same project path.
+- Confirmed every rendered button in the desktop flow is limited to a wired action: new chat, add project, project/chat selection, send/stop, or permission response.
+- Confirmed the design guide permission buttons update visible state instead of acting as no-op controls.
 
 Automated verification:
 
 - `bun run verify`
 - `TORO_VERIFY_STEP_DELAY_MS=300 bun run verify:design-guide`
-- `TORO_VERIFY_STEP_DELAY_MS=1000 bun run verify:ui`
+- `TORO_VERIFY_STEP_DELAY_MS=300 bun run verify:ui`
 - `bun --filter @toro/desktop tauri build --debug --bundles app`
