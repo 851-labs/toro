@@ -1,38 +1,9 @@
-import {
-  createRoute,
-  createRootRoute,
-  createRouter,
-  Outlet,
-  RouterProvider,
-} from "@tanstack/react-router";
+import { RouterProvider } from "@tanstack/react-router";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { ChatDesignGuide } from "./screens/chat-design-guide";
-import "./styles.css";
+import { createDesignGuideRouter } from "./router";
 
-const rootRoute = createRootRoute({
-  component: RootLayout,
-});
-
-const indexRoute = createRoute({
-  component: ChatDesignGuide,
-  getParentRoute: () => rootRoute,
-  path: "/",
-});
-
-const router = createRouter({
-  routeTree: rootRoute.addChildren([indexRoute]),
-});
-
-declare module "@tanstack/react-router" {
-  interface Register {
-    router: typeof router;
-  }
-}
-
-function RootLayout() {
-  return <Outlet />;
-}
+const router = createDesignGuideRouter();
 
 const rootElement = document.getElementById("root");
 

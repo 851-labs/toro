@@ -52,6 +52,10 @@
 - Composer selectors stills: `.artifacts/verification/2026-06-30T04-04-37-844Z/*.png`
 - Composer selectors design-guide capture: `.artifacts/verification/design-guide/2026-06-30T04-04-56-858Z/page@c9105129505a40d3fe1b4e566c3af05b.webm`
 - Composer selectors design-guide stills: `.artifacts/verification/design-guide/2026-06-30T04-04-56-858Z/*.png`
+- TanStack Start design-guide capture: `.artifacts/verification/design-guide/2026-06-30T04-17-19-630Z/page@5f15889fcd5e00a710b5fb9c52265e78.webm`
+- TanStack Start design-guide stills: `.artifacts/verification/design-guide/2026-06-30T04-17-19-630Z/*.png`
+- TanStack Start app regression capture: `.artifacts/verification/2026-06-30T04-18-57-673Z/page@ee41f7538d4ca61c59d04da8d1f9c807.webm`
+- TanStack Start app regression stills: `.artifacts/verification/2026-06-30T04-18-57-673Z/*.png`
 
 Manual verification:
 
@@ -76,6 +80,7 @@ Manual verification:
 - Confirmed completed assistant messages expose Codex-style copy, thumbs up, thumbs down, and expand controls, and each control changes visible state during verification.
 - Confirmed the sidebar no longer exposes a raw workspace path field by default, Add project opens a functional project path flow, and Search filters projects/chats with a visible no-match state.
 - Confirmed composer access and model controls render as Codex-style selectors and visibly update selected state in both the desktop flow and design guide.
+- Confirmed the internal design guide runs through a TanStack Start file-route entry with generated route tree, client/server build output, and hydrated interactive controls.
 
 Automated verification:
 

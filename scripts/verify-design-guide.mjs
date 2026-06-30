@@ -17,13 +17,14 @@ const context = await browser.newContext({
 });
 const page = await context.newPage();
 
-await page.goto(appUrl, { waitUntil: "domcontentloaded" });
+await page.goto(appUrl, { waitUntil: "networkidle" });
 await page.getByText("Codex Chat Surface").waitFor({ timeout: 5_000 });
 await page.getByText("Streaming text keeps").waitFor({ timeout: 5_000 });
 await page.getByText("Thinking").waitFor({ timeout: 5_000 });
 await page.getByText("Reviewing project context").waitFor({ timeout: 5_000 });
 await page.getByText("Validate Toro permission UI").first().waitFor({ timeout: 5_000 });
 await page.getByText("tool cards are working").waitFor({ timeout: 5_000 });
+await page.waitForFunction(() => Boolean(window.__TSR_ROUTER__), null, { timeout: 5_000 });
 await page.getByRole("button", { exact: true, name: "Good response" }).click();
 await expectPressed(page.getByRole("button", { exact: true, name: "Good response" }));
 await page.getByRole("button", { exact: true, name: "Bad response" }).click();
@@ -70,10 +71,14 @@ async function pause() {
 }
 
 async function expectPressed(locator) {
-  const pressed = await locator.getAttribute("aria-pressed");
-  if (pressed !== "true") {
-    throw new Error("Expected design-guide message action to become pressed.");
+  const started = Date.now();
+  while (Date.now() - started < 5_000) {
+    if ((await locator.getAttribute("aria-pressed")) === "true") {
+      return;
+    }
+    await new Promise((resolve) => setTimeout(resolve, 100));
   }
+  throw new Error("Expected design-guide message action to become pressed.");
 }
 
 async function selectComposerOption(page, label, value) {

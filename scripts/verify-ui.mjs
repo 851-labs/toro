@@ -211,10 +211,14 @@ function isKnownFunctionalButton(label, extraAllowedLabels) {
 }
 
 async function expectPressed(locator) {
-  const pressed = await locator.getAttribute("aria-pressed");
-  if (pressed !== "true") {
-    throw new Error("Expected message action to become pressed.");
+  const started = Date.now();
+  while (Date.now() - started < 5_000) {
+    if ((await locator.getAttribute("aria-pressed")) === "true") {
+      return;
+    }
+    await new Promise((resolve) => setTimeout(resolve, 100));
   }
+  throw new Error("Expected message action to become pressed.");
 }
 
 async function selectComposerOption(page, label, value) {

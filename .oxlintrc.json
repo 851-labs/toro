@@ -5,6 +5,7 @@
     ".repos/**",
     "**/.repos/**",
     "**/dist/**",
+    "**/routeTree.gen.ts",
     "**/src-tauri/target/**",
     "**/node_modules/**"
   ]
