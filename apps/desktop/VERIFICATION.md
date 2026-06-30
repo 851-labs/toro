@@ -298,6 +298,10 @@
 - Passive context strip chevrons stills: `.artifacts/verification/2026-06-30T12-26-13-653Z/*.png`
 - Passive context strip chevrons design-guide capture: `.artifacts/verification/design-guide/2026-06-30T12-26-13-653Z/page@872b3721fdc75ca6f8060547283509a4.webm`
 - Passive context strip chevrons design-guide stills: `.artifacts/verification/design-guide/2026-06-30T12-26-13-653Z/*.png`
+- Codex-scale empty prompt capture: `.artifacts/verification/2026-06-30T12-33-44-224Z/page@454c7239194ffd47e2ec4f2277e86bad.webm`
+- Codex-scale empty prompt stills: `.artifacts/verification/2026-06-30T12-33-44-224Z/*.png`
+- Codex-scale empty prompt design-guide capture: `.artifacts/verification/design-guide/2026-06-30T12-33-44-235Z/page@0d098d201aabd0e3a39ea7764dfbe4b9.webm`
+- Codex-scale empty prompt design-guide stills: `.artifacts/verification/design-guide/2026-06-30T12-33-44-235Z/*.png`
 
 Manual verification:
 
@@ -330,6 +334,7 @@ Manual verification:
 - Confirmed the sidebar footer now reads as a Codex-like account row with gradient avatar, `Local host` primary text, and `connected` secondary status while preserving the functional host settings control.
 - Confirmed active sidebar project/chat rows now expose active state in the shared row primitive and use stronger selected icon/text styling, with desktop and design-guide verification rejecting muted active icons.
 - Confirmed the composer context strip now shows passive Codex-like chevrons for environment and branch metadata while desktop and design-guide verification still reject inert strip buttons.
+- Confirmed the shared empty-project prompt now uses a larger Codex-like type scale, with desktop verification asserting the rendered prompt font size stays at least 32px.
 - Confirmed the sidebar visually groups chats under their project and coalesces duplicate opens of the same project path.
 - Confirmed every rendered button in the desktop flow is limited to a wired action: new chat, open project, project/chat selection, send/stop, or permission response.
 - Confirmed the design guide permission buttons update visible state instead of acting as no-op controls.

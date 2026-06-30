@@ -58,20 +58,21 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
     });
     await heading.waitFor({ timeout: 5_000 });
     const headingBox = await heading.boundingBox();
+    const fontSize = await heading.evaluate((node) => parseFloat(getComputedStyle(node).fontSize));
+    if (fontSize < 32) {
+      throw new Error(`Empty project prompt should use Codex-scale type, got ${fontSize}.`);
+    }
     const composerBox = await page.locator("[data-composer-surface='true']").boundingBox();
     if (!headingBox || !composerBox || composerBox.y - (headingBox.y + headingBox.height) > 220) {
       throw new Error("Empty project prompt should sit close to the composer like Codex.");
     }
     if (composerBox.y > 660) {
-      throw new Error(
-        `Empty project composer should be lifted like Codex, got y=${composerBox.y}.`,
-      );
+      throw new Error(`Empty project composer is too low: ${composerBox.y}.`);
     }
     if ((await page.getByText("Toro Demo is ready.").count()) > 0) {
       throw new Error("Empty project chat should not render redundant ready-state subcopy.");
     }
   }
-
   async function assertComposerFooterIsCodexCompact(page) {
     if ((await page.getByText("Open a project to start").count()) > 0) {
       throw new Error("Composer footer should not render old workspace status copy.");
@@ -87,12 +88,9 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
       }
     }
     if ((await strip.locator("[data-composer-context-chevron='true']").count()) < 2) {
-      throw new Error(
-        "Composer context strip should show passive chevrons for selectable metadata.",
-      );
+      throw new Error("Composer context strip should show passive chevrons.");
     }
   }
-
   async function assertComposerAffordancesArePassive(page) {
     const affordances = await page.locator("[data-composer-affordance]").evaluateAll((nodes) =>
       nodes.map((node) => ({

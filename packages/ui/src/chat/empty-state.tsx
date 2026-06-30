@@ -14,7 +14,7 @@ export function CodexEmptyState({ placement = "center", workspaceName }: CodexEm
       )}
       data-empty-state="true"
     >
-      <h2 className="text-3xl font-medium tracking-tight dark:text-zinc-100">
+      <h2 className="text-[34px] font-medium leading-tight tracking-tight dark:text-zinc-100">
         What should we build{workspaceName ? ` in ${workspaceName}` : ""}?
       </h2>
       {workspaceName ? null : (
