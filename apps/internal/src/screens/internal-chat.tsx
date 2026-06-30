@@ -53,10 +53,13 @@ export function InternalLayout({ children }: { readonly children: ReactNode }) {
   const [composerValue, setComposerValue] = useState("");
 
   return (
-    <main className="grid h-full grid-cols-[280px_minmax(0,1fr)] overflow-hidden bg-white text-zinc-950">
-      <aside className="border-r border-zinc-200 bg-[#f2f5f5] px-5 py-5">
+    <main className="grid h-full grid-cols-[256px_minmax(0,1fr)] overflow-hidden bg-white text-zinc-950">
+      <aside
+        className="border-r border-zinc-200 bg-[#f2f5f5] px-3 py-5"
+        data-internal-sidebar="true"
+      >
         <div className="mb-8 font-semibold">Toro UI</div>
-        <nav className="space-y-1 text-sm">
+        <nav className="space-y-1 text-[13px]">
           {guideNavItems.map((item) => (
             <GuideNavLink active={activeRoute === item.to} key={item.to} {...item} />
           ))}
@@ -128,9 +131,10 @@ function GuideNavLink({
       aria-current={active ? "page" : undefined}
       className={
         active
-          ? "block w-full rounded-xl bg-zinc-200 px-3 py-2 text-left font-medium"
-          : "block w-full rounded-xl px-3 py-2 text-left text-zinc-500 hover:bg-zinc-200/70"
+          ? "flex h-7 w-full items-center rounded-xl bg-zinc-200 px-3 text-left font-medium"
+          : "flex h-7 w-full items-center rounded-xl px-3 text-left text-zinc-500 hover:bg-zinc-200/70"
       }
+      data-internal-sidebar-item="true"
       to={to}
     >
       {label}

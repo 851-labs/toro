@@ -1,6 +1,7 @@
 import { chromium } from "@playwright/test";
 import { mkdir, readdir } from "node:fs/promises";
 import { resolve } from "node:path";
+import { assertInternalSidebarLayout } from "./verify-internal-layout.mjs";
 const appUrl = process.env.TORO_INTERNAL_URL ?? "http://127.0.0.1:1430";
 const stepDelayMs = Number(process.env.TORO_VERIFY_STEP_DELAY_MS ?? 0);
 const streamingMarkdownText = /Streaming markdown keeps/;
@@ -18,6 +19,7 @@ await page.goto(appUrl, { waitUntil: "networkidle" });
 await page.getByText("Codex Chat Surface").waitFor({ timeout: 5_000 });
 if ((await page.locator("aside").getByText("T", { exact: true }).count()) > 0)
   throw new Error("Internal sidebar should not render the T circle logo.");
+await assertInternalSidebarLayout(page);
 await page.getByText(streamingMarkdownText).waitFor({ timeout: 5_000 });
 await page.getByText("Thinking").waitFor({ timeout: 5_000 });
 await page.getByText("Reviewing project context").waitFor({ timeout: 5_000 });
@@ -41,12 +43,10 @@ await page.getByRole("button", { exact: true, name: "Copy message" }).first().cl
 await page.getByRole("button", { exact: true, name: "Copied message" }).waitFor({ timeout: 5_000 });
 await assertSharedMessageActions(page);
 await screenshot(page, "02-message-actions.png");
-
 await page.getByRole("button", { exact: true, name: "Allow once" }).click();
 await page.getByText("allowed once").waitFor({ timeout: 5_000 });
 await screenshot(page, "03-permission-responded.png");
 await pause();
-
 await page.getByRole("link", { exact: true, name: "Sidebar Groups" }).click();
 await expectPressed(page.getByRole("link", { exact: true, name: "Sidebar Groups" }));
 await page.getByText("Codex Sidebar Groups").waitFor({ timeout: 5_000 });

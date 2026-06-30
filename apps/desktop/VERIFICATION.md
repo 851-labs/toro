@@ -18,8 +18,8 @@ Latest verified desktop artifacts:
 - Desktop stills: `.artifacts/verification/2026-06-30T18-22-58-026Z/*.png`
 - Grouped-sidebar capture: `.artifacts/verification/sidebar-groups/2026-06-30T15-10-20-395Z/page@d9d7ed776cdd64de9144ac1f4a6ab547.webm`
 - Grouped-sidebar still: `.artifacts/verification/sidebar-groups/2026-06-30T15-10-20-395Z/01-project-grouped-chats.png`
-- Internal capture: `.artifacts/verification/internal/2026-06-30T18-34-06-067Z/page@e217f20271612894e2e6e85c3d0b6164.webm`
-- Internal stills: `.artifacts/verification/internal/2026-06-30T18-34-06-067Z/*.png`
+- Internal capture: `.artifacts/verification/internal/2026-06-30T18-37-10-487Z/page@3fe12087bfdec3ce860bf61f2de93f82.webm`
+- Internal stills: `.artifacts/verification/internal/2026-06-30T18-37-10-487Z/*.png`
 - Native still: `.artifacts/verification/native/2026-06-30-native-project-picker.png`
 
 Most recent manual checks:
@@ -55,6 +55,7 @@ Most recent manual checks:
 - Confirmed the internal app catalogs project-grouped sidebar chats.
 - Confirmed the internal app sidebar header no longer renders the T circle logo.
 - Confirmed the internal app uses TanStack Start routes for each sidebar item instead of local view state.
+- Confirmed the internal app sidebar uses a 256px rail, 12px content padding, and 28px rows at 13px type.
 - Confirmed empty newly-created sessions use a Codex-like New chat title until the first prompt renames them.
 - Confirmed the chat header includes a Codex-like editor-pane toggle that opens a Host API backed file preview.
 - Confirmed native Tauri renders the latest Codex-like chat shell after rebuild.
