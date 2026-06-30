@@ -64,6 +64,7 @@ await page
   .first()
   .waitFor({ timeout: 5_000 });
 await assertPrimarySidebarSimplified(page);
+await assertDesktopDebugLogsHidden(page);
 await assertOnlyFunctionalButtons(page);
 await screenshot(page, "04-session-created.png");
 await pause();
@@ -94,6 +95,7 @@ await screenshot(page, "07-streaming-in-progress.png");
 await pause();
 
 await page.getByText(/tool cards are working/).waitFor({ timeout: 10_000 });
+await assertDesktopDebugLogsHidden(page);
 await assertOnlyFunctionalButtons(page);
 const toolCall = page.locator("details").filter({ hasText: "Validate Toro permission UI" }).last();
 await toolCall.locator("summary").click();
@@ -166,6 +168,12 @@ async function assertPrimarySidebarSimplified(page) {
     if ((await page.getByRole("heading", { exact: true, name }).count()) > 0) {
       throw new Error(`Non-Codex sidebar section is still rendered: ${name}`);
     }
+  }
+}
+
+async function assertDesktopDebugLogsHidden(page) {
+  if ((await page.getByText("Activity logs").count()) > 0) {
+    throw new Error("Desktop chat should not render raw activity logs.");
   }
 }
 

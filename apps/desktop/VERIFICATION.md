@@ -60,6 +60,10 @@
 - Codex-like project strip stills: `.artifacts/verification/2026-06-30T04-23-06-575Z/*.png`
 - Hover message actions design-guide capture: `.artifacts/verification/design-guide/2026-06-30T04-23-58-262Z/page@556dd2ae2f221452a7e33e6d4a5a5b88.webm`
 - Hover message actions design-guide stills: `.artifacts/verification/design-guide/2026-06-30T04-23-58-262Z/*.png`
+- Compact tool-call capture: `.artifacts/verification/2026-06-30T04-28-54-345Z/page@64d6fb98488cae4a13907bea637e9a83.webm`
+- Compact tool-call stills: `.artifacts/verification/2026-06-30T04-28-54-345Z/*.png`
+- Compact tool-call design-guide capture: `.artifacts/verification/design-guide/2026-06-30T04-29-37-533Z/page@51e924bfc253da21be2d06a35cbfe5e0.webm`
+- Compact tool-call design-guide stills: `.artifacts/verification/design-guide/2026-06-30T04-29-37-533Z/*.png`
 
 Manual verification:
 
@@ -86,9 +90,16 @@ Manual verification:
 - Confirmed composer access and model controls render as Codex-style selectors and visibly update selected state in both the desktop flow and design guide.
 - Confirmed the internal design guide runs through a TanStack Start file-route entry with generated route tree, client/server build output, and hydrated interactive controls.
 - Confirmed completed assistant message actions now behave like Codex affordances by revealing on hover/focus while remaining keyboard-accessible.
+- Confirmed desktop chat no longer renders raw activity logs, while the internal design guide still documents the disclosure primitive.
+- Confirmed tool calls use a quieter Codex-style disclosure row with a compact output well and still expand/collapse during verification.
 
 Automated verification:
 
+- `bun run fmt`
+- `bun run lint`
+- `bun run typecheck`
+- `bun run test`
+- `bun run build`
 - `bun run verify`
 - `TORO_VERIFY_STEP_DELAY_MS=200 bun run verify:design-guide`
 - `TORO_VERIFY_STEP_DELAY_MS=200 bun run verify:ui`

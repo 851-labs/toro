@@ -9,13 +9,12 @@ import type {
 import {
   CodexChatMessage,
   CodexComposer,
-  CodexDisclosure,
   CodexPermissionCard,
   CodexThinkingDisclosure,
   CodexToolCall,
   StatusBadge,
 } from "@toro/ui";
-import { ClipboardList, Terminal } from "lucide-react";
+import { ClipboardList } from "lucide-react";
 import { useMemo, useState } from "react";
 import { hostClient } from "../lib/host-client";
 
@@ -71,7 +70,6 @@ export function ChatPanel({ agentName, session, workspaceName }: ChatPanelProps)
               {session.toolCalls.map((toolCall) => (
                 <ToolCallCard key={toolCall.id} toolCall={toolCall} />
               ))}
-              {session.logs.length > 0 ? <LogBlock logs={session.logs} /> : null}
             </>
           ) : (
             <EmptyState agentName={agentName} workspaceName={workspaceName} />
@@ -182,14 +180,6 @@ function ToolCallCard({ toolCall }: { readonly toolCall: ToolCall }) {
     <CodexToolCall kind={toolCall.kind} status={toolCall.status} title={toolCall.title}>
       {toolCall.content.length > 0 ? toolCall.content.join("\n") : null}
     </CodexToolCall>
-  );
-}
-
-function LogBlock({ logs }: { readonly logs: readonly string[] }) {
-  return (
-    <CodexDisclosure icon={<Terminal size={16} />} title="Activity logs">
-      {logs.join("\n")}
-    </CodexDisclosure>
   );
 }
 
