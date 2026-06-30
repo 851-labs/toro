@@ -48,7 +48,7 @@ export function ChatPanel({ session, workspace }: ChatPanelProps) {
   );
   const transcript = useMemo(() => transcriptItems(session), [session]);
   const sessionIsEmpty = Boolean(session && transcript.length === 0 && session.plan.length === 0);
-  const projectEmpty = Boolean(sessionIsEmpty && workspace);
+  const projectEmpty = Boolean(workspace && (!session || sessionIsEmpty));
   const workspaceName = workspace?.name ?? null;
   const contextItems = useMemo(() => fileContextItems(files.data ?? []), [files.data]);
 
@@ -80,7 +80,10 @@ export function ChatPanel({ session, workspace }: ChatPanelProps) {
               </>
             )
           ) : (
-            <CodexEmptyState workspaceName={workspaceName} />
+            <CodexEmptyState
+              placement={projectEmpty ? "composer" : "center"}
+              workspaceName={workspaceName}
+            />
           )}
         </CodexTranscriptSurface>
       </div>

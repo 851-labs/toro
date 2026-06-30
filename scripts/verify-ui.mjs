@@ -109,6 +109,7 @@ await page
   .getByRole("button", { name: /Chat Toro Demo in toro/ })
   .first()
   .waitFor({ timeout: 5_000 });
+await page.locator("aside button[aria-current='page']").waitFor({ timeout: 5_000 });
 await assertPrimarySidebarSimplified(page);
 await assertSidebarChatRowsAreNavigationOnly(page);
 await assertCurrentChatIsFirstInProject(page);
@@ -119,6 +120,23 @@ await assertHeaderActions(page);
 await assertSessionDetailsToggle(page);
 await assertOnlyFunctionalButtons(page);
 await screenshot(page, "04-session-created.png");
+await pause();
+
+await page.getByRole("button", { exact: true, name: "Back" }).click();
+await page
+  .getByRole("heading", { exact: true, name: `What should we build in ${workspaceName}?` })
+  .waitFor({
+    timeout: 5_000,
+  });
+await assertEmptySessionPrompt(page);
+await assertOnlyFunctionalButtons(page);
+await screenshot(page, "04-history-back.png");
+await page.getByRole("button", { exact: true, name: "Forward" }).click();
+await page
+  .getByText(/Toro Demo in/)
+  .first()
+  .waitFor({ timeout: 5_000 });
+await assertCurrentChatIsFirstInProject(page);
 await pause();
 
 await composer.fill("Verify the Toro ACP UI loop.");

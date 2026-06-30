@@ -303,8 +303,10 @@ Manual verification:
 - Confirmed Codex-style message action buttons now live in a shared `@toro/ui` chat atom while desktop and design-guide flows still exercise copy, feedback, and expand/collapse states.
 - Confirmed the chat header session details control now uses a Codex-like right-panel icon and compact square hit area while still opening and closing the functional details rail.
 - Confirmed the header action and Open in menus use tighter Codex-like radii and lighter shadows, and the UI verifier still exercises copy, Finder, VS Code, and session details flows.
-- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T09-41-25-643Z/`.
-- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T09-41-44-122Z/`.
+- Confirmed the sidebar titlebar now clusters traffic controls, collapse, Back, and Forward like Codex, with Back/Forward rendered as passive glyphs until real navigation history exists.
+- Confirmed sidebar Back returns from a new chat to the lifted empty project composer and Forward restores the selected chat, with the desktop UI verifier capturing `04-history-back.png`.
+- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T09-49-11-724Z/`.
+- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T09-49-11-718Z/`.
 
 Automated verification:
 

@@ -379,6 +379,8 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
         "Collapse sidebar",
         "New chat",
         "Add context",
+        "Back",
+        "Forward",
         "More chat actions",
         "Copy chat title",
         "Copy workspace path",

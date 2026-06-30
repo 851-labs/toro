@@ -9,6 +9,8 @@ import {
 import type { AgentProfile, EnvironmentProfile, Session, Workspace } from "@toro/domain";
 import { Button, cn } from "@toro/ui";
 import {
+  ChevronLeft,
+  ChevronRight,
   FolderOpen,
   FolderPlus,
   PanelLeft,
@@ -24,6 +26,7 @@ import {
   ProjectGroup,
   RailSection,
 } from "./agent-rail-parts";
+import type { ReactNode } from "react";
 
 type RailView = "projects" | "search";
 
@@ -31,6 +34,8 @@ interface AgentRailProps {
   readonly activeWorkspace: Workspace | null;
   readonly activeSessionId: SessionId | null;
   readonly agents: readonly AgentProfile[];
+  readonly canNavigateBack: boolean;
+  readonly canNavigateForward: boolean;
   readonly environments: readonly EnvironmentProfile[];
   readonly error: string | null;
   readonly selectedAgentId: AgentId;
@@ -40,6 +45,8 @@ interface AgentRailProps {
   readonly workspacePath: string;
   readonly workspaces: readonly Workspace[];
   readonly onCreateSession: () => void;
+  readonly onNavigateBack: () => void;
+  readonly onNavigateForward: () => void;
   readonly onOpenWorkspace: () => void;
   readonly onSelectAgent: (id: AgentId) => void;
   readonly onSelectEnvironment: (id: EnvironmentId) => void;
@@ -67,20 +74,34 @@ export function AgentRail(props: AgentRailProps) {
       className="flex min-h-0 flex-col border-r border-zinc-200 bg-[#f7f8f8]"
       data-sidebar-rail="true"
     >
-      <div className="flex h-14 items-center justify-between px-5">
-        <div aria-hidden="true" className="flex items-center gap-2">
-          <span className="size-3 rounded-full bg-[#ff5f57]" />
-          <span className="size-3 rounded-full bg-[#ffbd2e]" />
-          <span className="size-3 rounded-full bg-[#28c840]" />
+      <div className="flex h-14 items-center gap-3 px-5">
+        <div className="flex items-center gap-2">
+          <span aria-hidden="true" className="size-3 rounded-full bg-[#ff5f57]" />
+          <span aria-hidden="true" className="size-3 rounded-full bg-[#ffbd2e]" />
+          <span aria-hidden="true" className="size-3 rounded-full bg-[#28c840]" />
         </div>
-        <button
-          aria-label="Collapse sidebar"
-          className="flex size-8 items-center justify-center rounded-lg text-zinc-500 hover:bg-zinc-200/70 hover:text-zinc-900"
-          onClick={props.onToggleSidebar}
-          type="button"
-        >
-          <PanelLeft size={17} />
-        </button>
+        <div className="ml-2 flex items-center gap-1">
+          <button
+            aria-label="Collapse sidebar"
+            className="flex size-8 items-center justify-center rounded-lg text-zinc-500 hover:bg-zinc-200/70 hover:text-zinc-900"
+            onClick={props.onToggleSidebar}
+            type="button"
+          >
+            <PanelLeft size={17} />
+          </button>
+          <HistoryControl
+            active={props.canNavigateBack}
+            icon={<ChevronLeft size={18} />}
+            label="Back"
+            onClick={props.onNavigateBack}
+          />
+          <HistoryControl
+            active={props.canNavigateForward}
+            icon={<ChevronRight size={18} />}
+            label="Forward"
+            onClick={props.onNavigateForward}
+          />
+        </div>
       </div>
 
       <div className="space-y-1 px-3">
@@ -255,5 +276,36 @@ export function AgentRail(props: AgentRailProps) {
         </div>
       </div>
     </aside>
+  );
+}
+
+function HistoryControl({
+  active,
+  icon,
+  label,
+  onClick,
+}: {
+  readonly active: boolean;
+  readonly icon: ReactNode;
+  readonly label: string;
+  readonly onClick: () => void;
+}) {
+  const className = cn(
+    "flex size-8 items-center justify-center rounded-lg",
+    active ? "text-zinc-500 hover:bg-zinc-200/70 hover:text-zinc-900" : "text-zinc-300",
+  );
+
+  if (!active) {
+    return (
+      <span aria-disabled="true" aria-label={label} className={className} role="img">
+        {icon}
+      </span>
+    );
+  }
+
+  return (
+    <button aria-label={label} className={className} onClick={onClick} type="button">
+      {icon}
+    </button>
   );
 }

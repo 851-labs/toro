@@ -19,6 +19,11 @@ import { useHostState } from "./lib/use-host-state";
 
 const defaultWorkspace = import.meta.env.VITE_TORO_DEFAULT_WORKSPACE ?? "";
 
+interface NavigationEntry {
+  readonly sessionId: SessionId | null;
+  readonly workspaceId: WorkspaceId | null;
+}
+
 export function App() {
   const queryClient = useQueryClient();
   const { state, streamStatus, error, isLoading } = useHostState();
@@ -31,6 +36,8 @@ export function App() {
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [selectedWorkspaceId, setSelectedWorkspaceId] = useState<WorkspaceId | null>(null);
   const [selectedSessionId, setSelectedSessionId] = useState<SessionId | null>(null);
+  const [navigationHistory, setNavigationHistory] = useState<readonly NavigationEntry[]>([]);
+  const [navigationIndex, setNavigationIndex] = useState(-1);
 
   const selectedSession = useMemo(
     () => state.sessions.find((session) => session.id === selectedSessionId) ?? null,
@@ -45,22 +52,33 @@ export function App() {
       ) ?? null,
     [selectedSession?.workspaceId, selectedWorkspaceId, state.workspaces],
   );
-  const activeSession = useMemo(
-    () =>
-      selectedSession ??
+  const activeSession = useMemo(() => {
+    const hostActiveSession =
       state.sessions.find(
         (session) =>
           session.id === state.activeSessionId && session.workspaceId === activeWorkspace?.id,
-      ) ??
+      ) ?? null;
+    if (selectedSessionId) return selectedSession ?? hostActiveSession;
+    if (selectedWorkspaceId) return null;
+    return (
+      hostActiveSession ??
       state.sessions.findLast((session) => session.workspaceId === activeWorkspace?.id) ??
-      null,
-    [activeWorkspace?.id, selectedSession, state.activeSessionId, state.sessions],
-  );
+      null
+    );
+  }, [
+    activeWorkspace?.id,
+    selectedSession,
+    selectedSessionId,
+    selectedWorkspaceId,
+    state.activeSessionId,
+    state.sessions,
+  ]);
   const openWorkspace = useMutation({
     mutationFn: async () => hostClient.openWorkspace(workspacePath, selectedEnvironmentId),
     onSuccess: (workspace) => {
       setSelectedWorkspaceId(workspace.id);
       setSelectedSessionId(null);
+      recordNavigation({ sessionId: null, workspaceId: workspace.id });
       void queryClient.invalidateQueries({ queryKey: ["host-state"] });
       void queryClient.invalidateQueries({ queryKey: ["files", workspace.id] });
     },
@@ -79,15 +97,20 @@ export function App() {
     },
     onSuccess: (result) => {
       setSelectedSessionId(result.sessionId);
+      recordNavigation({
+        sessionId: result.sessionId,
+        workspaceId: activeWorkspace?.id ?? selectedWorkspaceId,
+      });
       void queryClient.invalidateQueries({ queryKey: ["host-state"] });
     },
   });
 
   function selectWorkspace(workspaceId: WorkspaceId) {
+    const sessionId =
+      state.sessions.findLast((session) => session.workspaceId === workspaceId)?.id ?? null;
     setSelectedWorkspaceId(workspaceId);
-    setSelectedSessionId(
-      state.sessions.findLast((session) => session.workspaceId === workspaceId)?.id ?? null,
-    );
+    setSelectedSessionId(sessionId);
+    recordNavigation({ sessionId, workspaceId });
   }
 
   function selectSession(sessionId: SessionId) {
@@ -95,7 +118,36 @@ export function App() {
     if (session) {
       setSelectedWorkspaceId(session.workspaceId);
       setSelectedSessionId(session.id);
+      recordNavigation({ sessionId: session.id, workspaceId: session.workspaceId });
     }
+  }
+
+  function recordNavigation(entry: NavigationEntry) {
+    if (navigationIndex >= 0 && sameEntry(navigationHistory.at(navigationIndex) ?? null, entry)) {
+      return;
+    }
+    const nextHistory = [...navigationHistory.slice(0, navigationIndex + 1), entry];
+    setNavigationHistory(nextHistory);
+    setNavigationIndex(nextHistory.length - 1);
+  }
+
+  function applyNavigation(entry: NavigationEntry) {
+    setSelectedWorkspaceId(entry.workspaceId);
+    setSelectedSessionId(entry.sessionId);
+  }
+
+  function navigateBack() {
+    const nextIndex = Math.max(0, navigationIndex - 1);
+    const entry = navigationHistory.at(nextIndex);
+    if (entry) applyNavigation(entry);
+    setNavigationIndex(nextIndex);
+  }
+
+  function navigateForward() {
+    const nextIndex = Math.min(navigationHistory.length - 1, navigationIndex + 1);
+    const entry = navigationHistory.at(nextIndex);
+    if (entry) applyNavigation(entry);
+    setNavigationIndex(nextIndex);
   }
 
   return (
@@ -112,8 +164,12 @@ export function App() {
           agents={state.agents}
           environments={state.environments}
           error={error ?? openWorkspace.error?.message ?? createSession.error?.message ?? null}
-          activeSessionId={activeSession?.id ?? null}
+          activeSessionId={selectedSessionId ?? activeSession?.id ?? null}
+          canNavigateBack={navigationIndex > 0}
+          canNavigateForward={navigationIndex < navigationHistory.length - 1}
           onCreateSession={() => createSession.mutate()}
+          onNavigateBack={navigateBack}
+          onNavigateForward={navigateForward}
           onOpenWorkspace={() => openWorkspace.mutate()}
           selectedAgentId={selectedAgentId}
           selectedEnvironmentId={selectedEnvironmentId}
@@ -195,4 +251,8 @@ export function App() {
       </main>
     </div>
   );
+}
+
+function sameEntry(left: NavigationEntry | null, right: NavigationEntry) {
+  return left?.sessionId === right.sessionId && left.workspaceId === right.workspaceId;
 }
