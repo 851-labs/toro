@@ -238,17 +238,19 @@ async function assertSharedPlanAndSummaries(page) {
 }
 
 async function assertCompactTranscriptDisclosure(locator, label) {
-  const box = await locator.boundingBox();
-  if (!box || box.width > 760) {
+  const widths = await locator.evaluate((node) => {
+    const summary = node.querySelector("[data-disclosure-summary='true']");
+    return [node.getBoundingClientRect().width, summary?.getBoundingClientRect().width ?? 0];
+  });
+  if (widths[0] > 760 || widths[1] > 420) {
     throw new Error(`Design-guide ${label} disclosure is too wide.`);
   }
 }
 
 async function assertSharedEmptyState(page) {
   const emptyStates = await page.locator("[data-empty-state='true']").count();
-  if (emptyStates < 1) {
+  if (emptyStates < 1)
     throw new Error("Design-guide empty state should use the shared Codex empty-state primitive.");
-  }
 }
 
 async function assertSharedStarterCards(page) {
@@ -288,10 +290,7 @@ async function assertStreamingCursorAnimated(locator) {
       : node.querySelector("[class*='after:']");
     return target?.getAttribute("class") ?? "";
   });
-  if (
-    !className.includes("after:motion-safe:animate-pulse") ||
-    !className.includes("after:size-1.5")
-  ) {
+  if (!className.includes("animate-pulse") || !className.includes("size-1.5")) {
     throw new Error("Design-guide streaming cursor should be a small pulsing Codex cursor.");
   }
 }

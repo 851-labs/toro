@@ -22,7 +22,7 @@ export function CodexDisclosureSummary({
   return (
     <summary
       className={cn(
-        "flex cursor-pointer list-none items-center gap-2 rounded-lg px-2 py-1.5 text-zinc-600 hover:bg-zinc-50/80 dark:text-zinc-400 dark:hover:bg-zinc-800/80 [&::-webkit-details-marker]:hidden",
+        "inline-flex max-w-full cursor-pointer list-none items-center gap-2 rounded-lg px-2 py-1.5 text-zinc-600 hover:bg-zinc-50/80 dark:text-zinc-400 dark:hover:bg-zinc-800/80 [&::-webkit-details-marker]:hidden",
         summaryClassName,
       )}
       data-disclosure-summary="true"
@@ -30,7 +30,7 @@ export function CodexDisclosureSummary({
       <span className="flex size-6 shrink-0 items-center justify-center text-zinc-500 dark:text-zinc-400">
         {icon}
       </span>
-      <div className="min-w-0 flex-1 leading-5">
+      <div className="min-w-0 leading-5">
         <div className="truncate font-medium text-zinc-900 dark:text-zinc-100">{title}</div>
         {meta ? (
           <div className="min-w-0 text-xs text-zinc-500 dark:text-zinc-400">{meta}</div>

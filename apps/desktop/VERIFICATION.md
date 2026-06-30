@@ -470,8 +470,13 @@ Manual verification:
 - Small streaming cursor desktop stills: `.artifacts/verification/2026-06-30T13-33-25-742Z/*.png`
 - Small streaming cursor design-guide capture: `.artifacts/verification/design-guide/2026-06-30T13-33-13-565Z/page@947a6ff0feb77e0735b9937394bec713.webm`
 - Small streaming cursor design-guide stills: `.artifacts/verification/design-guide/2026-06-30T13-33-13-565Z/*.png`
-- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T13-33-25-742Z/`.
-- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T13-33-13-565Z/`.
+- Confirmed shared plan, thinking, and tool-call disclosure summaries now shrink to their content so chevrons sit beside the compact row instead of at the far transcript edge, with design-guide verification bounding rendered summary width.
+- Compact disclosure summary desktop capture: `.artifacts/verification/2026-06-30T13-43-49-857Z/page@899fb12a65582c85a7812a4d1ea8ca75.webm`
+- Compact disclosure summary desktop stills: `.artifacts/verification/2026-06-30T13-43-49-857Z/*.png`
+- Compact disclosure summary design-guide capture: `.artifacts/verification/design-guide/2026-06-30T13-43-42-308Z/page@fb55a1439ea41b3ca4719955a5c5f857.webm`
+- Compact disclosure summary design-guide stills: `.artifacts/verification/design-guide/2026-06-30T13-43-42-308Z/*.png`
+- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T13-43-49-857Z/`.
+- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T13-43-42-308Z/`.
 
 Automated verification:
 
