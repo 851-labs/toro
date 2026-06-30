@@ -15,7 +15,6 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
       }
     }
   }
-
   async function assertPrimarySidebarSimplified(page) {
     const removedSections = ["Files", "Run With", "Environment"];
 
@@ -25,7 +24,6 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
       }
     }
   }
-
   async function assertSidebarWidthIsCodexLike(page) {
     const width = await page
       .locator("[data-sidebar-rail='true']")
@@ -232,6 +230,12 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
     const className = (await disclosure.getAttribute("class")) ?? "";
     if (className.includes("rounded-[18px]") || className.includes("border ")) {
       throw new Error(`${label} should render as a compact transcript row, not a framed card.`);
+    }
+    const bodyClassName = await disclosure.evaluate(
+      (node) => node.querySelector("[data-thinking-body='true']")?.getAttribute("class") ?? "",
+    );
+    if (bodyClassName.includes("border-l")) {
+      throw new Error(`${label} body should render without a decorative vertical rule.`);
     }
   }
 

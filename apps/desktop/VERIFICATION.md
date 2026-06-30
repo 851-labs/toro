@@ -311,8 +311,9 @@ Manual verification:
 - Confirmed desktop verification targets the active prompt-derived sidebar row, so duplicate historical chat titles do not make the assertion ambiguous.
 - Confirmed project rows no longer remain selected while a chat row inside that project is active, reducing the sidebar to one clear Codex-like active target.
 - Confirmed the design-guide permission story now renders decision state as quiet metadata instead of a status badge, while the verifier still exercises Allow once state changes.
-- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T10-10-55-598Z/`.
-- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T10-10-54-619Z/`.
+- Confirmed thinking disclosure bodies now render as plain transcript text without the old vertical rule, with the desktop verifier asserting the shared `@toro/ui` thinking body stays unframed.
+- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T10-15-29-190Z/`.
+- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T10-15-29-190Z/`.
 
 Automated verification:
 

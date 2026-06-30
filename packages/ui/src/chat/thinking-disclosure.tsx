@@ -34,10 +34,11 @@ export function CodexThinkingDisclosure({
       {children ? (
         <div
           className={cn(
-            "ml-8 mt-1 whitespace-pre-wrap border-l border-zinc-200 pl-3 text-sm leading-6 text-zinc-600",
+            "ml-10 mt-1 whitespace-pre-wrap py-0.5 text-sm leading-6 text-zinc-600",
             isStreaming &&
               "after:ml-1 after:inline-block after:size-1.5 after:rounded-full after:bg-zinc-400",
           )}
+          data-thinking-body="true"
         >
           {children}
         </div>
