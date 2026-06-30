@@ -4,6 +4,7 @@ import {
   CodexSidebarCommand,
   CodexEmptyState,
   CodexChatHeader,
+  CodexSidebarFooter,
   CodexPermissionCard,
   CodexPlanDisclosure,
   CodexSidebarRow,
@@ -266,18 +267,21 @@ function SidebarGroups() {
             </div>
           </CodexSidebarSection>
         </div>
-        <div className="absolute bottom-4 left-3 right-3 flex items-center gap-3 border-t border-zinc-200 pt-4">
-          <div className="flex size-9 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 via-blue-500 to-violet-500 text-sm font-semibold text-white">
-            T
-          </div>
-          <div className="min-w-0 flex-1">
-            <div className="truncate text-sm font-medium">Local host</div>
-            <div className="truncate text-xs text-zinc-500">Toro Demo / connected</div>
-          </div>
-          <span className="flex size-8 shrink-0 items-center justify-center rounded-lg text-zinc-500">
-            <SlidersHorizontal size={16} />
-          </span>
-        </div>
+        <CodexSidebarFooter
+          action={
+            <span className="flex size-8 shrink-0 items-center justify-center rounded-lg text-zinc-500">
+              <SlidersHorizontal size={16} />
+            </span>
+          }
+          avatar={
+            <div className="flex size-9 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 via-blue-500 to-violet-500 text-sm font-semibold text-white">
+              T
+            </div>
+          }
+          className="absolute bottom-0 left-0 right-0"
+          subtitle="Toro Demo / connected"
+          title="Local host"
+        />
       </aside>
       <section className="grid min-h-0 grid-rows-[64px_1fr_auto] bg-white">
         <CodexChatHeader

@@ -10,6 +10,7 @@ import type { AgentProfile, EnvironmentProfile, Session, Workspace } from "@toro
 import {
   Button,
   CodexSidebarCommand,
+  CodexSidebarFooter,
   CodexSidebarTitlebar,
   CodexSidebarTitlebarControl,
   cn,
@@ -198,7 +199,33 @@ export function AgentRail(props: AgentRailProps) {
         </div>
       ) : null}
 
-      <div className="border-t border-zinc-200/80 p-3">
+      <CodexSidebarFooter
+        action={
+          <button
+            aria-expanded={settingsOpen}
+            aria-label="Host settings"
+            className={cn(
+              "inline-flex size-8 shrink-0 items-center justify-center rounded-lg text-zinc-500 transition hover:bg-zinc-200/70 hover:text-zinc-900",
+              settingsOpen ? "bg-zinc-200 text-zinc-950" : "bg-transparent",
+            )}
+            onClick={() => setSettingsOpen((open) => !open)}
+            type="button"
+          >
+            <SlidersHorizontal size={16} />
+          </button>
+        }
+        avatar={
+          <div className="flex size-9 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 via-blue-500 to-violet-500 text-sm font-semibold text-white">
+            T
+          </div>
+        }
+        subtitle={
+          <>
+            {selectedAgent?.name ?? "Agent"} / {props.streamStatus}
+          </>
+        }
+        title="Local host"
+      >
         {settingsOpen ? (
           <div className="mb-2 rounded-lg border border-zinc-200 bg-white p-2 shadow-sm">
             <div className="grid gap-1.5">
@@ -239,30 +266,7 @@ export function AgentRail(props: AgentRailProps) {
             </div>
           </div>
         ) : null}
-        <div className="flex items-center gap-3 rounded-lg px-2 py-2">
-          <div className="flex size-9 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 via-blue-500 to-violet-500 text-sm font-semibold text-white">
-            T
-          </div>
-          <div className="min-w-0 flex-1">
-            <div className="truncate text-sm font-medium">Local host</div>
-            <div className="truncate text-xs text-zinc-500">
-              {selectedAgent?.name ?? "Agent"} / {props.streamStatus}
-            </div>
-          </div>
-          <button
-            aria-expanded={settingsOpen}
-            aria-label="Host settings"
-            className={cn(
-              "inline-flex size-8 shrink-0 items-center justify-center rounded-lg text-zinc-500 transition hover:bg-zinc-200/70 hover:text-zinc-900",
-              settingsOpen ? "bg-zinc-200 text-zinc-950" : "bg-transparent",
-            )}
-            onClick={() => setSettingsOpen((open) => !open)}
-            type="button"
-          >
-            <SlidersHorizontal size={16} />
-          </button>
-        </div>
-      </div>
+      </CodexSidebarFooter>
     </aside>
   );
 }

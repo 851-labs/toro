@@ -60,6 +60,7 @@ await assertSidebarStoryHeader(page);
 await assertSidebarStoryCommands(page);
 await assertSidebarStoryRows(page);
 await assertSidebarStorySections(page);
+await assertSidebarStoryFooter(page);
 await assertSidebarStoryShell(page);
 await assertSidebarStoryWidth(page);
 await screenshot(page, "04-sidebar-groups.png");
@@ -209,6 +210,15 @@ async function assertSidebarStorySections(page) {
     .count();
   if (sections < 1) {
     throw new Error("Design-guide sidebar story should use the shared sidebar section primitive.");
+  }
+}
+
+async function assertSidebarStoryFooter(page) {
+  const footers = await page
+    .locator("[data-sidebar-story-rail='true'] [data-sidebar-footer='true']")
+    .count();
+  if (footers !== 1) {
+    throw new Error(`Design-guide sidebar story should use one shared footer, got ${footers}.`);
   }
 }
 
