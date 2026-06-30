@@ -46,6 +46,7 @@ export function ChatPanel({ agentName, session, workspace }: ChatPanelProps) {
     session.status !== "connecting",
   );
   const transcript = useMemo(() => transcriptItems(session), [session]);
+  const sessionIsEmpty = Boolean(session && transcript.length === 0 && session.plan.length === 0);
   const workspaceName = workspace?.name ?? null;
   const contextItems = useMemo(() => fileContextItems(files.data ?? []), [files.data]);
 
@@ -63,12 +64,16 @@ export function ChatPanel({ agentName, session, workspace }: ChatPanelProps) {
       <div className="min-h-0 overflow-auto px-6 py-8">
         <div className="mx-auto flex max-w-[960px] flex-col gap-5" data-transcript-surface="true">
           {session ? (
-            <>
-              <CodexPlanDisclosure entries={session.plan} />
-              {transcript.map((item) => (
-                <TranscriptBlock item={item} key={`${item.kind}:${item.at}:${itemId(item)}`} />
-              ))}
-            </>
+            sessionIsEmpty ? (
+              <EmptyState agentName={agentName} workspaceName={workspaceName} />
+            ) : (
+              <>
+                <CodexPlanDisclosure entries={session.plan} />
+                {transcript.map((item) => (
+                  <TranscriptBlock item={item} key={`${item.kind}:${item.at}:${itemId(item)}`} />
+                ))}
+              </>
+            )
           ) : (
             <EmptyState agentName={agentName} workspaceName={workspaceName} />
           )}

@@ -176,6 +176,8 @@
 - Composer-aligned design-guide stills: `.artifacts/verification/design-guide/2026-06-30T08-26-28-703Z/*.png`
 - Recent-first project chats capture: `.artifacts/verification/2026-06-30T08-28-48-821Z/page@582e9677a23b3c739bd0c921eb1bc5ef.webm`
 - Recent-first project chats stills: `.artifacts/verification/2026-06-30T08-28-48-821Z/*.png`
+- Empty project chat prompt capture: `.artifacts/verification/2026-06-30T08-33-01-811Z/page@d9192de567648e571912a9594e7ff64d.webm`
+- Empty project chat prompt stills: `.artifacts/verification/2026-06-30T08-33-01-811Z/*.png`
 
 Manual verification:
 
@@ -237,6 +239,7 @@ Manual verification:
 - Confirmed the design-guide sidebar story now uses the same Codex-like rail width as desktop, with the design-guide verifier measuring the story rail.
 - Confirmed the desktop transcript rail now aligns to the shared 960px composer surface so assistant text starts on the Codex-like composer left edge, with desktop and design-guide verifiers measuring the alignment.
 - Confirmed project chat rows now sort newest-first and mark the active chat with `aria-current`, with the UI verifier asserting the current chat is the first row in its project group.
+- Confirmed newly created empty project chats render the centered Codex-style "What should we build in toro?" prompt instead of a blank canvas, with the UI verifier checking the prompt before any message is sent.
 
 Automated verification:
 

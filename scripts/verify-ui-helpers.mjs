@@ -53,6 +53,14 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
     }
   }
 
+  async function assertEmptySessionPrompt(page) {
+    await page
+      .getByRole("heading", { exact: true, name: `What should we build in ${workspaceName}?` })
+      .waitFor({
+        timeout: 5_000,
+      });
+  }
+
   async function assertComposerFooterIsCodexCompact(page) {
     for (const text of ["Open a project to start", "Work locally"]) {
       if ((await page.getByText(text).count()) > 0) {
@@ -426,6 +434,7 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
     assertCurrentChatIsFirstInProject,
     assertDeadControlsRemoved,
     assertDesktopDebugLogsHidden,
+    assertEmptySessionPrompt,
     assertHeaderActions,
     assertHostSettingsToggle,
     assertOnlyFunctionalButtons,
