@@ -9,11 +9,9 @@ import {
 import type { AgentProfile, EnvironmentProfile, Session, Workspace } from "@toro/domain";
 import { Button, cn } from "@toro/ui";
 import {
-  Clock3,
   FolderOpen,
   FolderPlus,
   PanelLeft,
-  Plug,
   Search,
   SlidersHorizontal,
   SquarePen,
@@ -23,13 +21,11 @@ import {
   filterProjectGroups,
   groupWorkspaces,
   NavButton,
-  PluginsView,
   ProjectGroup,
   RailSection,
-  ScheduledView,
 } from "./agent-rail-parts";
 
-type RailView = "plugins" | "projects" | "scheduled" | "search";
+type RailView = "projects" | "search";
 
 interface AgentRailProps {
   readonly activeWorkspace: Workspace | null;
@@ -109,100 +105,78 @@ export function AgentRail(props: AgentRailProps) {
           label="Search"
           onClick={() => setActiveView((view) => (view === "search" ? "projects" : "search"))}
         />
-        <NavButton
-          active={activeView === "scheduled"}
-          icon={<Clock3 size={17} />}
-          label="Scheduled"
-          onClick={() => setActiveView("scheduled")}
-        />
-        <NavButton
-          active={activeView === "plugins"}
-          icon={<Plug size={17} />}
-          label="Plugins"
-          onClick={() => setActiveView("plugins")}
-        />
       </div>
 
       <div className="min-h-0 flex-1 overflow-auto px-3 pb-3 pt-4">
-        {activeView === "scheduled" ? (
-          <ScheduledView />
-        ) : activeView === "plugins" ? (
-          <PluginsView
-            agents={props.agents}
-            selectedAgentId={props.selectedAgentId}
-            onSelectAgent={props.onSelectAgent}
-          />
-        ) : (
-          <RailSection
-            actionIcon={<FolderPlus size={15} />}
-            actionLabel="Open project"
-            actionPressed={projectFormOpen}
-            title="Projects"
-            onAction={() => setProjectFormOpen((open) => !open)}
-          >
-            {searchOpen ? (
-              <div className="mb-3">
+        <RailSection
+          actionIcon={<FolderPlus size={15} />}
+          actionLabel="Open project"
+          actionPressed={projectFormOpen}
+          title="Projects"
+          onAction={() => setProjectFormOpen((open) => !open)}
+        >
+          {searchOpen ? (
+            <div className="mb-3">
+              <input
+                aria-label="Search projects and chats"
+                className="h-9 w-full rounded-xl border border-zinc-200 bg-white px-3 text-sm outline-none placeholder:text-zinc-400 focus:border-zinc-400"
+                onChange={(event) => setSearchQuery(event.target.value)}
+                placeholder="Search projects and chats"
+                value={searchQuery}
+              />
+            </div>
+          ) : null}
+          {projectFormOpen ? (
+            <form
+              className="mb-2"
+              onSubmit={(event) => {
+                event.preventDefault();
+                if (canOpenProject) {
+                  props.onOpenWorkspace();
+                  setProjectFormOpen(false);
+                }
+              }}
+            >
+              <div className="flex gap-2">
                 <input
-                  aria-label="Search projects and chats"
-                  className="h-9 w-full rounded-xl border border-zinc-200 bg-white px-3 text-sm outline-none placeholder:text-zinc-400 focus:border-zinc-400"
-                  onChange={(event) => setSearchQuery(event.target.value)}
-                  placeholder="Search projects and chats"
-                  value={searchQuery}
+                  aria-label="Project path"
+                  className="h-9 min-w-0 flex-1 rounded-xl border border-zinc-200 bg-white px-3 text-sm outline-none placeholder:text-zinc-400 focus:border-zinc-400"
+                  onChange={(event) => props.onWorkspacePathChange(event.target.value)}
+                  placeholder="/path/to/workspace"
+                  value={props.workspacePath}
                 />
+                {canOpenProject ? (
+                  <Button className="h-9 shrink-0" icon={<FolderOpen size={15} />} type="submit">
+                    Open
+                  </Button>
+                ) : (
+                  <span className="inline-flex h-9 shrink-0 items-center gap-2 rounded-xl border border-zinc-200 bg-white px-3 text-sm font-medium text-zinc-400">
+                    <FolderOpen size={15} />
+                    Open
+                  </span>
+                )}
               </div>
-            ) : null}
-            {projectFormOpen ? (
-              <form
-                className="mb-2"
-                onSubmit={(event) => {
-                  event.preventDefault();
-                  if (canOpenProject) {
-                    props.onOpenWorkspace();
-                    setProjectFormOpen(false);
-                  }
-                }}
-              >
-                <div className="flex gap-2">
-                  <input
-                    aria-label="Project path"
-                    className="h-9 min-w-0 flex-1 rounded-xl border border-zinc-200 bg-white px-3 text-sm outline-none placeholder:text-zinc-400 focus:border-zinc-400"
-                    onChange={(event) => props.onWorkspacePathChange(event.target.value)}
-                    placeholder="/path/to/workspace"
-                    value={props.workspacePath}
-                  />
-                  {canOpenProject ? (
-                    <Button className="h-9 shrink-0" icon={<FolderOpen size={15} />} type="submit">
-                      Open
-                    </Button>
-                  ) : (
-                    <span className="inline-flex h-9 shrink-0 items-center gap-2 rounded-xl border border-zinc-200 bg-white px-3 text-sm font-medium text-zinc-400">
-                      <FolderOpen size={15} />
-                      Open
-                    </span>
-                  )}
-                </div>
-              </form>
-            ) : null}
-            {projectGroups.length > 0 ? (
-              projectGroups.map((group) => (
-                <ProjectGroup
-                  activeSessionId={props.activeSessionId}
-                  activeWorkspaceId={props.activeWorkspace?.id ?? null}
-                  key={`${group.workspace.environmentId}:${group.workspace.path}`}
-                  sessions={group.sessions}
-                  workspace={group.workspace}
-                  workspaceIds={group.workspaceIds}
-                  onSelectSession={props.onSelectSession}
-                  onSelectWorkspace={props.onSelectWorkspace}
-                />
-              ))
-            ) : (
-              <div className="px-3 py-2 text-sm text-zinc-400">
-                {props.workspaces.length > 0 ? "No matches" : "No projects"}
-              </div>
-            )}
-          </RailSection>
-        )}
+            </form>
+          ) : null}
+          {projectGroups.length > 0 ? (
+            projectGroups.map((group) => (
+              <ProjectGroup
+                activeSessionId={props.activeSessionId}
+                activeWorkspaceId={props.activeWorkspace?.id ?? null}
+                key={`${group.workspace.environmentId}:${group.workspace.path}`}
+                sessions={group.sessions}
+                workspace={group.workspace}
+                workspaceIds={group.workspaceIds}
+                onSelectSession={props.onSelectSession}
+                onSelectWorkspace={props.onSelectWorkspace}
+              />
+            ))
+          ) : (
+            <div className="px-3 py-2 text-sm text-zinc-400">
+              {props.workspaces.length > 0 ? "No matches" : "No projects"}
+            </div>
+          )}
+        </RailSection>
       </div>
 
       {props.error ? (

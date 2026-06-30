@@ -1,7 +1,7 @@
-import type { AgentId, SessionId, WorkspaceId } from "@toro/domain";
-import type { AgentProfile, Session, Workspace } from "@toro/domain";
+import type { SessionId, WorkspaceId } from "@toro/domain";
+import type { Session, Workspace } from "@toro/domain";
 import { cn } from "@toro/ui";
-import { Layers, MessageSquare, Plug } from "lucide-react";
+import { Layers, MessageSquare } from "lucide-react";
 import type { ReactNode } from "react";
 
 export interface ProjectGroupModel {
@@ -35,39 +35,6 @@ export function NavButton({
       {icon}
       {label}
     </button>
-  );
-}
-
-export function ScheduledView() {
-  return (
-    <RailSection title="Scheduled">
-      <div className="px-3 py-2 text-sm text-zinc-400">No scheduled chats</div>
-    </RailSection>
-  );
-}
-
-export function PluginsView({
-  agents,
-  selectedAgentId,
-  onSelectAgent,
-}: {
-  readonly agents: readonly AgentProfile[];
-  readonly selectedAgentId: AgentId;
-  readonly onSelectAgent: (id: AgentId) => void;
-}) {
-  return (
-    <RailSection title="Plugins">
-      {agents.map((agent) => (
-        <RailButton
-          active={agent.id === selectedAgentId}
-          ariaLabel={`Select agent ${agent.name}`}
-          icon={<Plug size={16} />}
-          key={agent.id}
-          label={agent.name}
-          onClick={() => onSelectAgent(agent.id)}
-        />
-      ))}
-    </RailSection>
   );
 }
 

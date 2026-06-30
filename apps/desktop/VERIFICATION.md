@@ -94,6 +94,8 @@
 - Story views design-guide stills: `.artifacts/verification/design-guide/2026-06-30T05-40-57-591Z/*.png`
 - Incremental thinking stream capture: `.artifacts/verification/2026-06-30T05-51-47-941Z/page@054951580dba22f7c5590b0416514973.webm`
 - Incremental thinking stream stills: `.artifacts/verification/2026-06-30T05-51-47-941Z/*.png`
+- Placeholder rail cleanup capture: `.artifacts/verification/2026-06-30T05-54-47-952Z/page@9378d0874363ed452028b3b5c38b6645.webm`
+- Placeholder rail cleanup stills: `.artifacts/verification/2026-06-30T05-54-47-952Z/*.png`
 
 Manual verification:
 
@@ -128,11 +130,12 @@ Manual verification:
 - Confirmed the raw project path form is hidden by default and opens through a compact Projects action while preserving the project-open flow.
 - Confirmed the header sidebar icon is now a functional Codex-style toggle that hides and restores the sidebar during verification.
 - Confirmed permission requests use a compact shared chat primitive instead of the older amber alert card while keeping allow/reject actions functional.
-- Confirmed the sidebar now uses Codex-like traffic controls and functional Scheduled/Plugins rail modes, while project rows hide filesystem paths unless hovered.
+- Confirmed the sidebar now uses Codex-like traffic controls and hides filesystem paths in project rows unless hovered.
 - Confirmed the composer `+` control is restored as a functional context picker that attaches/removes visible context chips in both desktop and the design guide.
 - Confirmed the chat title ellipsis is restored as a functional Codex-style menu with visible copy-title and copy-workspace-path states.
 - Confirmed the internal TanStack Start design guide now has functional story views for chat elements, sidebar groups, and composer states.
 - Confirmed the deterministic ACP demo now streams thinking text incrementally and the UI verifier captures a partial thought before permission appears.
+- Confirmed placeholder Scheduled and Plugins rail buttons are removed from the desktop UI while agent selection remains available through Host settings.
 
 Automated verification:
 

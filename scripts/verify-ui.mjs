@@ -27,7 +27,6 @@ await assertPrimarySidebarSimplified(page);
 await assertProjectFormHidden(page);
 await assertOnlyFunctionalButtons(page);
 await assertHostSettingsToggle(page);
-await assertCodexRailModes(page);
 const composer = page.getByLabel("Message agent");
 await selectComposerOption(page, "Access mode", "Ask first");
 await selectComposerOption(page, "Model", "5.5 High");
@@ -160,7 +159,15 @@ async function pause() {
 }
 
 async function assertDeadControlsRemoved(page) {
-  const deadButtons = ["Open in", "Chat settings", "Toggle preview", "Dictate", /Remote Sandbox/];
+  const deadButtons = [
+    "Open in",
+    "Chat settings",
+    "Toggle preview",
+    "Dictate",
+    "Scheduled",
+    "Plugins",
+    /Remote Sandbox/,
+  ];
 
   for (const name of deadButtons) {
     if ((await page.getByRole("button", { exact: true, name }).count()) > 0) {
@@ -217,28 +224,6 @@ async function assertSidebarToggle(page) {
   await toggle.click();
   await page.locator("aside").waitFor({ timeout: 5_000 });
   await page.getByRole("heading", { exact: true, name: "Projects" }).waitFor({ timeout: 5_000 });
-}
-
-async function assertCodexRailModes(page) {
-  await page.getByRole("button", { exact: true, name: "Scheduled" }).click();
-  await expectPressed(page.getByRole("button", { exact: true, name: "Scheduled" }));
-  await page.getByText("No scheduled chats").waitFor({ timeout: 5_000 });
-  await assertOnlyFunctionalButtons(page);
-  await screenshot(page, "00-sidebar-scheduled.png");
-
-  await page.getByRole("button", { exact: true, name: "Plugins" }).click();
-  await expectPressed(page.getByRole("button", { exact: true, name: "Plugins" }));
-  await page.getByRole("button", { exact: true, name: "Select agent Toro Demo" }).waitFor({
-    timeout: 5_000,
-  });
-  await assertOnlyFunctionalButtons(page);
-  await screenshot(page, "00-sidebar-plugins.png");
-
-  await page.getByRole("button", { exact: true, name: "Search" }).click();
-  await page.getByLabel("Search projects and chats").waitFor({ timeout: 5_000 });
-  await page.getByRole("button", { exact: true, name: "Search" }).click();
-  await page.getByRole("heading", { exact: true, name: "Projects" }).waitFor({ timeout: 5_000 });
-  await assertProjectFormHidden(page);
 }
 
 async function assertComposerContextPicker(page) {
@@ -311,8 +296,6 @@ function isKnownFunctionalButton(label, extraAllowedLabels) {
       "Open",
       "Open project",
       "Search",
-      "Scheduled",
-      "Plugins",
       "Send",
       "Stop",
       "Host settings",
@@ -338,7 +321,6 @@ function isKnownFunctionalButton(label, extraAllowedLabels) {
     label.startsWith("Attach context ") ||
     label.startsWith("Chat ") ||
     label.startsWith("Remove context ") ||
-    label.startsWith("Select agent ") ||
     label.startsWith(workspaceName)
   );
 }
