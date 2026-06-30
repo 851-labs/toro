@@ -14,6 +14,7 @@ import {
   CodexSidebarSection,
   CodexSidebarTitlebar,
   CodexSidebarTitlebarControl,
+  CodexStarterCards,
   CodexThinkingDisclosure,
   CodexToolCall,
   CodexTranscriptSurface,
@@ -333,7 +334,9 @@ function SidebarGroups() {
           onSubmit={() => setValue("")}
           placeholder="Do anything"
           value={value}
-        />
+        >
+          <CodexStarterCards className="mt-10" />
+        </CodexComposer>
       </section>
     </div>
   );
@@ -356,6 +359,7 @@ function EmptyStates() {
   return (
     <CodexTranscriptSurface className="gap-0">
       <CodexEmptyState workspaceName="toro" />
+      <CodexStarterCards className="mt-10" />
     </CodexTranscriptSurface>
   );
 }

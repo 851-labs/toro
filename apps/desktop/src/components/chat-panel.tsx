@@ -15,6 +15,7 @@ import {
   CodexEmptyState,
   CodexPermissionCard,
   CodexPlanDisclosure,
+  CodexStarterCards,
   CodexThinkingDisclosure,
   CodexToolCall,
   CodexTranscriptSurface,
@@ -109,7 +110,9 @@ export function ChatPanel({ session, workspace }: ChatPanelProps) {
         onSubmit={() => void submit()}
         placeholder={session?.messages.length ? "Ask for follow-up changes" : "Do anything"}
         value={value}
-      />
+      >
+        {projectEmpty ? <CodexStarterCards className="mt-10" /> : null}
+      </CodexComposer>
     </section>
   );
 }

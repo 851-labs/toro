@@ -25,6 +25,7 @@ export interface CodexComposerContextItem {
 export interface CodexComposerProps {
   readonly accessLabel: string;
   readonly canSend: boolean;
+  readonly children?: ReactNode;
   readonly contextItems?: readonly CodexComposerContextItem[];
   readonly contextStrip?: CodexComposerContextStrip;
   readonly isRunning?: boolean;
@@ -49,6 +50,7 @@ const modelOptions = ["5.5 Medium", "5.5 High", "5.5 Low"] as const;
 export function CodexComposer({
   accessLabel,
   canSend,
+  children,
   contextItems = [],
   contextStrip,
   isRunning,
@@ -252,6 +254,7 @@ export function CodexComposer({
         </div>
       </div>
       {contextStrip ? <ComposerContextStrip context={contextStrip} /> : null}
+      {children}
     </form>
   );
 }

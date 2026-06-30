@@ -67,6 +67,7 @@ await page.getByText("Composer context picker").waitFor({ timeout: 5_000 });
 await page
   .getByRole("heading", { exact: true, name: "What should we build in toro?" })
   .waitFor({ timeout: 5_000 });
+await assertSharedStarterCards(page);
 await assertSidebarStoryHeader(page);
 await assertSidebarStoryCommandGroup(page);
 await assertSidebarStoryCommands(page);
@@ -86,6 +87,7 @@ await page
   .getByRole("heading", { exact: true, name: "What should we build in toro?" })
   .waitFor({ timeout: 5_000 });
 await assertSharedEmptyState(page);
+await assertSharedStarterCards(page);
 if ((await page.getByText("Toro Demo is ready.").count()) > 0) {
   throw new Error("Design-guide empty state should not render ready-state subcopy.");
 }
@@ -224,6 +226,20 @@ async function assertSharedEmptyState(page) {
   const emptyStates = await page.locator("[data-empty-state='true']").count();
   if (emptyStates < 1) {
     throw new Error("Design-guide empty state should use the shared Codex empty-state primitive.");
+  }
+}
+
+async function assertSharedStarterCards(page) {
+  const cardGrid = page.locator("[data-starter-cards='true']");
+  const grids = await cardGrid.count();
+  const cards = await page.locator("[data-starter-card='true']").count();
+  if (grids < 1 || cards < 3) {
+    throw new Error(
+      `Design-guide empty project should render shared Codex starter cards, got grids=${grids}, cards=${cards}.`,
+    );
+  }
+  if ((await cardGrid.locator("button").count()) > 0) {
+    throw new Error("Design-guide starter cards should be passive until integrations are wired.");
   }
 }
 

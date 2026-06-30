@@ -264,6 +264,12 @@
 - Shared thinking disclosure marker stills: `.artifacts/verification/2026-06-30T11-44-16-763Z/*.png`
 - Shared thinking disclosure marker design-guide capture: `.artifacts/verification/design-guide/2026-06-30T11-44-09-399Z/page@6fe6375001e1258a054b61158289c436.webm`
 - Shared thinking disclosure marker design-guide stills: `.artifacts/verification/design-guide/2026-06-30T11-44-09-399Z/*.png`
+- Fresh Codex empty-project reference still: `.artifacts/reference/codex/2026-06-30T11-46-55Z/codex-reference.png`
+- Fresh Codex empty-project reference capture: `.artifacts/reference/codex/2026-06-30T11-46-55Z/codex-reference.mov`
+- Shared starter-card capture: `.artifacts/verification/2026-06-30T11-49-05-747Z/page@787b103f9411609ea2c1482c0e039339.webm`
+- Shared starter-card stills: `.artifacts/verification/2026-06-30T11-49-05-747Z/*.png`
+- Shared starter-card design-guide capture: `.artifacts/verification/design-guide/2026-06-30T11-48-56-546Z/page@ecc21563767e99ae0810b709d4f56ff3.webm`
+- Shared starter-card design-guide stills: `.artifacts/verification/design-guide/2026-06-30T11-48-56-546Z/*.png`
 
 Manual verification:
 
@@ -286,6 +292,7 @@ Manual verification:
 - Confirmed permission prompts, permission actions, and tool-call rows expose shared `@toro/ui` markers, with desktop and design-guide verification asserting those chat primitives render in the live flows.
 - Confirmed chat messages, plan disclosures, disclosure summaries, and empty states expose shared `@toro/ui` markers, with desktop and design-guide verification asserting those core chat primitives render in the relevant flows.
 - Confirmed thinking disclosures expose a shared `@toro/ui` marker, with desktop and design-guide verification asserting the Codex-style thinking primitive renders during streaming flows.
+- Captured a fresh installed Codex reference showing empty-project starter cards below the lifted composer, then added passive shared `@toro/ui` starter cards to Toro's empty project desktop and design-guide flows.
 - Confirmed the sidebar visually groups chats under their project and coalesces duplicate opens of the same project path.
 - Confirmed every rendered button in the desktop flow is limited to a wired action: new chat, open project, project/chat selection, send/stop, or permission response.
 - Confirmed the design guide permission buttons update visible state instead of acting as no-op controls.

@@ -91,6 +91,7 @@ await assertProjectFormHidden(page);
 await assertProjectPathHiddenInSidebar(page);
 await assertComposerFooterIsCodexCompact(page);
 await assertSharedEmptyState(page);
+await assertSharedStarterCards(page);
 await assertComposerContextPicker(page);
 await assertOpenInMenu(page);
 await assertOnlyFunctionalButtons(page);
@@ -122,6 +123,7 @@ await assertSidebarChatRowsAreNavigationOnly(page);
 await assertCurrentChatIsFirstInProject(page);
 await assertEmptySessionPrompt(page);
 await assertSharedEmptyState(page);
+await assertSharedStarterCards(page);
 await assertComposerFooterIsCodexCompact(page);
 await assertDesktopDebugLogsHidden(page);
 await assertHeaderActions(page);
@@ -138,6 +140,7 @@ await page
   });
 await assertEmptySessionPrompt(page);
 await assertSharedEmptyState(page);
+await assertSharedStarterCards(page);
 await assertOnlyFunctionalButtons(page);
 await screenshot(page, "04-history-back.png");
 await page.getByRole("button", { exact: true, name: "Forward" }).click();
@@ -335,6 +338,20 @@ async function assertSharedEmptyState(page) {
   const emptyStates = await page.locator("[data-empty-state='true']").count();
   if (emptyStates < 1) {
     throw new Error("Desktop empty chat should use the shared Codex empty-state primitive.");
+  }
+}
+
+async function assertSharedStarterCards(page) {
+  const cardGrid = page.locator("[data-starter-cards='true']");
+  const grids = await cardGrid.count();
+  const cards = await page.locator("[data-starter-card='true']").count();
+  if (grids < 1 || cards < 3) {
+    throw new Error(
+      `Desktop empty project should render shared Codex starter cards, got grids=${grids}, cards=${cards}.`,
+    );
+  }
+  if ((await cardGrid.locator("button").count()) > 0) {
+    throw new Error("Desktop starter cards should be passive until integrations are wired.");
   }
 }
 
