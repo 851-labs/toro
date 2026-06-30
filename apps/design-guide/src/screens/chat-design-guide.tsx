@@ -8,10 +8,13 @@ import {
   CodexToolCall,
   StatusBadge,
 } from "@toro/ui";
-import { Terminal } from "lucide-react";
+import { Clock3, MessageSquare, Plug, Search, SquarePen, Terminal } from "lucide-react";
 import { useState } from "react";
 
+type GuideView = "chat" | "composer" | "sidebar";
+
 export function ChatDesignGuide() {
+  const [activeView, setActiveView] = useState<GuideView>("chat");
   const [composerValue, setComposerValue] = useState("");
   const [permissionDecision, setPermissionDecision] = useState<
     "allowed once" | "rejected" | "waiting"
@@ -28,95 +31,216 @@ export function ChatDesignGuide() {
           Toro UI
         </div>
         <nav className="space-y-1 text-sm">
-          <div className="rounded-xl bg-zinc-200 px-3 py-2 font-medium">Chat Elements</div>
-          <div className="px-3 py-2 text-zinc-500">Sidebar Groups</div>
-          <div className="px-3 py-2 text-zinc-500">Composer States</div>
+          <GuideNavButton
+            active={activeView === "chat"}
+            label="Chat Elements"
+            onClick={() => setActiveView("chat")}
+          />
+          <GuideNavButton
+            active={activeView === "sidebar"}
+            label="Sidebar Groups"
+            onClick={() => setActiveView("sidebar")}
+          />
+          <GuideNavButton
+            active={activeView === "composer"}
+            label="Composer States"
+            onClick={() => setActiveView("composer")}
+          />
         </nav>
       </aside>
       <section className="grid min-h-0 grid-rows-[64px_minmax(0,1fr)_auto]">
         <header className="flex items-center justify-between border-b border-zinc-200/80 px-5">
-          <h1 className="text-lg font-semibold">Codex Chat Surface</h1>
+          <h1 className="text-lg font-semibold">{viewTitle(activeView)}</h1>
           <StatusBadge label="reference" tone="neutral" />
         </header>
         <div className="min-h-0 overflow-auto px-8 py-8">
-          <div className="mx-auto flex max-w-3xl flex-col gap-5">
-            <CodexPlanDisclosure
-              defaultOpen
-              entries={[
-                {
-                  content: "Match Codex message rhythm and spacing.",
-                  status: "completed",
-                },
-                {
-                  content: "Render tool calls as compact disclosures.",
-                  status: "completed",
-                },
-                {
-                  content: "Keep composer controls functional only.",
-                  status: "in_progress",
-                },
-              ]}
+          {activeView === "chat" ? (
+            <ChatElements
+              permissionDecision={permissionDecision}
+              permissionTone={permissionTone}
+              onPermissionDecision={setPermissionDecision}
             />
-            <CodexChatMessage role="user">
-              Make the chat UI look exactly like Codex.
-            </CodexChatMessage>
-            <CodexChatMessage
-              copyText="I will compare the reference capture against Toro and move each chat atom into shared UI primitives."
-              role="assistant"
-            >
-              I will compare the reference capture against Toro and move each chat atom into shared
-              UI primitives.
-            </CodexChatMessage>
-            <CodexChatMessage isStreaming role="assistant">
-              Streaming text keeps a quiet inline cursor while the final response is still arriving
-            </CodexChatMessage>
-            <CodexThinkingDisclosure defaultOpen isStreaming>
-              Reviewing project context and deciding which UI primitive should carry the state.
-            </CodexThinkingDisclosure>
-            <CodexPermissionCard
-              onRespond={(optionId) =>
-                setPermissionDecision(optionId === "allow" ? "allowed once" : "rejected")
-              }
-              options={[
-                { id: "allow", kind: "allow_once", name: "Allow once" },
-                { id: "reject", kind: "reject", name: "Reject" },
-              ]}
-              title={
-                <span className="inline-flex min-w-0 items-center gap-2">
-                  <span>Validate Toro permission UI</span>
-                  <StatusBadge label={permissionDecision} tone={permissionTone} />
-                </span>
-              }
-            />
-            <CodexToolCall
-              defaultOpen
-              kind="execute"
-              status="completed"
-              title="Validate Toro permission UI"
-            >
-              tool cards are working
-            </CodexToolCall>
-            <CodexDisclosure icon={<Terminal size={16} />} title="Activity logs">
-              [2026-06-30T02:35:09.746Z] Connected to ACP agent protocol=1
-            </CodexDisclosure>
-          </div>
+          ) : activeView === "sidebar" ? (
+            <SidebarGroups />
+          ) : (
+            <ComposerStates />
+          )}
         </div>
-        <CodexComposer
-          accessLabel="Full access"
-          canSend={composerValue.trim().length > 0}
-          contextItems={[
-            { detail: "apps/desktop/src/app.tsx", id: "app", label: "app.tsx" },
-            { detail: "packages/ui/src/chat/composer.tsx", id: "composer", label: "composer.tsx" },
-            { detail: "scripts/verify-ui.mjs", id: "verify", label: "verify-ui.mjs" },
-          ]}
-          modelLabel="5.5 Medium"
-          onChange={setComposerValue}
-          onSubmit={() => setComposerValue("")}
-          placeholder="Ask for follow-up changes"
-          value={composerValue}
-          workspaceLabel="toro / Work locally"
-        />
+        {activeView === "composer" ? (
+          <CodexComposer
+            accessLabel="Full access"
+            canSend={composerValue.trim().length > 0}
+            contextItems={contextItems}
+            modelLabel="5.5 Medium"
+            onChange={setComposerValue}
+            onSubmit={() => setComposerValue("")}
+            placeholder="Ask for follow-up changes"
+            value={composerValue}
+            workspaceLabel="toro / Work locally"
+          />
+        ) : (
+          <div />
+        )}
       </section>
     </main>
+  );
+}
+
+const contextItems = [
+  { detail: "apps/desktop/src/app.tsx", id: "app", label: "app.tsx" },
+  { detail: "packages/ui/src/chat/composer.tsx", id: "composer", label: "composer.tsx" },
+  { detail: "scripts/verify-ui.mjs", id: "verify", label: "verify-ui.mjs" },
+];
+
+function GuideNavButton({
+  active,
+  label,
+  onClick,
+}: {
+  readonly active: boolean;
+  readonly label: string;
+  readonly onClick: () => void;
+}) {
+  return (
+    <button
+      aria-label={label}
+      aria-pressed={active}
+      className={
+        active
+          ? "w-full rounded-xl bg-zinc-200 px-3 py-2 text-left font-medium"
+          : "w-full rounded-xl px-3 py-2 text-left text-zinc-500 hover:bg-zinc-200/70"
+      }
+      onClick={onClick}
+      type="button"
+    >
+      {label}
+    </button>
+  );
+}
+
+function viewTitle(view: GuideView) {
+  if (view === "sidebar") {
+    return "Codex Sidebar Groups";
+  }
+  if (view === "composer") {
+    return "Codex Composer States";
+  }
+  return "Codex Chat Surface";
+}
+
+function ChatElements({
+  permissionDecision,
+  permissionTone,
+  onPermissionDecision,
+}: {
+  readonly permissionDecision: "allowed once" | "rejected" | "waiting";
+  readonly permissionTone: "bad" | "neutral";
+  readonly onPermissionDecision: (decision: "allowed once" | "rejected") => void;
+}) {
+  return (
+    <div className="mx-auto flex max-w-3xl flex-col gap-5">
+      <CodexPlanDisclosure defaultOpen entries={planEntries} />
+      <CodexChatMessage role="user">Make the chat UI look exactly like Codex.</CodexChatMessage>
+      <CodexChatMessage
+        copyText="I will compare the reference capture against Toro and move each chat atom into shared UI primitives."
+        role="assistant"
+      >
+        I will compare the reference capture against Toro and move each chat atom into shared UI
+        primitives.
+      </CodexChatMessage>
+      <CodexChatMessage isStreaming role="assistant">
+        Streaming text keeps a quiet inline cursor while the final response is still arriving
+      </CodexChatMessage>
+      <CodexThinkingDisclosure defaultOpen isStreaming>
+        Reviewing project context and deciding which UI primitive should carry the state.
+      </CodexThinkingDisclosure>
+      <CodexPermissionCard
+        onRespond={(optionId) =>
+          onPermissionDecision(optionId === "allow" ? "allowed once" : "rejected")
+        }
+        options={[
+          { id: "allow", kind: "allow_once", name: "Allow once" },
+          { id: "reject", kind: "reject", name: "Reject" },
+        ]}
+        title={
+          <span className="inline-flex min-w-0 items-center gap-2">
+            <span>Validate Toro permission UI</span>
+            <StatusBadge label={permissionDecision} tone={permissionTone} />
+          </span>
+        }
+      />
+      <CodexToolCall
+        defaultOpen
+        kind="execute"
+        status="completed"
+        title="Validate Toro permission UI"
+      >
+        tool cards are working
+      </CodexToolCall>
+      <CodexDisclosure icon={<Terminal size={16} />} title="Activity logs">
+        [2026-06-30T02:35:09.746Z] Connected to ACP agent protocol=1
+      </CodexDisclosure>
+    </div>
+  );
+}
+
+const planEntries = [
+  { content: "Match Codex message rhythm and spacing.", status: "completed" as const },
+  { content: "Render tool calls as compact disclosures.", status: "completed" as const },
+  { content: "Keep composer controls functional only.", status: "in_progress" as const },
+];
+
+function SidebarGroups() {
+  return (
+    <div className="mx-auto grid max-w-4xl grid-cols-[280px_minmax(0,1fr)] overflow-hidden rounded-lg border border-zinc-200 bg-white">
+      <aside className="min-h-[620px] border-r border-zinc-200 bg-[#f2f5f5] px-3 py-4">
+        <div aria-hidden="true" className="mb-5 flex items-center gap-2 px-2">
+          <span className="size-3 rounded-full bg-[#ff5f57]" />
+          <span className="size-3 rounded-full bg-[#ffbd2e]" />
+          <span className="size-3 rounded-full bg-[#28c840]" />
+        </div>
+        <SidebarRow icon={<SquarePen size={16} />} label="New chat" />
+        <SidebarRow icon={<Search size={16} />} label="Search" />
+        <SidebarRow icon={<Clock3 size={16} />} label="Scheduled" />
+        <SidebarRow icon={<Plug size={16} />} label="Plugins" />
+        <div className="mt-8 px-3 text-sm font-medium text-zinc-400">Projects</div>
+        <div className="mt-2 rounded-xl bg-zinc-200 px-3 py-3">
+          <div className="font-medium">toro</div>
+        </div>
+        <div className="ml-6 mt-2 space-y-1 border-l border-zinc-200 pl-2">
+          {["Toro Demo in toro", "Codex in toro", "Composer context picker"].map((label) => (
+            <div className="flex h-9 items-center gap-2 rounded-xl px-2 text-sm" key={label}>
+              <MessageSquare size={14} className="text-zinc-500" />
+              <span className="truncate">{label}</span>
+            </div>
+          ))}
+        </div>
+      </aside>
+      <div className="flex items-center justify-center text-2xl font-medium tracking-tight">
+        What should we build in toro?
+      </div>
+    </div>
+  );
+}
+
+function SidebarRow({ icon, label }: { readonly icon: React.ReactNode; readonly label: string }) {
+  return (
+    <div className="flex h-10 items-center gap-3 rounded-xl px-3 text-sm font-medium text-zinc-800">
+      {icon}
+      {label}
+    </div>
+  );
+}
+
+function ComposerStates() {
+  return (
+    <div className="mx-auto max-w-3xl space-y-5">
+      <CodexChatMessage role="assistant">
+        Use app.tsx and composer.tsx as context for the next Toro chat pass.
+      </CodexChatMessage>
+      <CodexToolCall kind="read" status="completed" title="Load composer context candidates">
+        app.tsx, composer.tsx, verify-ui.mjs
+      </CodexToolCall>
+    </div>
   );
 }

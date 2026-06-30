@@ -43,6 +43,17 @@ await page.getByText("allowed once").waitFor({ timeout: 5_000 });
 await screenshot(page, "02-permission-responded.png");
 await pause();
 
+await page.getByRole("button", { exact: true, name: "Sidebar Groups" }).click();
+await expectPressed(page.getByRole("button", { exact: true, name: "Sidebar Groups" }));
+await page.getByText("Codex Sidebar Groups").waitFor({ timeout: 5_000 });
+await page.getByText("Composer context picker").waitFor({ timeout: 5_000 });
+await screenshot(page, "03-sidebar-groups.png");
+await pause();
+
+await page.getByRole("button", { exact: true, name: "Composer States" }).click();
+await expectPressed(page.getByRole("button", { exact: true, name: "Composer States" }));
+await page.getByText("Codex Composer States").waitFor({ timeout: 5_000 });
+await page.getByText("Use app.tsx and composer.tsx").waitFor({ timeout: 5_000 });
 const composer = page.getByLabel("Message agent");
 await selectComposerOption(page, "Access mode", "Read only");
 await selectComposerOption(page, "Model", "5.5 Low");
@@ -55,7 +66,7 @@ await expectPressed(page.getByRole("button", { exact: true, name: "Attach contex
 await page.getByRole("button", { exact: true, name: "Remove context composer.tsx" }).waitFor({
   timeout: 5_000,
 });
-await screenshot(page, "03-context-attached.png");
+await screenshot(page, "04-context-attached.png");
 await page.getByRole("button", { exact: true, name: "Remove context composer.tsx" }).click();
 await page.getByRole("button", { exact: true, name: "Add context" }).click();
 await pause();
@@ -64,7 +75,7 @@ await page.getByRole("button", { exact: true, name: "Send" }).click();
 if ((await composer.inputValue()) !== "") {
   throw new Error("Design guide composer did not clear after send.");
 }
-await screenshot(page, "04-composer-cleared.png");
+await screenshot(page, "05-composer-cleared.png");
 await pause();
 
 await context.close();

@@ -90,6 +90,8 @@
 - Composer context design-guide stills: `.artifacts/verification/design-guide/2026-06-30T05-25-41-672Z/*.png`
 - Header actions capture: `.artifacts/verification/2026-06-30T05-33-46-509Z/page@6ccb95dfca13c450ad3f8e4f3d71a122.webm`
 - Header actions stills: `.artifacts/verification/2026-06-30T05-33-46-509Z/*.png`
+- Story views design-guide capture: `.artifacts/verification/design-guide/2026-06-30T05-40-57-591Z/page@8b6da4702fd15720a8c80caab499f910.webm`
+- Story views design-guide stills: `.artifacts/verification/design-guide/2026-06-30T05-40-57-591Z/*.png`
 
 Manual verification:
 
@@ -127,6 +129,7 @@ Manual verification:
 - Confirmed the sidebar now uses Codex-like traffic controls and functional Scheduled/Plugins rail modes, while project rows hide filesystem paths unless hovered.
 - Confirmed the composer `+` control is restored as a functional context picker that attaches/removes visible context chips in both desktop and the design guide.
 - Confirmed the chat title ellipsis is restored as a functional Codex-style menu with visible copy-title and copy-workspace-path states.
+- Confirmed the internal TanStack Start design guide now has functional story views for chat elements, sidebar groups, and composer states.
 
 Automated verification:
 
