@@ -12,10 +12,15 @@ import {
 import {
   ChevronLeft,
   ChevronRight,
+  ChevronDown,
+  Code2,
   FileText,
   FolderPlus,
   MessageSquare,
+  MoreHorizontal,
+  NotebookTabs,
   PanelLeft,
+  PanelRight,
   Search,
   SlidersHorizontal,
   SquarePen,
@@ -284,7 +289,34 @@ function SidebarGroups() {
           </span>
         </div>
       </aside>
-      <section className="grid min-h-0 grid-rows-[1fr_auto] bg-white">
+      <section className="grid min-h-0 grid-rows-[64px_1fr_auto] bg-white">
+        <header
+          aria-label="Sidebar story chat header"
+          className="flex items-center justify-between border-b border-zinc-200/80 px-5"
+        >
+          <div className="flex min-w-0 items-center gap-3">
+            <span
+              aria-hidden="true"
+              className="flex size-8 shrink-0 items-center justify-center text-zinc-500"
+            >
+              <NotebookTabs size={18} />
+            </span>
+            <h2 className="truncate text-lg font-semibold">New chat</h2>
+            <span className="flex size-8 shrink-0 items-center justify-center rounded-lg text-zinc-500">
+              <MoreHorizontal size={18} />
+            </span>
+          </div>
+          <div className="flex items-center gap-2 text-sm text-zinc-500">
+            <span className="inline-flex h-9 items-center gap-2 rounded-xl border border-zinc-200 bg-white px-3 font-medium shadow-sm">
+              <Code2 size={16} />
+              Open in
+              <ChevronDown size={15} />
+            </span>
+            <span className="flex size-8 shrink-0 items-center justify-center rounded-lg text-zinc-500">
+              <PanelRight size={18} />
+            </span>
+          </div>
+        </header>
         <div className="min-h-0 overflow-hidden px-6 py-8">
           <CodexTranscriptSurface className="h-full justify-end pb-16">
             <CodexEmptyState placement="composer" workspaceName="toro" />

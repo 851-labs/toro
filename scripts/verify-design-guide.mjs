@@ -55,6 +55,7 @@ await page.getByText("Composer context picker").waitFor({ timeout: 5_000 });
 await page
   .getByRole("heading", { exact: true, name: "What should we build in toro?" })
   .waitFor({ timeout: 5_000 });
+await assertSidebarStoryHeader(page);
 await assertSidebarStoryShell(page);
 await assertSidebarStoryWidth(page);
 await screenshot(page, "04-sidebar-groups.png");
@@ -151,6 +152,18 @@ async function assertSidebarStoryShell(page) {
     (await page.locator("[data-sidebar-story-shell='true']").getAttribute("class")) ?? "";
   if (className.includes("rounded") || className.includes("border ")) {
     throw new Error("Design-guide sidebar story should render as an unframed app shell.");
+  }
+}
+
+async function assertSidebarStoryHeader(page) {
+  const header = page.getByLabel("Sidebar story chat header");
+  await header.getByText("New chat", { exact: true }).waitFor({ timeout: 5_000 });
+  await header.getByText("Open in", { exact: true }).waitFor({ timeout: 5_000 });
+  const height = await header.evaluate((node) => node.getBoundingClientRect().height);
+  if (height < 60 || height > 68) {
+    throw new Error(
+      `Design-guide sidebar story header should match desktop height, got ${height}.`,
+    );
   }
 }
 

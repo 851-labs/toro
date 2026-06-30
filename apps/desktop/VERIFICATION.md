@@ -313,8 +313,9 @@ Manual verification:
 - Confirmed the design-guide permission story now renders decision state as quiet metadata instead of a status badge, while the verifier still exercises Allow once state changes.
 - Confirmed thinking disclosure bodies now render as plain transcript text without the old vertical rule, with the desktop verifier asserting the shared `@toro/ui` thinking body stays unframed.
 - Confirmed the design-guide sidebar story now renders as an unframed app shell with the shared empty-state and composer primitives, with the design-guide verifier rejecting rounded/card-framed story shells.
-- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T10-19-33-711Z/`.
-- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T10-19-33-495Z/`.
+- Confirmed the design-guide sidebar story now includes the desktop-like main chat header above the empty chat/composer shell, with the verifier checking the header label, Open in affordance, and 64px height.
+- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T10-22-35-564Z/`.
+- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T10-22-35-455Z/`.
 
 Automated verification:
 
