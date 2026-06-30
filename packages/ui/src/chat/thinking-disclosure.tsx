@@ -40,7 +40,7 @@ export function CodexThinkingDisclosure({
           className={cn(
             "ml-10 mt-1 whitespace-pre-wrap py-0.5 text-sm leading-6 text-zinc-600 dark:text-zinc-400",
             isStreaming &&
-              "after:ml-1 after:inline-block after:size-1.5 after:rounded-full after:bg-zinc-400 after:motion-safe:animate-pulse",
+              "after:ml-1 after:inline-block after:size-1.5 after:align-middle after:rounded-full after:bg-zinc-400 after:motion-safe:animate-pulse",
           )}
           data-thinking-body="true"
         >

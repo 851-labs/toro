@@ -288,8 +288,11 @@ async function assertStreamingCursorAnimated(locator) {
       : node.querySelector("[class*='after:']");
     return target?.getAttribute("class") ?? "";
   });
-  if (!className.includes("after:motion-safe:animate-pulse")) {
-    throw new Error("Design-guide streaming cursor should pulse like Codex.");
+  if (
+    !className.includes("after:motion-safe:animate-pulse") ||
+    !className.includes("after:size-1.5")
+  ) {
+    throw new Error("Design-guide streaming cursor should be a small pulsing Codex cursor.");
   }
 }
 

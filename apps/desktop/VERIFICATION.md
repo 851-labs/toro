@@ -465,8 +465,13 @@ Manual verification:
 - Compact starter cards desktop stills: `.artifacts/verification/2026-06-30T13-28-06-689Z/*.png`
 - Compact starter cards design-guide capture: `.artifacts/verification/design-guide/2026-06-30T13-27-55-172Z/page@24a756a935e2009e3eea8725c7eddfb3.webm`
 - Compact starter cards design-guide stills: `.artifacts/verification/design-guide/2026-06-30T13-27-55-172Z/*.png`
-- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T13-28-06-689Z/`.
-- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T13-27-55-172Z/`.
+- Confirmed assistant and thinking streaming cursors now use smaller 6px baseline-aligned Codex-like dots, with design-guide verification asserting the shared small cursor class.
+- Small streaming cursor desktop capture: `.artifacts/verification/2026-06-30T13-33-25-742Z/page@dc16f752dbcfb727780170e22556fabf.webm`
+- Small streaming cursor desktop stills: `.artifacts/verification/2026-06-30T13-33-25-742Z/*.png`
+- Small streaming cursor design-guide capture: `.artifacts/verification/design-guide/2026-06-30T13-33-13-565Z/page@947a6ff0feb77e0735b9937394bec713.webm`
+- Small streaming cursor design-guide stills: `.artifacts/verification/design-guide/2026-06-30T13-33-13-565Z/*.png`
+- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T13-33-25-742Z/`.
+- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T13-33-13-565Z/`.
 
 Automated verification:
 
