@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { useState } from "react";
 import { Check, Copy, Maximize2, Minimize2, ThumbsDown, ThumbsUp } from "lucide-react";
 import { cn } from "../cn";
+import { CodexMessageAction } from "./message-action";
 
 export interface CodexChatMessageProps {
   readonly children: ReactNode;
@@ -52,65 +53,38 @@ export function CodexChatMessage({ children, copyText, isStreaming, role }: Code
         {showActions ? (
           <div className="mt-1 flex items-center gap-1 text-zinc-400">
             {canCopy ? (
-              <MessageAction
+              <CodexMessageAction
                 label={copied ? "Copied message" : "Copy message"}
                 onClick={() => void copyMessage()}
               >
                 {copied ? <Check size={15} /> : <Copy size={15} />}
-              </MessageAction>
+              </CodexMessageAction>
             ) : null}
-            <MessageAction
+            <CodexMessageAction
               label="Good response"
               onClick={() => setFeedback((value) => (value === "good" ? null : "good"))}
               pressed={feedback === "good"}
             >
               <ThumbsUp size={15} />
-            </MessageAction>
-            <MessageAction
+            </CodexMessageAction>
+            <CodexMessageAction
               label="Bad response"
               onClick={() => setFeedback((value) => (value === "bad" ? null : "bad"))}
               pressed={feedback === "bad"}
             >
               <ThumbsDown size={15} />
-            </MessageAction>
-            <MessageAction
+            </CodexMessageAction>
+            <CodexMessageAction
               label={expanded ? "Collapse message" : "Expand message"}
               onClick={() => setExpanded((value) => !value)}
               pressed={expanded}
             >
               {expanded ? <Minimize2 size={15} /> : <Maximize2 size={15} />}
-            </MessageAction>
+            </CodexMessageAction>
           </div>
         ) : null}
       </div>
     </article>
-  );
-}
-
-function MessageAction({
-  children,
-  label,
-  onClick,
-  pressed,
-}: {
-  readonly children: ReactNode;
-  readonly label: string;
-  readonly onClick: () => void;
-  readonly pressed?: boolean;
-}) {
-  return (
-    <button
-      aria-label={label}
-      aria-pressed={pressed}
-      className={cn(
-        "flex size-7 items-center justify-center rounded-md transition hover:bg-zinc-100 hover:text-zinc-700",
-        pressed ? "bg-zinc-100 text-zinc-800" : "text-zinc-400",
-      )}
-      onClick={onClick}
-      type="button"
-    >
-      {children}
-    </button>
   );
 }
 

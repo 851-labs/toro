@@ -194,6 +194,10 @@
 - Quiet tool output desktop stills: `.artifacts/verification/2026-06-30T08-54-00-101Z/*.png`
 - Quiet tool output design-guide capture: `.artifacts/verification/design-guide/2026-06-30T08-54-24-078Z/page@6b5b585067d6625e91e4f6fd71116e82.webm`
 - Quiet tool output design-guide stills: `.artifacts/verification/design-guide/2026-06-30T08-54-24-078Z/*.png`
+- Shared message actions desktop capture: `.artifacts/verification/2026-06-30T08-58-59-788Z/page@ed7ca34ceaade0b3d29bd2d82454b688.webm`
+- Shared message actions desktop stills: `.artifacts/verification/2026-06-30T08-58-59-788Z/*.png`
+- Shared message actions design-guide capture: `.artifacts/verification/design-guide/2026-06-30T08-59-20-659Z/page@df3779c8e956035a6cc7273050ba4db3.webm`
+- Shared message actions design-guide stills: `.artifacts/verification/design-guide/2026-06-30T08-59-20-659Z/*.png`
 
 Manual verification:
 
@@ -261,6 +265,7 @@ Manual verification:
 - Confirmed the empty chat prompt now lives in the shared `@toro/ui` chat primitives and is covered by an interactive TanStack Start design-guide `Empty States` view.
 - Confirmed the 960px Codex transcript rail now lives in the shared `@toro/ui` chat primitives and is reused by desktop and the TanStack Start design guide, with visual verifiers still measuring transcript/composer alignment.
 - Confirmed expanded tool output now renders as a quiet indented transcript block instead of a rounded bordered card, with the desktop UI verifier asserting the output shell stays unframed.
+- Confirmed Codex-style message action buttons now live in a shared `@toro/ui` chat atom while desktop and design-guide flows still exercise copy, feedback, and expand/collapse states.
 
 Automated verification:
 
