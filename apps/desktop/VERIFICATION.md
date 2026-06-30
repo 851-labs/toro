@@ -434,8 +434,13 @@ Manual verification:
 - Compact disclosure desktop stills: `.artifacts/verification/2026-06-30T12-52-50-438Z/*.png`
 - Compact disclosure design-guide capture: `.artifacts/verification/design-guide/2026-06-30T12-52-50-438Z/page@bea371156a86372dbfbfa57f91e5a9fc.webm`
 - Compact disclosure design-guide stills: `.artifacts/verification/design-guide/2026-06-30T12-52-50-438Z/*.png`
-- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T12-52-50-438Z/`.
-- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T12-52-50-438Z/`.
+- Confirmed the desktop and design-guide `Open in` header control now use a shared VS Code-style mark instead of the generic code glyph.
+- VS Code mark desktop capture: `.artifacts/verification/2026-06-30T12-59-08-826Z/page@250e3f6e02a24165b900b0cc958643ee.webm`
+- VS Code mark desktop stills: `.artifacts/verification/2026-06-30T12-59-08-826Z/*.png`
+- VS Code mark design-guide capture: `.artifacts/verification/design-guide/2026-06-30T12-59-09-203Z/page@123d43ab5af42d6c51e01df061b3a7c0.webm`
+- VS Code mark design-guide stills: `.artifacts/verification/design-guide/2026-06-30T12-59-09-203Z/*.png`
+- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T12-59-08-826Z/`.
+- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T12-59-09-203Z/`.
 
 Automated verification:
 

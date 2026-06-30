@@ -19,13 +19,13 @@ import {
   CodexToolCall,
   CodexTranscriptSurface,
   StatusBadge,
+  VsCodeMark,
 } from "@toro/ui";
 import {
   ChevronLeft,
   ChevronRight,
   ChevronDown,
   Clock,
-  Code2,
   FileText,
   FolderPlus,
   MessageSquare,
@@ -309,7 +309,7 @@ function SidebarGroups() {
           rightActions={
             <>
               <span className="inline-flex h-9 items-center gap-2 rounded-xl border border-zinc-200 bg-white px-3 font-medium shadow-sm">
-                <Code2 size={16} />
+                <VsCodeMark size={16} />
                 Open in
                 <ChevronDown size={15} />
               </span>

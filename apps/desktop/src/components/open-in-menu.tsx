@@ -1,8 +1,8 @@
 import type { WorkspaceId } from "@toro/domain";
-import { Check, ChevronDown, Code2, Copy, FolderOpen } from "lucide-react";
+import { Check, ChevronDown, Copy, FolderOpen } from "lucide-react";
 import type { ReactNode } from "react";
 import { useState } from "react";
-import { cn } from "@toro/ui";
+import { cn, VsCodeMark } from "@toro/ui";
 import { hostClient } from "../lib/host-client";
 
 interface OpenInMenuProps {
@@ -38,14 +38,14 @@ export function OpenInMenu({ workspaceId, workspacePath }: OpenInMenuProps) {
         onClick={() => setOpen((value) => !value)}
         type="button"
       >
-        <Code2 size={16} />
+        <VsCodeMark size={16} />
         <span>Open in</span>
         <ChevronDown size={14} />
       </button>
       {open ? (
         <div className="absolute right-0 top-10 z-20 w-56 rounded-xl border border-zinc-200 bg-white p-1.5 shadow-md">
           <OpenInAction label="Open in VS Code" onClick={() => void openExternal("vscode")}>
-            <Code2 size={15} className="text-zinc-400" />
+            <VsCodeMark size={15} />
           </OpenInAction>
           <OpenInAction label="Reveal in Finder" onClick={() => void openExternal("finder")}>
             <FolderOpen size={15} className="text-zinc-400" />

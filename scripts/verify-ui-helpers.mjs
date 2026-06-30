@@ -283,9 +283,10 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
     await screenshot(page, "04-header-actions.png");
     await page.getByRole("button", { exact: true, name: "More chat actions" }).click();
   }
-
   async function assertOpenInMenu(page) {
     await page.getByRole("button", { exact: true, name: "Open in" }).click();
+    const marks = await page.locator("[data-vscode-mark='true']").count();
+    if (marks < 2) throw new Error("Open in should use VS Code marks.");
     await page.getByRole("button", { exact: true, name: "Open in VS Code" }).waitFor({
       timeout: 5_000,
     });
