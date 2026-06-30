@@ -40,6 +40,12 @@ export type HostEvent =
       readonly status: SessionStatus;
       readonly at: string;
     }
+  | {
+      readonly type: "session_title_changed";
+      readonly sessionId: SessionId;
+      readonly title: string;
+      readonly at: string;
+    }
   | { readonly type: "message_appended"; readonly message: ChatMessage }
   | { readonly type: "thought_appended"; readonly thought: ThoughtEntry }
   | {

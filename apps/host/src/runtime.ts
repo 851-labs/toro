@@ -152,6 +152,7 @@ export class HostRuntime {
 
   sendUserMessage(id: SessionId, content: string): void {
     const session = this.requireSession(id);
+    const stateSession = this.state.sessions.find((candidate) => candidate.id === id);
     const at = new Date().toISOString();
     this.publish({
       message: {
@@ -164,6 +165,17 @@ export class HostRuntime {
       },
       type: "message_appended",
     });
+    if (
+      stateSession &&
+      stateSession.messages.filter((message) => message.role === "user").length === 0
+    ) {
+      this.publish({
+        at,
+        sessionId: id,
+        title: titleFromPrompt(content),
+        type: "session_title_changed",
+      });
+    }
     void session.sendPrompt(content);
   }
 
@@ -246,6 +258,17 @@ function externalOpenCommand(
   return target === "vscode"
     ? { args: [path], command: "code" }
     : { args: [path], command: "xdg-open" };
+}
+
+function titleFromPrompt(content: string) {
+  const normalized = content.trim().replace(/\s+/g, " ");
+  const trimmed = normalized.replace(/[.!?]+$/, "");
+  if (trimmed.length <= 56) {
+    return trimmed || "New chat";
+  }
+  const candidate = trimmed.slice(0, 53).trimEnd();
+  const boundary = candidate.lastIndexOf(" ");
+  return `${candidate.slice(0, boundary > 32 ? boundary : candidate.length)}...`;
 }
 
 function launchExternalProcess(command: string, args: readonly string[]): void {

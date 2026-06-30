@@ -110,4 +110,27 @@ describe("applyHostEvent", () => {
     expect(withThought.sessions[0]?.thoughts[0]?.status).toBe("streaming");
     expect(completed.sessions[0]?.thoughts[0]?.status).toBe("complete");
   });
+
+  it("updates a session title", () => {
+    const id = sessionId("session-1");
+    const created = applyHostEvent(emptyToroState, {
+      agentId: agentId("codex"),
+      createdAt: "2026-06-30T00:00:00.000Z",
+      environmentId: environmentId("local-desktop"),
+      sessionId: id,
+      title: "Codex",
+      type: "session_created",
+      workspaceId: workspaceId("workspace-1"),
+    });
+
+    const renamed = applyHostEvent(created, {
+      at: "2026-06-30T00:00:01.000Z",
+      sessionId: id,
+      title: "Make the sidebar match Codex",
+      type: "session_title_changed",
+    });
+
+    expect(renamed.sessions[0]?.title).toBe("Make the sidebar match Codex");
+    expect(renamed.sessions[0]?.updatedAt).toBe("2026-06-30T00:00:01.000Z");
+  });
 });

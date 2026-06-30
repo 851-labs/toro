@@ -43,6 +43,12 @@ export function applyHostEvent(state: ToroState, event: HostEvent): ToroState {
         status: event.status,
         updatedAt: event.at,
       }));
+    case "session_title_changed":
+      return updateSession(state, event.sessionId, (session) => ({
+        ...session,
+        title: event.title,
+        updatedAt: event.at,
+      }));
     case "message_appended":
       return updateSession(state, event.message.sessionId, (session) => ({
         ...session,

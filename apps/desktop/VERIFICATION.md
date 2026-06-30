@@ -306,8 +306,9 @@ Manual verification:
 - Confirmed the sidebar titlebar now clusters traffic controls, collapse, Back, and Forward like Codex, with Back/Forward rendered as passive glyphs until real navigation history exists.
 - Confirmed sidebar Back returns from a new chat to the lifted empty project composer and Forward restores the selected chat, with the desktop UI verifier capturing `04-history-back.png`.
 - Confirmed expanded tool output no longer renders a vertical rule or hover-filled summary band, keeping completed tool calls closer to Codex's quiet transcript text.
-- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T09-52-34-831Z/`.
-- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T09-52-35-349Z/`.
+- Confirmed new chats are renamed from the first user prompt through a domain session-title event, with desktop verification asserting the updated header and active sidebar row.
+- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T09-57-45-140Z/`.
+- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T09-57-45-135Z/`.
 
 Automated verification:
 

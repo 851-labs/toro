@@ -179,6 +179,12 @@ await screenshot(page, "07-streaming-in-progress.png");
 await pause();
 
 await page.getByText(/tool cards are working/).waitFor({ timeout: 10_000 });
+await page
+  .getByRole("heading", { exact: true, name: "Verify the Toro ACP UI loop" })
+  .waitFor({ timeout: 5_000 });
+await page
+  .getByRole("button", { exact: true, name: "Chat Verify the Toro ACP UI loop" })
+  .waitFor({ timeout: 5_000 });
 await assertDesktopDebugLogsHidden(page);
 await assertOnlyFunctionalButtons(page);
 await assertTranscriptOrder(page);

@@ -68,6 +68,26 @@ describe("HostRuntime", () => {
     expect(session?.toolCalls[0]?.status).toBe("completed");
     expect(session?.plan.length).toBeGreaterThan(0);
   }, 15_000);
+
+  it("renames a new session from the first user prompt", async () => {
+    const runtime = new HostRuntime();
+    const workspace = await runtime.openWorkspace(process.cwd(), environmentId("local-desktop"));
+    const sessionId = await runtime.createSession({
+      agentId: agentId("toro-demo"),
+      environmentId: environmentId("local-desktop"),
+      workspaceId: workspace.id,
+    });
+
+    runtime.sendUserMessage(
+      sessionId,
+      "Make the Toro sidebar look like Codex Desktop and keep it functional.",
+    );
+
+    const session = runtime.getState().sessions.find((candidate) => candidate.id === sessionId);
+    runtime.closeAll();
+
+    expect(session?.title).toBe("Make the Toro sidebar look like Codex Desktop and...");
+  });
 });
 
 async function waitFor(predicate: () => boolean): Promise<void> {
