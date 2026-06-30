@@ -30,7 +30,7 @@ export function ProjectGroup({
   const activeChatInGroup = sessions.some((session) => session.id === activeSessionId);
   return (
     <div className="space-y-0.5">
-      <RailButton
+      <CodexSidebarRow
         active={Boolean(
           activeWorkspaceId && workspaceIds.includes(activeWorkspaceId) && !activeChatInGroup,
         )}
@@ -148,41 +148,5 @@ export function RailSection({
     >
       {children}
     </CodexSidebarSection>
-  );
-}
-
-function RailButton(props: {
-  readonly active?: boolean;
-  readonly ariaLabel?: string;
-  readonly disabled?: boolean;
-  readonly icon: ReactNode;
-  readonly label: string;
-  readonly meta?: string;
-  readonly onClick: () => void;
-  readonly title?: string;
-}) {
-  if (props.disabled) {
-    return (
-      <CodexSidebarRow
-        active={props.active}
-        ariaLabel={props.ariaLabel}
-        icon={props.icon}
-        label={props.label}
-        meta={props.meta}
-        title={props.title}
-      />
-    );
-  }
-
-  return (
-    <CodexSidebarRow
-      active={props.active}
-      ariaLabel={props.ariaLabel}
-      icon={props.icon}
-      label={props.label}
-      meta={props.meta}
-      onClick={props.onClick}
-      title={props.title}
-    />
   );
 }
