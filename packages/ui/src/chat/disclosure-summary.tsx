@@ -3,6 +3,7 @@ import { ChevronRight } from "lucide-react";
 import { cn } from "../cn";
 
 export interface CodexDisclosureSummaryProps {
+  readonly activity?: boolean;
   readonly chevronClassName: string;
   readonly icon: ReactNode;
   readonly meta?: ReactNode;
@@ -12,6 +13,7 @@ export interface CodexDisclosureSummaryProps {
 }
 
 export function CodexDisclosureSummary({
+  activity,
   chevronClassName,
   icon,
   meta,
@@ -22,12 +24,19 @@ export function CodexDisclosureSummary({
   return (
     <summary
       className={cn(
-        "inline-flex max-w-full cursor-pointer list-none items-center gap-2 rounded-lg px-2 py-1.5 text-zinc-600 hover:bg-zinc-50/80 dark:text-zinc-400 dark:hover:bg-zinc-800/80 [&::-webkit-details-marker]:hidden",
+        "max-w-full cursor-pointer list-none items-center rounded-lg text-zinc-600 hover:bg-zinc-50/80 dark:text-zinc-400 dark:hover:bg-zinc-800/80 [&::-webkit-details-marker]:hidden",
+        activity ? "flex w-fit gap-1.5 px-1.5 py-1" : "inline-flex gap-2 px-2 py-1.5",
         summaryClassName,
       )}
+      data-activity-summary={activity ? "true" : undefined}
       data-disclosure-summary="true"
     >
-      <span className="flex size-6 shrink-0 items-center justify-center text-zinc-500 dark:text-zinc-400">
+      <span
+        className={cn(
+          "flex shrink-0 items-center justify-center text-zinc-500 dark:text-zinc-400",
+          activity ? "size-5" : "size-6",
+        )}
+      >
         {icon}
       </span>
       <div className="min-w-0 leading-5">

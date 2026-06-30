@@ -14,8 +14,14 @@ export interface CodexToolCallProps {
 export function CodexToolCall({ children, defaultOpen, kind, status, title }: CodexToolCallProps) {
   const live = status === "pending" || status === "in_progress";
   return (
-    <details className="group/tool max-w-[720px] text-sm" data-tool-call="true" open={defaultOpen}>
+    <details
+      className="group/tool max-w-[720px] text-sm text-zinc-600 dark:text-zinc-400"
+      data-activity-disclosure="tool"
+      data-tool-call="true"
+      open={defaultOpen}
+    >
       <CodexDisclosureSummary
+        activity
         chevronClassName="group-open/tool:rotate-90"
         icon={<SquareTerminal size={14} />}
         meta={
@@ -35,12 +41,12 @@ export function CodexToolCall({ children, defaultOpen, kind, status, title }: Co
             </span>
           </span>
         }
-        summaryClassName="group-open/tool:hover:bg-transparent"
+        summaryClassName="group-open/tool:bg-transparent group-open/tool:hover:bg-zinc-50/80 dark:group-open/tool:hover:bg-zinc-800/80"
         title={title}
       />
       {children ? (
         <pre
-          className="ml-10 mt-1 max-h-52 overflow-auto whitespace-pre-wrap py-0.5 text-xs leading-5 text-zinc-500 dark:text-zinc-400"
+          className="ml-8 mt-1 max-h-52 overflow-auto whitespace-pre-wrap py-0.5 text-xs leading-5 text-zinc-500 dark:text-zinc-400"
           data-tool-output="true"
         >
           {children}

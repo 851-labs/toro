@@ -32,6 +32,7 @@ export function CodexPlanDisclosure({
       open={defaultOpen}
     >
       <CodexDisclosureSummary
+        activity
         chevronClassName="group-open/plan:rotate-90"
         icon={<ClipboardList size={14} />}
         meta={`${completedCount} of ${entries.length} complete`}

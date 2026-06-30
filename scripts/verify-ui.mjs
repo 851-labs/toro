@@ -250,6 +250,10 @@ await assertOnlyFunctionalButtons(page);
 await screenshot(page, "12-multi-message-flow.png");
 await pause();
 
+await chatHelpers.assertActivityDisclosuresCollapse(page);
+await screenshot(page, "13-collapsible-activity.png");
+await pause();
+
 await chatHelpers.assertEditorPaneToggle(page, screenshot);
 await pause();
 

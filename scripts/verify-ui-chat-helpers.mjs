@@ -29,7 +29,7 @@ export async function assertEditorPaneToggle(page, screenshot) {
     const text = document.querySelector("[data-editor-pane='true']")?.textContent ?? "";
     return text.includes("package.json") && text.includes('"scripts"');
   });
-  await screenshot(page, "13-editor-pane.png");
+  await screenshot(page, "14-editor-pane.png");
   await toggle.click();
   if ((await page.locator("[data-editor-pane='true']").count()) > 0) {
     throw new Error("Editor pane should close after toggling.");
@@ -61,4 +61,29 @@ export async function assertMultiMessageSameChat(page) {
     state: "detached",
     timeout: 10_000,
   });
+}
+
+export async function assertActivityDisclosuresCollapse(page) {
+  const activitySummaries = await page.locator("[data-activity-summary='true']").count();
+  if (activitySummaries < 3) {
+    throw new Error(
+      `Expected shared activity summaries for plan/thinking/tool, got ${activitySummaries}.`,
+    );
+  }
+  const thinking = page.locator("[data-thinking-disclosure='true']").last();
+  await thinking.locator("summary").click();
+  await thinking
+    .locator("[data-thinking-body='true']")
+    .waitFor({ state: "visible", timeout: 5_000 });
+  await thinking.locator("summary").click();
+  await thinking
+    .locator("[data-thinking-body='true']")
+    .waitFor({ state: "hidden", timeout: 5_000 });
+
+  const tool = page.locator("[data-tool-call='true']").last();
+  await tool.locator("[data-tool-output='true']").waitFor({ state: "hidden", timeout: 5_000 });
+  await tool.locator("summary").click();
+  await tool.locator("[data-tool-output='true']").waitFor({ state: "visible", timeout: 5_000 });
+  await tool.locator("summary").click();
+  await tool.locator("[data-tool-output='true']").waitFor({ state: "hidden", timeout: 5_000 });
 }

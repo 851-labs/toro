@@ -14,19 +14,20 @@ Current reference evidence:
 
 Latest verified desktop artifacts:
 
-- Desktop capture: `.artifacts/verification/2026-06-30T16-13-02-361Z/page@eed32a025c9c4d59c14ddc3c8cf663e8.webm`
-- Desktop stills: `.artifacts/verification/2026-06-30T16-13-02-361Z/*.png`
+- Desktop capture: `.artifacts/verification/2026-06-30T16-20-55-379Z/page@c114381061f9a0f7a7fde602d01ce70a.webm`
+- Desktop stills: `.artifacts/verification/2026-06-30T16-20-55-379Z/*.png`
 - Grouped-sidebar capture: `.artifacts/verification/sidebar-groups/2026-06-30T15-10-20-395Z/page@d9d7ed776cdd64de9144ac1f4a6ab547.webm`
 - Grouped-sidebar still: `.artifacts/verification/sidebar-groups/2026-06-30T15-10-20-395Z/01-project-grouped-chats.png`
-- Design-guide capture: `.artifacts/verification/design-guide/2026-06-30T16-13-45-167Z/page@da97dc322cae780315d68b3bbfd81e38.webm`
-- Design-guide stills: `.artifacts/verification/design-guide/2026-06-30T16-13-45-167Z/*.png`
-- Native still: `.artifacts/verification/native/2026-06-30-multi-message-flow.png`
+- Design-guide capture: `.artifacts/verification/design-guide/2026-06-30T16-21-15-118Z/page@619684ba3d943aa1e335de5d969a93d1.webm`
+- Design-guide stills: `.artifacts/verification/design-guide/2026-06-30T16-21-15-118Z/*.png`
+- Native still: `.artifacts/verification/native/2026-06-30-collapsible-thinking-tools.png`
 
 Most recent manual checks:
 
 - Confirmed the desktop sidebar renders Codex-like Scheduled and Plugins rows as passive non-buttons until those features are wired.
 - Confirmed assistant message actions omit thumbs up/down feedback buttons.
 - Confirmed a single chat renders two user/assistant turns with separate thinking and tool-call rows.
+- Confirmed completed thinking and tool-call rows use shared Codex-like collapsible activity summaries.
 - Confirmed completed tool-call status renders as muted transcript metadata instead of bright emerald text.
 - Confirmed assistant messages use a wider Codex-like transcript rail instead of the previous narrow 72% cap.
 - Confirmed the UI verifier resets host state before loading the desktop shell.
