@@ -2,6 +2,7 @@ export * from "./composer";
 export * from "./disclosure-summary";
 export * from "./empty-state";
 export * from "./header";
+export * from "./markdown-message";
 export * from "./message";
 export * from "./message-action";
 export * from "./permission-action";

@@ -192,6 +192,7 @@ await pause();
 
 await page.getByRole("button", { name: "Allow once" }).click();
 await page.getByText(/Toro demo agent received your prompt/).waitFor({ timeout: 10_000 });
+await chatHelpers.assertStreamingMarkdownMessage(page);
 await assertStreamingCursorAnimated(
   page
     .locator("article")

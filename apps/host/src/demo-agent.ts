@@ -132,13 +132,18 @@ async function streamText(
 function assistantText(turn: number) {
   if (turn > 1) {
     return [
-      "Toro demo agent received your follow-up. ",
-      "The same chat kept prior messages, tool calls, and streaming state.",
+      "Toro demo agent received your **follow-up**.\n\n",
+      "- Same chat kept prior messages\n",
+      "- Tool calls remained attached\n",
+      "- Streaming state stayed consistent",
     ].join("");
   }
   return [
-    "Toro demo agent received your prompt. ",
-    "The ACP session, permission loop, streaming transcript, plan, and tool cards are working.",
+    "Toro demo agent received your **prompt**.\n\n",
+    "- ACP session connected\n",
+    "- Permission loop completed\n",
+    "- Streaming transcript rendered\n\n",
+    "`tool cards are working`.",
   ].join("");
 }
 

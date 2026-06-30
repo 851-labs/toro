@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { useState } from "react";
 import { Check, Copy, Maximize2, Minimize2 } from "lucide-react";
 import { cn } from "../cn";
+import { CodexMarkdownMessage } from "./markdown-message";
 import { CodexMessageAction } from "./message-action";
 
 export interface CodexChatMessageProps {
@@ -15,8 +16,14 @@ export function CodexChatMessage({ children, copyText, isStreaming, role }: Code
   const [copied, setCopied] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const isUser = role === "user";
+  const usesMarkdown = typeof children === "string";
   const canCopy = role === "assistant" && !isStreaming && copyText && copyText.length > 0;
   const showActions = role === "assistant" && !isStreaming;
+  const renderedChildren = usesMarkdown ? (
+    <CodexMarkdownMessage isStreaming={isStreaming}>{children}</CodexMarkdownMessage>
+  ) : (
+    children
+  );
 
   async function copyMessage() {
     if (!copyText) {
@@ -46,7 +53,8 @@ export function CodexChatMessage({ children, copyText, isStreaming, role }: Code
       >
         <div
           className={cn(
-            "whitespace-pre-wrap text-base leading-7",
+            "text-base leading-7",
+            !usesMarkdown && "whitespace-pre-wrap",
             isUser
               ? "rounded-3xl bg-zinc-100 px-4 py-3 text-zinc-950 dark:bg-zinc-100 dark:text-zinc-950"
               : "py-2 text-zinc-900 dark:text-zinc-100",
@@ -54,7 +62,7 @@ export function CodexChatMessage({ children, copyText, isStreaming, role }: Code
               "after:ml-1 after:inline-block after:size-1.5 after:align-middle after:rounded-full after:bg-zinc-400 after:motion-safe:animate-pulse",
           )}
         >
-          {children}
+          {renderedChildren}
         </div>
         {showActions ? (
           <div className="mt-1 flex items-center gap-1 text-zinc-400">

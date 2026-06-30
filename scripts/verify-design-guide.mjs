@@ -4,9 +4,9 @@ import { resolve } from "node:path";
 
 const appUrl = process.env.TORO_DESIGN_GUIDE_URL ?? "http://127.0.0.1:1430";
 const stepDelayMs = Number(process.env.TORO_VERIFY_STEP_DELAY_MS ?? 0);
+const streamingMarkdownText = /Streaming markdown keeps/;
 const timestamp = new Date().toISOString().replaceAll(":", "-").replaceAll(".", "-");
 const artifactDir = resolve(".artifacts/verification/design-guide", timestamp);
-
 await assertReachable(appUrl, "Toro design guide");
 await mkdir(artifactDir, { recursive: true });
 
@@ -19,14 +19,14 @@ const page = await context.newPage();
 
 await page.goto(appUrl, { waitUntil: "networkidle" });
 await page.getByText("Codex Chat Surface").waitFor({ timeout: 5_000 });
-await page.getByText("Streaming text keeps").waitFor({ timeout: 5_000 });
+await page.getByText(streamingMarkdownText).waitFor({ timeout: 5_000 });
 await page.getByText("Thinking").waitFor({ timeout: 5_000 });
 await page.getByText("Reviewing project context").waitFor({ timeout: 5_000 });
 await assertSharedChatMessages(page);
 await assertSharedThinkingDisclosure(page);
 await assertSharedPlanAndSummaries(page);
 await assertStreamingCursorAnimated(
-  page.locator("article").filter({ hasText: "Streaming text keeps" }).first(),
+  page.locator("article").filter({ hasText: streamingMarkdownText }).first(),
 );
 await assertStreamingCursorAnimated(page.locator("[data-thinking-body='true']").first());
 await page.getByText("Validate Toro permission UI").first().waitFor({ timeout: 5_000 });

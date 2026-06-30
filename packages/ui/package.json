@@ -13,6 +13,8 @@
   "dependencies": {
     "clsx": "catalog:",
     "lucide-react": "catalog:",
+    "react-markdown": "catalog:",
+    "streamdown": "catalog:",
     "tailwind-merge": "catalog:"
   },
   "devDependencies": {

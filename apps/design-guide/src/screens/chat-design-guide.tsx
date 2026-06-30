@@ -188,14 +188,24 @@ function ChatElements({
       <CodexPlanDisclosure defaultOpen entries={planEntries} />
       <CodexChatMessage role="user">Make the chat UI look exactly like Codex.</CodexChatMessage>
       <CodexChatMessage
-        copyText="I will compare the reference capture against Toro and move each chat atom into shared UI primitives."
+        copyText={[
+          "I will compare the reference capture against Toro.",
+          "",
+          "- Move each chat atom into shared UI primitives",
+          "- Keep markdown rendering shared",
+        ].join("\n")}
         role="assistant"
       >
-        I will compare the reference capture against Toro and move each chat atom into shared UI
-        primitives.
+        {[
+          "I will compare the **reference capture** against Toro.",
+          "",
+          "- Move each chat atom into shared UI primitives",
+          "- Keep `markdown` rendering shared",
+        ].join("\n")}
       </CodexChatMessage>
       <CodexChatMessage isStreaming role="assistant">
-        Streaming text keeps a quiet inline cursor while the final response is still arriving
+        Streaming **markdown** keeps a quiet inline cursor while the final response is still
+        arriving
       </CodexChatMessage>
       <CodexThinkingDisclosure defaultOpen isStreaming>
         Reviewing project context and deciding which UI primitive should carry the state.

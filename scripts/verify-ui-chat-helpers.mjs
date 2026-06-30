@@ -56,11 +56,20 @@ export async function assertMultiMessageSameChat(page) {
   if (activeChats !== 1) throw new Error(`Expected one active chat row, got ${activeChats}.`);
   await page.getByText("Keep this in the same chat.").waitFor({ timeout: 5_000 });
   await page.getByText(/received your follow-up/).waitFor({ timeout: 5_000 });
-  await page.getByText(/same chat kept prior messages/).waitFor({ timeout: 10_000 });
+  await page.getByText(/Same chat kept prior messages/).waitFor({ timeout: 10_000 });
   await page.getByRole("button", { exact: true, name: "Stop" }).waitFor({
     state: "detached",
     timeout: 10_000,
   });
+  await assertCompletedMarkdownMessages(page);
+}
+
+export async function assertStreamingMarkdownMessage(page) {
+  const renderer = page.locator(
+    "[data-chat-message-role='assistant'] [data-markdown-renderer='streamdown']",
+  );
+  await renderer.waitFor({ timeout: 5_000 });
+  await renderer.locator("[data-streamdown='strong']").first().waitFor({ timeout: 5_000 });
 }
 
 export async function assertActivityDisclosuresCollapse(page) {
@@ -86,4 +95,14 @@ export async function assertActivityDisclosuresCollapse(page) {
   await tool.locator("[data-tool-output='true']").waitFor({ state: "visible", timeout: 5_000 });
   await tool.locator("summary").click();
   await tool.locator("[data-tool-output='true']").waitFor({ state: "hidden", timeout: 5_000 });
+}
+
+async function assertCompletedMarkdownMessages(page) {
+  const renderers = page.locator("[data-markdown-renderer='react-markdown']");
+  if ((await renderers.count()) < 4) {
+    throw new Error("Completed chat messages should render through react-markdown.");
+  }
+  const assistant = page.locator("[data-chat-message-role='assistant']").last();
+  await assistant.locator("strong").first().waitFor({ timeout: 5_000 });
+  await assistant.locator("li").first().waitFor({ timeout: 5_000 });
 }
