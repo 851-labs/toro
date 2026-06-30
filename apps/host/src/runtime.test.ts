@@ -20,8 +20,12 @@ describe("HostRuntime", () => {
       environmentId: environmentId("local-desktop"),
       workspaceId: workspace.id,
     });
+    const thoughtDeltas: string[] = [];
 
     runtime.subscribe((event) => {
+      if (event.type === "thought_delta") {
+        thoughtDeltas.push(event.delta);
+      }
       if (event.type === "permission_requested") {
         runtime.respondToPermission(event.requestId, "allow-once");
       }
@@ -39,6 +43,8 @@ describe("HostRuntime", () => {
 
     expect(session?.messages.some((message) => message.content.includes("ACP session"))).toBe(true);
     expect(session?.thoughts[0]?.content).toContain("Checking project context");
+    expect(thoughtDeltas.length).toBeGreaterThan(3);
+    expect(thoughtDeltas.join("")).toContain("deciding the next UI action");
     expect(session?.toolCalls[0]?.content[0]).toContain("status: ok");
     expect(session?.toolCalls[0]?.status).toBe("completed");
     expect(session?.plan.length).toBeGreaterThan(0);

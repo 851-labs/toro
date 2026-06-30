@@ -97,14 +97,17 @@ async function streamThought(
   ctx: acp.AgentRequestContext<acp.PromptRequest>,
   text: string,
 ): Promise<void> {
-  await ctx.client.notify(acp.methods.client.session.update, {
-    sessionId: ctx.params.sessionId,
-    update: {
-      content: { text, type: "text" },
-      messageId: "demo-thinking",
-      sessionUpdate: "agent_thought_chunk",
-    },
-  });
+  for (const chunk of text.match(/\S+\s*/g) ?? []) {
+    await new Promise((resolve) => setTimeout(resolve, streamChunkDelayMs));
+    await ctx.client.notify(acp.methods.client.session.update, {
+      sessionId: ctx.params.sessionId,
+      update: {
+        content: { text: chunk, type: "text" },
+        messageId: "demo-thinking",
+        sessionUpdate: "agent_thought_chunk",
+      },
+    });
+  }
 }
 
 async function streamText(

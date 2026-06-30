@@ -92,6 +92,8 @@
 - Header actions stills: `.artifacts/verification/2026-06-30T05-33-46-509Z/*.png`
 - Story views design-guide capture: `.artifacts/verification/design-guide/2026-06-30T05-40-57-591Z/page@8b6da4702fd15720a8c80caab499f910.webm`
 - Story views design-guide stills: `.artifacts/verification/design-guide/2026-06-30T05-40-57-591Z/*.png`
+- Incremental thinking stream capture: `.artifacts/verification/2026-06-30T05-51-47-941Z/page@054951580dba22f7c5590b0416514973.webm`
+- Incremental thinking stream stills: `.artifacts/verification/2026-06-30T05-51-47-941Z/*.png`
 
 Manual verification:
 
@@ -130,6 +132,7 @@ Manual verification:
 - Confirmed the composer `+` control is restored as a functional context picker that attaches/removes visible context chips in both desktop and the design guide.
 - Confirmed the chat title ellipsis is restored as a functional Codex-style menu with visible copy-title and copy-workspace-path states.
 - Confirmed the internal TanStack Start design guide now has functional story views for chat elements, sidebar groups, and composer states.
+- Confirmed the deterministic ACP demo now streams thinking text incrementally and the UI verifier captures a partial thought before permission appears.
 
 Automated verification:
 

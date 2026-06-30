@@ -84,6 +84,9 @@ await page.getByRole("button", { exact: true, name: "Send" }).click();
 await page.getByText("Thinking").waitFor({ timeout: 10_000 });
 await page.getByText("working").waitFor({ timeout: 10_000 });
 await page.getByText(/Checking project context/).waitFor({ timeout: 10_000 });
+if ((await page.getByText(/deciding the next UI action/).count()) > 0) {
+  throw new Error("Full thinking text appeared before the partial streaming checkpoint.");
+}
 if ((await page.getByText("Validate Toro permission UI").count()) > 0) {
   throw new Error("Permission prompt appeared before the thinking checkpoint.");
 }
@@ -213,7 +216,7 @@ async function assertSidebarToggle(page) {
 
   await toggle.click();
   await page.locator("aside").waitFor({ timeout: 5_000 });
-  await page.getByText("Projects").waitFor({ timeout: 5_000 });
+  await page.getByRole("heading", { exact: true, name: "Projects" }).waitFor({ timeout: 5_000 });
 }
 
 async function assertCodexRailModes(page) {
@@ -234,7 +237,7 @@ async function assertCodexRailModes(page) {
   await page.getByRole("button", { exact: true, name: "Search" }).click();
   await page.getByLabel("Search projects and chats").waitFor({ timeout: 5_000 });
   await page.getByRole("button", { exact: true, name: "Search" }).click();
-  await page.getByText("Projects").waitFor({ timeout: 5_000 });
+  await page.getByRole("heading", { exact: true, name: "Projects" }).waitFor({ timeout: 5_000 });
   await assertProjectFormHidden(page);
 }
 
