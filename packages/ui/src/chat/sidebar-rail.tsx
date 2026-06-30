@@ -11,7 +11,7 @@ export function CodexSidebarRail({ children, className, story }: CodexSidebarRai
   return (
     <aside
       className={cn(
-        "flex min-h-0 flex-col border-r border-zinc-200 bg-[#f7f8f8]",
+        "flex min-h-0 flex-col border-r border-zinc-200 bg-[#f4f5f5]",
         "dark:border-zinc-700/60 dark:bg-[#464949]",
         className,
       )}

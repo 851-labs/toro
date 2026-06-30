@@ -439,8 +439,13 @@ Manual verification:
 - VS Code mark desktop stills: `.artifacts/verification/2026-06-30T12-59-08-826Z/*.png`
 - VS Code mark design-guide capture: `.artifacts/verification/design-guide/2026-06-30T12-59-09-203Z/page@123d43ab5af42d6c51e01df061b3a7c0.webm`
 - VS Code mark design-guide stills: `.artifacts/verification/design-guide/2026-06-30T12-59-09-203Z/*.png`
-- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T12-59-08-826Z/`.
-- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T12-59-09-203Z/`.
+- Confirmed the shared sidebar rail now uses a stronger Codex-like gray panel instead of a near-white shell, with desktop and design-guide assertions covering it.
+- Sidebar gray shell desktop capture: `.artifacts/verification/2026-06-30T13-04-28-323Z/page@2a1c99e553f08152c786e6fb31bc355e.webm`
+- Sidebar gray shell desktop stills: `.artifacts/verification/2026-06-30T13-04-28-323Z/*.png`
+- Sidebar gray shell design-guide capture: `.artifacts/verification/design-guide/2026-06-30T13-04-28-331Z/page@be6df66b3604e5323aa11858bdc4077c.webm`
+- Sidebar gray shell design-guide stills: `.artifacts/verification/design-guide/2026-06-30T13-04-28-331Z/*.png`
+- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T13-04-28-323Z/`.
+- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T13-04-28-331Z/`.
 
 Automated verification:
 

@@ -430,6 +430,9 @@ async function assertLightSurface(page, selector, label) {
   if (backgroundLuma < 215) {
     throw new Error(`${label} should use light Codex shell, got ${color.background}.`);
   }
+  if (label === "sidebar rail" && backgroundLuma > 247) {
+    throw new Error(`sidebar rail should use a visible gray shell, got ${color.background}.`);
+  }
   if (textLuma > 170) {
     throw new Error(`${label} text should stay readable in light mode, got ${color.text}.`);
   }

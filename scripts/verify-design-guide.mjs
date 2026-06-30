@@ -283,11 +283,14 @@ async function assertStreamingCursorAnimated(locator) {
 }
 
 async function assertSidebarStoryRail(page) {
-  const rails = await page
-    .locator("[data-sidebar-story-rail='true'][data-sidebar-rail='true']")
-    .count();
+  const rail = page.locator("[data-sidebar-story-rail='true'][data-sidebar-rail='true']");
+  const rails = await rail.count();
   if (rails !== 1) {
     throw new Error(`Design-guide sidebar story should use one shared rail, got ${rails}.`);
+  }
+  const background = await rail.evaluate((node) => getComputedStyle(node).backgroundColor);
+  if (background !== "rgb(244, 245, 245)") {
+    throw new Error(`Design-guide sidebar rail should use Codex gray, got ${background}.`);
   }
 }
 
