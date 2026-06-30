@@ -93,6 +93,7 @@ await assertComposerFooterIsCodexCompact(page);
 await assertSharedEmptyState(page);
 await assertSharedStarterCards(page);
 await assertDarkReferenceShell(page);
+await assertEmptyWorkspaceHeaderIsQuiet(page);
 await assertComposerContextPicker(page);
 await assertOpenInMenu(page);
 await assertOnlyFunctionalButtons(page);
@@ -144,6 +145,7 @@ await assertEmptySessionPrompt(page);
 await assertSharedEmptyState(page);
 await assertSharedStarterCards(page);
 await assertDarkReferenceShell(page);
+await assertEmptyWorkspaceHeaderIsQuiet(page);
 await assertOnlyFunctionalButtons(page);
 await screenshot(page, "04-history-back.png");
 await page.getByRole("button", { exact: true, name: "Forward" }).click();
@@ -365,6 +367,16 @@ async function assertDarkReferenceShell(page) {
   await assertDarkSurface(page, "[data-composer-surface='true']", "composer");
   if ((await page.locator("[data-starter-card='true']").count()) > 0) {
     await assertDarkSurface(page, "[data-starter-card='true']", "starter card");
+  }
+}
+
+async function assertEmptyWorkspaceHeaderIsQuiet(page) {
+  const header = page.locator("[data-chat-header='true']");
+  if ((await header.getByText("New chat", { exact: true }).count()) > 0) {
+    throw new Error("Empty project header should not render a redundant New chat title.");
+  }
+  if ((await header.getByRole("button", { exact: true, name: "More chat actions" }).count()) > 0) {
+    throw new Error("Empty project header should not render session-only overflow actions.");
   }
 }
 

@@ -272,6 +272,8 @@
 - Shared starter-card design-guide stills: `.artifacts/verification/design-guide/2026-06-30T11-48-56-546Z/*.png`
 - Dark Codex reference shell capture: `.artifacts/verification/2026-06-30T11-55-22-715Z/page@c90e3b0b60fd922f917daf284d2fc134.webm`
 - Dark Codex reference shell stills: `.artifacts/verification/2026-06-30T11-55-22-715Z/*.png`
+- Quiet empty-project header capture: `.artifacts/verification/2026-06-30T11-59-22-431Z/page@f5c93fdd1945fc13b4fcbe00e501abb0.webm`
+- Quiet empty-project header stills: `.artifacts/verification/2026-06-30T11-59-22-431Z/*.png`
 
 Manual verification:
 
@@ -296,6 +298,7 @@ Manual verification:
 - Confirmed thinking disclosures expose a shared `@toro/ui` marker, with desktop and design-guide verification asserting the Codex-style thinking primitive renders during streaming flows.
 - Captured a fresh installed Codex reference showing empty-project starter cards below the lifted composer, then added passive shared `@toro/ui` starter cards to Toro's empty project desktop and design-guide flows.
 - Confirmed the desktop empty-project shell now follows the fresh dark Codex reference for the app background, sidebar rail, chat header, composer, context strip, starter cards, and readable transcript text.
+- Confirmed the empty-project desktop header no longer renders a redundant `New chat` title or session-only overflow action while active sessions still keep their title and header controls.
 - Confirmed the sidebar visually groups chats under their project and coalesces duplicate opens of the same project path.
 - Confirmed every rendered button in the desktop flow is limited to a wired action: new chat, open project, project/chat selection, send/stop, or permission response.
 - Confirmed the design guide permission buttons update visible state instead of acting as no-op controls.

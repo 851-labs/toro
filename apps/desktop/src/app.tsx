@@ -190,13 +190,15 @@ export function App() {
         <section className="grid min-h-0 min-w-0 grid-rows-[64px_1fr] bg-white dark:bg-[#101010]">
           <CodexChatHeader
             actions={
-              <ChatHeaderActions
-                title={activeSession?.title ?? "New chat"}
-                workspacePath={activeWorkspace?.path ?? null}
-              />
+              activeSession ? (
+                <ChatHeaderActions
+                  title={activeSession.title}
+                  workspacePath={activeWorkspace?.path ?? null}
+                />
+              ) : null
             }
             leading={
-              sidebarOpen ? (
+              sidebarOpen && activeSession ? (
                 <span
                   aria-hidden="true"
                   className="flex size-8 shrink-0 items-center justify-center text-zinc-500"
@@ -241,7 +243,7 @@ export function App() {
                 {isLoading ? <RefreshCw className="animate-spin" size={16} /> : null}
               </>
             }
-            title={activeSession?.title ?? "New chat"}
+            title={activeSession?.title ?? null}
           />
           <div
             className={

@@ -7,7 +7,7 @@ export interface CodexChatHeaderProps {
   readonly className?: string;
   readonly leading?: ReactNode;
   readonly rightActions?: ReactNode;
-  readonly title: ReactNode;
+  readonly title?: ReactNode;
   readonly titleAs?: "h1" | "h2";
 }
 
@@ -34,7 +34,9 @@ export function CodexChatHeader({
     >
       <div className="flex min-w-0 items-center gap-3">
         {leading}
-        <Title className="truncate text-lg font-semibold dark:text-zinc-100">{title}</Title>
+        {title ? (
+          <Title className="truncate text-lg font-semibold dark:text-zinc-100">{title}</Title>
+        ) : null}
         {actions}
       </div>
       {rightActions ? (
