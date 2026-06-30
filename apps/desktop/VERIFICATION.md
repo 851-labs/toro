@@ -14,6 +14,8 @@
 - Inert-control cleanup stills: `.artifacts/verification/2026-06-30T02-35-09-746Z/*.png`
 - Design guide capture: `.artifacts/verification/design-guide/2026-06-30T02-49-12-104Z/page@ee2706e8fe8dc0331deadeaf46728eba.webm`
 - Design guide stills: `.artifacts/verification/design-guide/2026-06-30T02-49-12-104Z/*.png`
+- Shared chat primitives capture: `.artifacts/verification/2026-06-30T02-50-41-423Z/page@54a6eed9b721613c19910daf9db761ff.webm`
+- Shared chat primitives stills: `.artifacts/verification/2026-06-30T02-50-41-423Z/*.png`
 
 Manual verification:
 
@@ -25,6 +27,7 @@ Manual verification:
 - Confirmed the rebuilt `Toro.app` renders edge-to-edge without the blue inset or rounded outer app frame.
 - Confirmed inert header, sidebar, and composer controls were removed while workspace open, session start, send, permission approval, and file preview still work.
 - Confirmed the internal design guide renders shared chat messages, streaming state, permission prompt, expanded tool call, logs disclosure, and composer.
+- Confirmed the desktop chat flow still passes after moving messages, composer, permission prompt, tool call, and logs into shared UI primitives.
 
 Automated verification:
 
