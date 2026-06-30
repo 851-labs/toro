@@ -18,8 +18,8 @@ Latest verified desktop artifacts:
 - Desktop stills: `.artifacts/verification/2026-06-30T18-22-58-026Z/*.png`
 - Grouped-sidebar capture: `.artifacts/verification/sidebar-groups/2026-06-30T15-10-20-395Z/page@d9d7ed776cdd64de9144ac1f4a6ab547.webm`
 - Grouped-sidebar still: `.artifacts/verification/sidebar-groups/2026-06-30T15-10-20-395Z/01-project-grouped-chats.png`
-- Internal capture: `.artifacts/verification/internal/2026-06-30T18-37-10-487Z/page@3fe12087bfdec3ce860bf61f2de93f82.webm`
-- Internal stills: `.artifacts/verification/internal/2026-06-30T18-37-10-487Z/*.png`
+- Internal capture: `.artifacts/verification/internal/2026-06-30T18-47-18-773Z/page@0d2d38aa27ee9081a7df2001ce148584.webm`
+- Internal stills: `.artifacts/verification/internal/2026-06-30T18-47-18-773Z/*.png`
 - Native still: `.artifacts/verification/native/2026-06-30-native-project-picker.png`
 
 Most recent manual checks:
@@ -58,6 +58,7 @@ Most recent manual checks:
 - Confirmed the internal app sidebar uses a 256px rail, 12px content padding, and 28px rows at 13px type.
 - Confirmed desktop and internal dev scripts defer host and port settings to their Vite configs.
 - Confirmed desktop and internal Vite client types live in app tsconfigs instead of separate vite-env files.
+- Confirmed the internal app sidebar shell uses explicit grid CSS and does not collapse into a full-width row.
 - Confirmed empty newly-created sessions use a Codex-like New chat title until the first prompt renames them.
 - Confirmed the chat header includes a Codex-like editor-pane toggle that opens a Host API backed file preview.
 - Confirmed native Tauri renders the latest Codex-like chat shell after rebuild.

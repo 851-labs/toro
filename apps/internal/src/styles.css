@@ -32,6 +32,19 @@ body {
   overflow: hidden;
 }
 
+.internal-shell {
+  display: grid;
+  grid-template-columns: 256px minmax(0, 1fr);
+  height: 100%;
+  overflow: hidden;
+}
+
+.internal-content {
+  display: grid;
+  grid-template-rows: 64px minmax(0, 1fr) auto;
+  min-height: 0;
+}
+
 button,
 input,
 textarea,

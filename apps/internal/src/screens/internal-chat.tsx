@@ -53,7 +53,7 @@ export function InternalLayout({ children }: { readonly children: ReactNode }) {
   const [composerValue, setComposerValue] = useState("");
 
   return (
-    <main className="grid h-full grid-cols-[256px_minmax(0,1fr)] overflow-hidden bg-white text-zinc-950">
+    <main className="internal-shell bg-white text-zinc-950">
       <aside
         className="border-r border-zinc-200 bg-[#f2f5f5] px-3 py-5"
         data-internal-sidebar="true"
@@ -65,7 +65,7 @@ export function InternalLayout({ children }: { readonly children: ReactNode }) {
           ))}
         </nav>
       </aside>
-      <section className="grid min-h-0 grid-rows-[64px_minmax(0,1fr)_auto]">
+      <section className="internal-content">
         <header className="flex items-center justify-between border-b border-zinc-200/80 px-5">
           <h1 className="text-lg font-semibold">{viewTitle(activeRoute)}</h1>
           <StatusBadge label="reference" tone="neutral" />
