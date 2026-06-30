@@ -24,6 +24,8 @@
 - Functional design-guide stills: `.artifacts/verification/design-guide/2026-06-30T03-10-18-163Z/*.png`
 - Compact host settings capture: `.artifacts/verification/2026-06-30T03-15-05-528Z/page@bf2da4e5f2c4e88d816a12f2253d8808.webm`
 - Compact host settings stills: `.artifacts/verification/2026-06-30T03-15-05-528Z/*.png`
+- Streaming checkpoint capture: `.artifacts/verification/2026-06-30T03-20-11-897Z/page@a9745796bd2196340296331064ff00f4.webm`
+- Streaming checkpoint stills: `.artifacts/verification/2026-06-30T03-20-11-897Z/*.png`
 
 Manual verification:
 
@@ -40,6 +42,7 @@ Manual verification:
 - Confirmed every rendered button in the desktop flow is limited to a wired action: new chat, add project, project/chat selection, send/stop, or permission response.
 - Confirmed the design guide permission buttons update visible state instead of acting as no-op controls.
 - Confirmed the sidebar footer matches Codex more closely by defaulting to a compact host row while the functional host settings button still exposes agent and environment selection.
+- Confirmed the deterministic ACP demo emits a visible mid-stream assistant response before the final assistant text is present.
 
 Automated verification:
 

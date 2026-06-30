@@ -1,6 +1,7 @@
 import * as acp from "@agentclientprotocol/sdk";
 
 const sessions = new Set<string>();
+const streamChunkDelayMs = Number(process.env.TORO_DEMO_STREAM_DELAY_MS ?? 90);
 
 const app = acp
   .agent({ name: "Toro Demo Agent" })
@@ -81,7 +82,7 @@ async function streamText(
   text: string,
 ): Promise<void> {
   for (const chunk of text.match(/.{1,18}/g) ?? []) {
-    await new Promise((resolve) => setTimeout(resolve, 30));
+    await new Promise((resolve) => setTimeout(resolve, streamChunkDelayMs));
     await ctx.client.notify(acp.methods.client.session.update, {
       sessionId: ctx.params.sessionId,
       update: {
