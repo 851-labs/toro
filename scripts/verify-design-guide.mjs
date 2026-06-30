@@ -242,6 +242,18 @@ async function assertSharedStarterCards(page) {
   if ((await cardGrid.locator("button").count()) > 0) {
     throw new Error("Design-guide starter cards should be passive until integrations are wired.");
   }
+  await assertStarterCardIcons(page);
+}
+
+async function assertStarterCardIcons(page) {
+  const icons = await page
+    .locator("[data-starter-card-icon]")
+    .evaluateAll((nodes) => nodes.map((node) => node.getAttribute("data-starter-card-icon")));
+  for (const icon of ["slack", "github", "linear"]) {
+    if (!icons.includes(icon)) {
+      throw new Error(`Design-guide starter cards should render the ${icon} reference icon.`);
+    }
+  }
 }
 
 async function assertStreamingCursorAnimated(locator) {

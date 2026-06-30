@@ -282,6 +282,10 @@
 - Session-scoped Open in stills: `.artifacts/verification/2026-06-30T12-04-51-411Z/*.png`
 - Quiet dark composer controls capture: `.artifacts/verification/2026-06-30T12-07-48-784Z/page@107aaf5fc1a4516cf10b7bf2fb717120.webm`
 - Quiet dark composer controls stills: `.artifacts/verification/2026-06-30T12-07-48-784Z/*.png`
+- Reference starter-card icons capture: `.artifacts/verification/2026-06-30T12-14-07-459Z/page@6317ff047cc34aae97bee3505fa8154a.webm`
+- Reference starter-card icons stills: `.artifacts/verification/2026-06-30T12-14-07-459Z/*.png`
+- Reference starter-card icons design-guide capture: `.artifacts/verification/design-guide/2026-06-30T12-14-07-459Z/page@0c3b9ff7d7774efbe805a6b5c4afa801.webm`
+- Reference starter-card icons design-guide stills: `.artifacts/verification/design-guide/2026-06-30T12-14-07-459Z/*.png`
 
 Manual verification:
 
@@ -310,6 +314,7 @@ Manual verification:
 - Confirmed Scheduled and Plugins are restored as passive Codex-reference sidebar rows, with desktop and design-guide verification asserting they are not buttons until the features are wired.
 - Confirmed the `Open in` header menu is hidden in the quiet empty-project header and remains functional once a session exists.
 - Confirmed shared composer dark hover/open states stay quiet for Add context and context sources, with desktop verification asserting the hovered Add context control does not flash to a bright light surface.
+- Confirmed empty-project starter cards now use shared Codex-reference Slack, GitHub, and Linear-style marks, with desktop and design-guide verification asserting all three icon types render.
 - Confirmed the sidebar visually groups chats under their project and coalesces duplicate opens of the same project path.
 - Confirmed every rendered button in the desktop flow is limited to a wired action: new chat, open project, project/chat selection, send/stop, or permission response.
 - Confirmed the design guide permission buttons update visible state instead of acting as no-op controls.
