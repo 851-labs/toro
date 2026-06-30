@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import {
   ArrowUp,
   ChevronDown,
@@ -65,6 +65,14 @@ export function CodexComposer({
   const [selectedAccess, setSelectedAccess] = useState(accessLabel);
   const [selectedModel, setSelectedModel] = useState(modelLabel);
   const selectedContextItems = contextItems.filter((item) => selectedContextIds.includes(item.id));
+
+  useEffect(() => {
+    setSelectedAccess(accessLabel);
+  }, [accessLabel]);
+
+  useEffect(() => {
+    setSelectedModel(modelLabel);
+  }, [modelLabel]);
 
   function submit(event: FormEvent) {
     event.preventDefault();
