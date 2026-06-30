@@ -57,6 +57,11 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
       .locator("section")
       .filter({ hasText: "Validate Toro permission UI" });
     const className = (await permissionCard.first().getAttribute("class")) ?? "";
+    if (className.includes("rounded-[18px]") || className.includes("border ")) {
+      throw new Error(
+        "Permission card should render as a compact transcript row, not a framed card.",
+      );
+    }
     if (className.includes("bg-amber-50")) {
       throw new Error("Permission card should not use the old amber alert background.");
     }

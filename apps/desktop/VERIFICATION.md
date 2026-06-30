@@ -138,6 +138,10 @@
 - Chat primitive cleanup stills: `.artifacts/verification/2026-06-30T07-41-15-846Z/*.png`
 - Chat primitive design-guide cleanup capture: `.artifacts/verification/design-guide/2026-06-30T07-41-35-233Z/page@f10d353779e50f3a212abe6e52f0887e.webm`
 - Chat primitive design-guide cleanup stills: `.artifacts/verification/design-guide/2026-06-30T07-41-35-233Z/*.png`
+- Permission transcript row capture: `.artifacts/verification/2026-06-30T07-46-22-783Z/page@19ef94111acbc61f5b048b17f40c0e57.webm`
+- Permission transcript row stills: `.artifacts/verification/2026-06-30T07-46-22-783Z/*.png`
+- Permission transcript row design-guide capture: `.artifacts/verification/design-guide/2026-06-30T07-46-36-251Z/page@9d7ac16598c2ff921c3f907388b5134d.webm`
+- Permission transcript row design-guide stills: `.artifacts/verification/design-guide/2026-06-30T07-46-36-251Z/*.png`
 
 Manual verification:
 
@@ -189,6 +193,7 @@ Manual verification:
 - Confirmed the Codex-like header sliders icon now toggles a functional light session details rail with plan, permissions, and tool call sections, without exposing raw activity logs in the main desktop chat.
 - Confirmed the design-guide sidebar story now documents the functional Toro sidebar state without Scheduled or Plugins placeholders, and the UI verifier helpers are split out to keep future verification changes under the 500-line file limit.
 - Confirmed the shared chat package no longer exports a separate logs disclosure primitive and the design-guide chat surface now documents only the active Codex-style chat atoms.
+- Confirmed the permission request now renders as a compact transcript row without the old bordered alert shell, while Allow once and Reject remain functional in the desktop flow and design guide.
 
 Automated verification:
 
