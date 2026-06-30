@@ -96,6 +96,7 @@ await assertSharedStarterCards(page);
 await assertDarkReferenceShell(page);
 await assertEmptyWorkspaceHeaderIsQuiet(page);
 await assertComposerContextPicker(page);
+await assertDarkComposerControlHover(page);
 await assertOnlyFunctionalButtons(page);
 await screenshot(page, "02-workspace-opened.png");
 await pause();
@@ -400,6 +401,16 @@ async function assertDarkSurface(page, selector, label) {
   }
   if (textLuma < 95) {
     throw new Error(`${label} text should stay readable in dark mode, got ${color.text}.`);
+  }
+}
+
+async function assertDarkComposerControlHover(page) {
+  const addContext = page.getByRole("button", { exact: true, name: "Add context" });
+  await addContext.hover();
+  const background = await addContext.evaluate((node) => getComputedStyle(node).backgroundColor);
+  const backgroundLuma = rgbLuma(background);
+  if (backgroundLuma > 120) {
+    throw new Error(`Dark composer Add context hover should stay quiet, got ${background}.`);
   }
 }
 

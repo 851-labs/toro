@@ -280,6 +280,8 @@
 - Passive reference sidebar rows design-guide stills: `.artifacts/verification/design-guide/2026-06-30T12-01-58-972Z/*.png`
 - Session-scoped Open in capture: `.artifacts/verification/2026-06-30T12-04-51-411Z/page@df2a0dd07f306e73f56104f85e5c0e3a.webm`
 - Session-scoped Open in stills: `.artifacts/verification/2026-06-30T12-04-51-411Z/*.png`
+- Quiet dark composer controls capture: `.artifacts/verification/2026-06-30T12-07-48-784Z/page@107aaf5fc1a4516cf10b7bf2fb717120.webm`
+- Quiet dark composer controls stills: `.artifacts/verification/2026-06-30T12-07-48-784Z/*.png`
 
 Manual verification:
 
@@ -307,6 +309,7 @@ Manual verification:
 - Confirmed the empty-project desktop header no longer renders a redundant `New chat` title or session-only overflow action while active sessions still keep their title and header controls.
 - Confirmed Scheduled and Plugins are restored as passive Codex-reference sidebar rows, with desktop and design-guide verification asserting they are not buttons until the features are wired.
 - Confirmed the `Open in` header menu is hidden in the quiet empty-project header and remains functional once a session exists.
+- Confirmed shared composer dark hover/open states stay quiet for Add context and context sources, with desktop verification asserting the hovered Add context control does not flash to a bright light surface.
 - Confirmed the sidebar visually groups chats under their project and coalesces duplicate opens of the same project path.
 - Confirmed every rendered button in the desktop flow is limited to a wired action: new chat, open project, project/chat selection, send/stop, or permission response.
 - Confirmed the design guide permission buttons update visible state instead of acting as no-op controls.

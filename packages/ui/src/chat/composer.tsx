@@ -99,7 +99,7 @@ export function CodexComposer({
         {contextOpen ? (
           <div
             aria-label="Context sources"
-            className="mb-3 rounded-2xl border border-zinc-200 bg-zinc-50/80 p-2"
+            className="mb-3 rounded-2xl border border-zinc-200 bg-zinc-50/80 p-2 dark:border-zinc-700 dark:bg-[#242424]"
             role="region"
           >
             {contextItems.length > 0 ? (
@@ -111,8 +111,9 @@ export function CodexComposer({
                       aria-label={`Attach context ${item.label}`}
                       aria-pressed={selected}
                       className={cn(
-                        "flex min-h-9 items-center gap-2 rounded-xl px-2 text-left text-sm hover:bg-white",
-                        selected && "bg-white text-zinc-950 shadow-sm",
+                        "flex min-h-9 items-center gap-2 rounded-xl px-2 text-left text-sm hover:bg-white dark:hover:bg-zinc-700/70",
+                        selected &&
+                          "bg-white text-zinc-950 shadow-sm dark:bg-zinc-700 dark:text-zinc-100",
                       )}
                       key={item.id}
                       onClick={() =>
@@ -146,14 +147,14 @@ export function CodexComposer({
           <div className="mb-3 flex flex-wrap gap-2 px-1">
             {selectedContextItems.map((item) => (
               <span
-                className="inline-flex max-w-full items-center gap-1.5 rounded-full border border-zinc-200 bg-zinc-50 px-2 py-1 text-xs font-medium text-zinc-600"
+                className="inline-flex max-w-full items-center gap-1.5 rounded-full border border-zinc-200 bg-zinc-50 px-2 py-1 text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300"
                 key={item.id}
               >
                 <FileText size={12} className="shrink-0 text-zinc-400" />
                 <span className="truncate">{item.label}</span>
                 <button
                   aria-label={`Remove context ${item.label}`}
-                  className="flex size-4 shrink-0 items-center justify-center rounded-full text-zinc-400 hover:bg-zinc-200 hover:text-zinc-800"
+                  className="flex size-4 shrink-0 items-center justify-center rounded-full text-zinc-400 hover:bg-zinc-200 hover:text-zinc-800 dark:hover:bg-zinc-700 dark:hover:text-zinc-100"
                   onClick={() => setSelectedContextIds((ids) => ids.filter((id) => id !== item.id))}
                   type="button"
                 >
@@ -169,8 +170,8 @@ export function CodexComposer({
               aria-expanded={contextOpen}
               aria-label="Add context"
               className={cn(
-                "flex size-8 shrink-0 items-center justify-center rounded-full text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900",
-                contextOpen && "bg-zinc-100 text-zinc-900",
+                "flex size-8 shrink-0 items-center justify-center rounded-full text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-700/70 dark:hover:text-zinc-100",
+                contextOpen && "bg-zinc-100 text-zinc-900 dark:bg-zinc-700 dark:text-zinc-100",
               )}
               onClick={() => setContextOpen((open) => !open)}
               type="button"
