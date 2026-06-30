@@ -8,7 +8,6 @@ import {
 } from "@toro/domain";
 import type { AgentProfile, EnvironmentProfile, Session, Workspace } from "@toro/domain";
 import {
-  Button,
   CodexSidebarAvatar,
   CodexSidebarCommand,
   CodexSidebarCommandGroup,
@@ -24,7 +23,6 @@ import {
   ChevronLeft,
   ChevronRight,
   Clock,
-  FolderOpen,
   FolderPlus,
   PanelLeft,
   Plug,
@@ -55,7 +53,6 @@ interface AgentRailProps {
   readonly selectedEnvironmentId: EnvironmentId;
   readonly sessions: readonly Session[];
   readonly streamStatus: "connecting" | "connected" | "disconnected";
-  readonly workspacePath: string;
   readonly workspaces: readonly Workspace[];
   readonly onCreateSession: () => void;
   readonly onNavigateBack: () => void;
@@ -66,15 +63,12 @@ interface AgentRailProps {
   readonly onSelectSession: (id: SessionId) => void;
   readonly onSelectWorkspace: (id: WorkspaceId) => void;
   readonly onToggleSidebar: () => void;
-  readonly onWorkspacePathChange: (path: string) => void;
 }
 
 export function AgentRail(props: AgentRailProps) {
   const [activeView, setActiveView] = useState<RailView>("projects");
-  const [projectFormOpen, setProjectFormOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [settingsOpen, setSettingsOpen] = useState(false);
-  const canOpenProject = props.workspacePath.trim().length > 0;
   const searchOpen = activeView === "search";
   const activeWorkspaceId = props.activeWorkspace?.id ?? null;
   const projectGroups = filterProjectGroups(
@@ -113,7 +107,7 @@ export function AgentRail(props: AgentRailProps) {
             if (props.activeWorkspace) {
               props.onCreateSession();
             } else {
-              setProjectFormOpen(true);
+              props.onOpenWorkspace();
             }
           }}
         />
@@ -131,9 +125,8 @@ export function AgentRail(props: AgentRailProps) {
         <RailSection
           actionIcon={<FolderPlus size={15} />}
           actionLabel="Open project"
-          actionPressed={projectFormOpen}
           title="Projects"
-          onAction={() => setProjectFormOpen((open) => !open)}
+          onAction={props.onOpenWorkspace}
         >
           {searchOpen ? (
             <div className="mb-3">
@@ -145,38 +138,6 @@ export function AgentRail(props: AgentRailProps) {
                 value={searchQuery}
               />
             </div>
-          ) : null}
-          {projectFormOpen ? (
-            <form
-              className="mb-2"
-              onSubmit={(event) => {
-                event.preventDefault();
-                if (canOpenProject) {
-                  props.onOpenWorkspace();
-                  setProjectFormOpen(false);
-                }
-              }}
-            >
-              <div className="flex gap-2">
-                <CodexSidebarInput
-                  aria-label="Project path"
-                  className="flex-1"
-                  onChange={(event) => props.onWorkspacePathChange(event.target.value)}
-                  placeholder="/path/to/workspace"
-                  value={props.workspacePath}
-                />
-                {canOpenProject ? (
-                  <Button className="h-9 shrink-0" icon={<FolderOpen size={15} />} type="submit">
-                    Open
-                  </Button>
-                ) : (
-                  <span className="inline-flex h-9 shrink-0 items-center gap-2 rounded-lg border border-zinc-200 bg-white px-3 text-sm font-medium text-zinc-400">
-                    <FolderOpen size={15} />
-                    Open
-                  </span>
-                )}
-              </div>
-            </form>
           ) : null}
           {projectGroups.length > 0 ? (
             <ProjectRows

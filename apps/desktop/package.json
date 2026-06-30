@@ -13,6 +13,7 @@
   "dependencies": {
     "@tanstack/react-query": "catalog:",
     "@tauri-apps/api": "catalog:",
+    "@tauri-apps/plugin-dialog": "catalog:",
     "@toro/domain": "workspace:*",
     "@toro/environments": "workspace:*",
     "@toro/ui": "workspace:*",

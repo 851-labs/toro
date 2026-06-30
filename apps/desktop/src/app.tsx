@@ -18,9 +18,8 @@ import { InspectorPanel } from "./components/inspector-panel";
 import { OpenInMenu } from "./components/open-in-menu";
 import { defaultPreviewFilePath } from "./lib/file-tree";
 import { hostClient } from "./lib/host-client";
+import { pickProjectDirectory } from "./lib/project-picker";
 import { useHostState } from "./lib/use-host-state";
-
-const defaultWorkspace = import.meta.env.VITE_TORO_DEFAULT_WORKSPACE ?? "";
 
 interface NavigationEntry {
   readonly sessionId: SessionId | null;
@@ -30,7 +29,6 @@ interface NavigationEntry {
 export function App() {
   const queryClient = useQueryClient();
   const { state, streamStatus, error, isLoading } = useHostState();
-  const [workspacePath, setWorkspacePath] = useState(defaultWorkspace);
   const [selectedAgentId, setSelectedAgentId] = useState<AgentId>(agentId("toro-demo"));
   const [selectedEnvironmentId, setSelectedEnvironmentId] = useState<EnvironmentId>(
     environmentId("local-desktop"),
@@ -84,7 +82,7 @@ export function App() {
   });
   const previewFilePath = useMemo(() => defaultPreviewFilePath(files.data ?? []), [files.data]);
   const openWorkspace = useMutation({
-    mutationFn: async () => hostClient.openWorkspace(workspacePath, selectedEnvironmentId),
+    mutationFn: async (path: string) => hostClient.openWorkspace(path, selectedEnvironmentId),
     onSuccess: (workspace) => {
       setSelectedWorkspaceId(workspace.id);
       setSelectedSessionId(null);
@@ -129,6 +127,13 @@ export function App() {
       setSelectedWorkspaceId(session.workspaceId);
       setSelectedSessionId(session.id);
       recordNavigation({ sessionId: session.id, workspaceId: session.workspaceId });
+    }
+  }
+
+  async function openWorkspaceFromPicker() {
+    const selectedPath = await pickProjectDirectory();
+    if (selectedPath) {
+      openWorkspace.mutate(selectedPath);
     }
   }
 
@@ -180,19 +185,17 @@ export function App() {
           onCreateSession={() => createSession.mutate()}
           onNavigateBack={navigateBack}
           onNavigateForward={navigateForward}
-          onOpenWorkspace={() => openWorkspace.mutate()}
+          onOpenWorkspace={() => void openWorkspaceFromPicker()}
           selectedAgentId={selectedAgentId}
           selectedEnvironmentId={selectedEnvironmentId}
           sessions={state.sessions}
           streamStatus={streamStatus}
-          workspacePath={workspacePath}
           workspaces={state.workspaces}
           onSelectAgent={setSelectedAgentId}
           onSelectEnvironment={setSelectedEnvironmentId}
           onSelectSession={selectSession}
           onSelectWorkspace={selectWorkspace}
           onToggleSidebar={() => setSidebarOpen((open) => !open)}
-          onWorkspacePathChange={setWorkspacePath}
         />
       ) : null}
       <main className="grid min-h-0 min-w-0 grid-cols-1">

@@ -84,10 +84,8 @@ await pause();
 
 await assertSidebarToggle(page);
 
+page.once("dialog", (dialog) => void dialog.accept(workspacePath));
 await page.getByRole("button", { exact: true, name: "New chat" }).click();
-await assertSidebarInputsShared(page, 1);
-await page.getByLabel("Project path").fill(workspacePath);
-await page.getByRole("button", { exact: true, name: "Open" }).click();
 await page.getByText("toro").first().waitFor({ timeout: 5_000 });
 await assertProjectFormHidden(page);
 await assertProjectPathHiddenInSidebar(page);
