@@ -59,6 +59,7 @@ await page
   .waitFor({ timeout: 5_000 });
 await assertSidebarStoryHeader(page);
 await assertSidebarStoryCommands(page);
+await assertSidebarStoryContent(page);
 await assertSidebarStoryRows(page);
 await assertSidebarStorySections(page);
 await assertSidebarStoryFooter(page);
@@ -210,6 +211,17 @@ async function assertSidebarStoryCommands(page) {
   if (commands < 2) {
     throw new Error(
       `Design-guide sidebar story should use shared sidebar commands, got ${commands}.`,
+    );
+  }
+}
+
+async function assertSidebarStoryContent(page) {
+  const content = await page
+    .locator("[data-sidebar-story-rail='true'] [data-sidebar-content='true']")
+    .count();
+  if (content !== 1) {
+    throw new Error(
+      `Design-guide sidebar story should use one shared content area, got ${content}.`,
     );
   }
 }

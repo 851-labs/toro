@@ -316,13 +316,14 @@ Manual verification:
 - Confirmed the design-guide sidebar story now includes the desktop-like main chat header above the empty chat/composer shell, with the verifier checking the header label, Open in affordance, and 64px height.
 - Confirmed the desktop app and design-guide sidebar story now share a `@toro/ui` chat header primitive, with the design-guide verifier asserting the shared `data-chat-header` marker and desktop verification preserving the functional header controls.
 - Confirmed the sidebar rail shell now shares a `@toro/ui` rail primitive across desktop and the design-guide sidebar story, with the design-guide verifier asserting the shared `data-sidebar-rail` marker.
+- Confirmed the sidebar scroll/content area now shares a `@toro/ui` content primitive across desktop and the design-guide sidebar story, with the design-guide verifier asserting the shared `data-sidebar-content` marker.
 - Confirmed project and chat rows now share a `@toro/ui` sidebar row primitive across desktop and the design-guide sidebar story, with the design-guide verifier asserting the shared `data-sidebar-row` markers.
 - Confirmed the Projects sidebar section now shares a `@toro/ui` section primitive across desktop and the design-guide sidebar story, with the design-guide verifier asserting the shared `data-sidebar-section` marker.
 - Confirmed the sidebar traffic-light titlebar now shares a `@toro/ui` titlebar primitive across desktop and the design-guide sidebar story, with the design-guide verifier asserting the shared `data-sidebar-titlebar` marker.
 - Confirmed the top sidebar commands now share a `@toro/ui` command primitive across desktop and the design-guide sidebar story, with the design-guide verifier asserting the shared `data-sidebar-command` markers.
 - Confirmed the sidebar host/account footer now shares a `@toro/ui` footer primitive across desktop and the design-guide sidebar story, with desktop and design-guide verifiers asserting the shared `data-sidebar-footer` marker.
-- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T10-53-34-744Z/`.
-- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T10-53-22-792Z/`.
+- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T10-57-47-121Z/`.
+- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T10-57-35-636Z/`.
 
 Automated verification:
 

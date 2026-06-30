@@ -10,6 +10,7 @@ import type { AgentProfile, EnvironmentProfile, Session, Workspace } from "@toro
 import {
   Button,
   CodexSidebarCommand,
+  CodexSidebarContent,
   CodexSidebarFooter,
   CodexSidebarRail,
   CodexSidebarTitlebar,
@@ -119,7 +120,7 @@ export function AgentRail(props: AgentRailProps) {
         />
       </div>
 
-      <div className="min-h-0 flex-1 overflow-auto px-3 pb-3 pt-4">
+      <CodexSidebarContent>
         <RailSection
           actionIcon={<FolderPlus size={15} />}
           actionLabel="Open project"
@@ -189,7 +190,7 @@ export function AgentRail(props: AgentRailProps) {
             </div>
           )}
         </RailSection>
-      </div>
+      </CodexSidebarContent>
 
       {props.error ? (
         <div className="mx-3 mb-3 rounded-2xl border border-red-200 bg-red-50 p-3 text-sm text-red-700">

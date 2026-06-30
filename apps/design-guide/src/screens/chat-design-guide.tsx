@@ -2,6 +2,7 @@ import {
   CodexChatMessage,
   CodexComposer,
   CodexSidebarCommand,
+  CodexSidebarContent,
   CodexEmptyState,
   CodexChatHeader,
   CodexSidebarFooter,
@@ -233,8 +234,8 @@ function SidebarGroups() {
       className="grid h-full min-h-[620px] grid-cols-[390px_minmax(0,1fr)] overflow-hidden bg-white"
       data-sidebar-story-shell="true"
     >
-      <CodexSidebarRail className="relative px-3 py-4" story>
-        <CodexSidebarTitlebar ariaLabel="Sidebar titlebar controls" className="-mx-3 -mt-4 mb-1">
+      <CodexSidebarRail story>
+        <CodexSidebarTitlebar ariaLabel="Sidebar titlebar controls">
           <CodexSidebarTitlebarControl icon={<PanelLeft size={17} />} label="Collapse sidebar" />
           <CodexSidebarTitlebarControl icon={<ChevronLeft size={18} />} label="Back" />
           <CodexSidebarTitlebarControl
@@ -245,7 +246,7 @@ function SidebarGroups() {
         </CodexSidebarTitlebar>
         <CodexSidebarCommand icon={<SquarePen size={16} />} label="New chat" />
         <CodexSidebarCommand icon={<Search size={16} />} label="Search" />
-        <div className="mt-8">
+        <CodexSidebarContent>
           <CodexSidebarSection actionIcon={<FolderPlus size={15} />} title="Projects">
             <CodexSidebarRow icon={<FileText size={16} />} label="toro" />
             <div className="mt-0.5 space-y-0.5">
@@ -264,7 +265,7 @@ function SidebarGroups() {
               ))}
             </div>
           </CodexSidebarSection>
-        </div>
+        </CodexSidebarContent>
         <CodexSidebarFooter
           action={
             <span className="flex size-8 shrink-0 items-center justify-center rounded-lg text-zinc-500">
@@ -276,7 +277,6 @@ function SidebarGroups() {
               T
             </div>
           }
-          className="absolute bottom-0 left-0 right-0"
           subtitle="Toro Demo / connected"
           title="Local host"
         />
