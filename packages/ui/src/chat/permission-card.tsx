@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
-import { Check, Shield, X } from "lucide-react";
-import { Button } from "../button";
+import { Shield } from "lucide-react";
+import { CodexPermissionAction } from "./permission-action";
 
 export interface CodexPermissionOption {
   readonly id: string;
@@ -27,15 +27,12 @@ export function CodexPermissionCard({ onRespond, options, title }: CodexPermissi
             {options.map((option) => {
               const isAllow = option.kind.startsWith("allow");
               return (
-                <Button
-                  className="h-8"
-                  icon={isAllow ? <Check size={14} /> : <X size={14} />}
+                <CodexPermissionAction
+                  allow={isAllow}
                   key={option.id}
+                  label={option.name}
                   onClick={() => onRespond(option.id)}
-                  variant={isAllow ? "primary" : "danger"}
-                >
-                  {option.name}
-                </Button>
+                />
               );
             })}
           </div>
