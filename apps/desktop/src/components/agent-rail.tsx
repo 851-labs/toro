@@ -220,12 +220,8 @@ export function AgentRail(props: AgentRailProps) {
             T
           </div>
         }
-        subtitle={
-          <>
-            {selectedAgent?.name ?? "Agent"} / {props.streamStatus}
-          </>
-        }
-        title="Local host"
+        subtitle={<>Local host / {props.streamStatus}</>}
+        title={selectedAgent?.name ?? "Toro"}
       >
         {settingsOpen ? (
           <div className="mb-2 rounded-lg border border-zinc-200 bg-white p-2 shadow-sm">

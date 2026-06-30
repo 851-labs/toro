@@ -244,6 +244,10 @@
 - Pulsing streaming cursor stills: `.artifacts/verification/2026-06-30T11-21-25-182Z/*.png`
 - Pulsing streaming cursor design-guide capture: `.artifacts/verification/design-guide/2026-06-30T11-24-04-995Z/page@2981f1b690896e0a4d927046a69c81da.webm`
 - Pulsing streaming cursor design-guide stills: `.artifacts/verification/design-guide/2026-06-30T11-24-04-995Z/*.png`
+- Codex-like footer hierarchy capture: `.artifacts/verification/2026-06-30T11-28-08-168Z/page@4b753fc7918796018133ecad11aeb69d.webm`
+- Codex-like footer hierarchy stills: `.artifacts/verification/2026-06-30T11-28-08-168Z/*.png`
+- Codex-like footer hierarchy design-guide capture: `.artifacts/verification/design-guide/2026-06-30T11-28-08-168Z/page@f41b9ac834031bb7676a9482d4e5fe2f.webm`
+- Codex-like footer hierarchy design-guide stills: `.artifacts/verification/design-guide/2026-06-30T11-28-08-168Z/*.png`
 
 Manual verification:
 
@@ -261,6 +265,7 @@ Manual verification:
 - Confirmed the desktop verification flow still exercises access/model selectors, then restores Codex-reference defaults (`Full access`, `5.5 Medium`) before screenshots and recordings.
 - Confirmed the shared composer syncs access/model selector state from changing props, preserving Codex-style footer defaults across host-driven environment or model changes.
 - Confirmed assistant and thinking streaming cursors now use the shared pulsing Codex-style inline dot, with desktop and design-guide verification asserting the animated cursor class before streaming screenshots.
+- Confirmed the sidebar footer now uses the selected agent as the primary identity line and `Local host / connected` as secondary metadata in both desktop and design-guide verification.
 - Confirmed the sidebar visually groups chats under their project and coalesces duplicate opens of the same project path.
 - Confirmed every rendered button in the desktop flow is limited to a wired action: new chat, open project, project/chat selection, send/stop, or permission response.
 - Confirmed the design guide permission buttons update visible state instead of acting as no-op controls.

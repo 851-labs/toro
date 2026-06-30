@@ -264,12 +264,13 @@ async function assertStreamingCursorAnimated(locator) {
 }
 
 async function assertSidebarFooterShared(page) {
-  const footers = await page
-    .locator("[data-sidebar-rail='true'] [data-sidebar-footer='true']")
-    .count();
+  const footer = page.locator("[data-sidebar-rail='true'] [data-sidebar-footer='true']");
+  const footers = await footer.count();
   if (footers !== 1) {
     throw new Error(`Desktop sidebar should use one shared footer, got ${footers}.`);
   }
+  await footer.getByText("Toro Demo", { exact: true }).waitFor({ timeout: 5_000 });
+  await footer.getByText("Local host / connected", { exact: true }).waitFor({ timeout: 5_000 });
 }
 
 async function assertSidebarCommandGroupShared(page) {

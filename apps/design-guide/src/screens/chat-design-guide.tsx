@@ -280,8 +280,8 @@ function SidebarGroups() {
               T
             </div>
           }
-          subtitle="Toro Demo / connected"
-          title="Local host"
+          subtitle="Local host / connected"
+          title="Toro Demo"
         />
       </CodexSidebarRail>
       <section className="grid min-h-0 grid-rows-[64px_1fr_auto] bg-white">
