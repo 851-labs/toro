@@ -246,7 +246,8 @@ export function CodexComposer({
             ) : (
               <span
                 aria-hidden="true"
-                className="flex size-9 items-center justify-center rounded-full bg-zinc-100 text-zinc-300"
+                className="flex size-9 items-center justify-center rounded-full bg-zinc-100 text-zinc-300 dark:bg-zinc-500 dark:text-zinc-900"
+                data-composer-send-disabled="true"
               >
                 <ArrowUp size={18} strokeWidth={2.4} />
               </span>

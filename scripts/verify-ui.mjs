@@ -443,6 +443,11 @@ async function assertDarkComposerControlHover(page) {
   if (backgroundLuma > 120) {
     throw new Error(`Dark composer Add context hover should stay quiet, got ${background}.`);
   }
+  const send = page.locator("[data-composer-send-disabled='true']");
+  const sendBackground = await send.evaluate((node) => getComputedStyle(node).backgroundColor);
+  if (rgbLuma(sendBackground) > 180) {
+    throw new Error(`Dark disabled send should stay gray, got ${sendBackground}.`);
+  }
 }
 
 function rgbLuma(color) {

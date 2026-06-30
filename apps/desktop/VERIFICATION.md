@@ -421,8 +421,13 @@ Manual verification:
 - Confirmed the top sidebar commands now share a `@toro/ui` command primitive across desktop and the design-guide sidebar story, with the design-guide verifier asserting the shared `data-sidebar-command` markers.
 - Confirmed sidebar search and project path fields now share a `@toro/ui` input primitive, with desktop verification asserting the shared `data-sidebar-input` marker in both project-open and search flows.
 - Confirmed the sidebar host/account footer now shares a `@toro/ui` footer primitive across desktop and the design-guide sidebar story, with desktop and design-guide verifiers asserting the shared `data-sidebar-footer` marker.
-- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T11-06-49-183Z/`.
-- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T11-06-35-882Z/`.
+- Confirmed the disabled shared composer send affordance now stays gray in the dark Codex-like composer, with desktop verification asserting it does not render as a bright light control.
+- Quiet disabled send desktop capture: `.artifacts/verification/2026-06-30T12-42-03-230Z/page@fe48e21a075b388a5b0a06502859be34.webm`
+- Quiet disabled send desktop stills: `.artifacts/verification/2026-06-30T12-42-03-230Z/*.png`
+- Quiet disabled send design-guide capture: `.artifacts/verification/design-guide/2026-06-30T12-42-22-132Z/page@3da9f61f49aad722abfff8b12015a423.webm`
+- Quiet disabled send design-guide stills: `.artifacts/verification/design-guide/2026-06-30T12-42-22-132Z/*.png`
+- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T12-42-03-230Z/`.
+- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T12-42-22-132Z/`.
 
 Automated verification:
 
