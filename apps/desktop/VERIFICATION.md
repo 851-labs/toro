@@ -56,6 +56,7 @@ Most recent manual checks:
 - Confirmed the internal app sidebar header no longer renders the T circle logo.
 - Confirmed the internal app uses TanStack Start routes for each sidebar item instead of local view state.
 - Confirmed the internal app sidebar uses a 256px rail, 12px content padding, and 28px rows at 13px type.
+- Confirmed desktop and internal dev scripts defer host and port settings to their Vite configs.
 - Confirmed empty newly-created sessions use a Codex-like New chat title until the first prompt renames them.
 - Confirmed the chat header includes a Codex-like editor-pane toggle that opens a Host API backed file preview.
 - Confirmed native Tauri renders the latest Codex-like chat shell after rebuild.
