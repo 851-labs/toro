@@ -16,6 +16,8 @@
 - Design guide stills: `.artifacts/verification/design-guide/2026-06-30T02-49-12-104Z/*.png`
 - Shared chat primitives capture: `.artifacts/verification/2026-06-30T02-50-41-423Z/page@54a6eed9b721613c19910daf9db761ff.webm`
 - Shared chat primitives stills: `.artifacts/verification/2026-06-30T02-50-41-423Z/*.png`
+- Grouped sidebar capture: `.artifacts/verification/2026-06-30T03-00-30-702Z/page@ce87e910aa84d417d31a69debfd97538.webm`
+- Grouped sidebar stills: `.artifacts/verification/2026-06-30T03-00-30-702Z/*.png`
 
 Manual verification:
 
@@ -28,6 +30,7 @@ Manual verification:
 - Confirmed inert header, sidebar, and composer controls were removed while workspace open, session start, send, permission approval, and file preview still work.
 - Confirmed the internal design guide renders shared chat messages, streaming state, permission prompt, expanded tool call, logs disclosure, and composer.
 - Confirmed the desktop chat flow still passes after moving messages, composer, permission prompt, tool call, and logs into shared UI primitives.
+- Confirmed the sidebar visually groups chats under their project and coalesces duplicate opens of the same project path.
 
 Automated verification:
 
