@@ -1,5 +1,5 @@
 {
-  "name": "@toro/design-guide",
+  "name": "@toro/internal",
   "private": true,
   "type": "module",
   "scripts": {

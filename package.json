@@ -57,7 +57,7 @@
     "test": "turbo test",
     "typecheck": "turbo typecheck",
     "verify": "bun run fmt && bun run lint && bun run typecheck && bun run test && bun run build",
-    "verify:design-guide": "node scripts/verify-design-guide.mjs",
+    "verify:internal": "node scripts/verify-internal.mjs",
     "verify:ui": "node scripts/verify-ui.mjs"
   },
   "devDependencies": {

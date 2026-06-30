@@ -18,8 +18,8 @@ Latest verified desktop artifacts:
 - Desktop stills: `.artifacts/verification/2026-06-30T18-01-59-373Z/*.png`
 - Grouped-sidebar capture: `.artifacts/verification/sidebar-groups/2026-06-30T15-10-20-395Z/page@d9d7ed776cdd64de9144ac1f4a6ab547.webm`
 - Grouped-sidebar still: `.artifacts/verification/sidebar-groups/2026-06-30T15-10-20-395Z/01-project-grouped-chats.png`
-- Design-guide capture: `.artifacts/verification/design-guide/2026-06-30T17-59-31-628Z/page@4fbd6ae0d6c8db0ef112e93865b54e73.webm`
-- Design-guide stills: `.artifacts/verification/design-guide/2026-06-30T17-59-31-628Z/*.png`
+- Internal capture: `.artifacts/verification/internal/2026-06-30T18-14-35-430Z/page@accd8adf6c47ed97d5f776a770b0785b.webm`
+- Internal stills: `.artifacts/verification/internal/2026-06-30T18-14-35-430Z/*.png`
 - Native still: `.artifacts/verification/native/2026-06-30-native-project-picker.png`
 
 Most recent manual checks:
@@ -50,8 +50,8 @@ Most recent manual checks:
 - Confirmed tool-call rows render with quieter Codex-like spacing, width, and no persistent card-like hover fill.
 - Confirmed expanded plan rows use muted transcript metadata instead of bright status colors.
 - Confirmed the chat header includes a Codex-like controls glyph that opens session details.
-- Confirmed the design guide catalogs both live and completed tool-call states.
-- Confirmed the design guide catalogs project-grouped sidebar chats.
+- Confirmed the internal app catalogs both live and completed tool-call states.
+- Confirmed the internal app catalogs project-grouped sidebar chats.
 - Confirmed empty newly-created sessions use a Codex-like New chat title until the first prompt renames them.
 - Confirmed the chat header includes a Codex-like editor-pane toggle that opens a Host API backed file preview.
 - Confirmed native Tauri renders the latest Codex-like chat shell after rebuild.
@@ -65,5 +65,5 @@ Automated verification:
 - `bun run build`
 - `bun run verify`
 - `TORO_VERIFY_STEP_DELAY_MS=200 bun run verify:ui`
-- `TORO_VERIFY_STEP_DELAY_MS=200 bun run verify:design-guide`
+- `TORO_VERIFY_STEP_DELAY_MS=200 bun run verify:internal`
 - `bun --filter @toro/desktop tauri build --debug --bundles app`

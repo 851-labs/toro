@@ -45,7 +45,7 @@ import { useState } from "react";
 
 type GuideView = "chat" | "composer" | "empty" | "sidebar";
 
-export function ChatDesignGuide() {
+export function InternalChat() {
   const [activeView, setActiveView] = useState<GuideView>("chat");
   const [composerValue, setComposerValue] = useState("");
   const [permissionDecision, setPermissionDecision] = useState<

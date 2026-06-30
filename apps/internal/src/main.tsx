@@ -1,9 +1,9 @@
 import { RouterProvider } from "@tanstack/react-router";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { createDesignGuideRouter } from "./router";
+import { createInternalRouter } from "./router";
 
-const router = createDesignGuideRouter();
+const router = createInternalRouter();
 
 const rootElement = document.getElementById("root");
 

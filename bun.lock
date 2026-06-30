@@ -18,28 +18,6 @@
         "vitest": "catalog:",
       },
     },
-    "apps/design-guide": {
-      "name": "@toro/design-guide",
-      "dependencies": {
-        "@tanstack/react-router": "catalog:",
-        "@tanstack/react-start": "catalog:",
-        "@toro/ui": "workspace:*",
-        "lucide-react": "catalog:",
-        "react": "catalog:",
-        "react-dom": "catalog:",
-      },
-      "devDependencies": {
-        "@tailwindcss/vite": "catalog:",
-        "@tanstack/router-plugin": "catalog:",
-        "@types/react": "catalog:",
-        "@types/react-dom": "catalog:",
-        "@vitejs/plugin-react": "catalog:",
-        "tailwindcss": "catalog:",
-        "typescript": "catalog:",
-        "vite": "catalog:",
-        "vitest": "catalog:",
-      },
-    },
     "apps/desktop": {
       "name": "@toro/desktop",
       "dependencies": {
@@ -78,6 +56,28 @@
         "@types/bun": "catalog:",
         "@types/node": "catalog:",
         "typescript": "catalog:",
+        "vitest": "catalog:",
+      },
+    },
+    "apps/internal": {
+      "name": "@toro/internal",
+      "dependencies": {
+        "@tanstack/react-router": "catalog:",
+        "@tanstack/react-start": "catalog:",
+        "@toro/ui": "workspace:*",
+        "lucide-react": "catalog:",
+        "react": "catalog:",
+        "react-dom": "catalog:",
+      },
+      "devDependencies": {
+        "@tailwindcss/vite": "catalog:",
+        "@tanstack/router-plugin": "catalog:",
+        "@types/react": "catalog:",
+        "@types/react-dom": "catalog:",
+        "@vitejs/plugin-react": "catalog:",
+        "tailwindcss": "catalog:",
+        "typescript": "catalog:",
+        "vite": "catalog:",
         "vitest": "catalog:",
       },
     },
@@ -512,8 +512,6 @@
 
     "@toro/config": ["@toro/config@workspace:packages/config"],
 
-    "@toro/design-guide": ["@toro/design-guide@workspace:apps/design-guide"],
-
     "@toro/desktop": ["@toro/desktop@workspace:apps/desktop"],
 
     "@toro/domain": ["@toro/domain@workspace:packages/domain"],
@@ -521,6 +519,8 @@
     "@toro/environments": ["@toro/environments@workspace:packages/environments"],
 
     "@toro/host": ["@toro/host@workspace:apps/host"],
+
+    "@toro/internal": ["@toro/internal@workspace:apps/internal"],
 
     "@toro/ui": ["@toro/ui@workspace:packages/ui"],
 

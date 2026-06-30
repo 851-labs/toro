@@ -1,12 +1,12 @@
 import { chromium } from "@playwright/test";
 import { mkdir, readdir } from "node:fs/promises";
 import { resolve } from "node:path";
-const appUrl = process.env.TORO_DESIGN_GUIDE_URL ?? "http://127.0.0.1:1430";
+const appUrl = process.env.TORO_INTERNAL_URL ?? "http://127.0.0.1:1430";
 const stepDelayMs = Number(process.env.TORO_VERIFY_STEP_DELAY_MS ?? 0);
 const streamingMarkdownText = /Streaming markdown keeps/;
 const timestamp = new Date().toISOString().replaceAll(":", "-").replaceAll(".", "-");
-const artifactDir = resolve(".artifacts/verification/design-guide", timestamp);
-await assertReachable(appUrl, "Toro design guide");
+const artifactDir = resolve(".artifacts/verification/internal", timestamp);
+await assertReachable(appUrl, "Toro internal app");
 await mkdir(artifactDir, { recursive: true });
 
 const browser = await chromium.launch();
@@ -145,7 +145,7 @@ async function expectPressed(locator) {
     }
     await new Promise((resolve) => setTimeout(resolve, 100));
   }
-  throw new Error("Expected design-guide message action to become pressed.");
+  throw new Error("Expected internal message action to become pressed.");
 }
 
 async function selectComposerOption(page, label, value) {

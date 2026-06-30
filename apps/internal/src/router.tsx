@@ -1,16 +1,16 @@
 import { createRouter } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
 
-export function createDesignGuideRouter() {
+export function createInternalRouter() {
   return createRouter({ routeTree });
 }
 
 export function getRouter() {
-  return createDesignGuideRouter();
+  return createInternalRouter();
 }
 
 declare module "@tanstack/react-router" {
   interface Register {
-    router: ReturnType<typeof createDesignGuideRouter>;
+    router: ReturnType<typeof createInternalRouter>;
   }
 }
