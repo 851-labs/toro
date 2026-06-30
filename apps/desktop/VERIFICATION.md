@@ -14,8 +14,8 @@ Current reference evidence:
 
 Latest verified desktop artifacts:
 
-- Desktop capture: `.artifacts/verification/2026-06-30T14-14-20-955Z/page@20ed66a14effb128a655ad7416bfcc87.webm`
-- Desktop stills: `.artifacts/verification/2026-06-30T14-14-20-955Z/*.png`
+- Desktop capture: `.artifacts/verification/2026-06-30T14-23-01-907Z/page@f4b6600b1c6412ede103c0718f6d19b4.webm`
+- Desktop stills: `.artifacts/verification/2026-06-30T14-23-01-907Z/*.png`
 - Design-guide capture: `.artifacts/verification/design-guide/2026-06-30T14-15-17-388Z/page@52ea18447072bc1518924b11ed2646b8.webm`
 - Design-guide stills: `.artifacts/verification/design-guide/2026-06-30T14-15-17-388Z/*.png`
 
@@ -24,6 +24,7 @@ Most recent manual checks:
 - Confirmed the desktop sidebar no longer renders inert Scheduled or Plugins rows until those features are wired.
 - Confirmed completed tool-call status renders as muted transcript metadata instead of bright emerald text.
 - Confirmed assistant messages use a wider Codex-like transcript rail instead of the previous narrow 72% cap.
+- Confirmed the UI verifier resets host state before loading the desktop shell.
 - Confirmed native Tauri renders the latest Codex-like chat shell after rebuild.
 
 Automated verification:

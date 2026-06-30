@@ -28,6 +28,10 @@ export function routeRequest(runtime: HostRuntime, request: Request): Response |
     if (request.method === "GET" && url.pathname === "/api/state") {
       return json(runtime.getState());
     }
+    if (request.method === "POST" && url.pathname === "/api/reset") {
+      runtime.reset();
+      return json({ ok: true });
+    }
     if (request.method === "GET" && url.pathname === "/api/workspaces") {
       return json(runtime.listWorkspaces());
     }

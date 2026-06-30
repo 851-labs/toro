@@ -34,11 +34,7 @@ export class HostRuntime {
   private readonly launchExternal: ExternalLauncher;
   private readonly listeners = new Set<Listener>();
   private readonly sessions = new Map<SessionId, AcpAgentSession>();
-  private state: ToroState = applyHostEvent(emptyToroState, {
-    agents: agentPresets,
-    environments: environmentPresets,
-    type: "catalog_loaded",
-  });
+  private state: ToroState = loadInitialState();
 
   constructor(options: HostRuntimeOptions = {}) {
     this.launchExternal = options.launchExternal ?? launchExternalProcess;
@@ -208,6 +204,11 @@ export class HostRuntime {
     this.sessions.clear();
   }
 
+  reset(): void {
+    this.closeAll();
+    this.state = loadInitialState();
+  }
+
   subscribe(listener: Listener): () => void {
     this.listeners.add(listener);
     return () => this.listeners.delete(listener);
@@ -258,6 +259,14 @@ function externalOpenCommand(
   return target === "vscode"
     ? { args: [path], command: "code" }
     : { args: [path], command: "xdg-open" };
+}
+
+function loadInitialState(): ToroState {
+  return applyHostEvent(emptyToroState, {
+    agents: agentPresets,
+    environments: environmentPresets,
+    type: "catalog_loaded",
+  });
 }
 
 function titleFromPrompt(content: string) {

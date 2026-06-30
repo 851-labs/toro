@@ -43,6 +43,7 @@ const {
 } = createVerifyUiHelpers({ pause, screenshot, workspaceName, workspacePath });
 
 await assertReachable(`${hostUrl}/api/state`, "Toro host");
+await resetHostState();
 await mkdir(artifactDir, { recursive: true });
 
 const browser = await chromium.launch();
@@ -271,6 +272,11 @@ async function pause() {
   if (stepDelayMs > 0) {
     await new Promise((resolvePause) => setTimeout(resolvePause, stepDelayMs));
   }
+}
+
+async function resetHostState() {
+  const response = await fetch(`${hostUrl}/api/reset`, { method: "POST" });
+  if (!response.ok) throw new Error(`Failed to reset Toro host: ${response.status}`);
 }
 
 async function assertStreamingCursorAnimated(locator) {

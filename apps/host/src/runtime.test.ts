@@ -88,6 +88,25 @@ describe("HostRuntime", () => {
 
     expect(session?.title).toBe("Make the Toro sidebar look like Codex Desktop and...");
   });
+
+  it("resets transient workspace and session state while preserving catalog data", async () => {
+    const runtime = new HostRuntime();
+    const workspace = await runtime.openWorkspace(process.cwd(), environmentId("local-desktop"));
+    await runtime.createSession({
+      agentId: agentId("toro-demo"),
+      environmentId: environmentId("local-desktop"),
+      workspaceId: workspace.id,
+    });
+
+    runtime.reset();
+
+    expect(runtime.getState().workspaces).toHaveLength(0);
+    expect(runtime.getState().sessions).toHaveLength(0);
+    expect(runtime.getState().agents.map((agent) => agent.id)).toContain(agentId("toro-demo"));
+    expect(runtime.getState().environments.map((environment) => environment.id)).toContain(
+      environmentId("local-desktop"),
+    );
+  });
 });
 
 async function waitFor(predicate: () => boolean): Promise<void> {

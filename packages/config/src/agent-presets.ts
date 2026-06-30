@@ -1,11 +1,16 @@
+import { fileURLToPath } from "node:url";
 import { agentId } from "@toro/domain";
 import type { AgentProfile } from "@toro/domain";
+
+const demoAgentPath = fileURLToPath(
+  new URL("../../../apps/host/src/demo-agent.ts", import.meta.url),
+);
 
 export const agentPresets: readonly AgentProfile[] = [
   {
     authHint: "Deterministic local ACP agent for screenshots, tests, and offline verification.",
     command: {
-      args: ["src/demo-agent.ts"],
+      args: [demoAgentPath],
       command: "bun",
     },
     description: "Repeatable ACP agent used to validate Toro flows without model calls.",
