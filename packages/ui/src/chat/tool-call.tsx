@@ -12,6 +12,7 @@ export interface CodexToolCallProps {
 }
 
 export function CodexToolCall({ children, defaultOpen, kind, status, title }: CodexToolCallProps) {
+  const live = status === "pending" || status === "in_progress";
   return (
     <details className="group/tool max-w-[720px] text-sm" data-tool-call="true" open={defaultOpen}>
       <CodexDisclosureSummary
@@ -23,7 +24,15 @@ export function CodexToolCall({ children, defaultOpen, kind, status, title }: Co
             <span aria-hidden="true" className="text-zinc-300 dark:text-zinc-600">
               /
             </span>
-            <span className={cn("shrink-0", statusClass(status))}>{statusLabel(status)}</span>
+            <span
+              className={cn("inline-flex shrink-0 items-center gap-1", statusClass(status))}
+              data-tool-call-live={live ? "true" : undefined}
+            >
+              {live ? (
+                <span className="size-1.5 rounded-full bg-zinc-400 motion-safe:animate-pulse" />
+              ) : null}
+              {statusLabel(status)}
+            </span>
           </span>
         }
         summaryClassName="group-open/tool:hover:bg-transparent"

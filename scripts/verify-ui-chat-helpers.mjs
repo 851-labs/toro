@@ -12,9 +12,10 @@ export async function assertSharedChatMessages(page) {
 }
 
 export async function assertPendingPermissionToolCall(page) {
-  await page
+  const pending = page
     .locator("[data-tool-call='true']")
     .filter({ hasText: /Validate Toro permission UI/ })
-    .filter({ hasText: "pending" })
-    .waitFor({ timeout: 5_000 });
+    .filter({ hasText: "pending" });
+  await pending.waitFor({ timeout: 5_000 });
+  await pending.locator("[data-tool-call-live='true']").waitFor({ timeout: 5_000 });
 }
