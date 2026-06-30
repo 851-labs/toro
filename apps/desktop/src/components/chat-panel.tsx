@@ -311,7 +311,7 @@ function AssistantMessageContent({
   readonly toolCalls: readonly ToolCall[];
 }) {
   return (
-    <div className="space-y-3" data-message-tool-block="true">
+    <div className="space-y-4" data-message-tool-block="true">
       <ToolCallCluster toolCalls={toolCalls} />
       <CodexMarkdownMessage isStreaming={isStreaming}>{content}</CodexMarkdownMessage>
     </div>

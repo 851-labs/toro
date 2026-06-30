@@ -16,7 +16,7 @@ export function CodexToolCall({ children, defaultOpen, kind, status, title }: Co
   const live = status === "pending" || status === "in_progress";
   return (
     <Collapsible.Root
-      className="group/tool max-w-[720px] text-sm text-zinc-600 dark:text-zinc-400"
+      className="group/tool max-w-[640px] text-sm text-zinc-600 dark:text-zinc-400"
       data-activity-disclosure="tool"
       data-base-ui-collapsible="true"
       data-tool-call="true"
@@ -43,17 +43,17 @@ export function CodexToolCall({ children, defaultOpen, kind, status, title }: Co
             </span>
           </span>
         }
-        summaryClassName="group-data-[open]/tool:bg-transparent group-data-[open]/tool:hover:bg-zinc-50/80 dark:group-data-[open]/tool:hover:bg-zinc-800/80"
+        summaryClassName="hover:bg-transparent group-data-[open]/tool:bg-transparent dark:hover:bg-transparent"
         title={title}
       />
       {children ? (
         <Collapsible.Panel
-          className="ml-8 mt-1 max-h-52 overflow-auto py-0.5"
+          className="ml-8 mt-2 max-h-52 overflow-auto pb-1 pt-0.5"
           data-tool-output="true"
           keepMounted
         >
           <pre
-            className="whitespace-pre-wrap text-xs leading-5 text-zinc-500 dark:text-zinc-400"
+            className="whitespace-pre-wrap text-[13px] leading-5 text-zinc-500 dark:text-zinc-400"
             data-tool-output-pre="true"
           >
             {children}

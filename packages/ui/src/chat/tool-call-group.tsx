@@ -18,7 +18,7 @@ export function CodexToolCallGroup({
 }: CodexToolCallGroupProps) {
   return (
     <Collapsible.Root
-      className="group/tool-group max-w-full text-sm text-zinc-600 dark:text-zinc-400"
+      className="group/tool-group max-w-[640px] text-sm text-zinc-600 dark:text-zinc-400"
       data-base-ui-collapsible="true"
       data-tool-call-group="true"
       defaultOpen={defaultOpen}
@@ -28,11 +28,11 @@ export function CodexToolCallGroup({
         chevronClassName="group-data-[open]/tool-group:rotate-90"
         icon={<SquareTerminal size={14} />}
         meta={`${completedCount} of ${count} complete`}
-        summaryClassName="group-data-[open]/tool-group:bg-transparent group-data-[open]/tool-group:hover:bg-zinc-50/80 dark:group-data-[open]/tool-group:hover:bg-zinc-800/80"
+        summaryClassName="hover:bg-transparent group-data-[open]/tool-group:bg-transparent dark:hover:bg-transparent"
         title={`${count} tool calls`}
       />
       <Collapsible.Panel
-        className="ml-8 mt-1 space-y-2"
+        className="ml-8 mt-1.5 space-y-1.5"
         data-tool-call-group-items="true"
         keepMounted
       >

@@ -14,13 +14,13 @@ Current reference evidence:
 
 Latest verified desktop artifacts:
 
-- Desktop capture: `.artifacts/verification/2026-06-30T17-04-19-026Z/page@67be63763f8e0f7400f6ce9ad68ad391.webm`
-- Desktop stills: `.artifacts/verification/2026-06-30T17-04-19-026Z/*.png`
+- Desktop capture: `.artifacts/verification/2026-06-30T17-11-02-779Z/page@2869847a39772518cfac8c320fbfe7e4.webm`
+- Desktop stills: `.artifacts/verification/2026-06-30T17-11-02-779Z/*.png`
 - Grouped-sidebar capture: `.artifacts/verification/sidebar-groups/2026-06-30T15-10-20-395Z/page@d9d7ed776cdd64de9144ac1f4a6ab547.webm`
 - Grouped-sidebar still: `.artifacts/verification/sidebar-groups/2026-06-30T15-10-20-395Z/01-project-grouped-chats.png`
-- Design-guide capture: `.artifacts/verification/design-guide/2026-06-30T17-05-08-388Z/page@0d194fa8e576a24c0d11fcdee9a3e2dc.webm`
-- Design-guide stills: `.artifacts/verification/design-guide/2026-06-30T17-05-08-388Z/*.png`
-- Native still: `.artifacts/verification/native/2026-06-30-tool-call-grouping.png`
+- Design-guide capture: `.artifacts/verification/design-guide/2026-06-30T17-11-30-292Z/page@bd94a6a1bd4c023cf491ade79b4c493c.webm`
+- Design-guide stills: `.artifacts/verification/design-guide/2026-06-30T17-11-30-292Z/*.png`
+- Native still: `.artifacts/verification/native/2026-06-30-clean-tool-calls.png`
 
 Most recent manual checks:
 
@@ -40,6 +40,7 @@ Most recent manual checks:
 - Confirmed pending permission tool calls appear in the transcript before approval.
 - Confirmed pending and running tool-call statuses show a live Codex-like activity dot.
 - Confirmed multiple tool calls group behind one disclosure, and expanding it reveals each individual tool call.
+- Confirmed tool-call rows render with quieter Codex-like spacing, width, and no persistent card-like hover fill.
 - Confirmed expanded plan rows use muted transcript metadata instead of bright status colors.
 - Confirmed the chat header includes a Codex-like controls glyph that opens session details.
 - Confirmed the design guide catalogs both live and completed tool-call states.

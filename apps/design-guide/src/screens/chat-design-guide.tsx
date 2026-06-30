@@ -228,7 +228,7 @@ function ChatElements({
         }
       />
       <CodexChatMessage copyText="Tool calls now sit inside the assistant answer." role="assistant">
-        <div className="space-y-3" data-message-tool-block="true">
+        <div className="space-y-4" data-message-tool-block="true">
           <CodexToolCallGroup completedCount={1} count={2} defaultOpen>
             <CodexToolCall kind="execute" status="in_progress" title="Run deterministic verifier" />
             <CodexToolCall
@@ -397,7 +397,7 @@ function ComposerStates() {
   return (
     <CodexTranscriptSurface>
       <CodexChatMessage role="assistant">
-        <div className="space-y-3" data-message-tool-block="true">
+        <div className="space-y-4" data-message-tool-block="true">
           <CodexToolCall kind="read" status="completed" title="Load composer context candidates">
             app.tsx, composer.tsx, verify-ui.mjs
           </CodexToolCall>
