@@ -14,11 +14,11 @@ Current reference evidence:
 
 Latest verified desktop artifacts:
 
-- Desktop capture: `.artifacts/verification/2026-06-30T14-37-28-965Z/page@7380ad353d8051dc24c42f8a4f250d6d.webm`
-- Desktop stills: `.artifacts/verification/2026-06-30T14-37-28-965Z/*.png`
+- Desktop capture: `.artifacts/verification/2026-06-30T14-44-44-099Z/page@9fbb6c43cd7582dfe7dc0ba184329a12.webm`
+- Desktop stills: `.artifacts/verification/2026-06-30T14-44-44-099Z/*.png`
 - Design-guide capture: `.artifacts/verification/design-guide/2026-06-30T14-37-50-367Z/page@f6a4c2e96fafac1d8916adc70f77d981.webm`
 - Design-guide stills: `.artifacts/verification/design-guide/2026-06-30T14-37-50-367Z/*.png`
-- Native still: `.artifacts/verification/native/2026-06-30-codex-rail-width.png`
+- Native still: `.artifacts/verification/native/2026-06-30-project-scoped-chats.png`
 
 Most recent manual checks:
 
@@ -27,6 +27,7 @@ Most recent manual checks:
 - Confirmed assistant messages use a wider Codex-like transcript rail instead of the previous narrow 72% cap.
 - Confirmed the UI verifier resets host state before loading the desktop shell.
 - Confirmed the desktop sidebar renders Codex-like top-level Projects and Chats sections.
+- Confirmed the desktop Chats section is scoped to the active project outside search mode.
 - Confirmed the transcript and composer use a narrower Codex-like centered rail.
 - Confirmed native Tauri renders the latest Codex-like chat shell after rebuild.
 

@@ -102,6 +102,16 @@ export function filterProjectGroups(
     });
 }
 
+export function activeProjectGroups(
+  groups: readonly ProjectGroupModel[],
+  activeWorkspaceId: WorkspaceId | null,
+): readonly ProjectGroupModel[] {
+  if (!activeWorkspaceId) {
+    return [];
+  }
+  return groups.filter((group) => group.workspaceIds.includes(activeWorkspaceId));
+}
+
 export function groupWorkspaces(
   workspaces: readonly Workspace[],
   sessions: readonly Session[],

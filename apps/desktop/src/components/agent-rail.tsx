@@ -32,6 +32,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import {
+  activeProjectGroups,
   ChatRows,
   filterProjectGroups,
   groupWorkspaces,
@@ -74,10 +75,14 @@ export function AgentRail(props: AgentRailProps) {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const canOpenProject = props.workspacePath.trim().length > 0;
   const searchOpen = activeView === "search";
+  const activeWorkspaceId = props.activeWorkspace?.id ?? null;
   const projectGroups = filterProjectGroups(
     groupWorkspaces(props.workspaces, props.sessions),
     searchQuery,
   );
+  const chatGroups = searchOpen
+    ? projectGroups
+    : activeProjectGroups(projectGroups, activeWorkspaceId);
 
   return (
     <CodexSidebarRail>
@@ -177,7 +182,7 @@ export function AgentRail(props: AgentRailProps) {
           {projectGroups.length > 0 ? (
             <ProjectRows
               activeSessionId={props.activeSessionId}
-              activeWorkspaceId={props.activeWorkspace?.id ?? null}
+              activeWorkspaceId={activeWorkspaceId}
               groups={projectGroups}
               onSelectWorkspace={props.onSelectWorkspace}
             />
@@ -186,7 +191,7 @@ export function AgentRail(props: AgentRailProps) {
           ) : (
             <ProjectRows
               activeSessionId={props.activeSessionId}
-              activeWorkspaceId={props.activeWorkspace?.id ?? null}
+              activeWorkspaceId={activeWorkspaceId}
               groups={projectGroups}
               onSelectWorkspace={props.onSelectWorkspace}
             />
@@ -195,7 +200,7 @@ export function AgentRail(props: AgentRailProps) {
         <RailSection title="Chats">
           <ChatRows
             activeSessionId={props.activeSessionId}
-            groups={projectGroups}
+            groups={chatGroups}
             onSelectSession={props.onSelectSession}
           />
         </RailSection>
