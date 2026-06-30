@@ -56,6 +56,7 @@ await page.getByRole("button", { exact: true, name: "Search" }).waitFor({ timeou
 await assertDeadControlsRemoved(page);
 await assertPrimarySidebarSimplified(page);
 await assertSidebarWidthIsCodexLike(page);
+await assertSidebarCommandGroupShared(page);
 await assertSidebarFooterShared(page);
 await assertProjectFormHidden(page);
 await assertComposerFooterIsCodexCompact(page);
@@ -245,5 +246,14 @@ async function assertSidebarFooterShared(page) {
     .count();
   if (footers !== 1) {
     throw new Error(`Desktop sidebar should use one shared footer, got ${footers}.`);
+  }
+}
+
+async function assertSidebarCommandGroupShared(page) {
+  const groups = await page
+    .locator("[data-sidebar-rail='true'] [data-sidebar-command-group='true']")
+    .count();
+  if (groups !== 1) {
+    throw new Error(`Desktop sidebar should use one shared command group, got ${groups}.`);
   }
 }

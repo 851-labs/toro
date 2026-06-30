@@ -2,6 +2,7 @@ import {
   CodexChatMessage,
   CodexComposer,
   CodexSidebarCommand,
+  CodexSidebarCommandGroup,
   CodexSidebarContent,
   CodexEmptyState,
   CodexChatHeader,
@@ -244,8 +245,10 @@ function SidebarGroups() {
             label="Forward"
           />
         </CodexSidebarTitlebar>
-        <CodexSidebarCommand icon={<SquarePen size={16} />} label="New chat" />
-        <CodexSidebarCommand icon={<Search size={16} />} label="Search" />
+        <CodexSidebarCommandGroup>
+          <CodexSidebarCommand icon={<SquarePen size={16} />} label="New chat" />
+          <CodexSidebarCommand icon={<Search size={16} />} label="Search" />
+        </CodexSidebarCommandGroup>
         <CodexSidebarContent>
           <CodexSidebarSection actionIcon={<FolderPlus size={15} />} title="Projects">
             <CodexSidebarRow icon={<FileText size={16} />} label="toro" />

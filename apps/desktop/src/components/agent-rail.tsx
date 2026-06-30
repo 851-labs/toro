@@ -10,6 +10,7 @@ import type { AgentProfile, EnvironmentProfile, Session, Workspace } from "@toro
 import {
   Button,
   CodexSidebarCommand,
+  CodexSidebarCommandGroup,
   CodexSidebarContent,
   CodexSidebarFooter,
   CodexSidebarRail,
@@ -98,7 +99,7 @@ export function AgentRail(props: AgentRailProps) {
         />
       </CodexSidebarTitlebar>
 
-      <div className="space-y-1 px-3">
+      <CodexSidebarCommandGroup>
         <CodexSidebarCommand
           disabled={!props.activeWorkspace}
           icon={<SquarePen size={17} />}
@@ -118,7 +119,7 @@ export function AgentRail(props: AgentRailProps) {
           label="Search"
           onClick={() => setActiveView((view) => (view === "search" ? "projects" : "search"))}
         />
-      </div>
+      </CodexSidebarCommandGroup>
 
       <CodexSidebarContent>
         <RailSection
