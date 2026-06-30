@@ -83,33 +83,6 @@ export function ChatRows({
   });
 }
 
-export function filterProjectGroups(
-  groups: readonly ProjectGroupModel[],
-  query: string,
-): readonly ProjectGroupModel[] {
-  const normalizedQuery = query.trim().toLowerCase();
-  if (!normalizedQuery) {
-    return groups;
-  }
-
-  return groups
-    .map((group) => {
-      const projectMatches =
-        group.workspace.name.toLowerCase().includes(normalizedQuery) ||
-        group.workspace.path.toLowerCase().includes(normalizedQuery);
-      const sessions = group.sessions.filter((session) =>
-        session.title.toLowerCase().includes(normalizedQuery),
-      );
-      return projectMatches ? group : { ...group, sessions };
-    })
-    .filter((group) => {
-      const projectMatches =
-        group.workspace.name.toLowerCase().includes(normalizedQuery) ||
-        group.workspace.path.toLowerCase().includes(normalizedQuery);
-      return projectMatches || group.sessions.length > 0;
-    });
-}
-
 export function groupWorkspaces(
   workspaces: readonly Workspace[],
   sessions: readonly Session[],

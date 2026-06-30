@@ -53,7 +53,7 @@ const context = await browser.newContext({
 const page = await context.newPage();
 
 await page.goto(appUrl, { waitUntil: "domcontentloaded" });
-await page.getByRole("button", { exact: true, name: "Search" }).waitFor({ timeout: 5_000 });
+await page.getByRole("button", { exact: true, name: "New chat" }).waitFor({ timeout: 5_000 });
 await assertDeadControlsRemoved(page);
 await assertPrimarySidebarSimplified(page);
 await assertSidebarWidthIsCodexLike(page);
@@ -99,16 +99,6 @@ await assertComposerContextPicker(page);
 await assertLightComposerControlHover(page);
 await assertOnlyFunctionalButtons(page);
 await screenshot(page, "02-workspace-opened.png");
-await pause();
-
-await page.getByRole("button", { exact: true, name: "Search" }).click();
-await assertSidebarInputsShared(page, 1);
-await page.getByLabel("Search projects and chats").fill("definitely-not-a-project");
-await page.getByText("No matches").waitFor({ timeout: 5_000 });
-await page.getByLabel("Search projects and chats").fill(workspaceName);
-await page.getByRole("button", { name: workspaceName }).first().waitFor({ timeout: 5_000 });
-await screenshot(page, "03-search-filtered.png");
-await page.getByRole("button", { exact: true, name: "Search" }).click();
 await pause();
 
 await page.getByRole("button", { exact: true, name: "New chat" }).click();
@@ -485,14 +475,5 @@ async function assertPassiveReferenceSidebarRows(page) {
     if ((await rail.getByRole("button", { exact: true, name: label }).count()) > 0) {
       throw new Error(`Desktop ${label} row should be passive until the feature is wired.`);
     }
-  }
-}
-
-async function assertSidebarInputsShared(page, minimum) {
-  const inputs = await page
-    .locator("[data-sidebar-rail='true'] [data-sidebar-input='true']")
-    .count();
-  if (inputs < minimum) {
-    throw new Error(`Desktop sidebar should use shared sidebar inputs, got ${inputs}.`);
   }
 }

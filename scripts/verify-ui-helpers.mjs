@@ -1,8 +1,6 @@
 export function createVerifyUiHelpers({ pause, screenshot, workspaceName, workspacePath }) {
   async function assertDeadControlsRemoved(page) {
-    const deadButtons = ["Chat settings", "Dictate", "Scheduled", "Plugins", /Remote Sandbox/];
-
-    for (const name of deadButtons) {
+    for (const name of [/^(Chat settings|Dictate|Search|Scheduled|Plugins)$/, /Remote Sandbox/]) {
       if ((await page.getByRole("button", { exact: true, name }).count()) > 0) {
         throw new Error(`Dead control is still rendered as a button: ${name}`);
       }
@@ -365,7 +363,6 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
         "Open in VS Code",
         "Open project",
         "Reveal in Finder",
-        "Search",
         "Send",
         "Stop",
         "Host settings",

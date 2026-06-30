@@ -13,7 +13,6 @@ import {
   CodexSidebarCommandGroup,
   CodexSidebarContent,
   CodexSidebarFooter,
-  CodexSidebarInput,
   CodexSidebarRail,
   CodexSidebarTitlebar,
   CodexSidebarTitlebarControl,
@@ -26,20 +25,11 @@ import {
   FolderPlus,
   PanelLeft,
   Plug,
-  Search,
   SlidersHorizontal,
   SquarePen,
 } from "lucide-react";
 import { useState } from "react";
-import {
-  ChatRows,
-  filterProjectGroups,
-  groupWorkspaces,
-  ProjectRows,
-  RailSection,
-} from "./agent-rail-parts";
-
-type RailView = "projects" | "search";
+import { ChatRows, groupWorkspaces, ProjectRows, RailSection } from "./agent-rail-parts";
 
 interface AgentRailProps {
   readonly activeWorkspace: Workspace | null;
@@ -66,15 +56,9 @@ interface AgentRailProps {
 }
 
 export function AgentRail(props: AgentRailProps) {
-  const [activeView, setActiveView] = useState<RailView>("projects");
-  const [searchQuery, setSearchQuery] = useState("");
   const [settingsOpen, setSettingsOpen] = useState(false);
-  const searchOpen = activeView === "search";
   const activeWorkspaceId = props.activeWorkspace?.id ?? null;
-  const projectGroups = filterProjectGroups(
-    groupWorkspaces(props.workspaces, props.sessions),
-    searchQuery,
-  );
+  const projectGroups = groupWorkspaces(props.workspaces, props.sessions);
 
   return (
     <CodexSidebarRail>
@@ -103,19 +87,12 @@ export function AgentRail(props: AgentRailProps) {
           icon={<SquarePen size={17} />}
           label="New chat"
           onClick={() => {
-            setActiveView("projects");
             if (props.activeWorkspace) {
               props.onCreateSession();
             } else {
               props.onOpenWorkspace();
             }
           }}
-        />
-        <CodexSidebarCommand
-          active={searchOpen}
-          icon={<Search size={17} />}
-          label="Search"
-          onClick={() => setActiveView((view) => (view === "search" ? "projects" : "search"))}
         />
         <CodexSidebarCommand icon={<Clock size={17} />} label="Scheduled" />
         <CodexSidebarCommand icon={<Plug size={17} />} label="Plugins" />
@@ -128,34 +105,12 @@ export function AgentRail(props: AgentRailProps) {
           title="Projects"
           onAction={props.onOpenWorkspace}
         >
-          {searchOpen ? (
-            <div className="mb-3">
-              <CodexSidebarInput
-                aria-label="Search projects and chats"
-                className="w-full"
-                onChange={(event) => setSearchQuery(event.target.value)}
-                placeholder="Search projects and chats"
-                value={searchQuery}
-              />
-            </div>
-          ) : null}
-          {projectGroups.length > 0 ? (
-            <ProjectRows
-              activeSessionId={props.activeSessionId}
-              activeWorkspaceId={activeWorkspaceId}
-              groups={projectGroups}
-              onSelectWorkspace={props.onSelectWorkspace}
-            />
-          ) : props.workspaces.length > 0 ? (
-            <div className="px-3 py-2 text-sm text-zinc-400">No matches</div>
-          ) : (
-            <ProjectRows
-              activeSessionId={props.activeSessionId}
-              activeWorkspaceId={activeWorkspaceId}
-              groups={projectGroups}
-              onSelectWorkspace={props.onSelectWorkspace}
-            />
-          )}
+          <ProjectRows
+            activeSessionId={props.activeSessionId}
+            activeWorkspaceId={activeWorkspaceId}
+            groups={projectGroups}
+            onSelectWorkspace={props.onSelectWorkspace}
+          />
         </RailSection>
         <RailSection title="Chats">
           <ChatRows

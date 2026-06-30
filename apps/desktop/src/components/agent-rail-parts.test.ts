@@ -3,10 +3,10 @@ import { agentId, environmentId, sessionId, workspaceId } from "@toro/domain";
 import type { Session, Workspace } from "@toro/domain";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { ChatRows, filterProjectGroups, groupWorkspaces } from "./agent-rail-parts";
+import { ChatRows, groupWorkspaces } from "./agent-rail-parts";
 
 describe("agent rail grouping", () => {
-  it("keeps chats grouped by project while search narrows the visible groups", () => {
+  it("keeps chats grouped by project and sorted by recency", () => {
     const toro = workspace("workspace-toro", "toro");
     const docs = workspace("workspace-docs", "docs");
     const groups = groupWorkspaces(
@@ -18,7 +18,6 @@ describe("agent rail grouping", () => {
     );
 
     expect(chatTitles(groups)).toEqual(["Toro UI pass", "Docs UI pass"]);
-    expect(chatTitles(filterProjectGroups(groups, "Docs"))).toEqual(["Docs UI pass"]);
   });
 
   it("renders project labels only for groups that contain chats", () => {

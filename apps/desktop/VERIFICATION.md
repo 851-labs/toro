@@ -14,8 +14,8 @@ Current reference evidence:
 
 Latest verified desktop artifacts:
 
-- Desktop capture: `.artifacts/verification/2026-06-30T17-30-56-484Z/page@f9aff3a5e4cb7178d7ae483b5fa948ed.webm`
-- Desktop stills: `.artifacts/verification/2026-06-30T17-30-56-484Z/*.png`
+- Desktop capture: `.artifacts/verification/2026-06-30T17-38-50-385Z/page@21f7e47582998cff95678bbbee2597db.webm`
+- Desktop stills: `.artifacts/verification/2026-06-30T17-38-50-385Z/*.png`
 - Grouped-sidebar capture: `.artifacts/verification/sidebar-groups/2026-06-30T15-10-20-395Z/page@d9d7ed776cdd64de9144ac1f4a6ab547.webm`
 - Grouped-sidebar still: `.artifacts/verification/sidebar-groups/2026-06-30T15-10-20-395Z/01-project-grouped-chats.png`
 - Design-guide capture: `.artifacts/verification/design-guide/2026-06-30T17-11-30-292Z/page@bd94a6a1bd4c023cf491ade79b4c493c.webm`
@@ -36,6 +36,7 @@ Most recent manual checks:
 - Confirmed the desktop sidebar renders Codex-like top-level Projects and Chats sections.
 - Confirmed the desktop New chat command opens the project picker before a project exists.
 - Confirmed the desktop Projects add action opens the native macOS Finder directory picker and no longer renders an in-app path form.
+- Confirmed the desktop sidebar Search command and project/chat filtering UI are removed.
 - Confirmed the desktop Chats section shows chats grouped by project across opened projects.
 - Confirmed the transcript and composer use a narrower Codex-like centered rail.
 - Confirmed pending permission tool calls appear in the transcript before approval.
