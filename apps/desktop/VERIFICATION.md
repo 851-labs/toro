@@ -240,6 +240,10 @@
 - Shared composer prop-sync stills: `.artifacts/verification/2026-06-30T11-18-36-541Z/*.png`
 - Shared composer prop-sync design-guide capture: `.artifacts/verification/design-guide/2026-06-30T11-18-36-556Z/page@5737a70da7c72a8de6b546dc7b4e679e.webm`
 - Shared composer prop-sync design-guide stills: `.artifacts/verification/design-guide/2026-06-30T11-18-36-556Z/*.png`
+- Pulsing streaming cursor capture: `.artifacts/verification/2026-06-30T11-21-25-182Z/page@a15adce80a6ce47893b90836f4123c8f.webm`
+- Pulsing streaming cursor stills: `.artifacts/verification/2026-06-30T11-21-25-182Z/*.png`
+- Pulsing streaming cursor design-guide capture: `.artifacts/verification/design-guide/2026-06-30T11-21-48-780Z/page@cadf79caa54c61c28b574b212b812a7e.webm`
+- Pulsing streaming cursor design-guide stills: `.artifacts/verification/design-guide/2026-06-30T11-21-48-780Z/*.png`
 
 Manual verification:
 
@@ -256,6 +260,7 @@ Manual verification:
 - Confirmed the unused desktop file explorer component was removed, leaving no live references to its stale clickable tree rows while the desktop UI flow still passes.
 - Confirmed the desktop verification flow still exercises access/model selectors, then restores Codex-reference defaults (`Full access`, `5.5 Medium`) before screenshots and recordings.
 - Confirmed the shared composer syncs access/model selector state from changing props, preserving Codex-style footer defaults across host-driven environment or model changes.
+- Confirmed assistant and thinking streaming cursors now use the shared pulsing Codex-style inline dot, with UI verification asserting the animated cursor class before streaming screenshots.
 - Confirmed the sidebar visually groups chats under their project and coalesces duplicate opens of the same project path.
 - Confirmed every rendered button in the desktop flow is limited to a wired action: new chat, open project, project/chat selection, send/stop, or permission response.
 - Confirmed the design guide permission buttons update visible state instead of acting as no-op controls.

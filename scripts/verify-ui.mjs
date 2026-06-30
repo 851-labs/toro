@@ -150,6 +150,7 @@ await page.getByRole("button", { exact: true, name: "Send" }).click();
 await page.getByText("Thinking").waitFor({ timeout: 10_000 });
 await page.getByText("working").waitFor({ timeout: 10_000 });
 await page.getByText(/Checking project context/).waitFor({ timeout: 10_000 });
+await assertStreamingCursorAnimated(page.locator("[data-thinking-body='true']").first());
 await assertTranscriptDisclosureIsCompact(
   page.locator("details").filter({ hasText: "Plan" }).first(),
   "Plan",
@@ -177,6 +178,12 @@ await pause();
 
 await page.getByRole("button", { name: "Allow once" }).click();
 await page.getByText(/Toro demo agent received your prompt/).waitFor({ timeout: 10_000 });
+await assertStreamingCursorAnimated(
+  page
+    .locator("article")
+    .filter({ hasText: /Toro demo agent received your prompt/ })
+    .first(),
+);
 if ((await page.getByText(/tool cards are working/).count()) > 0) {
   throw new Error("Final assistant text appeared before the streaming checkpoint.");
 }
@@ -241,6 +248,18 @@ async function screenshot(page, name) {
 async function pause() {
   if (stepDelayMs > 0) {
     await new Promise((resolvePause) => setTimeout(resolvePause, stepDelayMs));
+  }
+}
+
+async function assertStreamingCursorAnimated(locator) {
+  const className = await locator.first().evaluate((node) => {
+    const target = node.matches("[class*='after:']")
+      ? node
+      : node.querySelector("[class*='after:']");
+    return target?.getAttribute("class") ?? "";
+  });
+  if (!className.includes("after:motion-safe:animate-pulse")) {
+    throw new Error("Streaming cursor should pulse like Codex while text is arriving.");
   }
 }
 
