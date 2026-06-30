@@ -72,6 +72,7 @@ await pause();
 await composer.fill("Verify the Toro ACP UI loop.");
 await page.getByRole("button", { exact: true, name: "Send" }).click();
 await page.getByText("Thinking").waitFor({ timeout: 10_000 });
+await page.getByText("working").waitFor({ timeout: 10_000 });
 await page.getByText(/Checking project context/).waitFor({ timeout: 10_000 });
 if ((await page.getByText("Validate Toro permission UI").count()) > 0) {
   throw new Error("Permission prompt appeared before the thinking checkpoint.");

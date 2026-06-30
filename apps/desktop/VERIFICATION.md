@@ -68,6 +68,10 @@
 - Shared plan primitive stills: `.artifacts/verification/2026-06-30T04-35-50-657Z/*.png`
 - Shared plan primitive design-guide capture: `.artifacts/verification/design-guide/2026-06-30T04-37-21-679Z/page@ba3978b2ea1112c225203f66f262e049.webm`
 - Shared plan primitive design-guide stills: `.artifacts/verification/design-guide/2026-06-30T04-37-21-679Z/*.png`
+- Compact thinking disclosure capture: `.artifacts/verification/2026-06-30T04-42-53-092Z/page@06e1ee64985dd46ef6df5a54b3a3b35f.webm`
+- Compact thinking disclosure stills: `.artifacts/verification/2026-06-30T04-42-53-092Z/*.png`
+- Compact thinking disclosure design-guide capture: `.artifacts/verification/design-guide/2026-06-30T04-43-54-760Z/page@e6c36c112cca38d3f02019bc397d4013.webm`
+- Compact thinking disclosure design-guide stills: `.artifacts/verification/design-guide/2026-06-30T04-43-54-760Z/*.png`
 
 Manual verification:
 
@@ -97,6 +101,7 @@ Manual verification:
 - Confirmed desktop chat no longer renders raw activity logs, while the internal design guide still documents the disclosure primitive.
 - Confirmed tool calls use a quieter Codex-style disclosure row with a compact output well and still expand/collapse during verification.
 - Confirmed plan rendering now comes from the shared UI chat primitive package and appears in both desktop and the TanStack Start design guide.
+- Confirmed thinking disclosures use the same compact Codex-style row treatment as plan and tool calls, including a visible streaming `working` affordance.
 
 Automated verification:
 
