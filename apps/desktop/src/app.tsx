@@ -106,7 +106,7 @@ export function App() {
     <div
       className={
         sidebarOpen
-          ? "grid h-full overflow-hidden bg-white text-zinc-950 md:grid-cols-[320px_minmax(0,1fr)]"
+          ? "grid h-full overflow-hidden bg-white text-zinc-950 md:grid-cols-[390px_minmax(0,1fr)]"
           : "grid h-full grid-cols-1 overflow-hidden bg-white text-zinc-950"
       }
     >

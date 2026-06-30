@@ -63,7 +63,10 @@ export function AgentRail(props: AgentRailProps) {
   );
 
   return (
-    <aside className="flex min-h-0 flex-col border-r border-zinc-200 bg-[#f2f5f5]/95">
+    <aside
+      className="flex min-h-0 flex-col border-r border-zinc-200 bg-[#f2f5f5]/95"
+      data-sidebar-rail="true"
+    >
       <div className="flex h-14 items-center justify-between px-5">
         <div aria-hidden="true" className="flex items-center gap-2">
           <span className="size-3 rounded-full bg-[#ff5f57]" />

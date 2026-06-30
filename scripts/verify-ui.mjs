@@ -28,6 +28,7 @@ const {
   assertReachable,
   assertSessionDetailsToggle,
   assertSidebarChatRowsAreNavigationOnly,
+  assertSidebarWidthIsCodexLike,
   assertSidebarToggle,
   assertToolCallIsCompact,
   assertTranscriptDisclosureIsCompact,
@@ -50,6 +51,7 @@ await page.goto(appUrl, { waitUntil: "domcontentloaded" });
 await page.getByRole("button", { exact: true, name: "Search" }).waitFor({ timeout: 5_000 });
 await assertDeadControlsRemoved(page);
 await assertPrimarySidebarSimplified(page);
+await assertSidebarWidthIsCodexLike(page);
 await assertProjectFormHidden(page);
 await assertComposerFooterIsCodexCompact(page);
 await assertComposerAffordancesArePassive(page);

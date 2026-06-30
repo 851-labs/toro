@@ -26,6 +26,15 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
     }
   }
 
+  async function assertSidebarWidthIsCodexLike(page) {
+    const width = await page
+      .locator("[data-sidebar-rail='true']")
+      .evaluate((node) => node.getBoundingClientRect().width);
+    if (width < 370 || width > 410) {
+      throw new Error(`Sidebar width should be close to Codex desktop width, got ${width}.`);
+    }
+  }
+
   async function assertDesktopDebugLogsHidden(page) {
     if ((await page.getByText("Activity logs").count()) > 0) {
       throw new Error("Desktop chat should not render raw activity logs.");
@@ -377,6 +386,7 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
     assertReachable,
     assertSessionDetailsToggle,
     assertSidebarChatRowsAreNavigationOnly,
+    assertSidebarWidthIsCodexLike,
     assertSidebarToggle,
     assertToolCallIsCompact,
     assertTranscriptDisclosureIsCompact,
