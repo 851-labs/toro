@@ -90,6 +90,7 @@ await page.getByText("toro").first().waitFor({ timeout: 5_000 });
 await assertProjectFormHidden(page);
 await assertProjectPathHiddenInSidebar(page);
 await assertComposerFooterIsCodexCompact(page);
+await assertSharedEmptyState(page);
 await assertComposerContextPicker(page);
 await assertOpenInMenu(page);
 await assertOnlyFunctionalButtons(page);
@@ -120,6 +121,7 @@ await assertPrimarySidebarSimplified(page);
 await assertSidebarChatRowsAreNavigationOnly(page);
 await assertCurrentChatIsFirstInProject(page);
 await assertEmptySessionPrompt(page);
+await assertSharedEmptyState(page);
 await assertComposerFooterIsCodexCompact(page);
 await assertDesktopDebugLogsHidden(page);
 await assertHeaderActions(page);
@@ -135,6 +137,7 @@ await page
     timeout: 5_000,
   });
 await assertEmptySessionPrompt(page);
+await assertSharedEmptyState(page);
 await assertOnlyFunctionalButtons(page);
 await screenshot(page, "04-history-back.png");
 await page.getByRole("button", { exact: true, name: "Forward" }).click();
@@ -150,6 +153,8 @@ await page.getByRole("button", { exact: true, name: "Send" }).click();
 await page.getByText("Thinking").waitFor({ timeout: 10_000 });
 await page.getByText("working").waitFor({ timeout: 10_000 });
 await page.getByText(/Checking project context/).waitFor({ timeout: 10_000 });
+await assertSharedChatMessages(page);
+await assertSharedPlanAndSummaries(page);
 await assertStreamingCursorAnimated(page.locator("[data-thinking-body='true']").first());
 await assertTranscriptDisclosureIsCompact(
   page.locator("details").filter({ hasText: "Plan" }).first(),
@@ -296,6 +301,30 @@ async function assertSharedPermissionElements(page) {
 async function assertSharedToolCall(toolCall) {
   if ((await toolCall.getAttribute("data-tool-call")) !== "true") {
     throw new Error("Desktop tool calls should use the shared Codex tool-call primitive.");
+  }
+}
+
+async function assertSharedChatMessages(page) {
+  const messages = await page.locator("[data-chat-message='true']").count();
+  if (messages < 1) {
+    throw new Error("Desktop transcript should use shared Codex chat message primitives.");
+  }
+}
+
+async function assertSharedPlanAndSummaries(page) {
+  const plans = await page.locator("[data-plan-disclosure='true']").count();
+  const summaries = await page.locator("[data-disclosure-summary='true']").count();
+  if (plans < 1 || summaries < 2) {
+    throw new Error(
+      `Desktop transcript should use shared plan and disclosure summaries, got plans=${plans}, summaries=${summaries}.`,
+    );
+  }
+}
+
+async function assertSharedEmptyState(page) {
+  const emptyStates = await page.locator("[data-empty-state='true']").count();
+  if (emptyStates < 1) {
+    throw new Error("Desktop empty chat should use the shared Codex empty-state primitive.");
   }
 }
 

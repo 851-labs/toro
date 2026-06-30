@@ -29,7 +29,10 @@ export function CodexChatMessage({ children, copyText, isStreaming, role }: Code
   }
 
   return (
-    <article className={cn("group flex", isUser ? "justify-end" : "justify-start")}>
+    <article
+      className={cn("group flex", isUser ? "justify-end" : "justify-start")}
+      data-chat-message="true"
+    >
       <div
         className={cn(
           "flex flex-col",

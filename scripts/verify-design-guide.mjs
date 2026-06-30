@@ -22,6 +22,8 @@ await page.getByText("Codex Chat Surface").waitFor({ timeout: 5_000 });
 await page.getByText("Streaming text keeps").waitFor({ timeout: 5_000 });
 await page.getByText("Thinking").waitFor({ timeout: 5_000 });
 await page.getByText("Reviewing project context").waitFor({ timeout: 5_000 });
+await assertSharedChatMessages(page);
+await assertSharedPlanAndSummaries(page);
 await assertStreamingCursorAnimated(
   page.locator("article").filter({ hasText: "Streaming text keeps" }).first(),
 );
@@ -82,6 +84,7 @@ await page.getByText("Codex Empty States").waitFor({ timeout: 5_000 });
 await page
   .getByRole("heading", { exact: true, name: "What should we build in toro?" })
   .waitFor({ timeout: 5_000 });
+await assertSharedEmptyState(page);
 if ((await page.getByText("Toro Demo is ready.").count()) > 0) {
   throw new Error("Design-guide empty state should not render ready-state subcopy.");
 }
@@ -185,6 +188,32 @@ async function assertSharedToolCall(page) {
   const toolCalls = await page.locator("[data-tool-call='true']").count();
   if (toolCalls < 1) {
     throw new Error("Design-guide tool rows should use the shared Codex tool-call primitive.");
+  }
+}
+
+async function assertSharedChatMessages(page) {
+  const messages = await page.locator("[data-chat-message='true']").count();
+  if (messages < 2) {
+    throw new Error(
+      `Design-guide chat surface should use shared message primitives, got ${messages}.`,
+    );
+  }
+}
+
+async function assertSharedPlanAndSummaries(page) {
+  const plans = await page.locator("[data-plan-disclosure='true']").count();
+  const summaries = await page.locator("[data-disclosure-summary='true']").count();
+  if (plans < 1 || summaries < 3) {
+    throw new Error(
+      `Design-guide chat surface should use shared plan and disclosure summaries, got plans=${plans}, summaries=${summaries}.`,
+    );
+  }
+}
+
+async function assertSharedEmptyState(page) {
+  const emptyStates = await page.locator("[data-empty-state='true']").count();
+  if (emptyStates < 1) {
+    throw new Error("Design-guide empty state should use the shared Codex empty-state primitive.");
   }
 }
 
