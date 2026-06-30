@@ -110,6 +110,10 @@
 - Compact composer footer stills: `.artifacts/verification/2026-06-30T06-58-48-156Z/*.png`
 - Compact composer footer design-guide capture: `.artifacts/verification/design-guide/2026-06-30T06-59-08-806Z/page@81967c86a197aee8809b96e830d66eb4.webm`
 - Compact composer footer design-guide stills: `.artifacts/verification/design-guide/2026-06-30T06-59-08-806Z/*.png`
+- Arrow send composer capture: `.artifacts/verification/2026-06-30T07-05-09-311Z/page@b4676738988665e7f3af90210b25daa8.webm`
+- Arrow send composer stills: `.artifacts/verification/2026-06-30T07-05-09-311Z/*.png`
+- Arrow send composer design-guide capture: `.artifacts/verification/design-guide/2026-06-30T07-05-09-583Z/page@294fd49d35dc0702708fc0163331a8ec.webm`
+- Arrow send composer design-guide stills: `.artifacts/verification/design-guide/2026-06-30T07-05-09-583Z/*.png`
 
 Manual verification:
 
@@ -154,6 +158,7 @@ Manual verification:
 - Confirmed tool calls render as quiet shared transcript rows with inline metadata instead of framed cards with status pills in both desktop and the design guide.
 - Confirmed plan and thinking disclosures now use compact shared transcript rows instead of large framed cards in both desktop and the design guide.
 - Confirmed the shared composer footer no longer renders workspace/status text and keeps the Codex-like control row focused on context, access, model, and send controls.
+- Confirmed the shared composer send affordance uses a Codex-like upward arrow instead of the previous paper-plane icon in both desktop and the design guide.
 
 Automated verification:
 

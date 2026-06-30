@@ -1,5 +1,5 @@
 import { FormEvent, useState } from "react";
-import { ChevronDown, FileText, Plus, Send, Shield, Square, X, Zap } from "lucide-react";
+import { ArrowUp, ChevronDown, FileText, Plus, Shield, Square, X, Zap } from "lucide-react";
 import { Button } from "../button";
 import { cn } from "../cn";
 
@@ -187,8 +187,8 @@ export function CodexComposer({
             ) : canSend ? (
               <Button
                 aria-label="Send"
-                className="size-9 rounded-full bg-zinc-500 p-0 hover:bg-zinc-700"
-                icon={<Send size={16} />}
+                className="size-9 rounded-full bg-zinc-600 p-0 hover:bg-zinc-800"
+                icon={<ArrowUp size={18} strokeWidth={2.4} />}
                 type="submit"
                 variant="primary"
               />
@@ -197,7 +197,7 @@ export function CodexComposer({
                 aria-hidden="true"
                 className="flex size-9 items-center justify-center rounded-full bg-zinc-100 text-zinc-300"
               >
-                <Send size={16} />
+                <ArrowUp size={18} strokeWidth={2.4} />
               </span>
             )}
           </div>
