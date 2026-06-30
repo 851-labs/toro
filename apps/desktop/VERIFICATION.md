@@ -134,6 +134,10 @@
 - Split verifier/sidebar guide stills: `.artifacts/verification/2026-06-30T07-36-06-788Z/*.png`
 - Functional sidebar guide capture: `.artifacts/verification/design-guide/2026-06-30T07-36-23-216Z/page@67f20a5f24e26a64ae8ad1f5faf12e67.webm`
 - Functional sidebar guide stills: `.artifacts/verification/design-guide/2026-06-30T07-36-23-216Z/*.png`
+- Chat primitive cleanup capture: `.artifacts/verification/2026-06-30T07-41-15-846Z/page@36485147629aa065fee360483ba32b92.webm`
+- Chat primitive cleanup stills: `.artifacts/verification/2026-06-30T07-41-15-846Z/*.png`
+- Chat primitive design-guide cleanup capture: `.artifacts/verification/design-guide/2026-06-30T07-41-35-233Z/page@f10d353779e50f3a212abe6e52f0887e.webm`
+- Chat primitive design-guide cleanup stills: `.artifacts/verification/design-guide/2026-06-30T07-41-35-233Z/*.png`
 
 Manual verification:
 
@@ -144,7 +148,7 @@ Manual verification:
 - Confirmed the desktop composer accepts typing before a session exists and that the rebuilt `Toro.app` accepts keyboard input in the composer.
 - Confirmed the rebuilt `Toro.app` renders edge-to-edge without the blue inset or rounded outer app frame.
 - Confirmed inert header, sidebar, and composer controls were removed while workspace open, session start, send, and permission approval still work.
-- Confirmed the internal design guide renders shared chat messages, streaming state, thinking disclosure, permission prompt, expanded tool call, logs disclosure, and composer.
+- Confirmed the internal design guide renders shared chat messages, streaming state, thinking disclosure, permission prompt, expanded tool call, sidebar groups, and composer.
 - Confirmed the desktop chat flow still passes after moving messages, composer, permission prompt, tool call, and logs into shared UI primitives.
 - Confirmed the sidebar visually groups chats under their project and coalesces duplicate opens of the same project path.
 - Confirmed every rendered button in the desktop flow is limited to a wired action: new chat, open project, project/chat selection, send/stop, or permission response.
@@ -160,7 +164,7 @@ Manual verification:
 - Confirmed composer access and model controls render as Codex-style selectors and visibly update selected state in both the desktop flow and design guide.
 - Confirmed the internal design guide runs through a TanStack Start file-route entry with generated route tree, client/server build output, and hydrated interactive controls.
 - Confirmed completed assistant message actions now behave like Codex affordances by revealing on hover/focus while remaining keyboard-accessible.
-- Confirmed desktop chat no longer renders raw activity logs, while the internal design guide still documents the disclosure primitive.
+- Confirmed desktop chat no longer renders raw activity logs, and the design guide no longer documents a separate logs disclosure as a chat primitive.
 - Confirmed tool calls use a quieter Codex-style disclosure row with a compact output well and still expand/collapse during verification.
 - Confirmed plan rendering now comes from the shared UI chat primitive package and appears in both desktop and the TanStack Start design guide.
 - Confirmed thinking disclosures use the same compact Codex-style row treatment as plan and tool calls, including a visible streaming `working` affordance.
@@ -184,6 +188,7 @@ Manual verification:
 - Confirmed the Codex-like `Open in` header control is restored as a functional Host API menu for VS Code, Finder, and workspace path copy instead of an inert placeholder.
 - Confirmed the Codex-like header sliders icon now toggles a functional light session details rail with plan, permissions, and tool call sections, without exposing raw activity logs in the main desktop chat.
 - Confirmed the design-guide sidebar story now documents the functional Toro sidebar state without Scheduled or Plugins placeholders, and the UI verifier helpers are split out to keep future verification changes under the 500-line file limit.
+- Confirmed the shared chat package no longer exports a separate logs disclosure primitive and the design-guide chat surface now documents only the active Codex-style chat atoms.
 
 Automated verification:
 

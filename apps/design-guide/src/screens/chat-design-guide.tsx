@@ -1,14 +1,13 @@
 import {
   CodexChatMessage,
   CodexComposer,
-  CodexDisclosure,
   CodexPermissionCard,
   CodexPlanDisclosure,
   CodexThinkingDisclosure,
   CodexToolCall,
   StatusBadge,
 } from "@toro/ui";
-import { FolderPlus, MessageSquare, Search, SquarePen, Terminal } from "lucide-react";
+import { FolderPlus, MessageSquare, Search, SquarePen } from "lucide-react";
 import { useState } from "react";
 
 type GuideView = "chat" | "composer" | "sidebar";
@@ -176,9 +175,6 @@ function ChatElements({
       >
         tool cards are working
       </CodexToolCall>
-      <CodexDisclosure icon={<Terminal size={16} />} title="Activity logs">
-        [2026-06-30T02:35:09.746Z] Connected to ACP agent protocol=1
-      </CodexDisclosure>
     </div>
   );
 }
