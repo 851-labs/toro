@@ -94,10 +94,10 @@ await assertComposerFooterIsCodexCompact(page);
 await assertSharedEmptyState(page);
 await assertSharedStarterCards(page);
 await assertActiveSidebarRowsHaveStrongIcon(page);
-await assertDarkReferenceShell(page);
+await assertLightReferenceShell(page);
 await assertEmptyWorkspaceHeaderIsQuiet(page);
 await assertComposerContextPicker(page);
-await assertDarkComposerControlHover(page);
+await assertLightComposerControlHover(page);
 await assertOnlyFunctionalButtons(page);
 await screenshot(page, "02-workspace-opened.png");
 await pause();
@@ -128,7 +128,7 @@ await assertCurrentChatIsFirstInProject(page);
 await assertEmptySessionPrompt(page);
 await assertSharedEmptyState(page);
 await assertSharedStarterCards(page);
-await assertDarkReferenceShell(page);
+await assertLightReferenceShell(page);
 await assertComposerFooterIsCodexCompact(page);
 await assertDesktopDebugLogsHidden(page);
 await assertOpenInMenu(page);
@@ -147,7 +147,7 @@ await page
 await assertEmptySessionPrompt(page);
 await assertSharedEmptyState(page);
 await assertSharedStarterCards(page);
-await assertDarkReferenceShell(page);
+await assertLightReferenceShell(page);
 await assertEmptyWorkspaceHeaderIsQuiet(page);
 await assertOnlyFunctionalButtons(page);
 await screenshot(page, "04-history-back.png");
@@ -167,7 +167,7 @@ await page.getByText(/Checking project context/).waitFor({ timeout: 10_000 });
 await assertSharedChatMessages(page);
 await assertSharedThinkingDisclosure(page);
 await assertSharedPlanAndSummaries(page);
-await assertDarkReferenceShell(page);
+await assertLightReferenceShell(page);
 await assertStreamingCursorAnimated(page.locator("[data-thinking-body='true']").first());
 await assertTranscriptDisclosureIsCompact(
   page.locator("details").filter({ hasText: "Plan" }).first(),
@@ -394,12 +394,12 @@ async function assertStarterCardIcons(page) {
   }
 }
 
-async function assertDarkReferenceShell(page) {
-  await assertDarkSurface(page, "[data-chat-header='true']", "chat header");
-  await assertDarkSurface(page, "[data-sidebar-rail='true']", "sidebar rail");
-  await assertDarkSurface(page, "[data-composer-surface='true']", "composer");
+async function assertLightReferenceShell(page) {
+  await assertLightSurface(page, "[data-chat-header='true']", "chat header");
+  await assertLightSurface(page, "[data-sidebar-rail='true']", "sidebar rail");
+  await assertLightSurface(page, "[data-composer-surface='true']", "composer");
   if ((await page.locator("[data-starter-card='true']").count()) > 0) {
-    await assertDarkSurface(page, "[data-starter-card='true']", "starter card");
+    await assertLightSurface(page, "[data-starter-card='true']", "starter card");
   }
 }
 
@@ -416,7 +416,7 @@ async function assertEmptyWorkspaceHeaderIsQuiet(page) {
   }
 }
 
-async function assertDarkSurface(page, selector, label) {
+async function assertLightSurface(page, selector, label) {
   const color = await page
     .locator(selector)
     .first()
@@ -427,26 +427,26 @@ async function assertDarkSurface(page, selector, label) {
     });
   const backgroundLuma = rgbLuma(color.background);
   const textLuma = rgbLuma(color.text);
-  if (backgroundLuma > 95) {
-    throw new Error(`${label} should use the dark Codex reference shell, got ${color.background}.`);
+  if (backgroundLuma < 215) {
+    throw new Error(`${label} should use light Codex shell, got ${color.background}.`);
   }
-  if (textLuma < 95) {
-    throw new Error(`${label} text should stay readable in dark mode, got ${color.text}.`);
+  if (textLuma > 170) {
+    throw new Error(`${label} text should stay readable in light mode, got ${color.text}.`);
   }
 }
 
-async function assertDarkComposerControlHover(page) {
+async function assertLightComposerControlHover(page) {
   const addContext = page.getByRole("button", { exact: true, name: "Add context" });
   await addContext.hover();
   const background = await addContext.evaluate((node) => getComputedStyle(node).backgroundColor);
   const backgroundLuma = rgbLuma(background);
-  if (backgroundLuma > 120) {
-    throw new Error(`Dark composer Add context hover should stay quiet, got ${background}.`);
+  if (backgroundLuma < 225) {
+    throw new Error(`Light composer Add context hover should stay subtle, got ${background}.`);
   }
   const send = page.locator("[data-composer-send-disabled='true']");
   const sendBackground = await send.evaluate((node) => getComputedStyle(node).backgroundColor);
-  if (rgbLuma(sendBackground) > 180) {
-    throw new Error(`Dark disabled send should stay gray, got ${sendBackground}.`);
+  if (rgbLuma(sendBackground) < 230) {
+    throw new Error(`Light disabled send should stay pale gray, got ${sendBackground}.`);
   }
 }
 
@@ -458,11 +458,8 @@ function rgbLuma(color) {
     }
   }
 
-  const channels =
-    color
-      .match(/\d+(\.\d+)?/g)
-      ?.slice(0, 3)
-      .map(Number) ?? [];
+  const channels = color.match(/\d+(\.\d+)?/g)?.map(Number) ?? [];
+  if (channels[3] === 0) return 255;
   if (channels.length < 3) {
     throw new Error(`Could not parse rgb color: ${color}`);
   }

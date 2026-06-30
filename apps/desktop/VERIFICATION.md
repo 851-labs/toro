@@ -426,7 +426,10 @@ Manual verification:
 - Quiet disabled send desktop stills: `.artifacts/verification/2026-06-30T12-42-03-230Z/*.png`
 - Quiet disabled send design-guide capture: `.artifacts/verification/design-guide/2026-06-30T12-42-22-132Z/page@3da9f61f49aad722abfff8b12015a423.webm`
 - Quiet disabled send design-guide stills: `.artifacts/verification/design-guide/2026-06-30T12-42-22-132Z/*.png`
-- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T12-42-03-230Z/`.
+- Confirmed the desktop app no longer forces the dark Tailwind shell, so verification captures the light Codex-like reference shell by default.
+- Light Codex shell desktop capture: `.artifacts/verification/2026-06-30T12-47-44-809Z/page@4ce7ddd08559fe2a7d3fe9533af5d3f5.webm`
+- Light Codex shell desktop stills: `.artifacts/verification/2026-06-30T12-47-44-809Z/*.png`
+- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T12-47-44-809Z/`.
 - Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T12-42-22-132Z/`.
 
 Automated verification:

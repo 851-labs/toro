@@ -155,8 +155,8 @@ export function App() {
     <div
       className={
         sidebarOpen
-          ? "dark grid h-full overflow-hidden bg-white text-zinc-950 dark:bg-[#101010] dark:text-zinc-100 md:grid-cols-[390px_minmax(0,1fr)]"
-          : "dark grid h-full grid-cols-1 overflow-hidden bg-white text-zinc-950 dark:bg-[#101010] dark:text-zinc-100"
+          ? "grid h-full overflow-hidden bg-white text-zinc-950 dark:bg-[#101010] dark:text-zinc-100 md:grid-cols-[390px_minmax(0,1fr)]"
+          : "grid h-full grid-cols-1 overflow-hidden bg-white text-zinc-950 dark:bg-[#101010] dark:text-zinc-100"
       }
     >
       {sidebarOpen ? (
