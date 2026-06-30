@@ -93,6 +93,7 @@ await assertProjectPathHiddenInSidebar(page);
 await assertComposerFooterIsCodexCompact(page);
 await assertSharedEmptyState(page);
 await assertSharedStarterCards(page);
+await assertActiveSidebarRowsHaveStrongIcon(page);
 await assertDarkReferenceShell(page);
 await assertEmptyWorkspaceHeaderIsQuiet(page);
 await assertComposerContextPicker(page);
@@ -293,6 +294,21 @@ async function assertSidebarFooterShared(page) {
   await footer.getByText("connected", { exact: true }).waitFor({ timeout: 5_000 });
   if ((await footer.getByText("Toro Demo", { exact: true }).count()) > 0) {
     throw new Error("Desktop sidebar footer should not use the selected agent as account text.");
+  }
+}
+
+async function assertActiveSidebarRowsHaveStrongIcon(page) {
+  const activeRows = page.locator("[data-sidebar-row-active='true']");
+  if ((await activeRows.count()) < 1) {
+    throw new Error("Desktop sidebar should expose active row state.");
+  }
+  const mutedIcons = await activeRows.evaluateAll(
+    (nodes) =>
+      nodes.filter((node) => node.querySelector("span")?.className.includes("text-zinc-400"))
+        .length,
+  );
+  if (mutedIcons > 0) {
+    throw new Error("Active sidebar row icons should not keep muted inactive styling.");
   }
 }
 

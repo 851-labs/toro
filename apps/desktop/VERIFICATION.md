@@ -290,6 +290,10 @@
 - Account-style sidebar footer stills: `.artifacts/verification/2026-06-30T12-17-16-588Z/*.png`
 - Account-style sidebar footer design-guide capture: `.artifacts/verification/design-guide/2026-06-30T12-17-38-158Z/page@7e149b45efb8d2d91c3e71f0c69b2007.webm`
 - Account-style sidebar footer design-guide stills: `.artifacts/verification/design-guide/2026-06-30T12-17-38-158Z/*.png`
+- Active sidebar row contrast capture: `.artifacts/verification/2026-06-30T12-21-38-703Z/page@8966e618217f578c577a2837c25f5b2c.webm`
+- Active sidebar row contrast stills: `.artifacts/verification/2026-06-30T12-21-38-703Z/*.png`
+- Active sidebar row contrast design-guide capture: `.artifacts/verification/design-guide/2026-06-30T12-21-38-705Z/page@44f8aa128f4ecb9aea7d554c58ffe2b1.webm`
+- Active sidebar row contrast design-guide stills: `.artifacts/verification/design-guide/2026-06-30T12-21-38-705Z/*.png`
 
 Manual verification:
 
@@ -320,6 +324,7 @@ Manual verification:
 - Confirmed shared composer dark hover/open states stay quiet for Add context and context sources, with desktop verification asserting the hovered Add context control does not flash to a bright light surface.
 - Confirmed empty-project starter cards now use shared Codex-reference Slack, GitHub, and Linear-style marks, with desktop and design-guide verification asserting all three icon types render.
 - Confirmed the sidebar footer now reads as a Codex-like account row with gradient avatar, `Local host` primary text, and `connected` secondary status while preserving the functional host settings control.
+- Confirmed active sidebar project/chat rows now expose active state in the shared row primitive and use stronger selected icon/text styling, with desktop and design-guide verification rejecting muted active icons.
 - Confirmed the sidebar visually groups chats under their project and coalesces duplicate opens of the same project path.
 - Confirmed every rendered button in the desktop flow is limited to a wired action: new chat, open project, project/chat selection, send/stop, or permission response.
 - Confirmed the design guide permission buttons update visible state instead of acting as no-op controls.

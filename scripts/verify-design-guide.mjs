@@ -74,6 +74,7 @@ await assertSidebarStoryCommands(page);
 await assertPassiveReferenceSidebarRows(page);
 await assertSidebarStoryContent(page);
 await assertSidebarStoryRows(page);
+await assertActiveSidebarRowsHaveStrongIcon(page);
 await assertSidebarStorySections(page);
 await assertSidebarStoryFooter(page);
 await assertSidebarStoryShell(page);
@@ -315,6 +316,23 @@ async function assertSidebarStoryRows(page) {
     .count();
   if (rows < 4) {
     throw new Error(`Design-guide sidebar story should use shared sidebar rows, got ${rows}.`);
+  }
+}
+
+async function assertActiveSidebarRowsHaveStrongIcon(page) {
+  const activeRows = page.locator(
+    "[data-sidebar-story-rail='true'] [data-sidebar-row-active='true']",
+  );
+  if ((await activeRows.count()) < 1) {
+    throw new Error("Design-guide sidebar story should expose active row state.");
+  }
+  const mutedIcons = await activeRows.evaluateAll(
+    (nodes) =>
+      nodes.filter((node) => node.querySelector("span")?.className.includes("text-zinc-400"))
+        .length,
+  );
+  if (mutedIcons > 0) {
+    throw new Error("Design-guide active sidebar row icons should not keep muted styling.");
   }
 }
 

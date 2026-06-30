@@ -31,11 +31,19 @@ export function CodexSidebarRow({
     onClick && "hover:bg-zinc-200/70 dark:hover:bg-zinc-600/50",
     active && "bg-zinc-200/80 text-zinc-950 dark:bg-zinc-300 dark:text-zinc-950",
   );
+  const iconClassName = cn(
+    "shrink-0",
+    active ? "text-zinc-700 dark:text-zinc-700" : "text-zinc-500 dark:text-zinc-400",
+  );
+  const labelClassName = cn(
+    "block truncate font-medium",
+    active ? "text-zinc-950" : "text-zinc-800 dark:text-inherit",
+  );
   const content = (
     <>
-      <span className="shrink-0 text-zinc-500 dark:text-zinc-400">{icon}</span>
+      <span className={iconClassName}>{icon}</span>
       <span className="min-w-0 flex-1">
-        <span className="block truncate font-medium text-zinc-800 dark:text-inherit">{label}</span>
+        <span className={labelClassName}>{label}</span>
         {meta ? (
           <span className="block truncate text-xs text-zinc-400 dark:text-zinc-500">{meta}</span>
         ) : null}
@@ -45,7 +53,12 @@ export function CodexSidebarRow({
 
   if (!onClick) {
     return (
-      <div className={className} data-sidebar-row="true" title={title}>
+      <div
+        className={className}
+        data-sidebar-row="true"
+        data-sidebar-row-active={active ? "true" : undefined}
+        title={title}
+      >
         {content}
       </div>
     );
@@ -56,6 +69,7 @@ export function CodexSidebarRow({
       aria-current={ariaCurrent}
       aria-label={ariaLabel}
       className={className}
+      data-sidebar-row-active={active ? "true" : undefined}
       data-sidebar-row="true"
       onClick={onClick}
       title={title}
