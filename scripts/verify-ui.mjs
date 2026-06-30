@@ -113,6 +113,7 @@ await page.getByText(/tool cards are working/).waitFor({ timeout: 10_000 });
 await assertDesktopDebugLogsHidden(page);
 await assertOnlyFunctionalButtons(page);
 const toolCall = page.locator("details").filter({ hasText: "Validate Toro permission UI" }).last();
+await assertToolCallIsCompact(toolCall);
 await toolCall.locator("summary").click();
 await page.getByText("status: ok").waitFor({ timeout: 5_000 });
 await screenshot(page, "08-tool-call-expanded.png");
@@ -209,6 +210,22 @@ async function assertPermissionCardIsCompact(page) {
   const className = (await permissionCard.first().getAttribute("class")) ?? "";
   if (className.includes("bg-amber-50")) {
     throw new Error("Permission card should not use the old amber alert background.");
+  }
+}
+
+async function assertToolCallIsCompact(toolCall) {
+  const className = (await toolCall.getAttribute("class")) ?? "";
+  if (className.includes("rounded-[18px]") || className.includes("border ")) {
+    throw new Error("Tool call should render as a compact transcript row, not a framed card.");
+  }
+
+  const status = toolCall
+    .locator("span")
+    .filter({ hasText: /^completed$/ })
+    .first();
+  const statusClassName = (await status.getAttribute("class")) ?? "";
+  if (statusClassName.includes("rounded-full") || statusClassName.includes("border-emerald")) {
+    throw new Error("Tool call status should render as quiet metadata, not a status pill.");
   }
 }
 
