@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   agentId,
   environmentId,
@@ -8,13 +8,15 @@ import {
   type WorkspaceId,
 } from "@toro/domain";
 import { CodexChatHeader } from "@toro/ui";
-import { ListFilter, NotebookTabs, PanelLeft, PanelRight, RefreshCw } from "lucide-react";
+import { ListFilter, NotebookTabs, PanelLeft, PanelRight, PanelTop, RefreshCw } from "lucide-react";
 import { useMemo, useState } from "react";
 import { AgentRail } from "./components/agent-rail";
 import { ChatHeaderActions } from "./components/chat-header-actions";
 import { ChatPanel } from "./components/chat-panel";
+import { EditorPane } from "./components/editor-pane";
 import { InspectorPanel } from "./components/inspector-panel";
 import { OpenInMenu } from "./components/open-in-menu";
+import { defaultPreviewFilePath } from "./lib/file-tree";
 import { hostClient } from "./lib/host-client";
 import { useHostState } from "./lib/use-host-state";
 
@@ -37,6 +39,7 @@ export function App() {
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [selectedWorkspaceId, setSelectedWorkspaceId] = useState<WorkspaceId | null>(null);
   const [selectedSessionId, setSelectedSessionId] = useState<SessionId | null>(null);
+  const [editorOpen, setEditorOpen] = useState(false);
   const [navigationHistory, setNavigationHistory] = useState<readonly NavigationEntry[]>([]);
   const [navigationIndex, setNavigationIndex] = useState(-1);
 
@@ -74,6 +77,12 @@ export function App() {
     state.activeSessionId,
     state.sessions,
   ]);
+  const files = useQuery({
+    enabled: Boolean(activeWorkspace),
+    queryFn: () => hostClient.listFiles(activeWorkspace!.id),
+    queryKey: ["editor-files", activeWorkspace?.id],
+  });
+  const previewFilePath = useMemo(() => defaultPreviewFilePath(files.data ?? []), [files.data]);
   const openWorkspace = useMutation({
     mutationFn: async () => hostClient.openWorkspace(workspacePath, selectedEnvironmentId),
     onSuccess: (workspace) => {
@@ -240,6 +249,21 @@ export function App() {
                     <ListFilter size={18} />
                   </button>
                 ) : null}
+                {activeWorkspace && activeSession ? (
+                  <button
+                    aria-expanded={editorOpen}
+                    aria-label="Toggle editor pane"
+                    className={
+                      editorOpen
+                        ? "flex size-8 shrink-0 items-center justify-center rounded-lg bg-zinc-100 text-zinc-900"
+                        : "flex size-8 shrink-0 items-center justify-center rounded-lg text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900"
+                    }
+                    onClick={() => setEditorOpen((open) => !open)}
+                    type="button"
+                  >
+                    <PanelTop size={18} />
+                  </button>
+                ) : null}
                 {activeSession ? (
                   <button
                     aria-expanded={detailsOpen}
@@ -262,18 +286,34 @@ export function App() {
           />
           <div
             className={
-              detailsOpen && activeSession
-                ? "grid min-h-0 min-w-0 grid-cols-[minmax(0,1fr)_320px]"
+              activeSession
+                ? activeLayoutClassName(editorOpen, detailsOpen)
                 : "grid min-h-0 min-w-0 grid-cols-1"
             }
           >
             <ChatPanel session={activeSession} workspace={activeWorkspace} />
+            {editorOpen && activeSession ? (
+              <EditorPane filePath={previewFilePath} workspace={activeWorkspace} />
+            ) : null}
             {detailsOpen && activeSession ? <InspectorPanel session={activeSession} /> : null}
           </div>
         </section>
       </main>
     </div>
   );
+}
+
+function activeLayoutClassName(editorOpen: boolean, detailsOpen: boolean) {
+  if (editorOpen && detailsOpen) {
+    return "grid min-h-0 min-w-0 grid-cols-[minmax(0,1fr)_minmax(300px,34vw)_320px]";
+  }
+  if (editorOpen) {
+    return "grid min-h-0 min-w-0 grid-cols-[minmax(0,1fr)_minmax(340px,38vw)]";
+  }
+  if (detailsOpen) {
+    return "grid min-h-0 min-w-0 grid-cols-[minmax(0,1fr)_320px]";
+  }
+  return "grid min-h-0 min-w-0 grid-cols-1";
 }
 
 function sameEntry(left: NavigationEntry | null, right: NavigationEntry) {

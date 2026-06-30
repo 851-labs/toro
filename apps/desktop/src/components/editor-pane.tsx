@@ -17,7 +17,11 @@ export function EditorPane({ filePath, workspace }: EditorPaneProps) {
   });
 
   return (
-    <section className="min-h-0 min-w-0 border-l border-zinc-200 bg-zinc-50">
+    <section
+      aria-label="Editor preview"
+      className="min-h-0 min-w-0 border-l border-zinc-200 bg-zinc-50"
+      data-editor-pane="true"
+    >
       <div className="flex h-16 items-center gap-2 border-b border-zinc-200 bg-white px-4 text-sm text-zinc-500">
         <FileCode size={14} />
         <span className="min-w-0 truncate">{filePath ?? "No file selected"}</span>

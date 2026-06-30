@@ -14,13 +14,13 @@ Current reference evidence:
 
 Latest verified desktop artifacts:
 
-- Desktop capture: `.artifacts/verification/2026-06-30T15-37-14-982Z/page@3d3185b3351cb0980fbe8261cbb6a8fd.webm`
-- Desktop stills: `.artifacts/verification/2026-06-30T15-37-14-982Z/*.png`
+- Desktop capture: `.artifacts/verification/2026-06-30T15-47-42-494Z/page@754bd3e3dd522ed190ea66a4702b0aa2.webm`
+- Desktop stills: `.artifacts/verification/2026-06-30T15-47-42-494Z/*.png`
 - Grouped-sidebar capture: `.artifacts/verification/sidebar-groups/2026-06-30T15-10-20-395Z/page@d9d7ed776cdd64de9144ac1f4a6ab547.webm`
 - Grouped-sidebar still: `.artifacts/verification/sidebar-groups/2026-06-30T15-10-20-395Z/01-project-grouped-chats.png`
-- Design-guide capture: `.artifacts/verification/design-guide/2026-06-30T15-37-26-014Z/page@7b1eb126971bc0b7bda95af5997dbb90.webm`
-- Design-guide stills: `.artifacts/verification/design-guide/2026-06-30T15-37-26-014Z/*.png`
-- Native still: `.artifacts/verification/native/2026-06-30-new-chat-session-title-native.png`
+- Design-guide capture: `.artifacts/verification/design-guide/2026-06-30T15-48-26-745Z/page@c20dd94d01ee562a1615e8f6409d396c.webm`
+- Design-guide stills: `.artifacts/verification/design-guide/2026-06-30T15-48-26-745Z/*.png`
+- Native still: `.artifacts/verification/native/2026-06-30-editor-pane-toggle.png`
 
 Most recent manual checks:
 
@@ -39,6 +39,7 @@ Most recent manual checks:
 - Confirmed the design guide catalogs both live and completed tool-call states.
 - Confirmed the design guide catalogs project-grouped sidebar chats.
 - Confirmed empty newly-created sessions use a Codex-like New chat title until the first prompt renames them.
+- Confirmed the chat header includes a Codex-like editor-pane toggle that opens a Host API backed file preview.
 - Confirmed native Tauri renders the latest Codex-like chat shell after rebuild.
 
 Automated verification:

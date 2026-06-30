@@ -244,13 +244,8 @@ await page.getByRole("button", { exact: true, name: "Copied message" }).waitFor(
 await screenshot(page, "11-copy-feedback.png");
 await pause();
 
-const packageJson = page.getByRole("button", { name: "package.json" }).first();
-if (await packageJson.count()) {
-  await packageJson.click();
-  await page.waitForTimeout(500);
-  await screenshot(page, "12-file-preview.png");
-  await pause();
-}
+await chatHelpers.assertEditorPaneToggle(page, screenshot);
+await pause();
 
 await context.close();
 await browser.close();

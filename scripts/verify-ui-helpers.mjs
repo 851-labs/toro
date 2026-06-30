@@ -1,13 +1,6 @@
 export function createVerifyUiHelpers({ pause, screenshot, workspaceName, workspacePath }) {
   async function assertDeadControlsRemoved(page) {
-    const deadButtons = [
-      "Chat settings",
-      "Toggle preview",
-      "Dictate",
-      "Scheduled",
-      "Plugins",
-      /Remote Sandbox/,
-    ];
+    const deadButtons = ["Chat settings", "Dictate", "Scheduled", "Plugins", /Remote Sandbox/];
 
     for (const name of deadButtons) {
       if ((await page.getByRole("button", { exact: true, name }).count()) > 0) {
@@ -383,6 +376,7 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
         "Toggle sidebar",
         "Toggle session details",
         "Toggle session controls",
+        "Toggle editor pane",
         "Collapse sidebar",
         "New chat",
         "Add context",
