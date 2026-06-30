@@ -1,4 +1,5 @@
 import type { ButtonHTMLAttributes, ReactNode } from "react";
+import { Button as BaseButton } from "@base-ui-components/react/button";
 import { cn } from "./cn";
 
 type ButtonVariant = "primary" | "secondary" | "ghost" | "danger";
@@ -23,16 +24,17 @@ export function Button({
   ...props
 }: ButtonProps) {
   return (
-    <button
+    <BaseButton
       className={cn(
         "inline-flex h-8 min-w-fit items-center justify-center gap-2 whitespace-nowrap rounded-full border px-3 text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-50",
         variants[variant],
         className,
       )}
+      data-base-ui-button="true"
       {...props}
     >
       {icon}
       {children}
-    </button>
+    </BaseButton>
   );
 }

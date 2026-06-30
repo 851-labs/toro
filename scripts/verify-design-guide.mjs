@@ -150,13 +150,13 @@ async function expectPressed(locator) {
 }
 
 async function selectComposerOption(page, label, value) {
-  const select = page.getByLabel(label);
-  await select.selectOption(value);
-  if ((await select.inputValue()) !== value) {
+  const control = page.getByLabel(label);
+  await control.click();
+  await page.getByRole("option", { exact: true, name: value }).click();
+  if (!((await control.textContent()) ?? "").includes(value)) {
     throw new Error(`Design-guide composer ${label} did not select ${value}.`);
   }
 }
-
 async function assertSidebarStoryWidth(page) {
   const width = await page
     .locator("[data-sidebar-story-rail='true']")

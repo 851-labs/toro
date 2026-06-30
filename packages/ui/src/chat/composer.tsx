@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Button as BaseButton } from "@base-ui-components/react/button";
 import { FormEvent, useEffect, useState } from "react";
 import {
   ArrowUp,
@@ -15,6 +16,7 @@ import {
 } from "lucide-react";
 import { Button } from "../button";
 import { cn } from "../cn";
+import { ToroSelect } from "../select";
 
 export interface CodexComposerContextItem {
   readonly detail?: string;
@@ -107,7 +109,7 @@ export function CodexComposer({
                 {contextItems.map((item) => {
                   const selected = selectedContextIds.includes(item.id);
                   return (
-                    <button
+                    <BaseButton
                       aria-label={`Attach context ${item.label}`}
                       aria-pressed={selected}
                       className={cn(
@@ -115,6 +117,7 @@ export function CodexComposer({
                         selected &&
                           "bg-white text-zinc-950 shadow-sm dark:bg-zinc-700 dark:text-zinc-100",
                       )}
+                      data-base-ui-button="true"
                       key={item.id}
                       onClick={() =>
                         setSelectedContextIds((ids) =>
@@ -132,7 +135,7 @@ export function CodexComposer({
                           </span>
                         ) : null}
                       </span>
-                    </button>
+                    </BaseButton>
                   );
                 })}
               </div>
@@ -152,48 +155,42 @@ export function CodexComposer({
               >
                 <FileText size={12} className="shrink-0 text-zinc-400" />
                 <span className="truncate">{item.label}</span>
-                <button
+                <BaseButton
                   aria-label={`Remove context ${item.label}`}
                   className="flex size-4 shrink-0 items-center justify-center rounded-full text-zinc-400 hover:bg-zinc-200 hover:text-zinc-800 dark:hover:bg-zinc-700 dark:hover:text-zinc-100"
+                  data-base-ui-button="true"
                   onClick={() => setSelectedContextIds((ids) => ids.filter((id) => id !== item.id))}
                   type="button"
                 >
                   <X size={11} />
-                </button>
+                </BaseButton>
               </span>
             ))}
           </div>
         ) : null}
         <div className="flex items-center justify-between gap-3 border-t border-zinc-100 pt-3 dark:border-zinc-700">
           <div className="flex min-w-0 items-center gap-3 text-sm text-zinc-500">
-            <button
+            <BaseButton
               aria-expanded={contextOpen}
               aria-label="Add context"
               className={cn(
                 "flex size-8 shrink-0 items-center justify-center rounded-full text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-700/70 dark:hover:text-zinc-100",
                 contextOpen && "bg-zinc-100 text-zinc-900 dark:bg-zinc-700 dark:text-zinc-100",
               )}
+              data-base-ui-button="true"
               onClick={() => setContextOpen((open) => !open)}
               type="button"
             >
               <Plus size={18} />
-            </button>
-            <label className="relative inline-flex items-center gap-1 font-medium text-orange-600">
-              <Shield size={16} />
-              <select
-                aria-label="Access mode"
-                className="max-w-32 appearance-none bg-transparent py-1 pl-0 pr-4 text-sm font-medium outline-none"
-                onChange={(event) => setSelectedAccess(event.target.value)}
-                value={selectedAccess}
-              >
-                {accessOptions.map((option) => (
-                  <option key={option} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </select>
-              <ChevronDown className="pointer-events-none absolute right-0" size={13} />
-            </label>
+            </BaseButton>
+            <ToroSelect
+              ariaLabel="Access mode"
+              icon={<Shield size={16} />}
+              onValueChange={setSelectedAccess}
+              options={accessOptions}
+              tone="orange"
+              value={selectedAccess}
+            />
           </div>
           <div className="flex items-center gap-2 text-sm text-zinc-500">
             <span
@@ -203,22 +200,14 @@ export function CodexComposer({
             >
               <span className="size-3 rounded-full border-2 border-zinc-200 border-t-zinc-400" />
             </span>
-            <label className="relative hidden items-center gap-1 font-medium sm:inline-flex">
-              <Zap size={15} />
-              <select
-                aria-label="Model"
-                className="appearance-none bg-transparent py-1 pl-0 pr-4 text-sm font-medium outline-none"
-                onChange={(event) => setSelectedModel(event.target.value)}
-                value={selectedModel}
-              >
-                {modelOptions.map((option) => (
-                  <option key={option} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </select>
-              <ChevronDown className="pointer-events-none absolute right-0" size={13} />
-            </label>
+            <ToroSelect
+              ariaLabel="Model"
+              className="hidden sm:inline-flex"
+              icon={<Zap size={15} />}
+              onValueChange={setSelectedModel}
+              options={modelOptions}
+              value={selectedModel}
+            />
             <span
               aria-hidden="true"
               className="hidden size-8 shrink-0 items-center justify-center text-zinc-400 sm:flex"

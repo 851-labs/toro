@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Collapsible } from "@base-ui-components/react/collapsible";
 import { ChevronRight } from "lucide-react";
 import { cn } from "../cn";
 
@@ -22,14 +23,16 @@ export function CodexDisclosureSummary({
   trailing,
 }: CodexDisclosureSummaryProps) {
   return (
-    <summary
+    <Collapsible.Trigger
       className={cn(
-        "max-w-full cursor-pointer list-none items-center rounded-lg text-zinc-600 hover:bg-zinc-50/80 dark:text-zinc-400 dark:hover:bg-zinc-800/80 [&::-webkit-details-marker]:hidden",
+        "max-w-full cursor-pointer items-center rounded-lg text-zinc-600 hover:bg-zinc-50/80 dark:text-zinc-400 dark:hover:bg-zinc-800/80",
         activity ? "flex w-fit gap-1.5 px-1.5 py-1" : "inline-flex gap-2 px-2 py-1.5",
         summaryClassName,
       )}
       data-activity-summary={activity ? "true" : undefined}
+      data-base-ui-collapsible-trigger="true"
       data-disclosure-summary="true"
+      type="button"
     >
       <span
         className={cn(
@@ -50,6 +53,6 @@ export function CodexDisclosureSummary({
         className={cn("shrink-0 text-zinc-400 transition", chevronClassName)}
         size={15}
       />
-    </summary>
+    </Collapsible.Trigger>
   );
 }

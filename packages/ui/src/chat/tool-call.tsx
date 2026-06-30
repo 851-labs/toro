@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Collapsible } from "@base-ui-components/react/collapsible";
 import { SquareTerminal } from "lucide-react";
 import { cn } from "../cn";
 import { CodexDisclosureSummary } from "./disclosure-summary";
@@ -14,15 +15,16 @@ export interface CodexToolCallProps {
 export function CodexToolCall({ children, defaultOpen, kind, status, title }: CodexToolCallProps) {
   const live = status === "pending" || status === "in_progress";
   return (
-    <details
+    <Collapsible.Root
       className="group/tool max-w-[720px] text-sm text-zinc-600 dark:text-zinc-400"
       data-activity-disclosure="tool"
+      data-base-ui-collapsible="true"
       data-tool-call="true"
-      open={defaultOpen}
+      defaultOpen={defaultOpen}
     >
       <CodexDisclosureSummary
         activity
-        chevronClassName="group-open/tool:rotate-90"
+        chevronClassName="group-data-[open]/tool:rotate-90"
         icon={<SquareTerminal size={14} />}
         meta={
           <span className="flex min-w-0 items-center gap-1.5">
@@ -41,18 +43,24 @@ export function CodexToolCall({ children, defaultOpen, kind, status, title }: Co
             </span>
           </span>
         }
-        summaryClassName="group-open/tool:bg-transparent group-open/tool:hover:bg-zinc-50/80 dark:group-open/tool:hover:bg-zinc-800/80"
+        summaryClassName="group-data-[open]/tool:bg-transparent group-data-[open]/tool:hover:bg-zinc-50/80 dark:group-data-[open]/tool:hover:bg-zinc-800/80"
         title={title}
       />
       {children ? (
-        <pre
-          className="ml-8 mt-1 max-h-52 overflow-auto whitespace-pre-wrap py-0.5 text-xs leading-5 text-zinc-500 dark:text-zinc-400"
+        <Collapsible.Panel
+          className="ml-8 mt-1 max-h-52 overflow-auto py-0.5"
           data-tool-output="true"
+          keepMounted
         >
-          {children}
-        </pre>
+          <pre
+            className="whitespace-pre-wrap text-xs leading-5 text-zinc-500 dark:text-zinc-400"
+            data-tool-output-pre="true"
+          >
+            {children}
+          </pre>
+        </Collapsible.Panel>
       ) : null}
-    </details>
+    </Collapsible.Root>
   );
 }
 

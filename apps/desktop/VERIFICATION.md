@@ -14,13 +14,13 @@ Current reference evidence:
 
 Latest verified desktop artifacts:
 
-- Desktop capture: `.artifacts/verification/2026-06-30T16-31-37-937Z/page@d42d5f9b11802e4cd322f553f5082801.webm`
-- Desktop stills: `.artifacts/verification/2026-06-30T16-31-37-937Z/*.png`
+- Desktop capture: `.artifacts/verification/2026-06-30T16-50-22-106Z/page@adad97d30e960cf96fe7700d1de04f87.webm`
+- Desktop stills: `.artifacts/verification/2026-06-30T16-50-22-106Z/*.png`
 - Grouped-sidebar capture: `.artifacts/verification/sidebar-groups/2026-06-30T15-10-20-395Z/page@d9d7ed776cdd64de9144ac1f4a6ab547.webm`
 - Grouped-sidebar still: `.artifacts/verification/sidebar-groups/2026-06-30T15-10-20-395Z/01-project-grouped-chats.png`
-- Design-guide capture: `.artifacts/verification/design-guide/2026-06-30T16-35-18-342Z/page@4eb43b27dcf6fee88200a47de910e25c.webm`
-- Design-guide stills: `.artifacts/verification/design-guide/2026-06-30T16-35-18-342Z/*.png`
-- Native still: `.artifacts/verification/native/2026-06-30-markdown-rendering.png`
+- Design-guide capture: `.artifacts/verification/design-guide/2026-06-30T16-50-56-224Z/page@318ea53de4abd0ca1ae08c3e647e3352.webm`
+- Design-guide stills: `.artifacts/verification/design-guide/2026-06-30T16-50-56-224Z/*.png`
+- Native still: `.artifacts/verification/native/2026-06-30-base-ui-primitives.png`
 
 Most recent manual checks:
 
@@ -28,6 +28,7 @@ Most recent manual checks:
 - Confirmed assistant message actions omit thumbs up/down feedback buttons.
 - Confirmed a single chat renders two user/assistant turns with separate thinking and tool-call rows.
 - Confirmed completed thinking and tool-call rows use shared Codex-like collapsible activity summaries.
+- Confirmed shared buttons, composer selects, and activity collapsibles are built on Base UI primitives.
 - Confirmed streaming assistant markdown renders through Streamdown and completed chat markdown renders through React Markdown.
 - Confirmed completed tool-call status renders as muted transcript metadata instead of bright emerald text.
 - Confirmed assistant messages use a wider Codex-like transcript rail instead of the previous narrow 72% cap.

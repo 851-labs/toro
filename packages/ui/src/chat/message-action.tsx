@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Button as BaseButton } from "@base-ui-components/react/button";
 import { cn } from "../cn";
 
 export interface CodexMessageActionProps {
@@ -10,7 +11,7 @@ export interface CodexMessageActionProps {
 
 export function CodexMessageAction({ children, label, onClick, pressed }: CodexMessageActionProps) {
   return (
-    <button
+    <BaseButton
       aria-label={label}
       aria-pressed={pressed}
       className={cn(
@@ -20,10 +21,11 @@ export function CodexMessageAction({ children, label, onClick, pressed }: CodexM
           : "text-zinc-400 dark:text-zinc-500",
       )}
       data-message-action="true"
+      data-base-ui-button="true"
       onClick={onClick}
       type="button"
     >
       {children}
-    </button>
+    </BaseButton>
   );
 }

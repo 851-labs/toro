@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Button as BaseButton } from "@base-ui-components/react/button";
 import { cn } from "../cn";
 
 export interface CodexSidebarSectionProps {
@@ -24,18 +25,19 @@ export function CodexSidebarSection({
         <h2 className="text-sm font-medium text-zinc-400">{title}</h2>
         {actionIcon ? (
           onAction && actionLabel ? (
-            <button
+            <BaseButton
               aria-label={actionLabel}
               aria-pressed={actionPressed}
               className={cn(
                 "flex size-7 items-center justify-center rounded-lg text-zinc-400 hover:bg-zinc-200/70 hover:text-zinc-700 dark:hover:bg-zinc-600/50 dark:hover:text-zinc-100",
                 actionPressed && "bg-zinc-200 text-zinc-800 dark:bg-zinc-600 dark:text-zinc-100",
               )}
+              data-base-ui-button="true"
               onClick={onAction}
               type="button"
             >
               {actionIcon}
-            </button>
+            </BaseButton>
           ) : (
             <span
               aria-hidden="true"

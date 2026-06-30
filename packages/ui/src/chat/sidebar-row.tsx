@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Button as BaseButton } from "@base-ui-components/react/button";
 import { cn } from "../cn";
 
 export interface CodexSidebarRowProps {
@@ -65,10 +66,11 @@ export function CodexSidebarRow({
   }
 
   return (
-    <button
+    <BaseButton
       aria-current={ariaCurrent}
       aria-label={ariaLabel}
       className={className}
+      data-base-ui-button="true"
       data-sidebar-row-active={active ? "true" : undefined}
       data-sidebar-row="true"
       onClick={onClick}
@@ -76,6 +78,6 @@ export function CodexSidebarRow({
       type="button"
     >
       {content}
-    </button>
+    </BaseButton>
   );
 }

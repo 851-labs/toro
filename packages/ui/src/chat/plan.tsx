@@ -1,3 +1,4 @@
+import { Collapsible } from "@base-ui-components/react/collapsible";
 import { ClipboardList } from "lucide-react";
 import { cn } from "../cn";
 import { CodexDisclosureSummary } from "./disclosure-summary";
@@ -26,38 +27,41 @@ export function CodexPlanDisclosure({
   const completedCount = entries.filter((entry) => entry.status === "completed").length;
 
   return (
-    <details
+    <Collapsible.Root
       className="group/plan max-w-[720px] text-sm"
+      data-base-ui-collapsible="true"
       data-plan-disclosure="true"
-      open={defaultOpen}
+      defaultOpen={defaultOpen}
     >
       <CodexDisclosureSummary
         activity
-        chevronClassName="group-open/plan:rotate-90"
+        chevronClassName="group-data-[open]/plan:rotate-90"
         icon={<ClipboardList size={14} />}
         meta={`${completedCount} of ${entries.length} complete`}
         title={title}
       />
-      <ol className="ml-8 mt-1 space-y-1 border-l border-zinc-200 pl-3 dark:border-zinc-700">
-        {entries.map((entry, index) => (
-          <li className="flex items-start gap-2 text-sm" key={`${entry.content}-${index}`}>
-            <span
-              className={cn("mt-2 size-1.5 shrink-0 rounded-full", statusDotClass(entry.status))}
-              data-plan-status-dot={entry.status}
-            />
-            <span className="min-w-0 flex-1 leading-6 text-zinc-700 dark:text-zinc-300">
-              {entry.content}
-            </span>
-            <span
-              className="shrink-0 text-xs leading-6 text-zinc-400 dark:text-zinc-500"
-              data-plan-status-label={entry.status}
-            >
-              {statusLabel(entry.status)}
-            </span>
-          </li>
-        ))}
-      </ol>
-    </details>
+      <Collapsible.Panel>
+        <ol className="ml-8 mt-1 space-y-1 border-l border-zinc-200 pl-3 dark:border-zinc-700">
+          {entries.map((entry, index) => (
+            <li className="flex items-start gap-2 text-sm" key={`${entry.content}-${index}`}>
+              <span
+                className={cn("mt-2 size-1.5 shrink-0 rounded-full", statusDotClass(entry.status))}
+                data-plan-status-dot={entry.status}
+              />
+              <span className="min-w-0 flex-1 leading-6 text-zinc-700 dark:text-zinc-300">
+                {entry.content}
+              </span>
+              <span
+                className="shrink-0 text-xs leading-6 text-zinc-400 dark:text-zinc-500"
+                data-plan-status-label={entry.status}
+              >
+                {statusLabel(entry.status)}
+              </span>
+            </li>
+          ))}
+        </ol>
+      </Collapsible.Panel>
+    </Collapsible.Root>
   );
 }
 

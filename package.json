@@ -8,6 +8,7 @@
     ],
     "catalog": {
       "@agentclientprotocol/sdk": "1.1.0",
+      "@base-ui-components/react": "1.0.0-rc.0",
       "@effect/platform-node": "4.0.0-beta.92",
       "@playwright/test": "1.61.1",
       "@tailwindcss/vite": "4.3.2",

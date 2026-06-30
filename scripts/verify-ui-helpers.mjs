@@ -189,12 +189,8 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
 
   async function assertTranscriptOrder(page) {
     const userTop = await locatorTop(page.getByText("Verify the Toro ACP UI loop.").first());
-    const thinkingTop = await locatorTop(
-      page.locator("details").filter({ hasText: "Thinking" }).first(),
-    );
-    const toolTop = await locatorTop(
-      page.locator("details").filter({ hasText: "Validate Toro permission UI" }).last(),
-    );
+    const thinkingTop = await locatorTop(page.locator("[data-thinking-disclosure='true']").first());
+    const toolTop = await locatorTop(page.locator("[data-tool-call='true']").last());
     const assistantTop = await locatorTop(
       page.getByText(/Toro demo agent received your prompt/).first(),
     );
@@ -380,6 +376,8 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
         "Collapse sidebar",
         "New chat",
         "Add context",
+        "Access mode",
+        "Model",
         "Back",
         "Forward",
         "More chat actions",
@@ -397,7 +395,10 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
     return (
       label.startsWith("Attach context ") ||
       label.startsWith("Chat ") ||
+      label.startsWith("Plan") ||
+      label.startsWith("Thinking") ||
       label.startsWith("Remove context ") ||
+      label.startsWith("Validate Toro permission UI") ||
       label.startsWith(workspaceName)
     );
   }
@@ -414,9 +415,15 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
   }
 
   async function selectComposerOption(page, label, value) {
-    const select = page.getByLabel(label);
-    await select.selectOption(value);
-    if ((await select.inputValue()) !== value) {
+    const control = page.getByLabel(label);
+    const tagName = await control.evaluate((node) => node.tagName);
+    if (tagName === "SELECT") {
+      await control.selectOption(value);
+    } else {
+      await control.click();
+      await page.getByRole("option", { exact: true, name: value }).click();
+    }
+    if (!((await control.textContent()) ?? (await control.inputValue())).includes(value)) {
       throw new Error(`Composer ${label} did not select ${value}.`);
     }
   }

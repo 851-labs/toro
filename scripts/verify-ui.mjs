@@ -164,11 +164,11 @@ await assertSharedPlanAndSummaries(page);
 await assertLightReferenceShell(page);
 await assertStreamingCursorAnimated(page.locator("[data-thinking-body='true']").first());
 await assertTranscriptDisclosureIsCompact(
-  page.locator("details").filter({ hasText: "Plan" }).first(),
+  page.locator("[data-plan-disclosure='true']").first(),
   "Plan",
 );
 await assertTranscriptDisclosureIsCompact(
-  page.locator("details").filter({ hasText: "Thinking" }).first(),
+  page.locator("[data-thinking-disclosure='true']").first(),
   "Thinking",
 );
 if ((await page.getByText(/deciding the next UI action/).count()) > 0) {
@@ -216,13 +216,13 @@ await page
 await assertDesktopDebugLogsHidden(page);
 await assertOnlyFunctionalButtons(page);
 await assertTranscriptOrder(page);
-const toolCall = page.locator("details").filter({ hasText: "Validate Toro permission UI" }).last();
+const toolCall = page.locator("[data-tool-call='true']").last();
 await assertToolCallIsCompact(toolCall);
 await assertSharedToolCall(toolCall);
 await screenshot(page, "08-streaming-complete.png");
 await pause();
 
-await toolCall.locator("summary").click();
+await toolCall.locator("[data-disclosure-summary='true']").click();
 await page.getByText("status: ok").waitFor({ timeout: 5_000 });
 await screenshot(page, "09-tool-call-expanded.png");
 await pause();
