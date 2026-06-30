@@ -174,6 +174,8 @@
 - Composer-aligned transcript stills: `.artifacts/verification/2026-06-30T08-26-14-478Z/*.png`
 - Composer-aligned design-guide capture: `.artifacts/verification/design-guide/2026-06-30T08-26-28-703Z/page@81f7a0ad0463668cc09ae200c9ff96e0.webm`
 - Composer-aligned design-guide stills: `.artifacts/verification/design-guide/2026-06-30T08-26-28-703Z/*.png`
+- Recent-first project chats capture: `.artifacts/verification/2026-06-30T08-28-48-821Z/page@582e9677a23b3c739bd0c921eb1bc5ef.webm`
+- Recent-first project chats stills: `.artifacts/verification/2026-06-30T08-28-48-821Z/*.png`
 
 Manual verification:
 
@@ -234,6 +236,7 @@ Manual verification:
 - Confirmed the shared composer now uses a more compact Codex-like height, with the desktop UI verifier measuring the rendered composer height.
 - Confirmed the design-guide sidebar story now uses the same Codex-like rail width as desktop, with the design-guide verifier measuring the story rail.
 - Confirmed the desktop transcript rail now aligns to the shared 960px composer surface so assistant text starts on the Codex-like composer left edge, with desktop and design-guide verifiers measuring the alignment.
+- Confirmed project chat rows now sort newest-first and mark the active chat with `aria-current`, with the UI verifier asserting the current chat is the first row in its project group.
 
 Automated verification:
 

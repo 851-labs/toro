@@ -16,6 +16,7 @@ const {
   assertComposerFooterIsCodexCompact,
   assertComposerHeightIsCodexLike,
   assertComposerWidthIsCodexLike,
+  assertCurrentChatIsFirstInProject,
   assertDeadControlsRemoved,
   assertDesktopDebugLogsHidden,
   assertHeaderActions,
@@ -109,6 +110,7 @@ await page
   .waitFor({ timeout: 5_000 });
 await assertPrimarySidebarSimplified(page);
 await assertSidebarChatRowsAreNavigationOnly(page);
+await assertCurrentChatIsFirstInProject(page);
 await assertDesktopDebugLogsHidden(page);
 await assertHeaderActions(page);
 await assertSessionDetailsToggle(page);

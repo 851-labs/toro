@@ -289,6 +289,22 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
     }
   }
 
+  async function assertCurrentChatIsFirstInProject(page) {
+    const chats = await page.locator("aside button[aria-label^='Chat ']").evaluateAll((nodes) =>
+      nodes.map((node) => ({
+        current: node.getAttribute("aria-current"),
+        label: node.getAttribute("aria-label"),
+      })),
+    );
+
+    if (chats.length === 0) {
+      throw new Error("Expected at least one project chat row.");
+    }
+    if (chats[0]?.current !== "page") {
+      throw new Error(`Current project chat should be first, got ${JSON.stringify(chats)}`);
+    }
+  }
+
   async function assertOnlyFunctionalButtons(page, extraAllowedLabels = []) {
     const buttons = await page.locator("button").evaluateAll((nodes) =>
       nodes.map((node) => ({
@@ -407,6 +423,7 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
     assertComposerFooterIsCodexCompact,
     assertComposerHeightIsCodexLike,
     assertComposerWidthIsCodexLike,
+    assertCurrentChatIsFirstInProject,
     assertDeadControlsRemoved,
     assertDesktopDebugLogsHidden,
     assertHeaderActions,

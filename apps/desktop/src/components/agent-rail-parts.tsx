@@ -68,6 +68,7 @@ export function ProjectGroup({
         {sessions.length > 0 ? (
           sessions.map((session) => (
             <button
+              aria-current={activeSessionId === session.id ? "page" : undefined}
               aria-label={`Chat ${session.title}`}
               className={cn(
                 "flex min-h-9 w-full items-center gap-2 rounded-xl px-2 py-1.5 text-left text-sm hover:bg-zinc-200/70",
@@ -143,7 +144,14 @@ export function groupWorkspaces(
     group?.sessions.push(session);
   }
 
-  return Array.from(groups.values());
+  return Array.from(groups.values()).map((group) => ({
+    ...group,
+    sessions: group.sessions.toSorted(compareSessionsByRecency),
+  }));
+}
+
+function compareSessionsByRecency(a: Session, b: Session) {
+  return b.updatedAt.localeCompare(a.updatedAt) || b.createdAt.localeCompare(a.createdAt);
 }
 
 export function RailSection({
