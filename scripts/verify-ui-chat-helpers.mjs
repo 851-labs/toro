@@ -10,3 +10,11 @@ export async function assertSharedChatMessages(page) {
   )
     throw new Error("Assistant messages should use the wider Codex transcript rail.");
 }
+
+export async function assertPendingPermissionToolCall(page) {
+  await page
+    .locator("[data-tool-call='true']")
+    .filter({ hasText: /Validate Toro permission UI/ })
+    .filter({ hasText: "pending" })
+    .waitFor({ timeout: 5_000 });
+}

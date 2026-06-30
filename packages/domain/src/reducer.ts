@@ -103,6 +103,7 @@ export function applyHostEvent(state: ToroState, event: HostEvent): ToroState {
           toolCall: event.toolCall,
         }),
         status: "waiting",
+        toolCalls: upsertById(session.toolCalls, event.toolCall),
       }));
     case "permission_resolved":
       return updateSession(state, event.sessionId, (session) => ({

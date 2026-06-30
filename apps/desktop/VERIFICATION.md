@@ -14,11 +14,11 @@ Current reference evidence:
 
 Latest verified desktop artifacts:
 
-- Desktop capture: `.artifacts/verification/2026-06-30T14-44-44-099Z/page@9fbb6c43cd7582dfe7dc0ba184329a12.webm`
-- Desktop stills: `.artifacts/verification/2026-06-30T14-44-44-099Z/*.png`
-- Design-guide capture: `.artifacts/verification/design-guide/2026-06-30T14-37-50-367Z/page@f6a4c2e96fafac1d8916adc70f77d981.webm`
-- Design-guide stills: `.artifacts/verification/design-guide/2026-06-30T14-37-50-367Z/*.png`
-- Native still: `.artifacts/verification/native/2026-06-30-project-scoped-chats.png`
+- Desktop capture: `.artifacts/verification/2026-06-30T14-52-26-452Z/page@32762010db64ce4e8b58b6faa050d6df.webm`
+- Desktop stills: `.artifacts/verification/2026-06-30T14-52-26-452Z/*.png`
+- Design-guide capture: `.artifacts/verification/design-guide/2026-06-30T14-53-56-651Z/page@28271dd940de90ac649116adc0225bf6.webm`
+- Design-guide stills: `.artifacts/verification/design-guide/2026-06-30T14-53-56-651Z/*.png`
+- Native still: `.artifacts/verification/native/2026-06-30-pending-tool-call-lifecycle.png`
 
 Most recent manual checks:
 
@@ -29,6 +29,7 @@ Most recent manual checks:
 - Confirmed the desktop sidebar renders Codex-like top-level Projects and Chats sections.
 - Confirmed the desktop Chats section is scoped to the active project outside search mode.
 - Confirmed the transcript and composer use a narrower Codex-like centered rail.
+- Confirmed pending permission tool calls appear in the transcript before approval.
 - Confirmed native Tauri renders the latest Codex-like chat shell after rebuild.
 
 Automated verification:

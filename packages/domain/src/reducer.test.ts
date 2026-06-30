@@ -75,6 +75,8 @@ describe("applyHostEvent", () => {
 
     expect(waiting.sessions[0]?.status).toBe("waiting");
     expect(waiting.sessions[0]?.permissions).toHaveLength(1);
+    expect(waiting.sessions[0]?.toolCalls[0]?.status).toBe("pending");
+    expect(waiting.sessions[0]?.toolCalls[0]?.title).toBe("Run command");
     expect(resolved.sessions[0]?.status).toBe("running");
     expect(resolved.sessions[0]?.permissions).toHaveLength(0);
   });

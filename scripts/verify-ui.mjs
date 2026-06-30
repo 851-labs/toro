@@ -1,7 +1,7 @@
 import { chromium } from "@playwright/test";
 import { mkdir, readdir } from "node:fs/promises";
 import { basename, resolve } from "node:path";
-import { assertSharedChatMessages } from "./verify-ui-chat-helpers.mjs";
+import * as chatHelpers from "./verify-ui-chat-helpers.mjs";
 import { createVerifyUiHelpers } from "./verify-ui-helpers.mjs";
 
 const appUrl = process.env.TORO_APP_URL ?? "http://127.0.0.1:1420";
@@ -166,7 +166,7 @@ await page.getByRole("button", { exact: true, name: "Send" }).click();
 await page.getByText("Thinking").waitFor({ timeout: 10_000 });
 await page.getByText("working").waitFor({ timeout: 10_000 });
 await page.getByText(/Checking project context/).waitFor({ timeout: 10_000 });
-await assertSharedChatMessages(page);
+await chatHelpers.assertSharedChatMessages(page);
 await assertSharedThinkingDisclosure(page);
 await assertSharedPlanAndSummaries(page);
 await assertLightReferenceShell(page);
@@ -189,8 +189,9 @@ await assertOnlyFunctionalButtons(page);
 await screenshot(page, "05-thinking.png");
 await pause();
 
-await page.getByText("Validate Toro permission UI").waitFor({ timeout: 10_000 });
+await page.getByText("Validate Toro permission UI").first().waitFor({ timeout: 10_000 });
 await assertPermissionCardIsCompact(page);
+await chatHelpers.assertPendingPermissionToolCall(page);
 await assertSharedPermissionElements(page);
 await assertSidebarChatRowsAreNavigationOnly(page);
 await assertOnlyFunctionalButtons(page, ["Allow once", "Reject"]);
