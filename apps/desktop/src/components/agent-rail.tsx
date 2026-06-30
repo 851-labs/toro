@@ -1,14 +1,7 @@
 import type { AgentId, EnvironmentId, WorkspaceId } from "@toro/domain";
 import type { AgentProfile, EnvironmentProfile, Session, Workspace } from "@toro/domain";
 import { Button, StatusBadge, cn } from "@toro/ui";
-import {
-  Bot,
-  CirclePlus,
-  FolderOpen,
-  Layers,
-  Monitor,
-  Server,
-} from "lucide-react";
+import { Bot, CirclePlus, FolderOpen, Layers, Monitor, Server } from "lucide-react";
 import { FileExplorer } from "./file-explorer";
 
 interface AgentRailProps {

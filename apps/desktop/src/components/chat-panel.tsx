@@ -1,15 +1,6 @@
 import type { ChatMessage, PermissionRequest, PlanEntry, Session, ToolCall } from "@toro/domain";
 import { Button, StatusBadge, cn } from "@toro/ui";
-import {
-  Check,
-  ClipboardList,
-  Send,
-  Shield,
-  Square,
-  Terminal,
-  X,
-  Zap,
-} from "lucide-react";
+import { Check, ClipboardList, Send, Shield, Square, Terminal, X, Zap } from "lucide-react";
 import { FormEvent, useMemo, useState } from "react";
 import { hostClient } from "../lib/host-client";
 
@@ -84,9 +75,9 @@ export function ChatPanel({ agentName, session, workspaceName }: ChatPanelProps)
             </div>
             <div className="flex items-center gap-2 text-sm text-zinc-500">
               <span className="hidden items-center gap-1 font-medium sm:inline-flex">
-                  <Zap size={15} />
-                  5.5 Medium
-                </span>
+                <Zap size={15} />
+                5.5 Medium
+              </span>
               {session?.status === "running" ? (
                 <Button
                   aria-label="Stop"

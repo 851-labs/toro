@@ -6,10 +6,7 @@ import {
   type EnvironmentId,
   type WorkspaceId,
 } from "@toro/domain";
-import {
-  PanelLeft,
-  RefreshCw,
-} from "lucide-react";
+import { PanelLeft, RefreshCw } from "lucide-react";
 import { useMemo, useState } from "react";
 import { AgentRail } from "./components/agent-rail";
 import { ChatPanel } from "./components/chat-panel";
