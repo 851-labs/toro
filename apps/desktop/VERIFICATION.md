@@ -222,6 +222,10 @@
 - Finer streaming cadence desktop stills: `.artifacts/verification/2026-06-30T09-31-53-857Z/*.png`
 - Finer streaming cadence design-guide capture: `.artifacts/verification/design-guide/2026-06-30T09-32-14-033Z/page@399150c2a47312c91b201b3f135c7bf2.webm`
 - Finer streaming cadence design-guide stills: `.artifacts/verification/design-guide/2026-06-30T09-32-14-033Z/*.png`
+- Lifted empty composer desktop capture: `.artifacts/verification/2026-06-30T09-37-06-349Z/page@478bcfa88d9a288b6a931606aefedd39.webm`
+- Lifted empty composer desktop stills: `.artifacts/verification/2026-06-30T09-37-06-349Z/*.png`
+- Lifted empty composer design-guide capture: `.artifacts/verification/design-guide/2026-06-30T09-37-24-290Z/page@5d902c3884cdf1556c356d3575c35bdd.webm`
+- Lifted empty composer design-guide stills: `.artifacts/verification/design-guide/2026-06-30T09-37-24-290Z/*.png`
 
 Manual verification:
 
@@ -248,6 +252,7 @@ Manual verification:
 - Confirmed empty project chats render a Codex-like passive composer context strip for project, local environment, and branch metadata.
 - Confirmed empty project chat headings are composer-anchored with a measured Codex-like vertical gap.
 - Confirmed the deterministic demo agent streams assistant and thinking text in smaller fragments for a smoother Codex-like cadence.
+- Confirmed empty project chats use a lifted Codex-like composer placement while active follow-up chats keep the bottom composer.
 - Confirmed New chat, Open, and Send are only rendered as buttons when they can perform an action, and the UI verifier fails if any disabled button is present.
 - Confirmed completed assistant messages expose Codex-style copy, thumbs up, thumbs down, and expand controls, and each control changes visible state during verification.
 - Confirmed the sidebar exposes a Codex-like project path strip instead of a separate Add project row, and Search filters projects/chats with a visible no-match state.

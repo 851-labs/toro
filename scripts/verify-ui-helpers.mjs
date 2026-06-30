@@ -64,6 +64,11 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
     if (!headingBox || !composerBox || composerBox.y - (headingBox.y + headingBox.height) > 220) {
       throw new Error("Empty project prompt should sit close to the composer like Codex.");
     }
+    if (composerBox.y > 660) {
+      throw new Error(
+        `Empty project composer should be lifted like Codex, got y=${composerBox.y}.`,
+      );
+    }
     if ((await page.getByText("Toro Demo is ready.").count()) > 0) {
       throw new Error("Empty project chat should not render redundant ready-state subcopy.");
     }

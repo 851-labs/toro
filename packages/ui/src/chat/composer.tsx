@@ -28,6 +28,7 @@ export interface CodexComposerProps {
   readonly contextItems?: readonly CodexComposerContextItem[];
   readonly contextStrip?: CodexComposerContextStrip;
   readonly isRunning?: boolean;
+  readonly lifted?: boolean;
   readonly modelLabel: string;
   readonly placeholder: string;
   readonly value: string;
@@ -51,6 +52,7 @@ export function CodexComposer({
   contextItems = [],
   contextStrip,
   isRunning,
+  lifted,
   modelLabel,
   onChange,
   onStop,
@@ -72,7 +74,7 @@ export function CodexComposer({
   }
 
   return (
-    <form className="px-6 pb-6" onSubmit={submit}>
+    <form className={cn("px-6 pb-6", lifted && "mb-16")} onSubmit={submit}>
       <div
         className="relative z-10 mx-auto max-w-[960px] rounded-[22px] border border-zinc-200 bg-white p-3 shadow-[0_14px_50px_rgba(15,23,42,0.12)]"
         data-composer-surface="true"

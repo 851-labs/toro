@@ -99,6 +99,7 @@ export function ChatPanel({ session, workspace }: ChatPanelProps) {
         }
         contextItems={contextItems}
         isRunning={session?.status === "running"}
+        lifted={projectEmpty}
         modelLabel="5.5 Medium"
         onChange={setValue}
         onStop={session ? () => void hostClient.cancelSession(session.id) : undefined}
