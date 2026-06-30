@@ -77,4 +77,36 @@ describe("applyHostEvent", () => {
     expect(resolved.sessions[0]?.status).toBe("running");
     expect(resolved.sessions[0]?.permissions).toHaveLength(0);
   });
+
+  it("tracks streamed thought content separately from assistant messages", () => {
+    const id = sessionId("session-1");
+    const created = applyHostEvent(emptyToroState, {
+      agentId: agentId("codex"),
+      createdAt: "2026-06-30T00:00:00.000Z",
+      environmentId: environmentId("local-desktop"),
+      sessionId: id,
+      title: "Codex",
+      type: "session_created",
+      workspaceId: workspaceId("workspace-1"),
+    });
+
+    const withThought = applyHostEvent(created, {
+      at: "2026-06-30T00:00:01.000Z",
+      delta: "thinking",
+      sessionId: id,
+      thoughtId: messageId("thought-1"),
+      type: "thought_delta",
+    });
+    const completed = applyHostEvent(withThought, {
+      at: "2026-06-30T00:00:02.000Z",
+      sessionId: id,
+      thoughtId: messageId("thought-1"),
+      type: "thought_completed",
+    });
+
+    expect(withThought.sessions[0]?.messages).toHaveLength(0);
+    expect(withThought.sessions[0]?.thoughts[0]?.content).toBe("thinking");
+    expect(withThought.sessions[0]?.thoughts[0]?.status).toBe("streaming");
+    expect(completed.sessions[0]?.thoughts[0]?.status).toBe("complete");
+  });
 });

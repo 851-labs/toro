@@ -36,6 +36,8 @@ const app = acp
       },
     });
 
+    await streamThought(ctx, "Checking project context and deciding the next UI action.");
+    await new Promise((resolve) => setTimeout(resolve, streamChunkDelayMs * 2));
     await requestDemoPermission(ctx);
     await streamText(ctx, "Toro demo agent received your prompt. ");
     await streamText(
@@ -73,6 +75,20 @@ async function requestDemoPermission(
       title: "Validate Toro permission UI",
       toolCallId: "demo-permission",
       sessionUpdate: "tool_call_update",
+    },
+  });
+}
+
+async function streamThought(
+  ctx: acp.AgentRequestContext<acp.PromptRequest>,
+  text: string,
+): Promise<void> {
+  await ctx.client.notify(acp.methods.client.session.update, {
+    sessionId: ctx.params.sessionId,
+    update: {
+      content: { text, type: "text" },
+      messageId: "demo-thinking",
+      sessionUpdate: "agent_thought_chunk",
     },
   });
 }

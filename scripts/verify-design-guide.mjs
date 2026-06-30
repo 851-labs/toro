@@ -20,6 +20,8 @@ const page = await context.newPage();
 await page.goto(appUrl, { waitUntil: "domcontentloaded" });
 await page.getByText("Codex Chat Surface").waitFor({ timeout: 5_000 });
 await page.getByText("Streaming text keeps").waitFor({ timeout: 5_000 });
+await page.getByText("Thinking").waitFor({ timeout: 5_000 });
+await page.getByText("Reviewing project context").waitFor({ timeout: 5_000 });
 await page.getByText("Validate Toro permission UI").first().waitFor({ timeout: 5_000 });
 await page.getByText("tool cards are working").waitFor({ timeout: 5_000 });
 await page.getByRole("button", { exact: true, name: "Copy message" }).click();

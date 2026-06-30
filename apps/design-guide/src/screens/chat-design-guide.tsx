@@ -3,6 +3,7 @@ import {
   CodexComposer,
   CodexDisclosure,
   CodexPermissionCard,
+  CodexThinkingDisclosure,
   CodexToolCall,
   StatusBadge,
 } from "@toro/ui";
@@ -58,6 +59,9 @@ export function ChatDesignGuide() {
             <CodexChatMessage isStreaming role="assistant">
               Streaming text keeps a quiet inline cursor while the final response is still arriving
             </CodexChatMessage>
+            <CodexThinkingDisclosure defaultOpen isStreaming>
+              Reviewing project context and deciding which UI primitive should carry the state.
+            </CodexThinkingDisclosure>
             <CodexPermissionCard
               onRespond={(optionId) =>
                 setPermissionDecision(optionId === "allow" ? "allowed once" : "rejected")

@@ -12,6 +12,7 @@ import type { HostEvent, PermissionOption, PlanEntry, SessionId, ToolCall } from
 
 export class AcpEventNormalizer {
   private readonly openMessages = new Set<string>();
+  private readonly openThoughts = new Set<string>();
   private readonly toolCalls = new Map<string, ToolCall>();
 
   constructor(private readonly sessionId: SessionId) {}
@@ -28,9 +29,7 @@ export class AcpEventNormalizer {
       case "user_message_chunk":
         return [this.messageDelta("user", update.messageId, textFromContent(update.content), at)];
       case "agent_thought_chunk":
-        return [
-          this.messageDelta("assistant", update.messageId, textFromContent(update.content), at),
-        ];
+        return [this.thoughtDelta(update.messageId, textFromContent(update.content), at)];
       case "tool_call":
         return [this.toolCallUpdated(update, at)];
       case "tool_call_update":
@@ -75,7 +74,7 @@ export class AcpEventNormalizer {
   }
 
   completeOpenMessages(at: string): readonly HostEvent[] {
-    const events = [...this.openMessages].map(
+    const messageEvents = [...this.openMessages].map(
       (id): HostEvent => ({
         at,
         messageId: messageId(id),
@@ -83,8 +82,17 @@ export class AcpEventNormalizer {
         type: "message_completed",
       }),
     );
+    const thoughtEvents = [...this.openThoughts].map(
+      (id): HostEvent => ({
+        at,
+        sessionId: this.sessionId,
+        thoughtId: messageId(id),
+        type: "thought_completed",
+      }),
+    );
     this.openMessages.clear();
-    return events;
+    this.openThoughts.clear();
+    return [...messageEvents, ...thoughtEvents];
   }
 
   private messageDelta(
@@ -103,6 +111,23 @@ export class AcpEventNormalizer {
       role,
       sessionId: this.sessionId,
       type: "message_delta",
+    };
+  }
+
+  private thoughtDelta(
+    acpMessageId: string | null | undefined,
+    delta: string,
+    at: string,
+  ): HostEvent {
+    const stableId = acpMessageId ?? "thought-stream";
+    const id = `${this.sessionId}:thought:${stableId}`;
+    this.openThoughts.add(id);
+    return {
+      at,
+      delta,
+      sessionId: this.sessionId,
+      thoughtId: messageId(id),
+      type: "thought_delta",
     };
   }
 

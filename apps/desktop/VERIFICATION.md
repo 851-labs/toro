@@ -30,6 +30,10 @@
 - Assistant copy action stills: `.artifacts/verification/2026-06-30T03-25-48-951Z/*.png`
 - Assistant copy design-guide capture: `.artifacts/verification/design-guide/2026-06-30T03-25-48-959Z/page@a6b070dcde44aa8e6845b1a11fdd0196.webm`
 - Assistant copy design-guide stills: `.artifacts/verification/design-guide/2026-06-30T03-25-48-959Z/*.png`
+- Thinking disclosure capture: `.artifacts/verification/2026-06-30T03-36-57-321Z/page@140f7f33cb118fb7bbde1ca5116805ae.webm`
+- Thinking disclosure stills: `.artifacts/verification/2026-06-30T03-36-57-321Z/*.png`
+- Thinking design-guide capture: `.artifacts/verification/design-guide/2026-06-30T03-35-45-161Z/page@0df05d131476dfa85a5fc9fc68263bd0.webm`
+- Thinking design-guide stills: `.artifacts/verification/design-guide/2026-06-30T03-35-45-161Z/*.png`
 
 Manual verification:
 
@@ -40,7 +44,7 @@ Manual verification:
 - Confirmed the desktop composer accepts typing before a session exists and that the rebuilt `Toro.app` accepts keyboard input in the composer.
 - Confirmed the rebuilt `Toro.app` renders edge-to-edge without the blue inset or rounded outer app frame.
 - Confirmed inert header, sidebar, and composer controls were removed while workspace open, session start, send, and permission approval still work.
-- Confirmed the internal design guide renders shared chat messages, streaming state, permission prompt, expanded tool call, logs disclosure, and composer.
+- Confirmed the internal design guide renders shared chat messages, streaming state, thinking disclosure, permission prompt, expanded tool call, logs disclosure, and composer.
 - Confirmed the desktop chat flow still passes after moving messages, composer, permission prompt, tool call, and logs into shared UI primitives.
 - Confirmed the sidebar visually groups chats under their project and coalesces duplicate opens of the same project path.
 - Confirmed every rendered button in the desktop flow is limited to a wired action: new chat, add project, project/chat selection, send/stop, or permission response.
@@ -48,6 +52,7 @@ Manual verification:
 - Confirmed the sidebar footer matches Codex more closely by defaulting to a compact host row while the functional host settings button still exposes agent and environment selection.
 - Confirmed the deterministic ACP demo emits a visible mid-stream assistant response before the final assistant text is present.
 - Confirmed completed assistant messages expose a functional Codex-style copy action with visible copied state.
+- Confirmed ACP thought chunks are stored separately from assistant messages and render as a shared Codex-style thinking disclosure.
 
 Automated verification:
 

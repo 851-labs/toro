@@ -1,9 +1,17 @@
-import type { ChatMessage, PermissionRequest, PlanEntry, Session, ToolCall } from "@toro/domain";
+import type {
+  ChatMessage,
+  PermissionRequest,
+  PlanEntry,
+  Session,
+  ThoughtEntry,
+  ToolCall,
+} from "@toro/domain";
 import {
   CodexChatMessage,
   CodexComposer,
   CodexDisclosure,
   CodexPermissionCard,
+  CodexThinkingDisclosure,
   CodexToolCall,
   StatusBadge,
 } from "@toro/ui";
@@ -43,6 +51,9 @@ export function ChatPanel({ agentName, session, workspaceName }: ChatPanelProps)
           {session ? (
             <>
               <PlanBlock entries={session.plan} />
+              {(session.thoughts ?? []).map((thought) => (
+                <ThoughtBlock key={thought.id} thought={thought} />
+              ))}
               {orderedMessages.map((message, index) => (
                 <MessageBlock
                   isStreaming={
@@ -124,6 +135,17 @@ function PlanBlock({ entries }: { readonly entries: readonly PlanEntry[] }) {
         ))}
       </ol>
     </details>
+  );
+}
+
+function ThoughtBlock({ thought }: { readonly thought: ThoughtEntry }) {
+  return (
+    <CodexThinkingDisclosure
+      defaultOpen={thought.status === "streaming"}
+      isStreaming={thought.status === "streaming"}
+    >
+      {thought.content}
+    </CodexThinkingDisclosure>
   );
 }
 

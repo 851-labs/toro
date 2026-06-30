@@ -43,4 +43,26 @@ describe("AcpEventNormalizer", () => {
     expect(created[0]).toMatchObject({ toolCall: { title: "Run tests", status: "pending" } });
     expect(updated[0]).toMatchObject({ toolCall: { title: "Run tests", status: "completed" } });
   });
+
+  it("normalizes thought chunks separately from assistant messages", () => {
+    const normalizer = new AcpEventNormalizer(sessionId("session-1"));
+    const events = normalizer.normalizeSessionUpdate({
+      sessionId: "acp-session",
+      update: {
+        content: { text: "checking context", type: "text" },
+        messageId: "thought-1",
+        sessionUpdate: "agent_thought_chunk",
+      },
+    } satisfies SessionNotification);
+    const completed = normalizer.completeOpenMessages("2026-06-30T00:00:00.000Z");
+
+    expect(events[0]).toMatchObject({
+      delta: "checking context",
+      type: "thought_delta",
+    });
+    expect(completed[0]).toMatchObject({
+      thoughtId: "session-1:thought:thought-1",
+      type: "thought_completed",
+    });
+  });
 });

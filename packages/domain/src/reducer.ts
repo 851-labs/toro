@@ -1,6 +1,6 @@
 import { messageId } from "./ids";
 import type { HostEvent } from "./events";
-import type { ChatMessage, Session, ToroState } from "./model";
+import type { ChatMessage, Session, ThoughtEntry, ToroState } from "./model";
 
 export const emptyToroState: ToroState = {
   activeSessionId: null,
@@ -30,6 +30,7 @@ export function applyHostEvent(state: ToroState, event: HostEvent): ToroState {
           permissions: [],
           plan: [],
           status: "idle",
+          thoughts: [],
           title: event.title,
           toolCalls: [],
           updatedAt: event.createdAt,
@@ -48,13 +49,29 @@ export function applyHostEvent(state: ToroState, event: HostEvent): ToroState {
         messages: upsertById(session.messages, event.message),
         updatedAt: event.message.createdAt,
       }));
+    case "thought_appended":
+      return updateSession(state, event.thought.sessionId, (session) => ({
+        ...session,
+        thoughts: upsertById(session.thoughts, event.thought),
+        updatedAt: event.thought.createdAt,
+      }));
     case "message_delta":
       return appendMessageDelta(state, event);
+    case "thought_delta":
+      return appendThoughtDelta(state, event);
     case "message_completed":
       return updateSession(state, event.sessionId, (session) => ({
         ...session,
         messages: session.messages.map((message) =>
           message.id === event.messageId ? { ...message, status: "complete" } : message,
+        ),
+        updatedAt: event.at,
+      }));
+    case "thought_completed":
+      return updateSession(state, event.sessionId, (session) => ({
+        ...session,
+        thoughts: session.thoughts.map((thought) =>
+          thought.id === event.thoughtId ? { ...thought, status: "complete" } : thought,
         ),
         updatedAt: event.at,
       }));
@@ -102,6 +119,23 @@ export function applyHostEvent(state: ToroState, event: HostEvent): ToroState {
   }
 }
 
+function appendThoughtDelta(
+  state: ToroState,
+  event: Extract<HostEvent, { type: "thought_delta" }>,
+): ToroState {
+  return updateSession(state, event.sessionId, (session) => {
+    const existing = session.thoughts.find((thought) => thought.id === event.thoughtId);
+    const thoughts = existing
+      ? session.thoughts.map((thought) =>
+          thought.id === event.thoughtId
+            ? { ...thought, content: `${thought.content}${event.delta}` }
+            : thought,
+        )
+      : [...session.thoughts, streamingThought(event)];
+    return { ...session, thoughts, updatedAt: event.at };
+  });
+}
+
 function appendMessageDelta(
   state: ToroState,
   event: Extract<HostEvent, { type: "message_delta" }>,
@@ -117,6 +151,16 @@ function appendMessageDelta(
       : [...session.messages, streamingMessage(event)];
     return { ...session, messages, updatedAt: event.at };
   });
+}
+
+function streamingThought(event: Extract<HostEvent, { type: "thought_delta" }>): ThoughtEntry {
+  return {
+    content: event.delta,
+    createdAt: event.at,
+    id: messageId(event.thoughtId),
+    sessionId: event.sessionId,
+    status: "streaming",
+  };
 }
 
 function streamingMessage(event: Extract<HostEvent, { type: "message_delta" }>): ChatMessage {

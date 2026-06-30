@@ -69,6 +69,14 @@ export interface ChatMessage {
   readonly status: MessageStatus;
 }
 
+export interface ThoughtEntry {
+  readonly id: MessageId;
+  readonly sessionId: SessionId;
+  readonly content: string;
+  readonly createdAt: string;
+  readonly status: MessageStatus;
+}
+
 export type ToolKind =
   | "read"
   | "edit"
@@ -121,6 +129,7 @@ export interface Session {
   readonly title: string;
   readonly status: SessionStatus;
   readonly messages: readonly ChatMessage[];
+  readonly thoughts: readonly ThoughtEntry[];
   readonly toolCalls: readonly ToolCall[];
   readonly plan: readonly PlanEntry[];
   readonly permissions: readonly PermissionRequest[];

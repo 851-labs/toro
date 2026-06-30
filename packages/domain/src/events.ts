@@ -13,6 +13,7 @@ import type {
   PermissionOption,
   PlanEntry,
   SessionStatus,
+  ThoughtEntry,
   ToolCall,
   Workspace,
 } from "./model";
@@ -40,6 +41,7 @@ export type HostEvent =
       readonly at: string;
     }
   | { readonly type: "message_appended"; readonly message: ChatMessage }
+  | { readonly type: "thought_appended"; readonly thought: ThoughtEntry }
   | {
       readonly type: "message_delta";
       readonly sessionId: SessionId;
@@ -49,9 +51,22 @@ export type HostEvent =
       readonly at: string;
     }
   | {
+      readonly type: "thought_delta";
+      readonly sessionId: SessionId;
+      readonly thoughtId: MessageId;
+      readonly delta: string;
+      readonly at: string;
+    }
+  | {
       readonly type: "message_completed";
       readonly sessionId: SessionId;
       readonly messageId: MessageId;
+      readonly at: string;
+    }
+  | {
+      readonly type: "thought_completed";
+      readonly sessionId: SessionId;
+      readonly thoughtId: MessageId;
       readonly at: string;
     }
   | { readonly type: "tool_call_updated"; readonly toolCall: ToolCall }
