@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { useState } from "react";
-import { Check, Copy, Maximize2, Minimize2 } from "lucide-react";
+import { Check, Copy } from "lucide-react";
 import { cn } from "../cn";
 import { CodexMarkdownMessage } from "./markdown-message";
 import { CodexMessageAction } from "./message-action";
@@ -21,7 +21,6 @@ export function CodexChatMessage({
   showActions: showActionsProp,
 }: CodexChatMessageProps) {
   const [copied, setCopied] = useState(false);
-  const [expanded, setExpanded] = useState(false);
   const isUser = role === "user";
   const usesMarkdown = typeof children === "string";
   const canCopy = role === "assistant" && !isStreaming && copyText && copyText.length > 0;
@@ -50,11 +49,7 @@ export function CodexChatMessage({
       <div
         className={cn(
           "flex flex-col",
-          isUser
-            ? "max-w-[82%] items-end"
-            : expanded
-              ? "max-w-[96%] items-start"
-              : "max-w-[88%] items-start",
+          isUser ? "max-w-[82%] items-end" : "max-w-[96%] items-start",
         )}
         data-chat-message-shell="true"
       >
@@ -79,13 +74,6 @@ export function CodexChatMessage({
                 {copied ? <Check size={16} /> : <Copy size={16} />}
               </CodexMessageAction>
             ) : null}
-            <CodexMessageAction
-              label={expanded ? "Collapse message" : "Expand message"}
-              onClick={() => setExpanded((value) => !value)}
-              pressed={expanded}
-            >
-              {expanded ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
-            </CodexMessageAction>
           </div>
         ) : null}
       </div>

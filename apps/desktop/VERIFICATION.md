@@ -14,12 +14,12 @@ Current reference evidence:
 
 Latest verified desktop artifacts:
 
-- Desktop capture: `.artifacts/verification/2026-06-30T18-01-59-373Z/page@b3f7bedfdc5ad569a412e3f85d769ee9.webm`
-- Desktop stills: `.artifacts/verification/2026-06-30T18-01-59-373Z/*.png`
+- Desktop capture: `.artifacts/verification/2026-06-30T18-22-58-026Z/page@a46228b1852e59379c30d769f0787dea.webm`
+- Desktop stills: `.artifacts/verification/2026-06-30T18-22-58-026Z/*.png`
 - Grouped-sidebar capture: `.artifacts/verification/sidebar-groups/2026-06-30T15-10-20-395Z/page@d9d7ed776cdd64de9144ac1f4a6ab547.webm`
 - Grouped-sidebar still: `.artifacts/verification/sidebar-groups/2026-06-30T15-10-20-395Z/01-project-grouped-chats.png`
-- Internal capture: `.artifacts/verification/internal/2026-06-30T18-14-35-430Z/page@accd8adf6c47ed97d5f776a770b0785b.webm`
-- Internal stills: `.artifacts/verification/internal/2026-06-30T18-14-35-430Z/*.png`
+- Internal capture: `.artifacts/verification/internal/2026-06-30T18-22-58-337Z/page@ec4bb0fd6df35d8d08072f6735c88748.webm`
+- Internal stills: `.artifacts/verification/internal/2026-06-30T18-22-58-337Z/*.png`
 - Native still: `.artifacts/verification/native/2026-06-30-native-project-picker.png`
 
 Most recent manual checks:
@@ -36,6 +36,7 @@ Most recent manual checks:
 - Confirmed the composer no longer renders the passive microphone affordance.
 - Confirmed completed tool-call status renders as muted transcript metadata instead of bright emerald text.
 - Confirmed assistant messages use a wider Codex-like transcript rail instead of the previous narrow 72% cap.
+- Confirmed assistant messages default to the wider rail without an expand/collapse message action.
 - Confirmed the UI verifier resets host state before loading the desktop shell.
 - Confirmed the desktop sidebar renders Codex-like top-level Projects and Chats sections.
 - Confirmed the desktop New chat command opens the project picker before a project exists.

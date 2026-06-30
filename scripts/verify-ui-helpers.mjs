@@ -383,8 +383,6 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
         "Copy workspace path",
         "Copy message",
         "Copied message",
-        "Expand message",
-        "Collapse message",
         ...extraAllowedLabels,
       ].includes(label)
     ) {

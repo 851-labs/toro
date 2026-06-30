@@ -13,9 +13,11 @@ describe("CodexChatMessage", () => {
     );
 
     expect(html).toContain('data-markdown-renderer="react-markdown"');
+    expect(html).toContain("max-w-[96%]");
     expect(html).toContain("<strong>Done</strong>");
     expect(html).toContain("<code");
     expect(html).not.toContain("**Done**");
+    expect(html).not.toContain("Expand message");
   });
 
   it("renders streaming text messages through streamdown", () => {

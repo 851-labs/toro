@@ -37,10 +37,6 @@ await screenshot(page, "01-chat-elements.png");
 await pause();
 
 await assertNoFeedbackMessageActions(page);
-await page.getByRole("button", { exact: true, name: "Expand message" }).first().click();
-await page.getByRole("button", { exact: true, name: "Collapse message" }).waitFor({
-  timeout: 5_000,
-});
 await page.getByRole("button", { exact: true, name: "Copy message" }).first().click();
 await page.getByRole("button", { exact: true, name: "Copied message" }).waitFor({ timeout: 5_000 });
 await assertSharedMessageActions(page);
@@ -167,10 +163,12 @@ async function assertSidebarStoryWidth(page) {
 
 async function assertSharedMessageActions(page) {
   const actions = await page.locator("[data-message-action='true']").count();
-  if (actions < 2) {
-    throw new Error(
-      `Design-guide assistant actions should use shared message actions, got ${actions}.`,
-    );
+  const copyActions = await page.getByRole("button", { name: /^(Copy|Copied) message$/ }).count();
+  const widthActions = await page
+    .getByRole("button", { name: /^(Expand|Collapse) message$/ })
+    .count();
+  if (actions !== copyActions || widthActions > 0) {
+    throw new Error(`Internal assistant actions should only render copy controls, got ${actions}.`);
   }
   const iconWidth = await page
     .locator("[data-message-action='true'] svg")

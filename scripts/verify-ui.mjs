@@ -224,10 +224,6 @@ await screenshot(page, "09-tool-call-expanded.png");
 await pause();
 
 await chatHelpers.assertNoFeedbackMessageActions(page);
-await page.getByRole("button", { exact: true, name: "Expand message" }).last().click();
-await page.getByRole("button", { exact: true, name: "Collapse message" }).waitFor({
-  timeout: 5_000,
-});
 await assertSharedMessageActions(page);
 await screenshot(page, "10-message-actions.png");
 await pause();
@@ -318,8 +314,12 @@ async function assertActiveSidebarRowsHaveStrongIcon(page) {
 
 async function assertSharedMessageActions(page) {
   const actions = await page.locator("[data-message-action='true']").count();
-  if (actions < 2) {
-    throw new Error(`Desktop assistant actions should use shared message actions, got ${actions}.`);
+  const copyActions = await page.getByRole("button", { name: /^(Copy|Copied) message$/ }).count();
+  const widthActions = await page
+    .getByRole("button", { name: /^(Expand|Collapse) message$/ })
+    .count();
+  if (actions !== copyActions || widthActions > 0) {
+    throw new Error(`Desktop assistant actions should only render copy controls, got ${actions}.`);
   }
 }
 
