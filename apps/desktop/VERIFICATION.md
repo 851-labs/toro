@@ -14,13 +14,13 @@ Current reference evidence:
 
 Latest verified desktop artifacts:
 
-- Desktop capture: `.artifacts/verification/2026-06-30T15-11-06-774Z/page@b1bb26d474d0f616f3ae90aed15e1c8d.webm`
-- Desktop stills: `.artifacts/verification/2026-06-30T15-11-06-774Z/*.png`
+- Desktop capture: `.artifacts/verification/2026-06-30T15-16-02-816Z/page@d15346b6c2ccdd611704ebe551251d22.webm`
+- Desktop stills: `.artifacts/verification/2026-06-30T15-16-02-816Z/*.png`
 - Grouped-sidebar capture: `.artifacts/verification/sidebar-groups/2026-06-30T15-10-20-395Z/page@d9d7ed776cdd64de9144ac1f4a6ab547.webm`
 - Grouped-sidebar still: `.artifacts/verification/sidebar-groups/2026-06-30T15-10-20-395Z/01-project-grouped-chats.png`
-- Design-guide capture: `.artifacts/verification/design-guide/2026-06-30T15-11-18-379Z/page@9b6c5df21cf9bb205fe712df2b53f496.webm`
-- Design-guide stills: `.artifacts/verification/design-guide/2026-06-30T15-11-18-379Z/*.png`
-- Native still: `.artifacts/verification/native/2026-06-30-project-grouped-sidebar.png`
+- Design-guide capture: `.artifacts/verification/design-guide/2026-06-30T15-15-49-001Z/page@6da458351e120c6f7d1ac38b2ada561f.webm`
+- Design-guide stills: `.artifacts/verification/design-guide/2026-06-30T15-15-49-001Z/*.png`
+- Native still: `.artifacts/verification/native/2026-06-30-muted-plan-status.png`
 
 Most recent manual checks:
 
@@ -33,6 +33,7 @@ Most recent manual checks:
 - Confirmed the transcript and composer use a narrower Codex-like centered rail.
 - Confirmed pending permission tool calls appear in the transcript before approval.
 - Confirmed pending and running tool-call statuses show a live Codex-like activity dot.
+- Confirmed expanded plan rows use muted transcript metadata instead of bright status colors.
 - Confirmed the design guide catalogs both live and completed tool-call states.
 - Confirmed the design guide catalogs project-grouped sidebar chats.
 - Confirmed native Tauri renders the latest Codex-like chat shell after rebuild.

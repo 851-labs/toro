@@ -42,11 +42,15 @@ export function CodexPlanDisclosure({
           <li className="flex items-start gap-2 text-sm" key={`${entry.content}-${index}`}>
             <span
               className={cn("mt-2 size-1.5 shrink-0 rounded-full", statusDotClass(entry.status))}
+              data-plan-status-dot={entry.status}
             />
             <span className="min-w-0 flex-1 leading-6 text-zinc-700 dark:text-zinc-300">
               {entry.content}
             </span>
-            <span className={cn("shrink-0 text-xs leading-6", statusTextClass(entry.status))}>
+            <span
+              className="shrink-0 text-xs leading-6 text-zinc-400 dark:text-zinc-500"
+              data-plan-status-label={entry.status}
+            >
               {statusLabel(entry.status)}
             </span>
           </li>
@@ -62,13 +66,7 @@ function statusLabel(status: CodexPlanItem["status"]) {
 }
 
 function statusDotClass(status: CodexPlanItem["status"]) {
-  if (status === "completed") return "bg-emerald-500";
-  if (status === "in_progress") return "bg-amber-500";
-  return "bg-zinc-300";
-}
-
-function statusTextClass(status: CodexPlanItem["status"]) {
-  if (status === "completed") return "text-emerald-600";
-  if (status === "in_progress") return "text-amber-600";
-  return "text-zinc-400";
+  if (status === "completed") return "bg-zinc-500 dark:bg-zinc-400";
+  if (status === "in_progress") return "bg-zinc-400 motion-safe:animate-pulse";
+  return "bg-zinc-300 dark:bg-zinc-600";
 }
