@@ -135,7 +135,11 @@ function MessageBlock({
   readonly message: ChatMessage;
 }) {
   return (
-    <CodexChatMessage isStreaming={isStreaming} role={message.role}>
+    <CodexChatMessage
+      copyText={message.role === "assistant" ? message.content : undefined}
+      isStreaming={isStreaming}
+      role={message.role}
+    >
       {message.content}
     </CodexChatMessage>
   );

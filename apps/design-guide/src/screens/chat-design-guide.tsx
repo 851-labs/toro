@@ -48,7 +48,10 @@ export function ChatDesignGuide() {
             <CodexChatMessage role="user">
               Make the chat UI look exactly like Codex.
             </CodexChatMessage>
-            <CodexChatMessage role="assistant">
+            <CodexChatMessage
+              copyText="I will compare the reference capture against Toro and move each chat atom into shared UI primitives."
+              role="assistant"
+            >
               I will compare the reference capture against Toro and move each chat atom into shared
               UI primitives.
             </CodexChatMessage>

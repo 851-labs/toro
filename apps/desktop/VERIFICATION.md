@@ -26,6 +26,10 @@
 - Compact host settings stills: `.artifacts/verification/2026-06-30T03-15-05-528Z/*.png`
 - Streaming checkpoint capture: `.artifacts/verification/2026-06-30T03-20-11-897Z/page@a9745796bd2196340296331064ff00f4.webm`
 - Streaming checkpoint stills: `.artifacts/verification/2026-06-30T03-20-11-897Z/*.png`
+- Assistant copy action capture: `.artifacts/verification/2026-06-30T03-25-48-951Z/page@8c39fab26c1e660f004da99f0995cbaf.webm`
+- Assistant copy action stills: `.artifacts/verification/2026-06-30T03-25-48-951Z/*.png`
+- Assistant copy design-guide capture: `.artifacts/verification/design-guide/2026-06-30T03-25-48-959Z/page@a6b070dcde44aa8e6845b1a11fdd0196.webm`
+- Assistant copy design-guide stills: `.artifacts/verification/design-guide/2026-06-30T03-25-48-959Z/*.png`
 
 Manual verification:
 
@@ -43,6 +47,7 @@ Manual verification:
 - Confirmed the design guide permission buttons update visible state instead of acting as no-op controls.
 - Confirmed the sidebar footer matches Codex more closely by defaulting to a compact host row while the functional host settings button still exposes agent and environment selection.
 - Confirmed the deterministic ACP demo emits a visible mid-stream assistant response before the final assistant text is present.
+- Confirmed completed assistant messages expose a functional Codex-style copy action with visible copied state.
 
 Automated verification:
 

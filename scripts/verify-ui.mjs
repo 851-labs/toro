@@ -75,6 +75,8 @@ await pause();
 
 await page.getByText(/tool cards are working/).waitFor({ timeout: 10_000 });
 await assertOnlyFunctionalButtons(page);
+await page.getByRole("button", { exact: true, name: "Copy message" }).last().click();
+await page.getByRole("button", { exact: true, name: "Copied message" }).waitFor({ timeout: 5_000 });
 await screenshot(page, "06-streaming-complete.png");
 await pause();
 
@@ -148,7 +150,18 @@ async function assertOnlyFunctionalButtons(page, extraAllowedLabels = []) {
 }
 
 function isKnownFunctionalButton(label, extraAllowedLabels) {
-  if (["Session", "Add", "Send", "Stop", "Host settings", ...extraAllowedLabels].includes(label)) {
+  if (
+    [
+      "Session",
+      "Add",
+      "Send",
+      "Stop",
+      "Host settings",
+      "Copy message",
+      "Copied message",
+      ...extraAllowedLabels,
+    ].includes(label)
+  ) {
     return true;
   }
   return label.startsWith("Chat ") || label.startsWith(workspaceName);
