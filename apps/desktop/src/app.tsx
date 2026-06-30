@@ -77,7 +77,6 @@ export function App() {
         agents={state.agents}
         environments={state.environments}
         error={error ?? openWorkspace.error?.message ?? createSession.error?.message ?? null}
-        isLoading={isLoading}
         onCreateSession={() => createSession.mutate()}
         onOpenWorkspace={() => openWorkspace.mutate()}
         selectedAgentId={selectedAgentId}
