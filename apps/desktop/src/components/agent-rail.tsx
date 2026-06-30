@@ -29,7 +29,7 @@ import {
   PanelLeft,
   Plug,
   Search,
-  Smartphone,
+  SlidersHorizontal,
   SquarePen,
 } from "lucide-react";
 import { useState } from "react";
@@ -213,10 +213,11 @@ export function AgentRail(props: AgentRailProps) {
               "inline-flex size-8 shrink-0 items-center justify-center rounded-lg text-zinc-500 transition hover:bg-zinc-200/70 hover:text-zinc-900",
               settingsOpen ? "bg-zinc-200 text-zinc-950" : "bg-transparent",
             )}
+            data-sidebar-footer-action="true"
             onClick={() => setSettingsOpen((open) => !open)}
             type="button"
           >
-            <Smartphone size={16} />
+            <SlidersHorizontal size={16} />
           </button>
         }
         avatar={<CodexSidebarAvatar>T</CodexSidebarAvatar>}

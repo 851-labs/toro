@@ -36,7 +36,7 @@ import {
   PanelRight,
   Plug,
   Search,
-  Smartphone,
+  SlidersHorizontal,
   SquarePen,
 } from "lucide-react";
 import { useState } from "react";
@@ -277,8 +277,11 @@ function SidebarGroups() {
         </CodexSidebarContent>
         <CodexSidebarFooter
           action={
-            <span className="flex size-8 shrink-0 items-center justify-center rounded-lg text-zinc-500">
-              <Smartphone size={16} />
+            <span
+              className="flex size-8 shrink-0 items-center justify-center rounded-lg text-zinc-500"
+              data-sidebar-footer-action="true"
+            >
+              <SlidersHorizontal size={16} />
             </span>
           }
           avatar={<CodexSidebarAvatar>T</CodexSidebarAvatar>}
