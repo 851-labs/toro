@@ -1,6 +1,20 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { InternalChat } from "../screens/internal-chat";
+import { useState } from "react";
+import { ChatElements } from "../screens/internal-chat";
 
 export const Route = createFileRoute("/")({
-  component: InternalChat,
+  component: ChatElementsRoute,
 });
+
+function ChatElementsRoute() {
+  const [permissionDecision, setPermissionDecision] = useState<
+    "allowed once" | "rejected" | "waiting"
+  >("waiting");
+
+  return (
+    <ChatElements
+      permissionDecision={permissionDecision}
+      onPermissionDecision={setPermissionDecision}
+    />
+  );
+}

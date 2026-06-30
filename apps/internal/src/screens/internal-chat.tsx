@@ -1,3 +1,4 @@
+import { Link, useRouterState } from "@tanstack/react-router";
 import {
   CodexChatMessage,
   CodexComposer,
@@ -41,68 +42,41 @@ import {
   SlidersHorizontal,
   SquarePen,
 } from "lucide-react";
+import type { ReactNode } from "react";
 import { useState } from "react";
 
-type GuideView = "chat" | "composer" | "empty" | "sidebar";
+type GuideRoute = "/" | "/composer" | "/empty" | "/sidebar";
 
-export function InternalChat() {
-  const [activeView, setActiveView] = useState<GuideView>("chat");
+export function InternalLayout({ children }: { readonly children: ReactNode }) {
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const activeRoute = guideRouteFromPathname(pathname);
   const [composerValue, setComposerValue] = useState("");
-  const [permissionDecision, setPermissionDecision] = useState<
-    "allowed once" | "rejected" | "waiting"
-  >("waiting");
 
   return (
     <main className="grid h-full grid-cols-[280px_minmax(0,1fr)] overflow-hidden bg-white text-zinc-950">
       <aside className="border-r border-zinc-200 bg-[#f2f5f5] px-5 py-5">
         <div className="mb-8 font-semibold">Toro UI</div>
         <nav className="space-y-1 text-sm">
-          <GuideNavButton
-            active={activeView === "chat"}
-            label="Chat Elements"
-            onClick={() => setActiveView("chat")}
-          />
-          <GuideNavButton
-            active={activeView === "sidebar"}
-            label="Sidebar Groups"
-            onClick={() => setActiveView("sidebar")}
-          />
-          <GuideNavButton
-            active={activeView === "empty"}
-            label="Empty States"
-            onClick={() => setActiveView("empty")}
-          />
-          <GuideNavButton
-            active={activeView === "composer"}
-            label="Composer States"
-            onClick={() => setActiveView("composer")}
-          />
+          {guideNavItems.map((item) => (
+            <GuideNavLink active={activeRoute === item.to} key={item.to} {...item} />
+          ))}
         </nav>
       </aside>
       <section className="grid min-h-0 grid-rows-[64px_minmax(0,1fr)_auto]">
         <header className="flex items-center justify-between border-b border-zinc-200/80 px-5">
-          <h1 className="text-lg font-semibold">{viewTitle(activeView)}</h1>
+          <h1 className="text-lg font-semibold">{viewTitle(activeRoute)}</h1>
           <StatusBadge label="reference" tone="neutral" />
         </header>
         <div
           className={
-            activeView === "sidebar" ? "min-h-0 overflow-hidden" : "min-h-0 overflow-auto px-8 py-8"
+            activeRoute === "/sidebar"
+              ? "min-h-0 overflow-hidden"
+              : "min-h-0 overflow-auto px-8 py-8"
           }
         >
-          {activeView === "chat" ? (
-            <ChatElements
-              permissionDecision={permissionDecision}
-              onPermissionDecision={setPermissionDecision}
-            />
-          ) : activeView === "sidebar" ? (
-            <SidebarGroups />
-          ) : activeView === "empty" ? (
-            <EmptyStates />
-          ) : (
-            <ComposerStates />
-          )}
+          {children}
         </div>
-        {activeView === "composer" ? (
+        {activeRoute === "/composer" ? (
           <CodexComposer
             accessLabel="Full access"
             canSend={composerValue.trim().length > 0}
@@ -126,52 +100,65 @@ export function InternalChat() {
   );
 }
 
+const guideNavItems = [
+  { label: "Chat Elements", to: "/" },
+  { label: "Sidebar Groups", to: "/sidebar" },
+  { label: "Empty States", to: "/empty" },
+  { label: "Composer States", to: "/composer" },
+] satisfies ReadonlyArray<{ readonly label: string; readonly to: GuideRoute }>;
+
 const contextItems = [
   { detail: "apps/desktop/src/app.tsx", id: "app", label: "app.tsx" },
   { detail: "packages/ui/src/chat/composer.tsx", id: "composer", label: "composer.tsx" },
   { detail: "scripts/verify-ui.mjs", id: "verify", label: "verify-ui.mjs" },
 ];
 
-function GuideNavButton({
+function GuideNavLink({
   active,
   label,
-  onClick,
+  to,
 }: {
   readonly active: boolean;
   readonly label: string;
-  readonly onClick: () => void;
+  readonly to: GuideRoute;
 }) {
   return (
-    <button
+    <Link
       aria-label={label}
-      aria-pressed={active}
+      aria-current={active ? "page" : undefined}
       className={
         active
-          ? "w-full rounded-xl bg-zinc-200 px-3 py-2 text-left font-medium"
-          : "w-full rounded-xl px-3 py-2 text-left text-zinc-500 hover:bg-zinc-200/70"
+          ? "block w-full rounded-xl bg-zinc-200 px-3 py-2 text-left font-medium"
+          : "block w-full rounded-xl px-3 py-2 text-left text-zinc-500 hover:bg-zinc-200/70"
       }
-      onClick={onClick}
-      type="button"
+      to={to}
     >
       {label}
-    </button>
+    </Link>
   );
 }
 
-function viewTitle(view: GuideView) {
-  if (view === "sidebar") {
+function guideRouteFromPathname(pathname: string): GuideRoute {
+  if (pathname === "/sidebar" || pathname === "/empty" || pathname === "/composer") {
+    return pathname;
+  }
+  return "/";
+}
+
+function viewTitle(route: GuideRoute) {
+  if (route === "/sidebar") {
     return "Codex Sidebar Groups";
   }
-  if (view === "composer") {
+  if (route === "/composer") {
     return "Codex Composer States";
   }
-  if (view === "empty") {
+  if (route === "/empty") {
     return "Codex Empty States";
   }
   return "Codex Chat Surface";
 }
 
-function ChatElements({
+export function ChatElements({
   permissionDecision,
   onPermissionDecision,
 }: {
@@ -249,7 +236,7 @@ const planEntries = [
   { content: "Keep composer controls functional only.", status: "in_progress" as const },
 ];
 
-function SidebarGroups() {
+export function SidebarGroups() {
   const [value, setValue] = useState("");
 
   return (
@@ -384,7 +371,7 @@ function SidebarGroups() {
   );
 }
 
-function ComposerStates() {
+export function ComposerStates() {
   return (
     <CodexTranscriptSurface>
       <CodexChatMessage role="assistant">
@@ -401,7 +388,7 @@ function ComposerStates() {
   );
 }
 
-function EmptyStates() {
+export function EmptyStates() {
   return (
     <CodexTranscriptSurface className="gap-0">
       <CodexEmptyState workspaceName="toro" />

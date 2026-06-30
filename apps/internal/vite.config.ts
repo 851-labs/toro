@@ -7,9 +7,7 @@ const config = defineConfig({
   clearScreen: false,
   plugins: [
     tanstackStart({
-      router: { entry: "router" },
       serverFns: { disableCsrfMiddlewareWarning: true },
-      srcDirectory: "src",
     }),
     react(),
     tailwindcss(),

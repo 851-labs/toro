@@ -9,8 +9,26 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SidebarRouteImport } from './routes/sidebar'
+import { Route as EmptyRouteImport } from './routes/empty'
+import { Route as ComposerRouteImport } from './routes/composer'
 import { Route as IndexRouteImport } from './routes/index'
 
+const SidebarRoute = SidebarRouteImport.update({
+  id: '/sidebar',
+  path: '/sidebar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EmptyRoute = EmptyRouteImport.update({
+  id: '/empty',
+  path: '/empty',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ComposerRoute = ComposerRouteImport.update({
+  id: '/composer',
+  path: '/composer',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +37,61 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/composer': typeof ComposerRoute
+  '/empty': typeof EmptyRoute
+  '/sidebar': typeof SidebarRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/composer': typeof ComposerRoute
+  '/empty': typeof EmptyRoute
+  '/sidebar': typeof SidebarRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/composer': typeof ComposerRoute
+  '/empty': typeof EmptyRoute
+  '/sidebar': typeof SidebarRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/composer' | '/empty' | '/sidebar'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/composer' | '/empty' | '/sidebar'
+  id: '__root__' | '/' | '/composer' | '/empty' | '/sidebar'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ComposerRoute: typeof ComposerRoute
+  EmptyRoute: typeof EmptyRoute
+  SidebarRoute: typeof SidebarRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sidebar': {
+      id: '/sidebar'
+      path: '/sidebar'
+      fullPath: '/sidebar'
+      preLoaderRoute: typeof SidebarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/empty': {
+      id: '/empty'
+      path: '/empty'
+      fullPath: '/empty'
+      preLoaderRoute: typeof EmptyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/composer': {
+      id: '/composer'
+      path: '/composer'
+      fullPath: '/composer'
+      preLoaderRoute: typeof ComposerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,6 +104,9 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ComposerRoute: ComposerRoute,
+  EmptyRoute: EmptyRoute,
+  SidebarRoute: SidebarRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

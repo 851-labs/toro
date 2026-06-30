@@ -8,14 +8,12 @@ const timestamp = new Date().toISOString().replaceAll(":", "-").replaceAll(".", 
 const artifactDir = resolve(".artifacts/verification/internal", timestamp);
 await assertReachable(appUrl, "Toro internal app");
 await mkdir(artifactDir, { recursive: true });
-
 const browser = await chromium.launch();
 const context = await browser.newContext({
   recordVideo: { dir: artifactDir, size: { height: 900, width: 1440 } },
   viewport: { height: 900, width: 1440 },
 });
 const page = await context.newPage();
-
 await page.goto(appUrl, { waitUntil: "networkidle" });
 await page.getByText("Codex Chat Surface").waitFor({ timeout: 5_000 });
 if ((await page.locator("aside").getByText("T", { exact: true }).count()) > 0)
@@ -49,8 +47,8 @@ await page.getByText("allowed once").waitFor({ timeout: 5_000 });
 await screenshot(page, "03-permission-responded.png");
 await pause();
 
-await page.getByRole("button", { exact: true, name: "Sidebar Groups" }).click();
-await expectPressed(page.getByRole("button", { exact: true, name: "Sidebar Groups" }));
+await page.getByRole("link", { exact: true, name: "Sidebar Groups" }).click();
+await expectPressed(page.getByRole("link", { exact: true, name: "Sidebar Groups" }));
 await page.getByText("Codex Sidebar Groups").waitFor({ timeout: 5_000 });
 await page.getByLabel("Sidebar titlebar controls").waitFor({ timeout: 5_000 });
 await assertSidebarStoryRail(page);
@@ -75,8 +73,8 @@ await assertSidebarStoryWidth(page);
 await screenshot(page, "04-sidebar-groups.png");
 await pause();
 
-await page.getByRole("button", { exact: true, name: "Empty States" }).click();
-await expectPressed(page.getByRole("button", { exact: true, name: "Empty States" }));
+await page.getByRole("link", { exact: true, name: "Empty States" }).click();
+await expectPressed(page.getByRole("link", { exact: true, name: "Empty States" }));
 await page.getByText("Codex Empty States").waitFor({ timeout: 5_000 });
 await page
   .getByRole("heading", { exact: true, name: "What should we build in toro?" })
@@ -89,8 +87,8 @@ if ((await page.getByText("Toro Demo is ready.").count()) > 0) {
 await screenshot(page, "05-empty-states.png");
 await pause();
 
-await page.getByRole("button", { exact: true, name: "Composer States" }).click();
-await expectPressed(page.getByRole("button", { exact: true, name: "Composer States" }));
+await page.getByRole("link", { exact: true, name: "Composer States" }).click();
+await expectPressed(page.getByRole("link", { exact: true, name: "Composer States" }));
 await page.getByText("Codex Composer States").waitFor({ timeout: 5_000 });
 await page.getByText("Use app.tsx and composer.tsx").waitFor({ timeout: 5_000 });
 await assertTranscriptAlignsWithComposer(page);
@@ -138,12 +136,14 @@ async function pause() {
 async function expectPressed(locator) {
   const started = Date.now();
   while (Date.now() - started < 5_000) {
-    if ((await locator.getAttribute("aria-pressed")) === "true") {
-      return;
-    }
+    const state = [
+      await locator.getAttribute("aria-pressed"),
+      await locator.getAttribute("aria-current"),
+    ];
+    if (state.includes("true") || state.includes("page")) return;
     await new Promise((resolve) => setTimeout(resolve, 100));
   }
-  throw new Error("Expected internal message action to become pressed.");
+  throw new Error("Expected internal control to become active.");
 }
 
 async function selectComposerOption(page, label, value) {
