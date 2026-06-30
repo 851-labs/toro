@@ -43,6 +43,8 @@ await screenshot(page, "02-permission-responded.png");
 await pause();
 
 const composer = page.getByLabel("Message agent");
+await selectComposerOption(page, "Access mode", "Read only");
+await selectComposerOption(page, "Model", "5.5 Low");
 await composer.fill("Design guide composer check");
 await page.getByRole("button", { exact: true, name: "Send" }).click();
 if ((await composer.inputValue()) !== "") {
@@ -71,6 +73,14 @@ async function expectPressed(locator) {
   const pressed = await locator.getAttribute("aria-pressed");
   if (pressed !== "true") {
     throw new Error("Expected design-guide message action to become pressed.");
+  }
+}
+
+async function selectComposerOption(page, label, value) {
+  const select = page.getByLabel(label);
+  await select.selectOption(value);
+  if ((await select.inputValue()) !== value) {
+    throw new Error(`Design-guide composer ${label} did not select ${value}.`);
   }
 }
 

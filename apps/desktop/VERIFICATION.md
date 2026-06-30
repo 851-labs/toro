@@ -48,6 +48,10 @@
 - Message actions design-guide stills: `.artifacts/verification/design-guide/2026-06-30T03-55-29-660Z/*.png`
 - Project add/search sidebar capture: `.artifacts/verification/2026-06-30T03-59-57-921Z/page@aab5bcb6a5a518787dd19c2d291207d7.webm`
 - Project add/search sidebar stills: `.artifacts/verification/2026-06-30T03-59-57-921Z/*.png`
+- Composer selectors capture: `.artifacts/verification/2026-06-30T04-04-37-844Z/page@6a7a56f54317bb2d1ec9d5213f3fefcc.webm`
+- Composer selectors stills: `.artifacts/verification/2026-06-30T04-04-37-844Z/*.png`
+- Composer selectors design-guide capture: `.artifacts/verification/design-guide/2026-06-30T04-04-56-858Z/page@c9105129505a40d3fe1b4e566c3af05b.webm`
+- Composer selectors design-guide stills: `.artifacts/verification/design-guide/2026-06-30T04-04-56-858Z/*.png`
 
 Manual verification:
 
@@ -71,6 +75,7 @@ Manual verification:
 - Confirmed New chat, Add, and Send are only rendered as buttons when they can perform an action, and the UI verifier fails if any disabled button is present.
 - Confirmed completed assistant messages expose Codex-style copy, thumbs up, thumbs down, and expand controls, and each control changes visible state during verification.
 - Confirmed the sidebar no longer exposes a raw workspace path field by default, Add project opens a functional project path flow, and Search filters projects/chats with a visible no-match state.
+- Confirmed composer access and model controls render as Codex-style selectors and visibly update selected state in both the desktop flow and design guide.
 
 Automated verification:
 

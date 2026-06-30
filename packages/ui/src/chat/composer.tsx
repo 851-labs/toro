@@ -1,5 +1,5 @@
-import { FormEvent } from "react";
-import { Send, Shield, Square, Zap } from "lucide-react";
+import { FormEvent, useState } from "react";
+import { ChevronDown, Send, Shield, Square, Zap } from "lucide-react";
 import { Button } from "../button";
 
 export interface CodexComposerProps {
@@ -15,6 +15,9 @@ export interface CodexComposerProps {
   readonly onSubmit: () => void;
 }
 
+const accessOptions = ["Full access", "Ask first", "Read only"] as const;
+const modelOptions = ["5.5 Medium", "5.5 High", "5.5 Low"] as const;
+
 export function CodexComposer({
   accessLabel,
   canSend,
@@ -27,6 +30,9 @@ export function CodexComposer({
   value,
   workspaceLabel,
 }: CodexComposerProps) {
+  const [selectedAccess, setSelectedAccess] = useState(accessLabel);
+  const [selectedModel, setSelectedModel] = useState(modelLabel);
+
   function submit(event: FormEvent) {
     event.preventDefault();
     if (canSend) {
@@ -46,17 +52,41 @@ export function CodexComposer({
         />
         <div className="flex items-center justify-between gap-3 border-t border-zinc-100 pt-3">
           <div className="flex min-w-0 items-center gap-3 text-sm text-zinc-500">
-            <span className="inline-flex items-center gap-1 px-2 py-1 font-medium text-orange-600">
+            <label className="relative inline-flex items-center gap-1 font-medium text-orange-600">
               <Shield size={16} />
-              {accessLabel}
-            </span>
+              <select
+                aria-label="Access mode"
+                className="max-w-32 appearance-none bg-transparent py-1 pl-0 pr-4 text-sm font-medium outline-none"
+                onChange={(event) => setSelectedAccess(event.target.value)}
+                value={selectedAccess}
+              >
+                {accessOptions.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="pointer-events-none absolute right-0" size={13} />
+            </label>
             <span className="hidden truncate sm:inline">{workspaceLabel}</span>
           </div>
           <div className="flex items-center gap-2 text-sm text-zinc-500">
-            <span className="hidden items-center gap-1 font-medium sm:inline-flex">
+            <label className="relative hidden items-center gap-1 font-medium sm:inline-flex">
               <Zap size={15} />
-              {modelLabel}
-            </span>
+              <select
+                aria-label="Model"
+                className="appearance-none bg-transparent py-1 pl-0 pr-4 text-sm font-medium outline-none"
+                onChange={(event) => setSelectedModel(event.target.value)}
+                value={selectedModel}
+              >
+                {modelOptions.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="pointer-events-none absolute right-0" size={13} />
+            </label>
             {isRunning ? (
               <Button
                 aria-label="Stop"

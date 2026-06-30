@@ -27,6 +27,8 @@ await assertPrimarySidebarSimplified(page);
 await assertOnlyFunctionalButtons(page);
 await assertHostSettingsToggle(page);
 const composer = page.getByLabel("Message agent");
+await selectComposerOption(page, "Access mode", "Ask first");
+await selectComposerOption(page, "Model", "5.5 High");
 const initialComposerText = "Typing before a session should work.";
 await composer.fill(initialComposerText);
 if ((await composer.inputValue()) !== initialComposerText) {
@@ -212,6 +214,14 @@ async function expectPressed(locator) {
   const pressed = await locator.getAttribute("aria-pressed");
   if (pressed !== "true") {
     throw new Error("Expected message action to become pressed.");
+  }
+}
+
+async function selectComposerOption(page, label, value) {
+  const select = page.getByLabel(label);
+  await select.selectOption(value);
+  if ((await select.inputValue()) !== value) {
+    throw new Error(`Composer ${label} did not select ${value}.`);
   }
 }
 
