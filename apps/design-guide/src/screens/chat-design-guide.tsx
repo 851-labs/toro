@@ -28,7 +28,6 @@ import {
   ChevronLeft,
   ChevronRight,
   ChevronDown,
-  Clock,
   FileText,
   FolderPlus,
   ListFilter,
@@ -39,7 +38,6 @@ import {
   PanelRight,
   PanelTop,
   Plug,
-  Search,
   SlidersHorizontal,
   SquarePen,
 } from "lucide-react";
@@ -276,8 +274,6 @@ function SidebarGroups() {
         </CodexSidebarTitlebar>
         <CodexSidebarCommandGroup>
           <CodexSidebarCommand icon={<SquarePen size={16} />} label="New chat" />
-          <CodexSidebarCommand icon={<Search size={16} />} label="Search" />
-          <CodexSidebarCommand icon={<Clock size={16} />} label="Scheduled" />
           <CodexSidebarCommand icon={<Plug size={16} />} label="Plugins" />
         </CodexSidebarCommandGroup>
         <CodexSidebarContent>

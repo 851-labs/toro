@@ -21,7 +21,6 @@ import {
 import {
   ChevronLeft,
   ChevronRight,
-  Clock,
   FolderPlus,
   PanelLeft,
   Plug,
@@ -94,7 +93,6 @@ export function AgentRail(props: AgentRailProps) {
             }
           }}
         />
-        <CodexSidebarCommand icon={<Clock size={17} />} label="Scheduled" />
         <CodexSidebarCommand icon={<Plug size={17} />} label="Plugins" />
       </CodexSidebarCommandGroup>
 

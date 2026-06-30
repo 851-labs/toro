@@ -404,12 +404,12 @@ async function assertSidebarStoryCommandGroup(page) {
 
 async function assertPassiveReferenceSidebarRows(page) {
   const rail = page.locator("[data-sidebar-story-rail='true']");
-  for (const label of ["Scheduled", "Plugins"]) {
-    await rail.getByText(label, { exact: true }).waitFor({ timeout: 5_000 });
-    if ((await rail.getByRole("button", { exact: true, name: label }).count()) > 0) {
-      throw new Error(`Design-guide ${label} row should be passive until the feature is wired.`);
-    }
+  if ((await rail.getByText("Scheduled", { exact: true }).count()) > 0) {
+    throw new Error("Design-guide Scheduled row should not be rendered.");
   }
+  await rail.getByText("Plugins", { exact: true }).waitFor({ timeout: 5_000 });
+  const pluginButtons = await rail.getByRole("button", { exact: true, name: "Plugins" }).count();
+  if (pluginButtons > 0) throw new Error("Design-guide Plugins row should be passive.");
 }
 
 async function assertSidebarStoryContent(page) {
