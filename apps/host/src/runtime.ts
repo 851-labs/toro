@@ -54,6 +54,13 @@ export class HostRuntime {
       id: workspaceId(`workspace-${crypto.randomUUID()}`),
       path,
     });
+    const existingWorkspace = this.state.workspaces.find(
+      (candidate) =>
+        candidate.environmentId === workspace.environmentId && candidate.path === workspace.path,
+    );
+    if (existingWorkspace) {
+      return existingWorkspace;
+    }
     this.publish({ type: "workspace_opened", workspace });
     return workspace;
   }

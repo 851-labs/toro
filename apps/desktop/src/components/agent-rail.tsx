@@ -28,6 +28,8 @@ interface AgentRailProps {
 }
 
 export function AgentRail(props: AgentRailProps) {
+  const projectGroups = groupWorkspaces(props.workspaces, props.sessions);
+
   return (
     <aside className="flex min-h-0 flex-col border-r border-zinc-200 bg-[#f2f5f5]/95">
       <div className="flex h-16 items-center gap-2 px-5">
@@ -70,23 +72,19 @@ export function AgentRail(props: AgentRailProps) {
 
       <div className="min-h-0 flex-1 overflow-auto px-3 pb-3 pt-4">
         <RailSection title="Projects">
-          {props.workspaces.length > 0 ? (
-            props.workspaces.map((workspace) => {
-              const projectSessions = props.sessions.filter(
-                (session) => session.workspaceId === workspace.id,
-              );
-              return (
-                <ProjectGroup
-                  activeSessionId={props.activeSessionId}
-                  activeWorkspaceId={props.activeWorkspace?.id ?? null}
-                  key={workspace.id}
-                  sessions={projectSessions}
-                  workspace={workspace}
-                  onSelectSession={props.onSelectSession}
-                  onSelectWorkspace={props.onSelectWorkspace}
-                />
-              );
-            })
+          {projectGroups.length > 0 ? (
+            projectGroups.map((group) => (
+              <ProjectGroup
+                activeSessionId={props.activeSessionId}
+                activeWorkspaceId={props.activeWorkspace?.id ?? null}
+                key={`${group.workspace.environmentId}:${group.workspace.path}`}
+                sessions={group.sessions}
+                workspace={group.workspace}
+                workspaceIds={group.workspaceIds}
+                onSelectSession={props.onSelectSession}
+                onSelectWorkspace={props.onSelectWorkspace}
+              />
+            ))
           ) : (
             <div className="px-3 py-2 text-sm text-zinc-400">No projects</div>
           )}
@@ -158,6 +156,7 @@ function ProjectGroup({
   activeWorkspaceId,
   sessions,
   workspace,
+  workspaceIds,
   onSelectSession,
   onSelectWorkspace,
 }: {
@@ -165,13 +164,14 @@ function ProjectGroup({
   readonly activeWorkspaceId: WorkspaceId | null;
   readonly sessions: readonly Session[];
   readonly workspace: Workspace;
+  readonly workspaceIds: readonly WorkspaceId[];
   readonly onSelectSession: (id: SessionId) => void;
   readonly onSelectWorkspace: (id: WorkspaceId) => void;
 }) {
   return (
     <div className="space-y-1">
       <RailButton
-        active={activeWorkspaceId === workspace.id}
+        active={activeWorkspaceId ? workspaceIds.includes(activeWorkspaceId) : false}
         icon={<Layers size={16} />}
         label={workspace.name}
         meta={workspace.path}
@@ -202,6 +202,40 @@ function ProjectGroup({
       </div>
     </div>
   );
+}
+
+interface ProjectGroupModel {
+  readonly sessions: readonly Session[];
+  readonly workspace: Workspace;
+  readonly workspaceIds: readonly WorkspaceId[];
+}
+
+function groupWorkspaces(
+  workspaces: readonly Workspace[],
+  sessions: readonly Session[],
+): readonly ProjectGroupModel[] {
+  const groups = new Map<
+    string,
+    { sessions: Session[]; workspace: Workspace; workspaceIds: WorkspaceId[] }
+  >();
+  for (const workspace of workspaces) {
+    const key = `${workspace.environmentId}:${workspace.path}`;
+    const existing = groups.get(key);
+    if (existing) {
+      existing.workspaceIds.push(workspace.id);
+    } else {
+      groups.set(key, { sessions: [], workspace, workspaceIds: [workspace.id] });
+    }
+  }
+
+  for (const session of sessions) {
+    const group = Array.from(groups.values()).find((candidate) =>
+      candidate.workspaceIds.includes(session.workspaceId),
+    );
+    group?.sessions.push(session);
+  }
+
+  return Array.from(groups.values());
 }
 
 function RailSection({

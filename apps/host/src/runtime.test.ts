@@ -3,6 +3,15 @@ import { agentId, environmentId } from "@toro/domain";
 import { HostRuntime } from "./runtime";
 
 describe("HostRuntime", () => {
+  it("reuses an existing workspace for the same local path", async () => {
+    const runtime = new HostRuntime();
+    const first = await runtime.openWorkspace(process.cwd(), environmentId("local-desktop"));
+    const second = await runtime.openWorkspace(process.cwd(), environmentId("local-desktop"));
+
+    expect(second.id).toBe(first.id);
+    expect(runtime.getState().workspaces).toHaveLength(1);
+  });
+
   it("runs the deterministic demo ACP agent flow", async () => {
     const runtime = new HostRuntime();
     const workspace = await runtime.openWorkspace(process.cwd(), environmentId("local-desktop"));
