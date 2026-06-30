@@ -56,6 +56,7 @@ await page.getByRole("button", { exact: true, name: "Search" }).waitFor({ timeou
 await assertDeadControlsRemoved(page);
 await assertPrimarySidebarSimplified(page);
 await assertSidebarWidthIsCodexLike(page);
+await assertPassiveReferenceSidebarRows(page);
 await assertSidebarCommandGroupShared(page);
 await assertSidebarFooterShared(page);
 await assertProjectFormHidden(page);
@@ -424,6 +425,16 @@ async function assertSidebarCommandGroupShared(page) {
     .count();
   if (groups !== 1) {
     throw new Error(`Desktop sidebar should use one shared command group, got ${groups}.`);
+  }
+}
+
+async function assertPassiveReferenceSidebarRows(page) {
+  const rail = page.locator("[data-sidebar-rail='true']");
+  for (const label of ["Scheduled", "Plugins"]) {
+    await rail.getByText(label, { exact: true }).waitFor({ timeout: 5_000 });
+    if ((await rail.getByRole("button", { exact: true, name: label }).count()) > 0) {
+      throw new Error(`${label} should render as a passive Codex reference row, not a button.`);
+    }
   }
 }
 

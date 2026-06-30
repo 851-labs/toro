@@ -24,6 +24,7 @@ import {
   ChevronLeft,
   ChevronRight,
   ChevronDown,
+  Clock,
   Code2,
   FileText,
   FolderPlus,
@@ -32,6 +33,7 @@ import {
   NotebookTabs,
   PanelLeft,
   PanelRight,
+  Plug,
   Search,
   SlidersHorizontal,
   SquarePen,
@@ -249,6 +251,8 @@ function SidebarGroups() {
         <CodexSidebarCommandGroup>
           <CodexSidebarCommand icon={<SquarePen size={16} />} label="New chat" />
           <CodexSidebarCommand icon={<Search size={16} />} label="Search" />
+          <CodexSidebarCommand icon={<Clock size={16} />} label="Scheduled" />
+          <CodexSidebarCommand icon={<Plug size={16} />} label="Plugins" />
         </CodexSidebarCommandGroup>
         <CodexSidebarContent>
           <CodexSidebarSection actionIcon={<FolderPlus size={15} />} title="Projects">

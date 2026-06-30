@@ -71,6 +71,7 @@ await assertSharedStarterCards(page);
 await assertSidebarStoryHeader(page);
 await assertSidebarStoryCommandGroup(page);
 await assertSidebarStoryCommands(page);
+await assertPassiveReferenceSidebarRows(page);
 await assertSidebarStoryContent(page);
 await assertSidebarStoryRows(page);
 await assertSidebarStorySections(page);
@@ -324,6 +325,16 @@ async function assertSidebarStoryCommandGroup(page) {
     throw new Error(
       `Design-guide sidebar story should use one shared command group, got ${groups}.`,
     );
+  }
+}
+
+async function assertPassiveReferenceSidebarRows(page) {
+  const rail = page.locator("[data-sidebar-story-rail='true']");
+  for (const label of ["Scheduled", "Plugins"]) {
+    await rail.getByText(label, { exact: true }).waitFor({ timeout: 5_000 });
+    if ((await rail.getByRole("button", { exact: true, name: label }).count()) > 0) {
+      throw new Error(`Design-guide ${label} row should be passive until the feature is wired.`);
+    }
   }
 }
 
