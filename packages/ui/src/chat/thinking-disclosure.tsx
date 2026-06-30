@@ -17,7 +17,11 @@ export function CodexThinkingDisclosure({
   title = "Thinking",
 }: CodexThinkingDisclosureProps) {
   return (
-    <details className="group/thinking text-sm text-zinc-600" open={defaultOpen}>
+    <details
+      className="group/thinking text-sm text-zinc-600"
+      data-thinking-disclosure="true"
+      open={defaultOpen}
+    >
       <CodexDisclosureSummary
         chevronClassName="group-open/thinking:rotate-90"
         icon={<BrainCircuit size={14} />}

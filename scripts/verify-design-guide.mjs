@@ -23,6 +23,7 @@ await page.getByText("Streaming text keeps").waitFor({ timeout: 5_000 });
 await page.getByText("Thinking").waitFor({ timeout: 5_000 });
 await page.getByText("Reviewing project context").waitFor({ timeout: 5_000 });
 await assertSharedChatMessages(page);
+await assertSharedThinkingDisclosure(page);
 await assertSharedPlanAndSummaries(page);
 await assertStreamingCursorAnimated(
   page.locator("article").filter({ hasText: "Streaming text keeps" }).first(),
@@ -196,6 +197,15 @@ async function assertSharedChatMessages(page) {
   if (messages < 2) {
     throw new Error(
       `Design-guide chat surface should use shared message primitives, got ${messages}.`,
+    );
+  }
+}
+
+async function assertSharedThinkingDisclosure(page) {
+  const thinking = await page.locator("[data-thinking-disclosure='true']").count();
+  if (thinking < 1) {
+    throw new Error(
+      "Design-guide thinking rows should use the shared Codex thinking disclosure primitive.",
     );
   }
 }

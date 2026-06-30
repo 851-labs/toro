@@ -154,6 +154,7 @@ await page.getByText("Thinking").waitFor({ timeout: 10_000 });
 await page.getByText("working").waitFor({ timeout: 10_000 });
 await page.getByText(/Checking project context/).waitFor({ timeout: 10_000 });
 await assertSharedChatMessages(page);
+await assertSharedThinkingDisclosure(page);
 await assertSharedPlanAndSummaries(page);
 await assertStreamingCursorAnimated(page.locator("[data-thinking-body='true']").first());
 await assertTranscriptDisclosureIsCompact(
@@ -308,6 +309,15 @@ async function assertSharedChatMessages(page) {
   const messages = await page.locator("[data-chat-message='true']").count();
   if (messages < 1) {
     throw new Error("Desktop transcript should use shared Codex chat message primitives.");
+  }
+}
+
+async function assertSharedThinkingDisclosure(page) {
+  const thinking = await page.locator("[data-thinking-disclosure='true']").count();
+  if (thinking < 1) {
+    throw new Error(
+      "Desktop thinking rows should use the shared Codex thinking disclosure primitive.",
+    );
   }
 }
 

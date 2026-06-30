@@ -260,6 +260,10 @@
 - Core chat primitive markers stills: `.artifacts/verification/2026-06-30T11-40-48-108Z/*.png`
 - Core chat primitive markers design-guide capture: `.artifacts/verification/design-guide/2026-06-30T11-40-16-876Z/page@be3670a6fa5df582d47e1278d42d1cb8.webm`
 - Core chat primitive markers design-guide stills: `.artifacts/verification/design-guide/2026-06-30T11-40-16-876Z/*.png`
+- Shared thinking disclosure marker capture: `.artifacts/verification/2026-06-30T11-44-16-763Z/page@f71538d2a33ec998813cb7a32c678b48.webm`
+- Shared thinking disclosure marker stills: `.artifacts/verification/2026-06-30T11-44-16-763Z/*.png`
+- Shared thinking disclosure marker design-guide capture: `.artifacts/verification/design-guide/2026-06-30T11-44-09-399Z/page@6fe6375001e1258a054b61158289c436.webm`
+- Shared thinking disclosure marker design-guide stills: `.artifacts/verification/design-guide/2026-06-30T11-44-09-399Z/*.png`
 
 Manual verification:
 
@@ -281,6 +285,7 @@ Manual verification:
 - Confirmed assistant message controls expose the shared `@toro/ui` message action marker, with desktop and design-guide verification asserting the shared primitive is used for copy, feedback, and expand actions.
 - Confirmed permission prompts, permission actions, and tool-call rows expose shared `@toro/ui` markers, with desktop and design-guide verification asserting those chat primitives render in the live flows.
 - Confirmed chat messages, plan disclosures, disclosure summaries, and empty states expose shared `@toro/ui` markers, with desktop and design-guide verification asserting those core chat primitives render in the relevant flows.
+- Confirmed thinking disclosures expose a shared `@toro/ui` marker, with desktop and design-guide verification asserting the Codex-style thinking primitive renders during streaming flows.
 - Confirmed the sidebar visually groups chats under their project and coalesces duplicate opens of the same project path.
 - Confirmed every rendered button in the desktop flow is limited to a wired action: new chat, open project, project/chat selection, send/stop, or permission response.
 - Confirmed the design guide permission buttons update visible state instead of acting as no-op controls.
