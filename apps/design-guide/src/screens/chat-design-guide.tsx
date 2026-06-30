@@ -5,6 +5,7 @@ import {
   CodexChatHeader,
   CodexPermissionCard,
   CodexPlanDisclosure,
+  CodexSidebarRow,
   CodexThinkingDisclosure,
   CodexToolCall,
   CodexTranscriptSurface,
@@ -254,27 +255,20 @@ function SidebarGroups() {
           <span>Projects</span>
           <FolderPlus size={15} />
         </div>
-        <div className="mt-2 flex h-9 items-center gap-3 rounded-lg px-3 text-sm">
-          <FileText size={16} className="text-zinc-500" />
-          <div className="truncate font-medium">toro</div>
-        </div>
+        <CodexSidebarRow icon={<FileText size={16} />} label="toro" />
         <div className="mt-0.5 space-y-0.5">
           {[
             { active: true, label: "Verify the Toro ACP UI loop" },
             { active: false, label: "Composer context picker" },
             { active: false, label: "Quiet expanded tool output" },
           ].map((chat) => (
-            <div
-              className={
-                chat.active
-                  ? "flex h-9 items-center gap-2 rounded-lg bg-zinc-200/80 py-1.5 pl-8 pr-3 text-sm"
-                  : "flex h-9 items-center gap-2 rounded-lg py-1.5 pl-8 pr-3 text-sm"
-              }
+            <CodexSidebarRow
+              active={chat.active}
+              icon={<MessageSquare size={14} />}
+              indent
               key={chat.label}
-            >
-              <MessageSquare size={14} className="text-zinc-500" />
-              <span className="truncate">{chat.label}</span>
-            </div>
+              label={chat.label}
+            />
           ))}
         </div>
         <div className="absolute bottom-4 left-3 right-3 flex items-center gap-3 border-t border-zinc-200 pt-4">

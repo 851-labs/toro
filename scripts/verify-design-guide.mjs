@@ -56,6 +56,7 @@ await page
   .getByRole("heading", { exact: true, name: "What should we build in toro?" })
   .waitFor({ timeout: 5_000 });
 await assertSidebarStoryHeader(page);
+await assertSidebarStoryRows(page);
 await assertSidebarStoryShell(page);
 await assertSidebarStoryWidth(page);
 await screenshot(page, "04-sidebar-groups.png");
@@ -167,6 +168,15 @@ async function assertSidebarStoryHeader(page) {
     throw new Error(
       `Design-guide sidebar story header should match desktop height, got ${height}.`,
     );
+  }
+}
+
+async function assertSidebarStoryRows(page) {
+  const rows = await page
+    .locator("[data-sidebar-story-rail='true'] [data-sidebar-row='true']")
+    .count();
+  if (rows < 4) {
+    throw new Error(`Design-guide sidebar story should use shared sidebar rows, got ${rows}.`);
   }
 }
 

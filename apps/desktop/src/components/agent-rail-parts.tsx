@@ -1,6 +1,6 @@
 import type { SessionId, WorkspaceId } from "@toro/domain";
 import type { Session, Workspace } from "@toro/domain";
-import { cn } from "@toro/ui";
+import { CodexSidebarRow, cn } from "@toro/ui";
 import { FileText, MessageSquare } from "lucide-react";
 import type { ReactNode } from "react";
 
@@ -70,22 +70,16 @@ export function ProjectGroup({
       <div className="space-y-0.5">
         {sessions.length > 0 ? (
           sessions.map((session) => (
-            <button
-              aria-current={activeSessionId === session.id ? "page" : undefined}
-              aria-label={`Chat ${session.title}`}
-              className={cn(
-                "flex h-9 w-full items-center gap-2 rounded-lg py-1.5 pl-8 pr-3 text-left text-sm text-zinc-800 hover:bg-zinc-200/70",
-                activeSessionId === session.id && "bg-zinc-200/80 text-zinc-950",
-              )}
+            <CodexSidebarRow
+              active={activeSessionId === session.id}
+              ariaCurrent={activeSessionId === session.id ? "page" : undefined}
+              ariaLabel={`Chat ${session.title}`}
+              icon={<MessageSquare size={14} />}
+              indent
               key={session.id}
+              label={session.title}
               onClick={() => onSelectSession(session.id)}
-              type="button"
-            >
-              <MessageSquare size={14} className="shrink-0 text-zinc-500" />
-              <span className="min-w-0 flex-1 truncate font-medium text-zinc-800">
-                {session.title}
-              </span>
-            </button>
+            />
           ))
         ) : (
           <div className="px-3 py-1.5 text-sm text-zinc-400">No chats</div>
@@ -206,40 +200,28 @@ function RailButton(props: {
   readonly onClick: () => void;
   readonly title?: string;
 }) {
-  const className = cn(
-    "flex h-9 w-full items-center gap-3 rounded-lg px-3 py-1.5 text-left text-sm",
-    props.disabled ? "cursor-default opacity-45" : "hover:bg-zinc-200/70",
-    props.active && "bg-zinc-200 text-zinc-950",
-  );
-  const content = (
-    <>
-      <span className="text-zinc-500">{props.icon}</span>
-      <span className="min-w-0 flex-1">
-        <span className="block truncate font-medium">{props.label}</span>
-        {props.meta ? (
-          <span className="block truncate text-xs text-zinc-400">{props.meta}</span>
-        ) : null}
-      </span>
-    </>
-  );
-
   if (props.disabled) {
     return (
-      <div aria-disabled="true" className={className}>
-        {content}
-      </div>
+      <CodexSidebarRow
+        active={props.active}
+        ariaLabel={props.ariaLabel}
+        icon={props.icon}
+        label={props.label}
+        meta={props.meta}
+        title={props.title}
+      />
     );
   }
 
   return (
-    <button
-      aria-label={props.ariaLabel}
-      className={className}
+    <CodexSidebarRow
+      active={props.active}
+      ariaLabel={props.ariaLabel}
+      icon={props.icon}
+      label={props.label}
+      meta={props.meta}
       onClick={props.onClick}
       title={props.title}
-      type="button"
-    >
-      {content}
-    </button>
+    />
   );
 }
