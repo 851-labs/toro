@@ -20,6 +20,7 @@ export async function assertInternalSidebarLayout(page) {
   assertNear(parseFloat(sidebarStyle.paddingRight), 12, "Internal sidebar right padding");
   assertNear(itemBox?.height ?? 0, 28, "Internal sidebar item height");
   assertNear(parseFloat(itemStyle.fontSize), 13, "Internal sidebar item font size");
+  assertNear(parseFloat(itemStyle.borderRadius), 8, "Internal sidebar item radius");
 }
 
 function assertNear(actual, expected, label) {

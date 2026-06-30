@@ -131,8 +131,8 @@ function GuideNavLink({
       aria-current={active ? "page" : undefined}
       className={
         active
-          ? "flex h-7 w-full items-center rounded-xl bg-zinc-200 px-3 text-left font-medium"
-          : "flex h-7 w-full items-center rounded-xl px-3 text-left text-zinc-500 hover:bg-zinc-200/70"
+          ? "flex h-7 w-full items-center rounded-lg bg-zinc-200 px-3 text-left font-medium"
+          : "flex h-7 w-full items-center rounded-lg px-3 text-left text-zinc-500 hover:bg-zinc-200/70"
       }
       data-internal-sidebar-item="true"
       to={to}
