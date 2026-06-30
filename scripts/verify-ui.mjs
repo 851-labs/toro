@@ -471,8 +471,10 @@ async function assertSidebarCommandGroupShared(page) {
 async function assertPassiveReferenceSidebarRows(page) {
   const rail = page.locator("[data-sidebar-rail='true']");
   for (const label of ["Scheduled", "Plugins"]) {
-    if ((await rail.getByText(label, { exact: true }).count()) > 0)
-      throw new Error(`${label} should not render until the feature is wired.`);
+    await rail.getByText(label, { exact: true }).waitFor({ timeout: 5_000 });
+    if ((await rail.getByRole("button", { exact: true, name: label }).count()) > 0) {
+      throw new Error(`Desktop ${label} row should be passive until the feature is wired.`);
+    }
   }
 }
 

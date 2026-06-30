@@ -14,17 +14,17 @@ Current reference evidence:
 
 Latest verified desktop artifacts:
 
-- Desktop capture: `.artifacts/verification/2026-06-30T15-47-42-494Z/page@754bd3e3dd522ed190ea66a4702b0aa2.webm`
-- Desktop stills: `.artifacts/verification/2026-06-30T15-47-42-494Z/*.png`
+- Desktop capture: `.artifacts/verification/2026-06-30T15-54-38-544Z/page@242cfbf261c6bef0c4c846baff37173b.webm`
+- Desktop stills: `.artifacts/verification/2026-06-30T15-54-38-544Z/*.png`
 - Grouped-sidebar capture: `.artifacts/verification/sidebar-groups/2026-06-30T15-10-20-395Z/page@d9d7ed776cdd64de9144ac1f4a6ab547.webm`
 - Grouped-sidebar still: `.artifacts/verification/sidebar-groups/2026-06-30T15-10-20-395Z/01-project-grouped-chats.png`
-- Design-guide capture: `.artifacts/verification/design-guide/2026-06-30T15-48-26-745Z/page@c20dd94d01ee562a1615e8f6409d396c.webm`
-- Design-guide stills: `.artifacts/verification/design-guide/2026-06-30T15-48-26-745Z/*.png`
-- Native still: `.artifacts/verification/native/2026-06-30-editor-pane-toggle.png`
+- Design-guide capture: `.artifacts/verification/design-guide/2026-06-30T15-55-18-325Z/page@3dc5a1669e344b827539ecc3a161b185.webm`
+- Design-guide stills: `.artifacts/verification/design-guide/2026-06-30T15-55-18-325Z/*.png`
+- Native still: `.artifacts/verification/native/2026-06-30-passive-sidebar-commands.png`
 
 Most recent manual checks:
 
-- Confirmed the desktop sidebar no longer renders inert Scheduled or Plugins rows until those features are wired.
+- Confirmed the desktop sidebar renders Codex-like Scheduled and Plugins rows as passive non-buttons until those features are wired.
 - Confirmed completed tool-call status renders as muted transcript metadata instead of bright emerald text.
 - Confirmed assistant messages use a wider Codex-like transcript rail instead of the previous narrow 72% cap.
 - Confirmed the UI verifier resets host state before loading the desktop shell.

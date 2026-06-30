@@ -23,9 +23,11 @@ import {
 import {
   ChevronLeft,
   ChevronRight,
+  Clock,
   FolderOpen,
   FolderPlus,
   PanelLeft,
+  Plug,
   Search,
   SlidersHorizontal,
   SquarePen,
@@ -121,6 +123,8 @@ export function AgentRail(props: AgentRailProps) {
           label="Search"
           onClick={() => setActiveView((view) => (view === "search" ? "projects" : "search"))}
         />
+        <CodexSidebarCommand icon={<Clock size={17} />} label="Scheduled" />
+        <CodexSidebarCommand icon={<Plug size={17} />} label="Plugins" />
       </CodexSidebarCommandGroup>
 
       <CodexSidebarContent>
