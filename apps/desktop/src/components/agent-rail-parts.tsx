@@ -1,6 +1,6 @@
 import type { SessionId, WorkspaceId } from "@toro/domain";
 import type { Session, Workspace } from "@toro/domain";
-import { CodexSidebarRow, cn } from "@toro/ui";
+import { CodexSidebarRow, CodexSidebarSection, cn } from "@toro/ui";
 import { FileText, MessageSquare } from "lucide-react";
 import type { ReactNode } from "react";
 
@@ -167,26 +167,15 @@ export function RailSection({
   readonly children: ReactNode;
 }) {
   return (
-    <section className="mb-5">
-      <div className="mb-1 flex items-center justify-between px-3">
-        <h2 className="text-sm font-medium text-zinc-400">{title}</h2>
-        {onAction && actionLabel ? (
-          <button
-            aria-label={actionLabel}
-            aria-pressed={actionPressed}
-            className={cn(
-              "flex size-7 items-center justify-center rounded-lg text-zinc-400 hover:bg-zinc-200/70 hover:text-zinc-700",
-              actionPressed && "bg-zinc-200 text-zinc-800",
-            )}
-            onClick={onAction}
-            type="button"
-          >
-            {actionIcon}
-          </button>
-        ) : null}
-      </div>
-      <div className="space-y-1">{children}</div>
-    </section>
+    <CodexSidebarSection
+      actionIcon={actionIcon}
+      actionLabel={actionLabel}
+      actionPressed={actionPressed}
+      title={title}
+      onAction={onAction}
+    >
+      {children}
+    </CodexSidebarSection>
   );
 }
 

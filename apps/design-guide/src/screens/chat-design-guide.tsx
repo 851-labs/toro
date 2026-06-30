@@ -6,6 +6,7 @@ import {
   CodexPermissionCard,
   CodexPlanDisclosure,
   CodexSidebarRow,
+  CodexSidebarSection,
   CodexThinkingDisclosure,
   CodexToolCall,
   CodexTranscriptSurface,
@@ -251,25 +252,25 @@ function SidebarGroups() {
         </div>
         <SidebarRow icon={<SquarePen size={16} />} label="New chat" />
         <SidebarRow icon={<Search size={16} />} label="Search" />
-        <div className="mt-8 flex items-center justify-between px-3 text-sm font-medium text-zinc-400">
-          <span>Projects</span>
-          <FolderPlus size={15} />
-        </div>
-        <CodexSidebarRow icon={<FileText size={16} />} label="toro" />
-        <div className="mt-0.5 space-y-0.5">
-          {[
-            { active: true, label: "Verify the Toro ACP UI loop" },
-            { active: false, label: "Composer context picker" },
-            { active: false, label: "Quiet expanded tool output" },
-          ].map((chat) => (
-            <CodexSidebarRow
-              active={chat.active}
-              icon={<MessageSquare size={14} />}
-              indent
-              key={chat.label}
-              label={chat.label}
-            />
-          ))}
+        <div className="mt-8">
+          <CodexSidebarSection actionIcon={<FolderPlus size={15} />} title="Projects">
+            <CodexSidebarRow icon={<FileText size={16} />} label="toro" />
+            <div className="mt-0.5 space-y-0.5">
+              {[
+                { active: true, label: "Verify the Toro ACP UI loop" },
+                { active: false, label: "Composer context picker" },
+                { active: false, label: "Quiet expanded tool output" },
+              ].map((chat) => (
+                <CodexSidebarRow
+                  active={chat.active}
+                  icon={<MessageSquare size={14} />}
+                  indent
+                  key={chat.label}
+                  label={chat.label}
+                />
+              ))}
+            </div>
+          </CodexSidebarSection>
         </div>
         <div className="absolute bottom-4 left-3 right-3 flex items-center gap-3 border-t border-zinc-200 pt-4">
           <div className="flex size-9 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 via-blue-500 to-violet-500 text-sm font-semibold text-white">

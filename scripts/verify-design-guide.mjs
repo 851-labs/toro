@@ -57,6 +57,7 @@ await page
   .waitFor({ timeout: 5_000 });
 await assertSidebarStoryHeader(page);
 await assertSidebarStoryRows(page);
+await assertSidebarStorySections(page);
 await assertSidebarStoryShell(page);
 await assertSidebarStoryWidth(page);
 await screenshot(page, "04-sidebar-groups.png");
@@ -177,6 +178,15 @@ async function assertSidebarStoryRows(page) {
     .count();
   if (rows < 4) {
     throw new Error(`Design-guide sidebar story should use shared sidebar rows, got ${rows}.`);
+  }
+}
+
+async function assertSidebarStorySections(page) {
+  const sections = await page
+    .locator("[data-sidebar-story-rail='true'] [data-sidebar-section='true']")
+    .count();
+  if (sections < 1) {
+    throw new Error("Design-guide sidebar story should use the shared sidebar section primitive.");
   }
 }
 
