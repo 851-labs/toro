@@ -1,0 +1,27 @@
+# Desktop Verification Notes
+
+## Codex Chat UI Fidelity Pass
+
+- Reference capture: `.artifacts/reference/codex-chat/codex-chat-reference.mov`
+- Reference still: `.artifacts/reference/codex-chat/codex-chat-final.png`
+- Toro capture: `.artifacts/verification/2026-06-30T02-08-55-723Z/page@a8f03d435f16b44636628220153b07d7.webm`
+- Toro stills: `.artifacts/verification/2026-06-30T02-08-55-723Z/*.png`
+- Composer regression capture: `.artifacts/verification/2026-06-30T02-22-13-334Z/page@6814474a5eab08ca6b6a66aaf7459f03.webm`
+- Composer regression stills: `.artifacts/verification/2026-06-30T02-22-13-334Z/*.png`
+- Edge-to-edge shell capture: `.artifacts/verification/2026-06-30T02-25-58-481Z/page@b0f7b439d2c6890a548e08d14bac02ef.webm`
+- Edge-to-edge shell stills: `.artifacts/verification/2026-06-30T02-25-58-481Z/*.png`
+
+Manual verification:
+
+- Started a new chat in the installed Codex Desktop app.
+- Recorded the Codex chat transition and final chat state.
+- Compared Toro against the Codex reference for sidebar, title bar, empty state, message layout, composer controls, and follow-up composer copy.
+- Confirmed Toro still completes the deterministic ACP demo flow, including workspace open, session start, permission prompt, assistant response, tool activity, and file preview.
+- Confirmed the desktop composer accepts typing before a session exists and that the rebuilt `Toro.app` accepts keyboard input in the composer.
+- Confirmed the rebuilt `Toro.app` renders edge-to-edge without the blue inset or rounded outer app frame.
+
+Automated verification:
+
+- `bun run verify`
+- `TORO_VERIFY_STEP_DELAY_MS=1000 bun run verify:ui`
+- `bun --filter @toro/desktop tauri build --debug --bundles app`

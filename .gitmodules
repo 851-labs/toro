@@ -1,0 +1,15 @@
+[submodule ".repos/tokenmaxxing"]
+	path = .repos/tokenmaxxing
+	url = https://github.com/851-labs/tokenmaxxing.git
+[submodule ".repos/acp-typescript-sdk"]
+	path = .repos/acp-typescript-sdk
+	url = https://github.com/agentclientprotocol/typescript-sdk.git
+[submodule ".repos/codex-acp"]
+	path = .repos/codex-acp
+	url = https://github.com/agentclientprotocol/codex-acp.git
+[submodule ".repos/claude-agent-acp"]
+	path = .repos/claude-agent-acp
+	url = https://github.com/agentclientprotocol/claude-agent-acp.git
+[submodule ".repos/opencode"]
+	path = .repos/opencode
+	url = https://github.com/anomalyco/opencode.git

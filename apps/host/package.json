@@ -1,0 +1,29 @@
+{
+  "name": "@toro/host",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "tsc --project tsconfig.json",
+    "demo-agent": "bun src/demo-agent.ts",
+    "dev": "bun --watch src/server.ts",
+    "start": "bun src/server.ts",
+    "test": "vitest run --passWithNoTests",
+    "typecheck": "tsc --project tsconfig.json"
+  },
+  "dependencies": {
+    "@agentclientprotocol/sdk": "catalog:",
+    "@toro/acp": "workspace:*",
+    "@toro/config": "workspace:*",
+    "@toro/domain": "workspace:*",
+    "@toro/environments": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/bun": "catalog:",
+    "@types/node": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}

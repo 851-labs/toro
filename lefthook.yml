@@ -1,0 +1,7 @@
+pre-commit:
+  parallel: true
+  commands:
+    fmt:
+      run: bun run fmt
+    lint:
+      run: bun run lint
