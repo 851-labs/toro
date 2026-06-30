@@ -66,15 +66,21 @@ export function CodexComposer({
                 type="button"
                 variant="danger"
               />
-            ) : (
+            ) : canSend ? (
               <Button
                 aria-label="Send"
                 className="size-9 rounded-full bg-zinc-500 p-0 hover:bg-zinc-700"
-                disabled={!canSend}
                 icon={<Send size={16} />}
                 type="submit"
                 variant="primary"
               />
+            ) : (
+              <span
+                aria-hidden="true"
+                className="flex size-9 items-center justify-center rounded-full bg-zinc-100 text-zinc-300"
+              >
+                <Send size={16} />
+              </span>
             )}
           </div>
         </div>

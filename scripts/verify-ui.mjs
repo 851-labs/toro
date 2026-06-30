@@ -156,11 +156,11 @@ async function assertOnlyFunctionalButtons(page, extraAllowedLabels = []) {
     })),
   );
   const unexpected = buttons.filter(
-    ({ label }) => !isKnownFunctionalButton(label, extraAllowedLabels),
+    ({ disabled, label }) => disabled || !isKnownFunctionalButton(label, extraAllowedLabels),
   );
 
   if (unexpected.length > 0) {
-    throw new Error(`Unexpected button controls: ${JSON.stringify(unexpected)}`);
+    throw new Error(`Unexpected or disabled button controls: ${JSON.stringify(unexpected)}`);
   }
 }
 

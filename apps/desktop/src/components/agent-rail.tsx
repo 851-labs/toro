@@ -46,15 +46,22 @@ export function AgentRail(props: AgentRailProps) {
       </div>
 
       <div className="space-y-1 px-3">
-        <button
-          aria-label="Session"
-          className="flex h-10 w-full items-center gap-3 rounded-xl px-3 text-left text-sm font-medium text-zinc-800 hover:bg-zinc-200/70 disabled:opacity-50"
-          disabled={!props.activeWorkspace}
-          onClick={props.onCreateSession}
-        >
-          <CirclePlus size={17} />
-          New chat
-        </button>
+        {props.activeWorkspace ? (
+          <button
+            aria-label="Session"
+            className="flex h-10 w-full items-center gap-3 rounded-xl px-3 text-left text-sm font-medium text-zinc-800 hover:bg-zinc-200/70"
+            onClick={props.onCreateSession}
+            type="button"
+          >
+            <CirclePlus size={17} />
+            New chat
+          </button>
+        ) : (
+          <div className="flex h-10 w-full items-center gap-3 rounded-xl px-3 text-left text-sm font-medium text-zinc-400">
+            <CirclePlus size={17} />
+            New chat
+          </div>
+        )}
       </div>
 
       <div className="mt-3 border-t border-zinc-200/80 px-3 pt-3">
@@ -65,14 +72,15 @@ export function AgentRail(props: AgentRailProps) {
             placeholder="/path/to/workspace"
             value={props.workspacePath}
           />
-          <Button
-            className="h-9 shrink-0"
-            disabled={!props.workspacePath}
-            icon={<FolderOpen size={15} />}
-            onClick={props.onOpenWorkspace}
-          >
-            Add
-          </Button>
+          {props.workspacePath ? (
+            <Button
+              className="h-9 shrink-0"
+              icon={<FolderOpen size={15} />}
+              onClick={props.onOpenWorkspace}
+            >
+              Add
+            </Button>
+          ) : null}
         </div>
       </div>
 
