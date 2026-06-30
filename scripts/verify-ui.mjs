@@ -81,6 +81,7 @@ await pause();
 await assertSidebarToggle(page);
 
 await page.getByRole("button", { exact: true, name: "Open project" }).click();
+await assertSidebarInputsShared(page, 1);
 await page.getByLabel("Project path").fill(workspacePath);
 await page.getByRole("button", { exact: true, name: "Open" }).click();
 await page.getByText("toro").first().waitFor({ timeout: 5_000 });
@@ -94,6 +95,7 @@ await screenshot(page, "02-workspace-opened.png");
 await pause();
 
 await page.getByRole("button", { exact: true, name: "Search" }).click();
+await assertSidebarInputsShared(page, 1);
 await page.getByLabel("Search projects and chats").fill("definitely-not-a-project");
 await page.getByText("No matches").waitFor({ timeout: 5_000 });
 await page.getByLabel("Search projects and chats").fill(workspaceName);
@@ -255,5 +257,14 @@ async function assertSidebarCommandGroupShared(page) {
     .count();
   if (groups !== 1) {
     throw new Error(`Desktop sidebar should use one shared command group, got ${groups}.`);
+  }
+}
+
+async function assertSidebarInputsShared(page, minimum) {
+  const inputs = await page
+    .locator("[data-sidebar-rail='true'] [data-sidebar-input='true']")
+    .count();
+  if (inputs < minimum) {
+    throw new Error(`Desktop sidebar should use shared sidebar inputs, got ${inputs}.`);
   }
 }

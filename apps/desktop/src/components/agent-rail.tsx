@@ -13,6 +13,7 @@ import {
   CodexSidebarCommandGroup,
   CodexSidebarContent,
   CodexSidebarFooter,
+  CodexSidebarInput,
   CodexSidebarRail,
   CodexSidebarTitlebar,
   CodexSidebarTitlebarControl,
@@ -131,9 +132,9 @@ export function AgentRail(props: AgentRailProps) {
         >
           {searchOpen ? (
             <div className="mb-3">
-              <input
+              <CodexSidebarInput
                 aria-label="Search projects and chats"
-                className="h-9 w-full rounded-lg border border-zinc-200 bg-white px-3 text-sm outline-none placeholder:text-zinc-400 focus:border-zinc-400"
+                className="w-full"
                 onChange={(event) => setSearchQuery(event.target.value)}
                 placeholder="Search projects and chats"
                 value={searchQuery}
@@ -152,9 +153,9 @@ export function AgentRail(props: AgentRailProps) {
               }}
             >
               <div className="flex gap-2">
-                <input
+                <CodexSidebarInput
                   aria-label="Project path"
-                  className="h-9 min-w-0 flex-1 rounded-lg border border-zinc-200 bg-white px-3 text-sm outline-none placeholder:text-zinc-400 focus:border-zinc-400"
+                  className="flex-1"
                   onChange={(event) => props.onWorkspacePathChange(event.target.value)}
                   placeholder="/path/to/workspace"
                   value={props.workspacePath}

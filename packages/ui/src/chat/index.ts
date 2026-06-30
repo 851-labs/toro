@@ -11,6 +11,7 @@ export * from "./sidebar-command";
 export * from "./sidebar-command-group";
 export * from "./sidebar-content";
 export * from "./sidebar-footer";
+export * from "./sidebar-input";
 export * from "./sidebar-rail";
 export * from "./sidebar-row";
 export * from "./sidebar-section";

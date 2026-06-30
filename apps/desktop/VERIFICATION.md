@@ -322,9 +322,10 @@ Manual verification:
 - Confirmed the sidebar traffic-light titlebar now shares a `@toro/ui` titlebar primitive across desktop and the design-guide sidebar story, with the design-guide verifier asserting the shared `data-sidebar-titlebar` marker.
 - Confirmed the top sidebar command stack now shares a `@toro/ui` command-group primitive across desktop and the design-guide sidebar story, with desktop and design-guide verifiers asserting the shared `data-sidebar-command-group` marker.
 - Confirmed the top sidebar commands now share a `@toro/ui` command primitive across desktop and the design-guide sidebar story, with the design-guide verifier asserting the shared `data-sidebar-command` markers.
+- Confirmed sidebar search and project path fields now share a `@toro/ui` input primitive, with desktop verification asserting the shared `data-sidebar-input` marker in both project-open and search flows.
 - Confirmed the sidebar host/account footer now shares a `@toro/ui` footer primitive across desktop and the design-guide sidebar story, with desktop and design-guide verifiers asserting the shared `data-sidebar-footer` marker.
-- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T11-02-11-265Z/`.
-- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T11-01-57-439Z/`.
+- Latest desktop UI artifacts: `.artifacts/verification/2026-06-30T11-06-49-183Z/`.
+- Latest design-guide UI artifacts: `.artifacts/verification/design-guide/2026-06-30T11-06-35-882Z/`.
 
 Automated verification:
 
