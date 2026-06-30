@@ -97,9 +97,6 @@ export function ChatPanel({ agentName, session, workspace }: ChatPanelProps) {
         onSubmit={() => void submit()}
         placeholder={session?.messages.length ? "Ask for follow-up changes" : "Do anything"}
         value={value}
-        workspaceLabel={
-          workspaceName ? `${workspaceName} / Work locally` : "Open a project to start"
-        }
       />
     </section>
   );

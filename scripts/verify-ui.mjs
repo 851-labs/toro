@@ -25,6 +25,7 @@ await page.getByRole("button", { exact: true, name: "Search" }).waitFor({ timeou
 await assertDeadControlsRemoved(page);
 await assertPrimarySidebarSimplified(page);
 await assertProjectFormHidden(page);
+await assertComposerFooterIsCodexCompact(page);
 await assertOnlyFunctionalButtons(page);
 await assertHostSettingsToggle(page);
 const composer = page.getByLabel("Message agent");
@@ -47,6 +48,7 @@ await page.getByRole("button", { exact: true, name: "Open" }).click();
 await page.getByText("toro").first().waitFor({ timeout: 5_000 });
 await assertProjectFormHidden(page);
 await assertProjectPathHiddenInSidebar(page);
+await assertComposerFooterIsCodexCompact(page);
 await assertComposerContextPicker(page);
 await assertOnlyFunctionalButtons(page);
 await screenshot(page, "02-workspace-opened.png");
@@ -210,6 +212,14 @@ async function assertProjectFormHidden(page) {
 async function assertProjectPathHiddenInSidebar(page) {
   if ((await page.locator("aside").getByText(workspacePath, { exact: true }).count()) > 0) {
     throw new Error("Sidebar project rows should not render the full filesystem path.");
+  }
+}
+
+async function assertComposerFooterIsCodexCompact(page) {
+  for (const text of ["Open a project to start", "Work locally"]) {
+    if ((await page.getByText(text).count()) > 0) {
+      throw new Error(`Composer footer should not render workspace status text: ${text}`);
+    }
   }
 }
 

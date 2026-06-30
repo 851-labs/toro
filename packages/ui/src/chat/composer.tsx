@@ -17,7 +17,6 @@ export interface CodexComposerProps {
   readonly modelLabel: string;
   readonly placeholder: string;
   readonly value: string;
-  readonly workspaceLabel: string;
   readonly onChange: (value: string) => void;
   readonly onStop?: () => void;
   readonly onSubmit: () => void;
@@ -37,7 +36,6 @@ export function CodexComposer({
   onSubmit,
   placeholder,
   value,
-  workspaceLabel,
 }: CodexComposerProps) {
   const [contextOpen, setContextOpen] = useState(false);
   const [selectedContextIds, setSelectedContextIds] = useState<readonly string[]>([]);
@@ -159,7 +157,6 @@ export function CodexComposer({
               </select>
               <ChevronDown className="pointer-events-none absolute right-0" size={13} />
             </label>
-            <span className="hidden truncate sm:inline">{workspaceLabel}</span>
           </div>
           <div className="flex items-center gap-2 text-sm text-zinc-500">
             <label className="relative hidden items-center gap-1 font-medium sm:inline-flex">

@@ -76,7 +76,6 @@ export function ChatDesignGuide() {
             onSubmit={() => setComposerValue("")}
             placeholder="Ask for follow-up changes"
             value={composerValue}
-            workspaceLabel="toro / Work locally"
           />
         ) : (
           <div />
