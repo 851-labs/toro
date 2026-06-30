@@ -102,6 +102,10 @@
 - Quiet tool-call row stills: `.artifacts/verification/2026-06-30T06-04-36-828Z/*.png`
 - Quiet tool-call design-guide capture: `.artifacts/verification/design-guide/2026-06-30T06-05-56-754Z/page@2be54f79b9ba7dbb6cbdcc25a98d39b6.webm`
 - Quiet tool-call design-guide stills: `.artifacts/verification/design-guide/2026-06-30T06-05-56-754Z/*.png`
+- Compact plan/thinking capture: `.artifacts/verification/2026-06-30T06-10-19-222Z/page@deafb2f4c30e7206c3eb98ffd09be147.webm`
+- Compact plan/thinking stills: `.artifacts/verification/2026-06-30T06-10-19-222Z/*.png`
+- Compact plan/thinking design-guide capture: `.artifacts/verification/design-guide/2026-06-30T06-10-51-878Z/page@c3d73ea4f74508bf91aad9b990a2936a.webm`
+- Compact plan/thinking design-guide stills: `.artifacts/verification/design-guide/2026-06-30T06-10-51-878Z/*.png`
 
 Manual verification:
 
@@ -144,6 +148,7 @@ Manual verification:
 - Confirmed placeholder Scheduled and Plugins rail buttons are removed from the desktop UI while agent selection remains available through Host settings.
 - Confirmed the chat header uses a static Codex-like session glyph while the sidebar is open, with the restore button appearing only after the sidebar is collapsed.
 - Confirmed tool calls render as quiet shared transcript rows with inline metadata instead of framed cards with status pills in both desktop and the design guide.
+- Confirmed plan and thinking disclosures now use compact shared transcript rows instead of large framed cards in both desktop and the design guide.
 
 Automated verification:
 

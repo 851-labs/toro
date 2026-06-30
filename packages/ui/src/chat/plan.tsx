@@ -25,15 +25,12 @@ export function CodexPlanDisclosure({
   const completedCount = entries.filter((entry) => entry.status === "completed").length;
 
   return (
-    <details
-      className="group/plan rounded-[18px] border border-zinc-200 bg-white px-4 py-3 text-sm"
-      open={defaultOpen}
-    >
-      <summary className="flex cursor-pointer list-none items-center gap-3 [&::-webkit-details-marker]:hidden">
-        <span className="flex size-7 shrink-0 items-center justify-center rounded-lg bg-zinc-100 text-zinc-600">
-          <ClipboardList size={15} />
+    <details className="group/plan text-sm" open={defaultOpen}>
+      <summary className="flex cursor-pointer list-none items-center gap-2 rounded-xl px-2 py-2 text-zinc-600 hover:bg-zinc-50 [&::-webkit-details-marker]:hidden">
+        <span className="flex size-6 shrink-0 items-center justify-center text-zinc-500">
+          <ClipboardList size={14} />
         </span>
-        <div className="min-w-0 flex-1">
+        <div className="min-w-0 flex-1 leading-5">
           <div className="truncate font-medium text-zinc-900">{title}</div>
           <div className="text-xs text-zinc-500">
             {completedCount} of {entries.length} complete
@@ -44,7 +41,7 @@ export function CodexPlanDisclosure({
           size={15}
         />
       </summary>
-      <ol className="mt-3 space-y-2 border-l border-zinc-200 pl-3">
+      <ol className="ml-8 mt-1 space-y-1 border-l border-zinc-200 pl-3">
         {entries.map((entry, index) => (
           <li className="flex items-start gap-2 text-sm" key={`${entry.content}-${index}`}>
             <span

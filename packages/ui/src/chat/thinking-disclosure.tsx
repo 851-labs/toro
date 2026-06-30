@@ -16,13 +16,10 @@ export function CodexThinkingDisclosure({
   title = "Thinking",
 }: CodexThinkingDisclosureProps) {
   return (
-    <details
-      className="group/thinking rounded-[18px] border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-600"
-      open={defaultOpen}
-    >
-      <summary className="flex cursor-pointer list-none items-center gap-3 [&::-webkit-details-marker]:hidden">
-        <span className="flex size-7 shrink-0 items-center justify-center rounded-lg bg-zinc-100 text-zinc-600">
-          <BrainCircuit size={15} />
+    <details className="group/thinking text-sm text-zinc-600" open={defaultOpen}>
+      <summary className="flex cursor-pointer list-none items-center gap-2 rounded-xl px-2 py-2 text-zinc-600 hover:bg-zinc-50 [&::-webkit-details-marker]:hidden">
+        <span className="flex size-6 shrink-0 items-center justify-center text-zinc-500">
+          <BrainCircuit size={14} />
         </span>
         <span className="min-w-0 flex-1 truncate font-medium text-zinc-900">{title}</span>
         {isStreaming ? (
@@ -39,7 +36,7 @@ export function CodexThinkingDisclosure({
       {children ? (
         <div
           className={cn(
-            "mt-3 whitespace-pre-wrap border-l border-zinc-200 pl-3 text-sm leading-6 text-zinc-600",
+            "ml-8 mt-1 whitespace-pre-wrap border-l border-zinc-200 pl-3 text-sm leading-6 text-zinc-600",
             isStreaming &&
               "after:ml-1 after:inline-block after:size-1.5 after:rounded-full after:bg-zinc-400",
           )}

@@ -83,6 +83,14 @@ await page.getByRole("button", { exact: true, name: "Send" }).click();
 await page.getByText("Thinking").waitFor({ timeout: 10_000 });
 await page.getByText("working").waitFor({ timeout: 10_000 });
 await page.getByText(/Checking project context/).waitFor({ timeout: 10_000 });
+await assertTranscriptDisclosureIsCompact(
+  page.locator("details").filter({ hasText: "Plan" }).first(),
+  "Plan",
+);
+await assertTranscriptDisclosureIsCompact(
+  page.locator("details").filter({ hasText: "Thinking" }).first(),
+  "Thinking",
+);
 if ((await page.getByText(/deciding the next UI action/).count()) > 0) {
   throw new Error("Full thinking text appeared before the partial streaming checkpoint.");
 }
@@ -226,6 +234,13 @@ async function assertToolCallIsCompact(toolCall) {
   const statusClassName = (await status.getAttribute("class")) ?? "";
   if (statusClassName.includes("rounded-full") || statusClassName.includes("border-emerald")) {
     throw new Error("Tool call status should render as quiet metadata, not a status pill.");
+  }
+}
+
+async function assertTranscriptDisclosureIsCompact(disclosure, label) {
+  const className = (await disclosure.getAttribute("class")) ?? "";
+  if (className.includes("rounded-[18px]") || className.includes("border ")) {
+    throw new Error(`${label} should render as a compact transcript row, not a framed card.`);
   }
 }
 
