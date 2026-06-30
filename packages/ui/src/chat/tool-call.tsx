@@ -33,7 +33,10 @@ export function CodexToolCall({ children, defaultOpen, kind, status, title }: Co
         />
       </summary>
       {children ? (
-        <pre className="ml-8 mt-1 max-h-52 overflow-auto whitespace-pre-wrap rounded-xl border border-zinc-200/80 bg-zinc-50/80 px-3 py-2 text-xs leading-5 text-zinc-600">
+        <pre
+          className="ml-8 mt-1 max-h-52 overflow-auto whitespace-pre-wrap border-l border-zinc-200 py-1 pl-3 text-xs leading-5 text-zinc-600"
+          data-tool-output="true"
+        >
           {children}
         </pre>
       ) : null}

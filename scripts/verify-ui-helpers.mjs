@@ -166,6 +166,12 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
     if (statusClassName.includes("rounded-full") || statusClassName.includes("border-emerald")) {
       throw new Error("Tool call status should render as quiet metadata, not a status pill.");
     }
+
+    const outputClassName =
+      (await toolCall.locator("[data-tool-output='true']").first().getAttribute("class")) ?? "";
+    if (outputClassName.includes("rounded-xl") || outputClassName.includes("bg-zinc-50")) {
+      throw new Error("Expanded tool output should render as a quiet indented block.");
+    }
   }
 
   async function assertTranscriptOrder(page) {

@@ -190,6 +190,10 @@
 - Shared transcript surface desktop stills: `.artifacts/verification/2026-06-30T08-49-03-451Z/*.png`
 - Shared transcript surface design-guide capture: `.artifacts/verification/design-guide/2026-06-30T08-49-22-656Z/page@9544c6ca8e4a75521046fbe9f5c8dccd.webm`
 - Shared transcript surface design-guide stills: `.artifacts/verification/design-guide/2026-06-30T08-49-22-656Z/*.png`
+- Quiet tool output desktop capture: `.artifacts/verification/2026-06-30T08-54-00-101Z/page@9519d6c29e3ad56bc02463e398734620.webm`
+- Quiet tool output desktop stills: `.artifacts/verification/2026-06-30T08-54-00-101Z/*.png`
+- Quiet tool output design-guide capture: `.artifacts/verification/design-guide/2026-06-30T08-54-24-078Z/page@6b5b585067d6625e91e4f6fd71116e82.webm`
+- Quiet tool output design-guide stills: `.artifacts/verification/design-guide/2026-06-30T08-54-24-078Z/*.png`
 
 Manual verification:
 
@@ -256,6 +260,7 @@ Manual verification:
 - Confirmed the deterministic ACP demo now streams assistant text by word tokens, with the host test asserting multiple message deltas and the UI verifier capturing a partial assistant response before the final text lands.
 - Confirmed the empty chat prompt now lives in the shared `@toro/ui` chat primitives and is covered by an interactive TanStack Start design-guide `Empty States` view.
 - Confirmed the 960px Codex transcript rail now lives in the shared `@toro/ui` chat primitives and is reused by desktop and the TanStack Start design guide, with visual verifiers still measuring transcript/composer alignment.
+- Confirmed expanded tool output now renders as a quiet indented transcript block instead of a rounded bordered card, with the desktop UI verifier asserting the output shell stays unframed.
 
 Automated verification:
 
