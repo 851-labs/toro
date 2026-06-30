@@ -25,6 +25,7 @@ await page.getByText("Toro").first().waitFor({ timeout: 5_000 });
 await assertDeadControlsRemoved(page);
 await assertPrimarySidebarSimplified(page);
 await assertOnlyFunctionalButtons(page);
+await assertHostSettingsToggle(page);
 const composer = page.getByLabel("Message agent");
 const initialComposerText = "Typing before a session should work.";
 await composer.fill(initialComposerText);
@@ -139,10 +140,30 @@ async function assertOnlyFunctionalButtons(page, extraAllowedLabels = []) {
 }
 
 function isKnownFunctionalButton(label, extraAllowedLabels) {
-  if (["Session", "Add", "Send", "Stop", ...extraAllowedLabels].includes(label)) {
+  if (["Session", "Add", "Send", "Stop", "Host settings", ...extraAllowedLabels].includes(label)) {
     return true;
   }
   return label.startsWith("Chat ") || label.startsWith(workspaceName);
+}
+
+async function assertHostSettingsToggle(page) {
+  const settingsButton = page.getByRole("button", { exact: true, name: "Host settings" });
+  if ((await page.getByRole("combobox", { exact: true, name: "Agent" }).count()) > 0) {
+    throw new Error("Agent selector should be hidden until host settings are opened.");
+  }
+
+  await settingsButton.click();
+  await page.getByRole("combobox", { exact: true, name: "Agent" }).waitFor({ timeout: 5_000 });
+  await page
+    .getByRole("combobox", { exact: true, name: "Environment" })
+    .waitFor({ timeout: 5_000 });
+  await assertOnlyFunctionalButtons(page);
+  await screenshot(page, "00-host-settings.png");
+  await settingsButton.click();
+
+  if ((await page.getByRole("combobox", { exact: true, name: "Agent" }).count()) > 0) {
+    throw new Error("Agent selector should hide after closing host settings.");
+  }
 }
 
 async function assertReachable(url, label) {

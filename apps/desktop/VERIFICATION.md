@@ -22,6 +22,8 @@
 - Functional-button cleanup stills: `.artifacts/verification/2026-06-30T03-10-18-163Z/*.png`
 - Functional design-guide capture: `.artifacts/verification/design-guide/2026-06-30T03-10-18-163Z/page@c3cd3891c71fedb250393ac1331fe309.webm`
 - Functional design-guide stills: `.artifacts/verification/design-guide/2026-06-30T03-10-18-163Z/*.png`
+- Compact host settings capture: `.artifacts/verification/2026-06-30T03-15-05-528Z/page@bf2da4e5f2c4e88d816a12f2253d8808.webm`
+- Compact host settings stills: `.artifacts/verification/2026-06-30T03-15-05-528Z/*.png`
 
 Manual verification:
 
@@ -37,6 +39,7 @@ Manual verification:
 - Confirmed the sidebar visually groups chats under their project and coalesces duplicate opens of the same project path.
 - Confirmed every rendered button in the desktop flow is limited to a wired action: new chat, add project, project/chat selection, send/stop, or permission response.
 - Confirmed the design guide permission buttons update visible state instead of acting as no-op controls.
+- Confirmed the sidebar footer matches Codex more closely by defaulting to a compact host row while the functional host settings button still exposes agent and environment selection.
 
 Automated verification:
 
