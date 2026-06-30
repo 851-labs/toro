@@ -130,6 +130,10 @@
 - Functional session details rail stills: `.artifacts/verification/2026-06-30T07-29-36-553Z/*.png`
 - Session details design-guide regression capture: `.artifacts/verification/design-guide/2026-06-30T07-29-51-257Z/page@6ca09ff7102b4b7298227d36f6791be2.webm`
 - Session details design-guide regression stills: `.artifacts/verification/design-guide/2026-06-30T07-29-51-257Z/*.png`
+- Split verifier/sidebar guide capture: `.artifacts/verification/2026-06-30T07-36-06-788Z/page@822ad190cc52d12bb6cd4dd6c48c9af2.webm`
+- Split verifier/sidebar guide stills: `.artifacts/verification/2026-06-30T07-36-06-788Z/*.png`
+- Functional sidebar guide capture: `.artifacts/verification/design-guide/2026-06-30T07-36-23-216Z/page@67f20a5f24e26a64ae8ad1f5faf12e67.webm`
+- Functional sidebar guide stills: `.artifacts/verification/design-guide/2026-06-30T07-36-23-216Z/*.png`
 
 Manual verification:
 
@@ -179,6 +183,7 @@ Manual verification:
 - Confirmed desktop transcript items now render chronologically by event time so the user prompt, thinking, tool call, and assistant response read as a Codex-like stream instead of separate content buckets.
 - Confirmed the Codex-like `Open in` header control is restored as a functional Host API menu for VS Code, Finder, and workspace path copy instead of an inert placeholder.
 - Confirmed the Codex-like header sliders icon now toggles a functional light session details rail with plan, permissions, and tool call sections, without exposing raw activity logs in the main desktop chat.
+- Confirmed the design-guide sidebar story now documents the functional Toro sidebar state without Scheduled or Plugins placeholders, and the UI verifier helpers are split out to keep future verification changes under the 500-line file limit.
 
 Automated verification:
 

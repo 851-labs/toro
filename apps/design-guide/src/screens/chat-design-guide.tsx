@@ -8,7 +8,7 @@ import {
   CodexToolCall,
   StatusBadge,
 } from "@toro/ui";
-import { Clock3, MessageSquare, Plug, Search, SquarePen, Terminal } from "lucide-react";
+import { FolderPlus, MessageSquare, Search, SquarePen, Terminal } from "lucide-react";
 import { useState } from "react";
 
 type GuideView = "chat" | "composer" | "sidebar";
@@ -192,7 +192,7 @@ const planEntries = [
 function SidebarGroups() {
   return (
     <div className="mx-auto grid max-w-4xl grid-cols-[280px_minmax(0,1fr)] overflow-hidden rounded-lg border border-zinc-200 bg-white">
-      <aside className="min-h-[620px] border-r border-zinc-200 bg-[#f2f5f5] px-3 py-4">
+      <aside className="relative min-h-[620px] border-r border-zinc-200 bg-[#f2f5f5] px-3 py-4">
         <div aria-hidden="true" className="mb-5 flex items-center gap-2 px-2">
           <span className="size-3 rounded-full bg-[#ff5f57]" />
           <span className="size-3 rounded-full bg-[#ffbd2e]" />
@@ -200,9 +200,10 @@ function SidebarGroups() {
         </div>
         <SidebarRow icon={<SquarePen size={16} />} label="New chat" />
         <SidebarRow icon={<Search size={16} />} label="Search" />
-        <SidebarRow icon={<Clock3 size={16} />} label="Scheduled" />
-        <SidebarRow icon={<Plug size={16} />} label="Plugins" />
-        <div className="mt-8 px-3 text-sm font-medium text-zinc-400">Projects</div>
+        <div className="mt-8 flex items-center justify-between px-3 text-sm font-medium text-zinc-400">
+          <span>Projects</span>
+          <FolderPlus size={15} />
+        </div>
         <div className="mt-2 rounded-xl bg-zinc-200 px-3 py-3">
           <div className="font-medium">toro</div>
         </div>
@@ -213,6 +214,18 @@ function SidebarGroups() {
               <span className="truncate">{label}</span>
             </div>
           ))}
+        </div>
+        <div className="absolute bottom-4 left-3 right-3 flex items-center gap-3 border-t border-zinc-200 pt-4">
+          <div className="flex size-9 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 via-blue-500 to-violet-500 text-sm font-semibold text-white">
+            T
+          </div>
+          <div className="min-w-0 flex-1">
+            <div className="truncate text-sm font-medium">Local host</div>
+            <div className="truncate text-xs text-zinc-500">Toro Demo / connected</div>
+          </div>
+          <span className="rounded-full bg-[#2583ff] px-3 py-1 text-xs font-semibold text-white">
+            Host
+          </span>
         </div>
       </aside>
       <div className="flex items-center justify-center text-2xl font-medium tracking-tight">
