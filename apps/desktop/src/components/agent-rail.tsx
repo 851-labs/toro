@@ -181,15 +181,13 @@ function RailButton(props: {
   readonly meta?: string;
   readonly onClick: () => void;
 }) {
-  return (
-    <button
-      className={cn(
-        "flex min-h-11 w-full items-center gap-3 rounded-xl px-3 py-2 text-left text-sm hover:bg-zinc-200/70 disabled:cursor-not-allowed disabled:opacity-45",
-        props.active && "bg-zinc-200 text-zinc-950",
-      )}
-      disabled={props.disabled}
-      onClick={props.onClick}
-    >
+  const className = cn(
+    "flex min-h-11 w-full items-center gap-3 rounded-xl px-3 py-2 text-left text-sm",
+    props.disabled ? "cursor-default opacity-45" : "hover:bg-zinc-200/70",
+    props.active && "bg-zinc-200 text-zinc-950",
+  );
+  const content = (
+    <>
       <span className="text-zinc-500">{props.icon}</span>
       <span className="min-w-0 flex-1">
         <span className="block truncate font-medium">{props.label}</span>
@@ -197,6 +195,20 @@ function RailButton(props: {
           <span className="block truncate text-xs text-zinc-400">{props.meta}</span>
         ) : null}
       </span>
+    </>
+  );
+
+  if (props.disabled) {
+    return (
+      <div aria-disabled="true" className={className}>
+        {content}
+      </div>
+    );
+  }
+
+  return (
+    <button className={className} onClick={props.onClick}>
+      {content}
     </button>
   );
 }

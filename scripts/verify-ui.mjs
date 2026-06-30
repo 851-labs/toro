@@ -90,6 +90,7 @@ async function assertDeadControlsRemoved(page) {
     "Toggle preview",
     "Add context",
     "Dictate",
+    /Remote Sandbox/,
   ];
 
   for (const name of deadButtons) {
