@@ -61,7 +61,7 @@ export function ChatPanel({ agentName, session, workspace }: ChatPanelProps) {
   return (
     <section className="grid min-h-0 min-w-0 grid-rows-[1fr_auto] bg-white">
       <div className="min-h-0 overflow-auto px-6 py-8">
-        <div className="mx-auto flex max-w-3xl flex-col gap-5">
+        <div className="mx-auto flex max-w-[960px] flex-col gap-5" data-transcript-surface="true">
           {session ? (
             <>
               <CodexPlanDisclosure entries={session.plan} />

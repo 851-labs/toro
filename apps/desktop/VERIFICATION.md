@@ -170,6 +170,10 @@
 - Design-guide wide sidebar story stills: `.artifacts/verification/2026-06-30T08-19-01-015Z/*.png`
 - Design-guide wide sidebar story guide capture: `.artifacts/verification/design-guide/2026-06-30T08-19-01-015Z/page@a7959ebb1073c1024324ba85165cfe71.webm`
 - Design-guide wide sidebar story guide stills: `.artifacts/verification/design-guide/2026-06-30T08-19-01-015Z/*.png`
+- Composer-aligned transcript capture: `.artifacts/verification/2026-06-30T08-26-14-478Z/page@f760955fd206175c4f4f9a49f69cc0ec.webm`
+- Composer-aligned transcript stills: `.artifacts/verification/2026-06-30T08-26-14-478Z/*.png`
+- Composer-aligned design-guide capture: `.artifacts/verification/design-guide/2026-06-30T08-26-28-703Z/page@81f7a0ad0463668cc09ae200c9ff96e0.webm`
+- Composer-aligned design-guide stills: `.artifacts/verification/design-guide/2026-06-30T08-26-28-703Z/*.png`
 
 Manual verification:
 
@@ -229,6 +233,7 @@ Manual verification:
 - Confirmed the desktop sidebar rail now uses a wider Codex-like width, with the UI verifier measuring the rendered rail to keep it close to the reference proportions.
 - Confirmed the shared composer now uses a more compact Codex-like height, with the desktop UI verifier measuring the rendered composer height.
 - Confirmed the design-guide sidebar story now uses the same Codex-like rail width as desktop, with the design-guide verifier measuring the story rail.
+- Confirmed the desktop transcript rail now aligns to the shared 960px composer surface so assistant text starts on the Codex-like composer left edge, with desktop and design-guide verifiers measuring the alignment.
 
 Automated verification:
 

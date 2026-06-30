@@ -91,6 +91,21 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
     }
   }
 
+  async function assertTranscriptAlignsWithComposer(page) {
+    const [composer, transcript] = await Promise.all([
+      surfaceBounds(page, "[data-composer-surface='true']"),
+      surfaceBounds(page, "[data-transcript-surface='true']"),
+    ]);
+    const leftDelta = Math.abs(composer.left - transcript.left);
+    const widthDelta = Math.abs(composer.width - transcript.width);
+
+    if (leftDelta > 2 || widthDelta > 2) {
+      throw new Error(
+        `Transcript should align to composer surface, got left delta ${leftDelta} and width delta ${widthDelta}.`,
+      );
+    }
+  }
+
   async function assertComposerHeightIsCodexLike(page) {
     const height = await composerSurfaceBounds(page, "height");
     if (height < 135 || height > 155) {
@@ -102,6 +117,13 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
     return page
       .locator("[data-composer-surface='true']")
       .evaluate((node, key) => node.getBoundingClientRect()[key], dimension);
+  }
+
+  async function surfaceBounds(page, selector) {
+    return page.locator(selector).evaluate((node) => {
+      const rect = node.getBoundingClientRect();
+      return { left: rect.left, width: rect.width };
+    });
   }
 
   async function assertPermissionCardIsCompact(page) {
@@ -402,6 +424,7 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
     assertSidebarToggle,
     assertToolCallIsCompact,
     assertTranscriptDisclosureIsCompact,
+    assertTranscriptAlignsWithComposer,
     assertTranscriptOrder,
     expectPressed,
     selectComposerOption,

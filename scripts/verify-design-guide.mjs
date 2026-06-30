@@ -58,6 +58,7 @@ await page.getByRole("button", { exact: true, name: "Composer States" }).click()
 await expectPressed(page.getByRole("button", { exact: true, name: "Composer States" }));
 await page.getByText("Codex Composer States").waitFor({ timeout: 5_000 });
 await page.getByText("Use app.tsx and composer.tsx").waitFor({ timeout: 5_000 });
+await assertTranscriptAlignsWithComposer(page);
 const composer = page.getByLabel("Message agent");
 await selectComposerOption(page, "Access mode", "Read only");
 await selectComposerOption(page, "Model", "5.5 Low");
@@ -124,6 +125,28 @@ async function assertSidebarStoryWidth(page) {
   if (width < 370 || width > 410) {
     throw new Error(`Design-guide sidebar story should match desktop rail width, got ${width}.`);
   }
+}
+
+async function assertTranscriptAlignsWithComposer(page) {
+  const [composer, transcript] = await Promise.all([
+    surfaceBounds(page, "[data-composer-surface='true']"),
+    surfaceBounds(page, "[data-transcript-surface='true']"),
+  ]);
+  const leftDelta = Math.abs(composer.left - transcript.left);
+  const widthDelta = Math.abs(composer.width - transcript.width);
+
+  if (leftDelta > 2 || widthDelta > 2) {
+    throw new Error(
+      `Design-guide transcript should align to composer surface, got left delta ${leftDelta} and width delta ${widthDelta}.`,
+    );
+  }
+}
+
+async function surfaceBounds(page, selector) {
+  return page.locator(selector).evaluate((node) => {
+    const rect = node.getBoundingClientRect();
+    return { left: rect.left, width: rect.width };
+  });
 }
 
 async function assertReachable(url, label) {

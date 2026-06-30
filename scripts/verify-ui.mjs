@@ -32,6 +32,7 @@ const {
   assertSidebarWidthIsCodexLike,
   assertSidebarToggle,
   assertToolCallIsCompact,
+  assertTranscriptAlignsWithComposer,
   assertTranscriptDisclosureIsCompact,
   assertTranscriptOrder,
   expectPressed,
@@ -58,6 +59,7 @@ await assertComposerFooterIsCodexCompact(page);
 await assertComposerAffordancesArePassive(page);
 await assertComposerHeightIsCodexLike(page);
 await assertComposerWidthIsCodexLike(page);
+await assertTranscriptAlignsWithComposer(page);
 await assertOnlyFunctionalButtons(page);
 await assertHostSettingsToggle(page);
 const composer = page.getByLabel("Message agent");
