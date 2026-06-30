@@ -54,11 +54,16 @@ export function createVerifyUiHelpers({ pause, screenshot, workspaceName, worksp
   }
 
   async function assertEmptySessionPrompt(page) {
-    await page
-      .getByRole("heading", { exact: true, name: `What should we build in ${workspaceName}?` })
-      .waitFor({
-        timeout: 5_000,
-      });
+    const heading = page.getByRole("heading", {
+      exact: true,
+      name: `What should we build in ${workspaceName}?`,
+    });
+    await heading.waitFor({ timeout: 5_000 });
+    const headingBox = await heading.boundingBox();
+    const composerBox = await page.locator("[data-composer-surface='true']").boundingBox();
+    if (!headingBox || !composerBox || composerBox.y - (headingBox.y + headingBox.height) > 220) {
+      throw new Error("Empty project prompt should sit close to the composer like Codex.");
+    }
     if ((await page.getByText("Toro Demo is ready.").count()) > 0) {
       throw new Error("Empty project chat should not render redundant ready-state subcopy.");
     }

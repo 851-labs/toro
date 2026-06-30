@@ -1,10 +1,18 @@
+import { cn } from "../cn";
+
 export interface CodexEmptyStateProps {
+  readonly placement?: "center" | "composer";
   readonly workspaceName?: string | null;
 }
 
-export function CodexEmptyState({ workspaceName }: CodexEmptyStateProps) {
+export function CodexEmptyState({ placement = "center", workspaceName }: CodexEmptyStateProps) {
   return (
-    <div className="flex min-h-[44vh] flex-col items-center justify-center text-center">
+    <div
+      className={cn(
+        "flex flex-col items-center justify-center text-center",
+        placement === "center" ? "min-h-[44vh]" : "min-h-0",
+      )}
+    >
       <h2 className="text-3xl font-medium tracking-tight">
         What should we build{workspaceName ? ` in ${workspaceName}` : ""}?
       </h2>

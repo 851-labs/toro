@@ -48,6 +48,7 @@ export function ChatPanel({ session, workspace }: ChatPanelProps) {
   );
   const transcript = useMemo(() => transcriptItems(session), [session]);
   const sessionIsEmpty = Boolean(session && transcript.length === 0 && session.plan.length === 0);
+  const projectEmpty = Boolean(sessionIsEmpty && workspace);
   const workspaceName = workspace?.name ?? null;
   const contextItems = useMemo(() => fileContextItems(files.data ?? []), [files.data]);
 
@@ -63,10 +64,13 @@ export function ChatPanel({ session, workspace }: ChatPanelProps) {
   return (
     <section className="grid min-h-0 min-w-0 grid-rows-[1fr_auto] bg-white">
       <div className="min-h-0 overflow-auto px-6 py-8">
-        <CodexTranscriptSurface>
+        <CodexTranscriptSurface className={projectEmpty ? "h-full justify-end pb-16" : undefined}>
           {session ? (
             sessionIsEmpty ? (
-              <CodexEmptyState workspaceName={workspaceName} />
+              <CodexEmptyState
+                placement={projectEmpty ? "composer" : "center"}
+                workspaceName={workspaceName}
+              />
             ) : (
               <>
                 <CodexPlanDisclosure entries={session.plan} />
@@ -85,7 +89,7 @@ export function ChatPanel({ session, workspace }: ChatPanelProps) {
         accessLabel="Full access"
         canSend={canSend}
         contextStrip={
-          sessionIsEmpty && workspace
+          projectEmpty && workspace
             ? {
                 branchLabel: "main",
                 environmentLabel: "Work locally",

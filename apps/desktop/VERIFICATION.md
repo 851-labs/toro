@@ -214,6 +214,10 @@
 - Composer context strip desktop stills: `.artifacts/verification/2026-06-30T09-22-08-704Z/*.png`
 - Composer context strip design-guide capture: `.artifacts/verification/design-guide/2026-06-30T09-22-35-830Z/page@ba19ccae46dcc84a108f0bcc0224bcf2.webm`
 - Composer context strip design-guide stills: `.artifacts/verification/design-guide/2026-06-30T09-22-35-830Z/*.png`
+- Composer-anchored empty prompt desktop capture: `.artifacts/verification/2026-06-30T09-27-45-594Z/page@9d7f1ccb36327836083d2e2eb41628e0.webm`
+- Composer-anchored empty prompt desktop stills: `.artifacts/verification/2026-06-30T09-27-45-594Z/*.png`
+- Composer-anchored empty prompt design-guide capture: `.artifacts/verification/design-guide/2026-06-30T09-28-03-936Z/page@7381943c888344ae44df985354c6f26a.webm`
+- Composer-anchored empty prompt design-guide stills: `.artifacts/verification/design-guide/2026-06-30T09-28-03-936Z/*.png`
 
 Manual verification:
 
@@ -238,6 +242,7 @@ Manual verification:
 - Confirmed the project/chat sidebar grouping uses compact Codex-like rows without a tree connector while retaining project-scoped chat selection.
 - Confirmed plan, thinking, and tool call rows now share the same compact Codex-style disclosure summary primitive.
 - Confirmed empty project chats render a Codex-like passive composer context strip for project, local environment, and branch metadata.
+- Confirmed empty project chat headings are composer-anchored with a measured Codex-like vertical gap.
 - Confirmed New chat, Open, and Send are only rendered as buttons when they can perform an action, and the UI verifier fails if any disabled button is present.
 - Confirmed completed assistant messages expose Codex-style copy, thumbs up, thumbs down, and expand controls, and each control changes visible state during verification.
 - Confirmed the sidebar exposes a Codex-like project path strip instead of a separate Add project row, and Search filters projects/chats with a visible no-match state.
