@@ -77,6 +77,9 @@ describe("HostRuntime", () => {
       environmentId: environmentId("local-desktop"),
       workspaceId: workspace.id,
     });
+    const created = runtime.getState().sessions.find((candidate) => candidate.id === sessionId);
+
+    expect(created?.title).toBe("New chat");
 
     runtime.sendUserMessage(
       sessionId,

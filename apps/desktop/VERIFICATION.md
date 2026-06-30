@@ -14,13 +14,13 @@ Current reference evidence:
 
 Latest verified desktop artifacts:
 
-- Desktop capture: `.artifacts/verification/2026-06-30T15-27-45-136Z/page@81412b173dc6280ae3055c3e973edf46.webm`
-- Desktop stills: `.artifacts/verification/2026-06-30T15-27-45-136Z/*.png`
+- Desktop capture: `.artifacts/verification/2026-06-30T15-37-14-982Z/page@3d3185b3351cb0980fbe8261cbb6a8fd.webm`
+- Desktop stills: `.artifacts/verification/2026-06-30T15-37-14-982Z/*.png`
 - Grouped-sidebar capture: `.artifacts/verification/sidebar-groups/2026-06-30T15-10-20-395Z/page@d9d7ed776cdd64de9144ac1f4a6ab547.webm`
 - Grouped-sidebar still: `.artifacts/verification/sidebar-groups/2026-06-30T15-10-20-395Z/01-project-grouped-chats.png`
-- Design-guide capture: `.artifacts/verification/design-guide/2026-06-30T15-30-52-932Z/page@3105c0e5b0d76b93912f15531c84aabb.webm`
-- Design-guide stills: `.artifacts/verification/design-guide/2026-06-30T15-30-52-932Z/*.png`
-- Native still: `.artifacts/verification/native/2026-06-30-header-controls-button.png`
+- Design-guide capture: `.artifacts/verification/design-guide/2026-06-30T15-37-26-014Z/page@7b1eb126971bc0b7bda95af5997dbb90.webm`
+- Design-guide stills: `.artifacts/verification/design-guide/2026-06-30T15-37-26-014Z/*.png`
+- Native still: `.artifacts/verification/native/2026-06-30-new-chat-session-title-native.png`
 
 Most recent manual checks:
 
@@ -38,6 +38,7 @@ Most recent manual checks:
 - Confirmed the chat header includes a Codex-like controls glyph that opens session details.
 - Confirmed the design guide catalogs both live and completed tool-call states.
 - Confirmed the design guide catalogs project-grouped sidebar chats.
+- Confirmed empty newly-created sessions use a Codex-like New chat title until the first prompt renames them.
 - Confirmed native Tauri renders the latest Codex-like chat shell after rebuild.
 
 Automated verification:

@@ -115,14 +115,10 @@ await page.getByRole("button", { exact: true, name: "Search" }).click();
 await pause();
 
 await page.getByRole("button", { exact: true, name: "New chat" }).click();
-await page
-  .getByText(/Toro Demo in/)
-  .first()
-  .waitFor({ timeout: 10_000 });
-await page
-  .getByRole("button", { name: /Chat Toro Demo in toro/ })
-  .first()
-  .waitFor({ timeout: 5_000 });
+await page.getByRole("heading", { exact: true, name: "New chat" }).waitFor({ timeout: 10_000 });
+await page.getByRole("button", { exact: true, name: "Chat New chat" }).waitFor({
+  timeout: 5_000,
+});
 await page.locator("aside button[aria-current='page']").waitFor({ timeout: 5_000 });
 await assertPrimarySidebarSimplified(page);
 await assertSidebarChatRowsAreNavigationOnly(page);
@@ -154,10 +150,7 @@ await assertEmptyWorkspaceHeaderIsQuiet(page);
 await assertOnlyFunctionalButtons(page);
 await screenshot(page, "04-history-back.png");
 await page.getByRole("button", { exact: true, name: "Forward" }).click();
-await page
-  .getByText(/Toro Demo in/)
-  .first()
-  .waitFor({ timeout: 5_000 });
+await page.getByRole("heading", { exact: true, name: "New chat" }).waitFor({ timeout: 5_000 });
 await assertCurrentChatIsFirstInProject(page);
 await pause();
 

@@ -107,7 +107,7 @@ export class HostRuntime {
       createdAt,
       environmentId: input.environmentId,
       sessionId: id,
-      title: `${agent.name} in ${workspace.name}`,
+      title: "New chat",
       type: "session_created",
       workspaceId: input.workspaceId,
     });
