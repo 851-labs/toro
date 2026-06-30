@@ -1,6 +1,6 @@
-import type { ReactNode } from "react";
+import type { FormEvent, KeyboardEvent, ReactNode } from "react";
 import { Button as BaseButton } from "@base-ui-components/react/button";
-import { FormEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ArrowUp,
   ChevronDown,
@@ -49,6 +49,26 @@ export interface CodexComposerContextStrip {
 const accessOptions = ["Full access", "Ask first", "Read only"] as const;
 const modelOptions = ["5.5 Medium", "5.5 High", "5.5 Low"] as const;
 
+interface ComposerKeyEvent {
+  readonly altKey: boolean;
+  readonly ctrlKey: boolean;
+  readonly key: string;
+  readonly metaKey: boolean;
+  readonly nativeEvent?: { readonly isComposing?: boolean };
+  readonly shiftKey: boolean;
+}
+
+export function shouldSubmitComposerKey(event: ComposerKeyEvent): boolean {
+  return (
+    event.key === "Enter" &&
+    !event.shiftKey &&
+    !event.altKey &&
+    !event.metaKey &&
+    !event.ctrlKey &&
+    !event.nativeEvent?.isComposing
+  );
+}
+
 export function CodexComposer({
   accessLabel,
   canSend,
@@ -85,6 +105,16 @@ export function CodexComposer({
     }
   }
 
+  function handleTextareaKeyDown(event: KeyboardEvent<HTMLTextAreaElement>) {
+    if (!shouldSubmitComposerKey(event)) {
+      return;
+    }
+    event.preventDefault();
+    if (canSend) {
+      onSubmit();
+    }
+  }
+
   return (
     <form className={cn("px-6 pb-6", lifted && "mb-16")} onSubmit={submit}>
       <div
@@ -95,6 +125,7 @@ export function CodexComposer({
           aria-label="Message agent"
           className="max-h-48 min-h-16 w-full resize-none bg-transparent px-2 py-2 text-base leading-6 text-zinc-950 outline-none placeholder:text-zinc-300 dark:text-zinc-100 dark:placeholder:text-zinc-500"
           onChange={(event) => onChange(event.target.value)}
+          onKeyDown={handleTextareaKeyDown}
           placeholder={placeholder}
           value={value}
         />

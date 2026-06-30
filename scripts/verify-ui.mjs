@@ -141,8 +141,15 @@ await page.getByRole("heading", { exact: true, name: "New chat" }).waitFor({ tim
 await assertCurrentChatIsFirstInProject(page);
 await pause();
 
+await composer.fill("First line");
+await composer.press("Shift+Enter");
+await composer.pressSequentially("Second line");
+const multilineDraft = await composer.inputValue();
+if (multilineDraft !== "First line\nSecond line") {
+  throw new Error(`Shift+Enter should insert a newline, got: ${JSON.stringify(multilineDraft)}`);
+}
 await composer.fill("Verify the Toro ACP UI loop.");
-await page.getByRole("button", { exact: true, name: "Send" }).click();
+await composer.press("Enter");
 await page.getByText("Thinking").waitFor({ timeout: 10_000 });
 await page.getByText("working").waitFor({ timeout: 10_000 });
 await page.getByText(/Checking project context/).waitFor({ timeout: 10_000 });

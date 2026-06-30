@@ -14,8 +14,8 @@ Current reference evidence:
 
 Latest verified desktop artifacts:
 
-- Desktop capture: `.artifacts/verification/2026-06-30T17-43-22-686Z/page@d46481103ad549b2800128cec3fc652f.webm`
-- Desktop stills: `.artifacts/verification/2026-06-30T17-43-22-686Z/*.png`
+- Desktop capture: `.artifacts/verification/2026-06-30T17-47-55-367Z/page@f96f736c5ec0c7a6cb074647cbc08728.webm`
+- Desktop stills: `.artifacts/verification/2026-06-30T17-47-55-367Z/*.png`
 - Grouped-sidebar capture: `.artifacts/verification/sidebar-groups/2026-06-30T15-10-20-395Z/page@d9d7ed776cdd64de9144ac1f4a6ab547.webm`
 - Grouped-sidebar still: `.artifacts/verification/sidebar-groups/2026-06-30T15-10-20-395Z/01-project-grouped-chats.png`
 - Design-guide capture: `.artifacts/verification/design-guide/2026-06-30T17-44-29-972Z/page@81f4c72ca1e0a3701ad62f0e32462797.webm`
@@ -30,6 +30,7 @@ Most recent manual checks:
 - Confirmed completed thinking rows and grouped tool-call blocks use shared Codex-like collapsible activity summaries.
 - Confirmed shared buttons, composer selects, and activity collapsibles are built on Base UI primitives.
 - Confirmed streaming assistant markdown renders through Streamdown and completed chat markdown renders through React Markdown.
+- Confirmed composer plain Enter submits the message and Shift+Enter inserts a newline.
 - Confirmed completed tool-call status renders as muted transcript metadata instead of bright emerald text.
 - Confirmed assistant messages use a wider Codex-like transcript rail instead of the previous narrow 72% cap.
 - Confirmed the UI verifier resets host state before loading the desktop shell.
