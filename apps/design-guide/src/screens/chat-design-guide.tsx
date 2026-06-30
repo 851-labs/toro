@@ -104,6 +104,11 @@ export function ChatDesignGuide() {
         <CodexComposer
           accessLabel="Full access"
           canSend={composerValue.trim().length > 0}
+          contextItems={[
+            { detail: "apps/desktop/src/app.tsx", id: "app", label: "app.tsx" },
+            { detail: "packages/ui/src/chat/composer.tsx", id: "composer", label: "composer.tsx" },
+            { detail: "scripts/verify-ui.mjs", id: "verify", label: "verify-ui.mjs" },
+          ]}
           modelLabel="5.5 Medium"
           onChange={setComposerValue}
           onSubmit={() => setComposerValue("")}

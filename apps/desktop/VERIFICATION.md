@@ -84,6 +84,10 @@
 - Compact permission card design-guide stills: `.artifacts/verification/design-guide/2026-06-30T05-06-39-871Z/*.png`
 - Codex-like rail modes capture: `.artifacts/verification/2026-06-30T05-17-40-806Z/page@d815cead8d9cde6ed81f5dd1f687113c.webm`
 - Codex-like rail modes stills: `.artifacts/verification/2026-06-30T05-17-40-806Z/*.png`
+- Composer context capture: `.artifacts/verification/2026-06-30T05-27-56-073Z/page@df631b583d4a9c544e41c59296f2516a.webm`
+- Composer context stills: `.artifacts/verification/2026-06-30T05-27-56-073Z/*.png`
+- Composer context design-guide capture: `.artifacts/verification/design-guide/2026-06-30T05-25-41-672Z/page@81740671cbecfb42d0baac3679328f58.webm`
+- Composer context design-guide stills: `.artifacts/verification/design-guide/2026-06-30T05-25-41-672Z/*.png`
 
 Manual verification:
 
@@ -119,6 +123,7 @@ Manual verification:
 - Confirmed the header sidebar icon is now a functional Codex-style toggle that hides and restores the sidebar during verification.
 - Confirmed permission requests use a compact shared chat primitive instead of the older amber alert card while keeping allow/reject actions functional.
 - Confirmed the sidebar now uses Codex-like traffic controls and functional Scheduled/Plugins rail modes, while project rows hide filesystem paths unless hovered.
+- Confirmed the composer `+` control is restored as a functional context picker that attaches/removes visible context chips in both desktop and the design guide.
 
 Automated verification:
 

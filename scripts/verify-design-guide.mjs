@@ -46,12 +46,25 @@ await pause();
 const composer = page.getByLabel("Message agent");
 await selectComposerOption(page, "Access mode", "Read only");
 await selectComposerOption(page, "Model", "5.5 Low");
+await page.getByRole("button", { exact: true, name: "Add context" }).click();
+await page.getByRole("region", { exact: true, name: "Context sources" }).waitFor({
+  timeout: 5_000,
+});
+await page.getByRole("button", { exact: true, name: "Attach context composer.tsx" }).click();
+await expectPressed(page.getByRole("button", { exact: true, name: "Attach context composer.tsx" }));
+await page.getByRole("button", { exact: true, name: "Remove context composer.tsx" }).waitFor({
+  timeout: 5_000,
+});
+await screenshot(page, "03-context-attached.png");
+await page.getByRole("button", { exact: true, name: "Remove context composer.tsx" }).click();
+await page.getByRole("button", { exact: true, name: "Add context" }).click();
+await pause();
 await composer.fill("Design guide composer check");
 await page.getByRole("button", { exact: true, name: "Send" }).click();
 if ((await composer.inputValue()) !== "") {
   throw new Error("Design guide composer did not clear after send.");
 }
-await screenshot(page, "03-composer-cleared.png");
+await screenshot(page, "04-composer-cleared.png");
 await pause();
 
 await context.close();

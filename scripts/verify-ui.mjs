@@ -48,6 +48,7 @@ await page.getByRole("button", { exact: true, name: "Open" }).click();
 await page.getByText("toro").first().waitFor({ timeout: 5_000 });
 await assertProjectFormHidden(page);
 await assertProjectPathHiddenInSidebar(page);
+await assertComposerContextPicker(page);
 await assertOnlyFunctionalButtons(page);
 await screenshot(page, "02-workspace-opened.png");
 await pause();
@@ -160,7 +161,6 @@ async function assertDeadControlsRemoved(page) {
     "Open in",
     "Chat settings",
     "Toggle preview",
-    "Add context",
     "Dictate",
     /Remote Sandbox/,
   ];
@@ -244,6 +244,28 @@ async function assertCodexRailModes(page) {
   await assertProjectFormHidden(page);
 }
 
+async function assertComposerContextPicker(page) {
+  await page.getByRole("button", { exact: true, name: "Add context" }).click();
+  await page.getByRole("region", { exact: true, name: "Context sources" }).waitFor({
+    timeout: 5_000,
+  });
+  const sourceButton = page.getByRole("button", { name: /^Attach context / }).first();
+  await sourceButton.waitFor({ timeout: 5_000 });
+  const sourceLabel = ((await sourceButton.getAttribute("aria-label")) ?? "").replace(
+    "Attach context ",
+    "",
+  );
+  await sourceButton.click();
+  await expectPressed(sourceButton);
+  await page.getByRole("button", { exact: true, name: `Remove context ${sourceLabel}` }).waitFor({
+    timeout: 5_000,
+  });
+  await assertOnlyFunctionalButtons(page);
+  await screenshot(page, "02-context-attached.png");
+  await page.getByRole("button", { exact: true, name: `Remove context ${sourceLabel}` }).click();
+  await page.getByRole("button", { exact: true, name: "Add context" }).click();
+}
+
 async function assertSidebarChatRowsAreNavigationOnly(page) {
   const chatRows = await page
     .locator("aside button[aria-label^='Chat ']")
@@ -289,6 +311,7 @@ function isKnownFunctionalButton(label, extraAllowedLabels) {
       "Toggle sidebar",
       "Collapse sidebar",
       "New chat",
+      "Add context",
       "Copy message",
       "Copied message",
       "Good response",
@@ -301,7 +324,9 @@ function isKnownFunctionalButton(label, extraAllowedLabels) {
     return true;
   }
   return (
+    label.startsWith("Attach context ") ||
     label.startsWith("Chat ") ||
+    label.startsWith("Remove context ") ||
     label.startsWith("Select agent ") ||
     label.startsWith(workspaceName)
   );

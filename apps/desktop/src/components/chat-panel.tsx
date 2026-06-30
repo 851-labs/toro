@@ -1,7 +1,17 @@
-import type { ChatMessage, PermissionRequest, Session, ThoughtEntry, ToolCall } from "@toro/domain";
+import { useQuery } from "@tanstack/react-query";
+import type {
+  ChatMessage,
+  PermissionRequest,
+  Session,
+  ThoughtEntry,
+  ToolCall,
+  Workspace,
+} from "@toro/domain";
+import type { FileTreeEntry } from "@toro/environments";
 import {
   CodexChatMessage,
   CodexComposer,
+  type CodexComposerContextItem,
   CodexPermissionCard,
   CodexPlanDisclosure,
   CodexThinkingDisclosure,
@@ -13,11 +23,16 @@ import { hostClient } from "../lib/host-client";
 interface ChatPanelProps {
   readonly agentName: string;
   readonly session: Session | null;
-  readonly workspaceName: string | null;
+  readonly workspace: Workspace | null;
 }
 
-export function ChatPanel({ agentName, session, workspaceName }: ChatPanelProps) {
+export function ChatPanel({ agentName, session, workspace }: ChatPanelProps) {
   const [value, setValue] = useState("");
+  const files = useQuery({
+    enabled: Boolean(workspace),
+    queryFn: () => hostClient.listFiles(workspace!.id),
+    queryKey: ["composer-files", workspace?.id],
+  });
   const canSend = Boolean(
     session &&
     value.trim().length > 0 &&
@@ -25,6 +40,8 @@ export function ChatPanel({ agentName, session, workspaceName }: ChatPanelProps)
     session.status !== "connecting",
   );
   const orderedMessages = useMemo(() => session?.messages ?? [], [session]);
+  const workspaceName = workspace?.name ?? null;
+  const contextItems = useMemo(() => fileContextItems(files.data ?? []), [files.data]);
 
   async function submit() {
     if (!session || !canSend) {
@@ -72,6 +89,7 @@ export function ChatPanel({ agentName, session, workspaceName }: ChatPanelProps)
       <CodexComposer
         accessLabel="Full access"
         canSend={canSend}
+        contextItems={contextItems}
         isRunning={session?.status === "running"}
         modelLabel="5.5 Medium"
         onChange={setValue}
@@ -85,6 +103,37 @@ export function ChatPanel({ agentName, session, workspaceName }: ChatPanelProps)
       />
     </section>
   );
+}
+
+function fileContextItems(entries: readonly FileTreeEntry[]): readonly CodexComposerContextItem[] {
+  return flattenFileEntries(entries)
+    .toSorted(compareContextEntries)
+    .slice(0, 8)
+    .map((entry) => ({
+      detail: entry.path,
+      id: entry.path,
+      label: entry.name,
+    }));
+}
+
+function flattenFileEntries(entries: readonly FileTreeEntry[]): readonly FileTreeEntry[] {
+  return entries.flatMap((entry) => {
+    if (entry.kind === "file") {
+      return [entry];
+    }
+    return flattenFileEntries(entry.children ?? []);
+  });
+}
+
+function compareContextEntries(a: FileTreeEntry, b: FileTreeEntry) {
+  return contextPriority(a.path) - contextPriority(b.path) || a.path.localeCompare(b.path);
+}
+
+function contextPriority(path: string) {
+  if (path.includes("/.repos/") || path.startsWith(".repos/")) {
+    return 1;
+  }
+  return 0;
 }
 
 function EmptyState({

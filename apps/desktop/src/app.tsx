@@ -153,7 +153,7 @@ export function App() {
           <ChatPanel
             agentName={activeAgent?.name ?? "Agent"}
             session={activeSession}
-            workspaceName={activeWorkspace?.name ?? null}
+            workspace={activeWorkspace}
           />
         </section>
       </main>
