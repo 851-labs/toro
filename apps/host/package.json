@@ -6,12 +6,12 @@
     ".": "./src/index.ts"
   },
   "scripts": {
-    "build": "tsc --project tsconfig.json",
+    "build": "tsc",
     "demo-agent": "bun src/demo-agent.ts",
     "dev": "bun --watch src/server.ts",
     "start": "bun src/server.ts",
     "test": "vitest run --passWithNoTests",
-    "typecheck": "tsc --project tsconfig.json"
+    "typecheck": "tsc"
   },
   "dependencies": {
     "@agentclientprotocol/sdk": "catalog:",

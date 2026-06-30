@@ -6,7 +6,7 @@
     "build": "vite build",
     "dev": "vite",
     "test": "vitest run --passWithNoTests",
-    "typecheck": "tsc --project tsconfig.json"
+    "typecheck": "tsc"
   },
   "dependencies": {
     "@tanstack/react-router": "catalog:",

@@ -59,6 +59,7 @@ Most recent manual checks:
 - Confirmed desktop and internal dev scripts defer host and port settings to their Vite configs.
 - Confirmed desktop and internal Vite client types live in app tsconfigs instead of separate vite-env files.
 - Confirmed the internal app sidebar shell uses explicit grid CSS and does not collapse into a full-width row.
+- Confirmed package TypeScript scripts rely on each local tsconfig default instead of passing `--project tsconfig.json`.
 - Confirmed empty newly-created sessions use a Codex-like New chat title until the first prompt renames them.
 - Confirmed the chat header includes a Codex-like editor-pane toggle that opens a Host API backed file preview.
 - Confirmed native Tauri renders the latest Codex-like chat shell after rebuild.
