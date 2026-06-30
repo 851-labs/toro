@@ -11,6 +11,7 @@ import { Button, cn } from "@toro/ui";
 import {
   CirclePlus,
   FolderOpen,
+  FolderPlus,
   Layers,
   MessageSquare,
   Search,
@@ -40,6 +41,7 @@ interface AgentRailProps {
 }
 
 export function AgentRail(props: AgentRailProps) {
+  const [projectFormOpen, setProjectFormOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -102,38 +104,46 @@ export function AgentRail(props: AgentRailProps) {
         </div>
       ) : null}
 
-      <form
-        className="mt-3 border-y border-zinc-200/80 px-3 py-3"
-        onSubmit={(event) => {
-          event.preventDefault();
-          if (canOpenProject) {
-            props.onOpenWorkspace();
-          }
-        }}
-      >
-        <div className="flex gap-2">
-          <input
-            aria-label="Project path"
-            className="h-9 min-w-0 flex-1 rounded-xl border border-zinc-200 bg-white px-3 text-sm outline-none placeholder:text-zinc-400 focus:border-zinc-400"
-            onChange={(event) => props.onWorkspacePathChange(event.target.value)}
-            placeholder="/path/to/workspace"
-            value={props.workspacePath}
-          />
-          {canOpenProject ? (
-            <Button className="h-9 shrink-0" icon={<FolderOpen size={15} />} type="submit">
-              Open
-            </Button>
-          ) : (
-            <span className="inline-flex h-9 shrink-0 items-center gap-2 rounded-xl border border-zinc-200 bg-white px-3 text-sm font-medium text-zinc-400">
-              <FolderOpen size={15} />
-              Open
-            </span>
-          )}
-        </div>
-      </form>
-
       <div className="min-h-0 flex-1 overflow-auto px-3 pb-3 pt-4">
-        <RailSection title="Projects">
+        <RailSection
+          actionIcon={<FolderPlus size={15} />}
+          actionLabel="Open project"
+          actionPressed={projectFormOpen}
+          title="Projects"
+          onAction={() => setProjectFormOpen((open) => !open)}
+        >
+          {projectFormOpen ? (
+            <form
+              className="mb-2"
+              onSubmit={(event) => {
+                event.preventDefault();
+                if (canOpenProject) {
+                  props.onOpenWorkspace();
+                  setProjectFormOpen(false);
+                }
+              }}
+            >
+              <div className="flex gap-2">
+                <input
+                  aria-label="Project path"
+                  className="h-9 min-w-0 flex-1 rounded-xl border border-zinc-200 bg-white px-3 text-sm outline-none placeholder:text-zinc-400 focus:border-zinc-400"
+                  onChange={(event) => props.onWorkspacePathChange(event.target.value)}
+                  placeholder="/path/to/workspace"
+                  value={props.workspacePath}
+                />
+                {canOpenProject ? (
+                  <Button className="h-9 shrink-0" icon={<FolderOpen size={15} />} type="submit">
+                    Open
+                  </Button>
+                ) : (
+                  <span className="inline-flex h-9 shrink-0 items-center gap-2 rounded-xl border border-zinc-200 bg-white px-3 text-sm font-medium text-zinc-400">
+                    <FolderOpen size={15} />
+                    Open
+                  </span>
+                )}
+              </div>
+            </form>
+          ) : null}
           {projectGroups.length > 0 ? (
             projectGroups.map((group) => (
               <ProjectGroup
@@ -342,15 +352,39 @@ function groupWorkspaces(
 }
 
 function RailSection({
+  actionIcon,
+  actionLabel,
+  actionPressed,
   title,
+  onAction,
   children,
 }: {
+  readonly actionIcon?: React.ReactNode;
+  readonly actionLabel?: string;
+  readonly actionPressed?: boolean;
   readonly title: string;
+  readonly onAction?: () => void;
   readonly children: React.ReactNode;
 }) {
   return (
     <section className="mb-5">
-      <h2 className="mb-1 px-3 text-sm font-medium text-zinc-400">{title}</h2>
+      <div className="mb-1 flex items-center justify-between px-3">
+        <h2 className="text-sm font-medium text-zinc-400">{title}</h2>
+        {onAction && actionLabel ? (
+          <button
+            aria-label={actionLabel}
+            aria-pressed={actionPressed}
+            className={cn(
+              "flex size-7 items-center justify-center rounded-full text-zinc-400 hover:bg-zinc-200/70 hover:text-zinc-700",
+              actionPressed && "bg-zinc-200 text-zinc-800",
+            )}
+            onClick={onAction}
+            type="button"
+          >
+            {actionIcon}
+          </button>
+        ) : null}
+      </div>
       <div className="space-y-1">{children}</div>
     </section>
   );

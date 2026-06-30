@@ -74,6 +74,8 @@
 - Compact thinking disclosure design-guide stills: `.artifacts/verification/design-guide/2026-06-30T04-43-54-760Z/*.png`
 - Navigation-only chat rows capture: `.artifacts/verification/2026-06-30T04-48-44-848Z/page@5da457ab43a95fdb570d87249f8d93ed.webm`
 - Navigation-only chat rows stills: `.artifacts/verification/2026-06-30T04-48-44-848Z/*.png`
+- Collapsed project opener capture: `.artifacts/verification/2026-06-30T04-53-52-357Z/page@1ad9066f2f87e58d03c82931d40ffb58.webm`
+- Collapsed project opener stills: `.artifacts/verification/2026-06-30T04-53-52-357Z/*.png`
 
 Manual verification:
 
@@ -105,6 +107,7 @@ Manual verification:
 - Confirmed plan rendering now comes from the shared UI chat primitive package and appears in both desktop and the TanStack Start design guide.
 - Confirmed thinking disclosures use the same compact Codex-style row treatment as plan and tool calls, including a visible streaming `working` affordance.
 - Confirmed sidebar chat rows no longer render status pills and behave as plain Codex-style navigation rows.
+- Confirmed the raw project path form is hidden by default and opens through a compact Projects action while preserving the project-open flow.
 
 Automated verification:
 

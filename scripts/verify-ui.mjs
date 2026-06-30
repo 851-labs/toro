@@ -24,6 +24,7 @@ await page.goto(appUrl, { waitUntil: "domcontentloaded" });
 await page.getByText("Toro").first().waitFor({ timeout: 5_000 });
 await assertDeadControlsRemoved(page);
 await assertPrimarySidebarSimplified(page);
+await assertProjectFormHidden(page);
 await assertOnlyFunctionalButtons(page);
 await assertHostSettingsToggle(page);
 const composer = page.getByLabel("Message agent");
@@ -38,9 +39,11 @@ await composer.fill("");
 await screenshot(page, "01-initial-shell.png");
 await pause();
 
+await page.getByRole("button", { exact: true, name: "Open project" }).click();
 await page.getByLabel("Project path").fill(workspacePath);
 await page.getByRole("button", { exact: true, name: "Open" }).click();
 await page.getByText("toro").first().waitFor({ timeout: 5_000 });
+await assertProjectFormHidden(page);
 await assertOnlyFunctionalButtons(page);
 await screenshot(page, "02-workspace-opened.png");
 await pause();
@@ -180,6 +183,12 @@ async function assertDesktopDebugLogsHidden(page) {
   }
 }
 
+async function assertProjectFormHidden(page) {
+  if ((await page.getByLabel("Project path").count()) > 0) {
+    throw new Error("Project path form should be hidden until Open project is clicked.");
+  }
+}
+
 async function assertSidebarChatRowsAreNavigationOnly(page) {
   const chatRows = await page
     .locator("aside button[aria-label^='Chat ']")
@@ -215,6 +224,7 @@ function isKnownFunctionalButton(label, extraAllowedLabels) {
     [
       "Session",
       "Open",
+      "Open project",
       "Search",
       "Send",
       "Stop",
